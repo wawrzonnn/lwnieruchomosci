@@ -1,10 +1,12 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import pg from "pg";
-import { DATABASE_URL } from "$env/static/private";
+import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
+import { env } from '$env/dynamic/private';
 
+// DATABASE_URL czytany w runtime (nie zapiekany w buildzie) — bezpieczne dla
+// serverless na Netlify: zmienna środowiskowa działa bez ponownego buildu.
 const pool = new pg.Pool({
-	connectionString: DATABASE_URL
+	connectionString: env.DATABASE_URL
 });
 
 const adapter = new PrismaPg(pool);
