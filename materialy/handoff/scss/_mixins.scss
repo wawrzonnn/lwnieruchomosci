@@ -1,0 +1,44 @@
+// =============================================================
+// LW Nieruchomości — Mixiny layoutu i pomocnicze
+// =============================================================
+@import 'tokens';
+
+// Kontener treści (wyśrodkowany, z fluid-paddingiem sekcji)
+@mixin container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+// Sekcja z pionowym i poziomym rytmem
+@mixin section {
+  padding: $section-py $section-px;
+}
+
+// Responsywna siatka kart — reflow bez media queries (jak w makiecie).
+// $min = minimalna szerokość karty; poniżej niej łamie się na mniej kolumn.
+@mixin card-grid($min: 290px, $gap: 22px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, $min), 1fr));
+  gap: $gap;
+}
+
+// Media query helper
+@mixin from($bp)  { @media (min-width: $bp) { @content; } }
+@mixin until($bp) { @media (max-width: ($bp - 1px)) { @content; } }
+
+// Ładny placeholder zdjęcia (paskowany + opis mono).
+// Użycie: <div class="ph" data-label="zdjęcie · dom"></div>
+@mixin photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    135deg,
+    #efe7d6 0, #efe7d6 11px,
+    #e6dcc7 11px, #e6dcc7 22px
+  );
+  @include mono-label;
+
+  &::after { content: attr(data-label); }
+}

@@ -1,0 +1,30 @@
+// =============================================================
+// LW Nieruchomości — punkt wejścia SCSS
+// Kolejność importów ma znaczenie: najpierw tokeny.
+// =============================================================
+@import 'tokens';
+@import 'typography';
+@import 'mixins';
+@import 'components';
+
+// ---- RESET / PODSTAWY ----
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+
+body {
+  margin: 0;
+  background: var(--c-bg-page);
+  color: var(--c-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { font-family: inherit; }
+
+// ---- KLASA CONTAINER (globalna) — wyśrodkowana treść max 1180px ----
+// Sekcje same dają padding poziomy; navbar/footer dokładają go u siebie.
+.container { width: 100%; max-width: var(--container); margin-inline: auto; }

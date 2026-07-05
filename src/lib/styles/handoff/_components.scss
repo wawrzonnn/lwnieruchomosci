@@ -1,0 +1,233 @@
+// =============================================================
+// LW Nieruchomości — Style komponentów (WZORZEC)
+// To odwzorowanie komponentów z makiety w SCSS. Traktuj jako
+// punkt wyjścia do svelte-owych komponentów — wartości są 1:1
+// z prototypem. Dostosuj strukturę do własnego podejścia.
+// =============================================================
+@import 'tokens';
+@import 'mixins';
+@import 'typography';
+
+// ---------------------------------------------------------------
+// PRZYCISKI
+// ---------------------------------------------------------------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1;
+  border: none;
+  border-radius: var(--r-pill);
+  padding: 13px 24px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform .12s ease, background .15s ease, opacity .15s ease;
+
+  &:active { transform: translateY(1px); }
+
+  // primary — zielony wypełniony
+  &--primary {
+    background: var(--c-primary);
+    color: #f3efe4;
+    &:hover { background: #33513a; }
+  }
+  // ghost — obrys
+  &--ghost {
+    background: transparent;
+    color: var(--c-text);
+    border: 1px solid var(--c-border-btn);
+    padding: 12px 22px;
+    &:hover { border-color: #c3b79c; }
+  }
+  // light — jasny na zielonym tle (CTA)
+  &--light {
+    background: #f3efe4;
+    color: var(--c-primary-deep);
+  }
+  // block — pełna szerokość (formularze, mobile)
+  &--block { width: 100%; border-radius: var(--r-sm); padding: 14px; font-size: 15px; }
+}
+
+// ---------------------------------------------------------------
+// POLA FORMULARZA
+// ---------------------------------------------------------------
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+
+  &__label {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--c-text-nav);
+  }
+}
+
+.input, .select, .textarea {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--c-text);
+  background: var(--c-field);
+  border: 1px solid var(--c-border-field);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  transition: border-color .15s ease, box-shadow .15s ease;
+
+  &::placeholder { color: var(--c-placeholder); }
+  &:focus {
+    outline: none;
+    border-color: var(--c-primary);
+    box-shadow: 0 0 0 3px rgba(58, 90, 64, .12);
+  }
+}
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  // strzałka jako inline-svg w tle (bez dodatkowego assetu)
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%236f685c' stroke-width='1.8'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 34px;
+}
+.textarea { resize: vertical; min-height: 90px; }
+
+// ---------------------------------------------------------------
+// BADGE / PILL / STATUSY
+// ---------------------------------------------------------------
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+
+  &--primary  { background: var(--c-primary); color: #f3efe4; }        // "Okazja", "Na wyłączność" na zdjęciu
+  &--type     { background: rgba(255,253,248,.92); color: var(--c-muted); } // rodzaj (na zdjęciu, prawy górny róg)
+  &--soft     { background: var(--c-green-tint); color: var(--c-primary); }
+
+  // statusy w panelu
+  &--active     { background: var(--c-green-tint-2);   color: var(--c-primary); }
+  &--exclusive  { background: var(--c-gold-tint);      color: var(--c-gold-deep); }
+  &--draft      { background: var(--c-status-draft-bg); color: var(--c-status-draft-fg); }
+  &--new        { background: var(--c-status-new-bg);  color: var(--c-status-new-fg); }
+  &--progress   { background: var(--c-status-prog-bg); color: var(--c-status-prog-fg); }
+}
+
+// ---------------------------------------------------------------
+// PLACEHOLDER ZDJĘCIA (uniwersalny) — paskowane tło + podpis mono.
+// Użycie: <div class="ph" data-label="zdjęcie · dom"></div>
+// (podmień na <img> w produkcji)
+// ---------------------------------------------------------------
+.ph {
+  @include photo-placeholder;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  text-align: center;
+  padding: 12px;
+}
+
+// ---------------------------------------------------------------
+// KARTA OFERTY
+// ---------------------------------------------------------------
+.offer {
+  display: flex;
+  flex-direction: column;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-card);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+  &:hover { transform: translateY(-3px); box-shadow: var(--sh-raised); }
+
+  &__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    @include photo-placeholder;   // podmień na <img> w produkcji
+  }
+  &__badge { position: absolute; top: 12px; left: 12px; }
+  &__type  { position: absolute; top: 12px; right: 12px; }
+
+  &__body { display: flex; flex-direction: column; gap: 9px; flex: 1; padding: 16px 18px 18px; }
+
+  &__loc {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12.5px; color: var(--c-subtle);
+    &::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--c-gold); flex: none; }
+  }
+  &__title { @include heading(18.5px, 500, 1.25); }
+
+  &__price { margin-top: auto; padding-top: 4px; display: flex; align-items: baseline; gap: 9px;
+    b   { @include price(21px); font-weight: 600; }
+    del { color: #b3ab9c; font-size: 13px; }
+  }
+  &__specs {
+    display: flex; gap: 16px;
+    border-top: 1px solid var(--c-border-soft);
+    padding-top: 12px;
+    color: var(--c-muted); font-size: 13px;
+  }
+}
+
+// ---------------------------------------------------------------
+// KARTA / PANEL / SEKCJA
+// ---------------------------------------------------------------
+.card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+}
+
+.section {
+  @include section;
+  &--alt   { background: var(--c-bg-alt); border-block: 1px solid var(--c-border); } // naprzemienne tło
+  &--dark  { background: var(--c-dark-band); color: #e9ecdf; }                        // pasek statystyk
+  &__inner { @include container; }
+}
+
+// Kafel ikony kategorii (zielona podkładka + ikona line 26px, stroke = --c-primary)
+.icon-tile {
+  width: 52px; height: 52px;
+  border-radius: var(--r-md);
+  background: var(--c-green-tint);
+  display: flex; align-items: center; justify-content: center;
+  svg { width: 26px; height: 26px; stroke: var(--c-primary); fill: none; stroke-width: 1.7; }
+}
+
+// ---------------------------------------------------------------
+// PANEL / CMS — sidebar
+// ---------------------------------------------------------------
+.admin {
+  display: flex;
+  min-height: 100vh;
+  background: #f3ecdd;
+
+  &__sidebar {
+    width: 236px; flex: none;
+    background: var(--c-footer);
+    padding: 22px 14px;
+    display: flex; flex-direction: column; gap: 6px;
+    @include until($bp-md) { width: 62px; }   // zwęża się do ikon na wąskich ekranach
+  }
+
+  &__nav-item {
+    display: flex; align-items: center; gap: 11px;
+    width: 100%; text-align: left;
+    padding: 11px 12px;
+    border: none; border-radius: var(--r-sm);
+    background: transparent; color: var(--c-dark-text-2);
+    font-family: var(--font-sans); font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    &.is-active { background: var(--c-dark-elev); color: #f3efe4; }
+  }
+}

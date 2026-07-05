@@ -1,0 +1,14 @@
+# Konfiguracja deploymentu na Netlify (SvelteKit + adapter-netlify)
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  # Vite 8 wymaga Node 20+; funkcje serverless też działają na tej wersji.
+  NODE_VERSION = "22"
+  # Prisma pobiera silnik zapytań tylko dla wymaganych platform.
+  PRISMA_CLI_BINARY_TARGETS = "rhel-openssl-3.0.x"
+
+# Serwowanie przesłanych zdjęć (fallback, gdy używany jest lokalny/VPS storage).
+# UWAGA: na Netlify (serverless) upload zdjęć nie utrzymuje się między żądaniami —
+# do trwałego przechowywania podłącz zewnętrzny storage (Netlify Blobs / S3).
