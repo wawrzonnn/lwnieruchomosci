@@ -1,7 +1,7 @@
 generator client {
-  provider      = "prisma-client-js"
-  // "native" — lokalnie; "rhel-openssl-3.0.x" — runtime funkcji Netlify (AWS Lambda / Node 20+).
-  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  provider = "prisma-client-js"
+  // Klient używa WASM query compiler (@prisma/adapter-pg) — działa na serverless
+  // bez natywnych binariów, więc binaryTargets nie są potrzebne.
 }
 
 datasource db {
