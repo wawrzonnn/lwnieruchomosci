@@ -382,9 +382,7 @@
 		font-family: 'Hanken Grotesk', system-ui, sans-serif;
 		color: var(--text);
 		background: var(--bg-site);
-		width: 1440px;
-		max-width: 100%;
-		margin: 0 auto;
+		width: 100%;
 		overflow: hidden;
 	}
 	.lw-page {
@@ -394,7 +392,8 @@
 		font-family: inherit;
 		cursor: pointer;
 	}
-	.lw-landing a {
+	/* niska specyficzność (sam `a`), żeby nie nadpisywać kolorów przycisków-linków */
+	a {
 		text-decoration: none;
 		color: inherit;
 		transition: opacity 0.15s ease;
