@@ -1,0 +1,87 @@
+/* =====================================================================
+   LW Nieruchomości — Design Tokens (wariant 1a "ciepły / ludzki")
+   Wszystkie wartości pobrane 1:1 z zatwierdzonego projektu.
+   Skopiuj do :root globalnego CSS w SvelteKit (np. src/app.css).
+   ===================================================================== */
+:root {
+  /* ---------- KOLORY: tła ---------- */
+  --bg-page:        #E9E7E1; /* zewnętrzne tło płótna (opcjonalne) */
+  --bg-site:        #FBF8F2; /* główne tło strony (ciepły krem) */
+  --bg-card:        #FFFFFF; /* karty, panele */
+  --bg-cream:       #F1EFE6; /* miękki panel (lewy kafel dual-CTA) */
+  --bg-cream-2:     #F5F1E7; /* podświetlenie aktywnego wiersza usługi */
+  --bg-nav:         rgba(251,248,242,.9); /* pasek nawigacji (z blur) */
+
+  /* ---------- KOLORY: zieleń (marka) ---------- */
+  --green:          #2C4A38; /* podstawowa zieleń — przyciski, logo, sekcja O nas */
+  --green-ink:      #23271F; /* prawie-czarna zieleń — tekst, stopka */
+  --green-spec:     #2C3A2E; /* wartości parametrów w kartach */
+  --green-border:   #363A2E; /* linia w stopce */
+
+  /* ---------- KOLORY: złoto / mosiądz (akcent) ---------- */
+  --gold:           #B4894C; /* akcent podstawowy — nadtytuły, badge "Polecana", numery usług, cena */
+  --gold-light:     #E9D19A; /* jasne złoto — emfaza w hero, liczby statystyk, przycisk "Zgłoś czego szukam" */
+  --gold-soft:      #D9BE84; /* nadtytuł O nas, znak cudzysłowu w opiniach */
+  --gold-logo:      #E9D9AE; /* litery "LW" w logo na zieleni */
+
+  /* ---------- KOLORY: tekst ---------- */
+  --text:           #23271F; /* podstawowy tekst */
+  --text-muted:     #6C7064; /* tekst drugorzędny / opisy */
+  --text-muted-2:   #6E6C62; /* wariant drugorzędnego */
+  --text-nav:       #4A4E42; /* linki nawigacji */
+  --text-label:     #9A8F6E; /* etykiety pól, drobne podpisy */
+  --text-quote:     #3B3F34; /* treść opinii / opis usługi */
+  --text-on-green:  #F3EEE1; /* tekst na zielonym tle */
+
+  /* ---------- KOLORY: obramowania ---------- */
+  --border:         #EFEADD; /* obramowanie kart (ciepłe) */
+  --border-divider: #E8E2D5; /* separatory, obramowania pól */
+  --border-nav:     #ECE6D9; /* dolna linia nawigacji */
+
+  /* ---------- KOLORY: nakładki na zdjęcia ---------- */
+  --overlay-strip:  rgba(18,26,20,.62); /* pasek lokalizacja+cena na karcie oferty */
+  --overlay-cat:    rgba(18,26,20,.44); /* pasek nazwy na kaflu kategorii */
+  --hero-grad:      linear-gradient(105deg, rgba(18,26,20,.66) 0%, rgba(18,26,20,.3) 48%, rgba(18,26,20,.12) 100%);
+
+  /* ---------- TYPOGRAFIA ---------- */
+  --font-display: 'Newsreader', Georgia, 'Times New Roman', serif; /* nagłówki (waga 500/600, italic do emfazy) */
+  --font-body:    'Hanken Grotesk', system-ui, sans-serif;         /* tekst i UI (400–800) */
+  /* 'JetBrains Mono' NIE jest używany w 1a — to element wariantu 1b. */
+
+  /* skala rozmiarów (px) — dokładnie jak w projekcie */
+  --fs-h1:        64px;  /* hero, line-height 1.04, letter-spacing -.01em */
+  --fs-h2:        38px;  /* nagłówki sekcji (O nas 42, Usługi 41, Region 40, Kontakt 32) */
+  --fs-h3:        27px;  /* nagłówki dual-CTA */
+  --fs-offer:     21px;  /* tytuł oferty (Newsreader 500) */
+  --fs-cat:       25px;  /* nazwa kategorii (Newsreader 600) */
+  --fs-svc-title: 22px;  /* tytuł usługi na liście (Newsreader 500) */
+  --fs-stat:      34px;  /* liczby w sekcji O nas (Newsreader 600) */
+  --fs-lead:      18px;  /* akapit wiodący w hero (line-height 1.6) */
+  --fs-body:      16px;  /* tekst podstawowy */
+  --fs-body-lg:   17px;  /* dłuższe akapity (O nas) */
+  --fs-sm:        15px;  /* mniejszy tekst / przyciski */
+  --fs-xs:        14px;  /* nawigacja, drobny UI */
+  --fs-eyebrow:   12px;  /* nadtytuł: uppercase, letter-spacing .16em, weight 600, kolor --gold */
+  --fs-micro:     11px;  /* etykiety parametrów: uppercase, letter-spacing .05em */
+
+  /* ---------- ODSTĘPY ---------- */
+  --pad-section-x: 48px; /* poziomy padding każdej sekcji */
+  --gap-cards:     24px; /* odstęp między kartami ofert */
+  --gap-cats:      20px; /* odstęp między kaflami kategorii */
+  --gap-cols:      56px; /* odstęp w układach dwukolumnowych */
+  --site-width:    1440px; /* szerokość projektowa (desktop) */
+
+  /* ---------- PROMIENIE ---------- */
+  --r-pill:   999px; /* przyciski, badge, chipy filtrów */
+  --r-card:   18px;  /* karta oferty (kategoria 16, panel usługi/kontakt 20) */
+  --r-btn:    12px;  /* przycisk "Szukaj" / "Wyślij", pola formularza */
+  --r-logo:   12px;  /* kwadrat logo */
+  --r-sm:     8px;   /* drobne elementy */
+
+  /* ---------- CIENIE ---------- */
+  --shadow-offer:   0 20px 44px -30px rgba(30,40,30,.55);
+  --shadow-cat:     0 16px 30px -22px rgba(30,40,30,.5);
+  --shadow-panel:   0 26px 54px -32px rgba(30,40,30,.6);
+  --shadow-search:  0 30px 60px -30px rgba(30,40,30,.4);
+  --shadow-photo:   0 30px 60px -34px rgba(0,0,0,.5);
+}
