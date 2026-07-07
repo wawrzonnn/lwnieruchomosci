@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LW Nieruchomości — Landing 1a (referencja 1:1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{margin:0;background:#E9E7E1;font-family:'Hanken Grotesk',sans-serif;}
+  select{font-family:inherit;cursor:pointer}
+  img{display:block}
+  a{text-decoration:none;color:inherit}
+  a:hover{color:#2C4A38}
+  .site a[href="#"]{transition:opacity .15s}
+  .site a[href="#"]:hover{opacity:.82}
+  .site{width:1440px;max-width:100%;margin:0 auto;background:#FBF8F2;color:#23271F;overflow:hidden;}
+  .svc-row{position:relative;cursor:pointer;display:flex;gap:22px;align-items:flex-start;padding:20px 18px;border-top:1px solid #E8E2D5;}
+  .svc-row .rowbar{position:absolute;inset:0;background:#F5F1E7;border-left:3px solid #B4894C;display:none;}
+  .svc-row.active .rowbar{display:block;}
+  .region-scroller{scrollbar-width:thin;}
+  .testi-dot{transition:all .3s ease;}
+</style>
+</head>
+<body>
+<div class="site">
+
+  <!-- ============ NAV ============ -->
+  <header style="display:flex;align-items:center;justify-content:space-between;padding:22px 48px;background:rgba(251,248,242,.9);border-bottom:1px solid #ECE6D9;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:46px;height:46px;border-radius:12px;background:#2C4A38;color:#E9D9AE;display:flex;align-items:center;justify-content:center;font-family:'Newsreader',serif;font-weight:600;font-size:20px;">LW</div>
+      <div style="line-height:1.15;">
+        <div style="font-family:'Newsreader',serif;font-size:20px;font-weight:600;">LW Nieruchomości</div>
+        <div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9A8F6E;">Jelenia Góra · Karkonosze</div>
+      </div>
+    </div>
+    <nav style="display:flex;gap:34px;font-size:15px;color:#4A4E42;">
+      <a href="#">Oferty</a><a href="#">Usługi</a><a href="#">O nas</a><a href="#">Region</a><a href="#">Kontakt</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:18px;">
+      <a href="#" style="font-weight:600;font-size:15px;">+48 690 008 273</a>
+      <a href="#" style="background:#2C4A38;color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;font-weight:600;">Zgłoś ofertę</a>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <div style="position:relative;height:660px;background-image:linear-gradient(105deg,rgba(18,26,20,.66) 0%,rgba(18,26,20,.3) 48%,rgba(18,26,20,.12) 100%),url('../assets/sniezka-sunset.png');background-size:cover;background-position:center;display:flex;flex-direction:column;justify-content:center;padding:0 72px;">
+    <div style="max-width:640px;color:#fff;">
+      <div style="display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);padding:7px 15px;border-radius:999px;margin-bottom:22px;">Lokalne biuro nieruchomości</div>
+      <h1 style="font-family:'Newsreader',serif;font-weight:500;font-size:64px;line-height:1.04;letter-spacing:-.01em;margin-bottom:20px;">Znajdź swój dom<br>w sercu <em style="font-style:italic;color:#E9D19A;">Karkonoszy</em></h1>
+      <p style="font-size:18px;line-height:1.6;color:rgba(255,255,255,.9);max-width:520px;">Pomagamy kupić, sprzedać i wynająć nieruchomości w Jeleniej Górze i całej Kotlinie Jeleniogórskiej — uczciwie, spokojnie, po ludzku.</p>
+    </div>
+    <div style="position:absolute;left:72px;right:72px;bottom:-56px;background:#fff;border-radius:18px;box-shadow:0 30px 60px -30px rgba(30,40,30,.4);padding:22px 24px;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:18px;align-items:end;border:1px solid #EFEADD;">
+      <label style="display:flex;flex-direction:column;gap:7px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9A8F6E;font-weight:600;">Rodzaj
+        <select style="appearance:none;background:#FBF8F2 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 fill=%22none%22 stroke=%22%232C4A38%22 stroke-width=%222%22><path d=%22M2 4l4 4 4-4%22/></svg>') no-repeat right 14px center;border:1px solid #E8E2D5;border-radius:12px;padding:13px 15px;font-size:15px;color:#23271F;text-transform:none;letter-spacing:0;font-weight:500;">
+          <option>Wszystkie</option><option>Mieszkania</option><option>Domy</option><option>Działki</option><option>Lokale</option>
+        </select>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:7px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9A8F6E;font-weight:600;">Lokalizacja
+        <select style="appearance:none;background:#FBF8F2 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 fill=%22none%22 stroke=%22%232C4A38%22 stroke-width=%222%22><path d=%22M2 4l4 4 4-4%22/></svg>') no-repeat right 14px center;border:1px solid #E8E2D5;border-radius:12px;padding:13px 15px;font-size:15px;color:#23271F;text-transform:none;letter-spacing:0;font-weight:500;">
+          <option>Cały region</option><option>Jelenia Góra</option><option>Sosnówka</option><option>Mysłakowice</option><option>Cieplice</option>
+        </select>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:7px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9A8F6E;font-weight:600;">Cena do
+        <select style="appearance:none;background:#FBF8F2 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 fill=%22none%22 stroke=%22%232C4A38%22 stroke-width=%222%22><path d=%22M2 4l4 4 4-4%22/></svg>') no-repeat right 14px center;border:1px solid #E8E2D5;border-radius:12px;padding:13px 15px;font-size:15px;color:#23271F;text-transform:none;letter-spacing:0;font-weight:500;">
+          <option>Bez limitu</option><option>400 000 zł</option><option>700 000 zł</option><option>1 000 000 zł</option><option>2 000 000 zł</option>
+        </select>
+      </label>
+      <button style="background:#2C4A38;color:#fff;border:none;border-radius:12px;padding:14px 30px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;height:50px;">Szukaj</button>
+    </div>
+  </div>
+
+  <!-- ============ TRUST ROW ============ -->
+  <div style="display:flex;justify-content:center;gap:56px;padding:92px 48px 46px;">
+    <div style="display:flex;align-items:center;gap:10px;"><span style="color:#B4894C;font-size:20px;">★</span><span style="font-weight:700;font-size:18px;">4,9</span><span style="color:#6C7064;">ocena Google</span></div>
+    <div style="width:1px;background:#E8E2D5;"></div>
+    <div style="display:flex;align-items:center;gap:10px;"><span style="font-weight:700;font-size:18px;">120+</span><span style="color:#6C7064;">transakcji</span></div>
+    <div style="width:1px;background:#E8E2D5;"></div>
+    <div style="display:flex;align-items:center;gap:10px;"><span style="font-weight:700;font-size:18px;">Na wyłączność</span><span style="color:#6C7064;">wiele ofert</span></div>
+  </div>
+
+  <!-- ============ CATEGORIES ============ -->
+  <div style="padding:36px 48px 20px;">
+    <div style="display:flex;align-items:end;justify-content:space-between;margin-bottom:24px;">
+      <div>
+        <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#B4894C;font-weight:600;margin-bottom:8px;">Przeglądaj</div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:38px;">Kategorie nieruchomości</h2>
+      </div>
+    </div>
+    <div id="categories" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;"></div>
+  </div>
+
+  <!-- ============ OFFERS ============ -->
+  <div style="padding:52px 48px 20px;">
+    <div style="display:flex;align-items:end;justify-content:space-between;margin-bottom:26px;">
+      <div>
+        <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#B4894C;font-weight:600;margin-bottom:8px;">Wybrane dla Ciebie</div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:38px;">Polecane oferty</h2>
+      </div>
+      <a href="#" style="font-weight:600;color:#2C4A38;border-bottom:1.5px solid #B4894C;padding-bottom:2px;">Zobacz wszystkie oferty →</a>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px;">
+      <span style="background:#2C4A38;color:#fff;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:600;">Wszystkie</span>
+      <span style="background:#fff;border:1px solid #E8E2D5;color:#4A4E42;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:500;">Mieszkania</span>
+      <span style="background:#fff;border:1px solid #E8E2D5;color:#4A4E42;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:500;">Domy</span>
+      <span style="background:#fff;border:1px solid #E8E2D5;color:#4A4E42;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:500;">Działki</span>
+      <span style="background:#fff;border:1px solid #E8E2D5;color:#4A4E42;padding:9px 18px;border-radius:999px;font-size:14px;font-weight:500;">Lokale</span>
+    </div>
+    <div id="offers" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;"></div>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <div style="margin:64px 0 0;padding:64px 48px;background:#2C4A38;color:#F3EEE1;">
+    <div style="display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;">
+      <div>
+        <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#D9BE84;font-weight:600;margin-bottom:14px;">O nas</div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:42px;line-height:1.1;margin-bottom:20px;">Z sercem do ludzi<br>i domów</h2>
+        <p style="font-size:17px;line-height:1.65;color:rgba(243,238,225,.82);margin-bottom:16px;">Jesteśmy lokalnym biurem z Jeleniej Góry, które powstało z pasji do pracy z ludźmi i miłości do miejsc, w których można naprawdę poczuć się jak w domu.</p>
+        <p style="font-size:17px;line-height:1.65;color:rgba(243,238,225,.82);">Stawiamy na uczciwość, empatię i elastyczne podejście. Prowadzimy Cię krok po kroku przez cały proces — byś na każdym etapie czuł się pewnie i spokojnie.</p>
+        <div id="stats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:34px;"></div>
+      </div>
+      <div style="position:relative;height:440px;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 60px -34px rgba(0,0,0,.5);">
+        <div style="position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80');background-size:cover;background-position:center 18%;"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(0deg,rgba(20,30,22,.74),transparent);"></div>
+        <div style="position:absolute;left:24px;bottom:20px;color:#fff;">
+          <div style="font-family:'Newsreader',serif;font-size:21px;line-height:1.15;">Poznajmy się osobiście</div>
+          <div style="font-size:12px;color:#E9D19A;letter-spacing:.08em;margin-top:3px;">LW NIERUCHOMOŚCI · JELENIA GÓRA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SERVICES (interactive) ============ -->
+  <div style="padding:76px 48px 28px;">
+    <div style="margin-bottom:30px;max-width:600px;">
+      <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#B4894C;font-weight:600;margin-bottom:12px;">Usługi</div>
+      <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:41px;line-height:1.08;margin-bottom:14px;">Kompleksowa obsługa — od wyceny po klucze</h2>
+      <p style="font-size:15px;line-height:1.6;color:#6C7064;">Wybierz usługę z listy, aby zobaczyć szczegóły i zdjęcie.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:start;">
+      <div id="svc-list" style="border-bottom:1px solid #E8E2D5;"></div>
+      <div style="position:relative;background:#fff;border:1px solid #EFEADD;border-radius:20px;overflow:hidden;box-shadow:0 26px 54px -32px rgba(30,40,30,.6);">
+        <div style="position:relative;height:340px;">
+          <div id="svc-img" style="position:absolute;inset:0;background-size:cover;background-position:center;transition:opacity .3s;"></div>
+          <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(20,30,22,.58),rgba(20,30,22,0) 58%);"></div>
+          <div id="svc-img-title" style="position:absolute;left:24px;bottom:20px;color:#fff;font-family:'Newsreader',serif;font-size:25px;"></div>
+        </div>
+        <div style="padding:26px 28px 30px;">
+          <div id="svc-label" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#B4894C;font-weight:700;margin-bottom:12px;"></div>
+          <p id="svc-long" style="font-size:16px;line-height:1.7;color:#3B3F34;margin-bottom:22px;"></p>
+          <a href="#" style="display:inline-flex;align-items:center;gap:8px;background:#2C4A38;color:#fff;padding:12px 24px;border-radius:999px;font-weight:600;font-size:15px;">Zapytaj o tę usługę →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ REGION (drag/wheel-scroll filmstrip) ============ -->
+  <div style="background:#23271F;padding:56px 0 28px;">
+    <div style="padding:0 48px 28px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px;">
+      <div style="max-width:520px;">
+        <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#D9BE84;font-weight:600;margin-bottom:12px;">Region Karkonosze</div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:40px;line-height:1.1;color:#FBF8F2;">Rozejrzyj się po Karkonoszach</h2>
+      </div>
+      <div style="font-size:12px;letter-spacing:.08em;color:rgba(243,238,225,.6);white-space:nowrap;padding-bottom:6px;">PRZECIĄGNIJ / PRZEWIŃ →</div>
+    </div>
+    <div style="position:relative;">
+      <div id="region-scroller" class="region-scroller" style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 48px 10px;cursor:grab;"></div>
+      <button id="region-prev" aria-label="Poprzednie zdjęcie" style="position:absolute;left:20px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#23271F;font-size:19px;box-shadow:0 12px 26px -12px rgba(0,0,0,.55);">‹</button>
+      <button id="region-next" aria-label="Następne zdjęcie" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.88);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#23271F;font-size:19px;box-shadow:0 12px 26px -12px rgba(0,0,0,.55);">›</button>
+    </div>
+    <div style="margin:18px 48px 0;height:2px;background:rgba(243,238,225,.18);border-radius:2px;overflow:hidden;">
+      <div id="region-progress" style="height:100%;width:10%;background:#E9D19A;"></div>
+    </div>
+  </div>
+
+  <!-- ============ TESTIMONIALS (dark, auto-rotate) ============ -->
+  <div style="position:relative;background-image:linear-gradient(rgba(18,26,20,.82),rgba(18,26,20,.88)),url('../assets/sunset-dolina.png');background-size:cover;background-position:center;padding:100px 48px;text-align:center;">
+    <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#D9BE84;font-weight:600;margin-bottom:20px;">Opinie klientów</div>
+    <div style="font-family:'Newsreader',serif;font-size:70px;color:#D9BE84;opacity:.6;line-height:.4;height:40px;">”</div>
+    <p id="testi-quote" style="font-family:'Newsreader',serif;font-style:italic;font-weight:500;font-size:32px;line-height:1.45;color:#FBF8F2;max-width:760px;margin:22px auto 24px;"></p>
+    <div id="testi-name" style="font-size:14px;letter-spacing:.03em;color:rgba(243,238,225,.72);margin-bottom:30px;"></div>
+    <div id="testi-dots" style="display:flex;justify-content:center;gap:9px;"></div>
+  </div>
+
+  <!-- ============ DUAL CTA (diagonal split) ============ -->
+  <div style="position:relative;height:440px;overflow:hidden;">
+    <div style="position:absolute;inset:0;width:58%;background:#F1EFE6;clip-path:polygon(0 0,100% 0,84% 100%,0 100%);z-index:1;display:flex;flex-direction:column;justify-content:center;padding:0 10% 0 48px;">
+      <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;line-height:1.2;color:#23271F;margin-bottom:14px;max-width:380px;">Zgłoś nieruchomość do sprzedaży lub wynajęcia</h3>
+      <p style="color:#5C6054;font-size:15px;line-height:1.6;max-width:360px;margin-bottom:24px;">Wycenimy ją, przygotujemy profesjonalną prezentację i znajdziemy kupca lub najemcę. Wiele ofert prowadzimy na wyłączność.</p>
+      <a href="#" style="align-self:flex-start;background:#2C4A38;color:#fff;padding:13px 26px;border-radius:999px;font-weight:600;font-size:15px;">Zgłoś nieruchomość</a>
+    </div>
+    <div style="position:absolute;inset:0;left:45%;width:55%;background:#2C4A38;clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%);z-index:2;display:flex;flex-direction:column;justify-content:center;padding:0 48px 0 10%;color:#F3EEE1;">
+      <h3 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;line-height:1.2;margin-bottom:14px;max-width:380px;">Szukasz oferty zakupu lub najmu?</h3>
+      <p style="color:rgba(243,238,225,.8);font-size:15px;line-height:1.6;max-width:360px;margin-bottom:24px;">Powiedz nam, czego szukasz. Odezwiemy się, gdy pojawi się nieruchomość pasująca do Twoich potrzeb i budżetu.</p>
+      <a href="#" style="align-self:flex-start;background:#E9D19A;color:#2C4A38;padding:13px 26px;border-radius:999px;font-weight:700;font-size:15px;">Zgłoś czego szukam</a>
+    </div>
+    <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-7deg);z-index:3;background:#23271F;color:#FBF8F2;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:9px 18px;border-radius:999px;white-space:nowrap;box-shadow:0 14px 30px -12px rgba(0,0,0,.5);">Wybierz swoją ścieżkę</div>
+  </div>
+
+  <!-- ============ CONTACT + MAP ============ -->
+  <div style="padding:20px 48px 64px;">
+    <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:0;border-radius:20px;overflow:hidden;border:1px solid #EFEADD;">
+      <div style="padding:44px 40px;background:#fff;">
+        <div style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#B4894C;font-weight:600;margin-bottom:10px;">Kontakt</div>
+        <h2 style="font-family:'Newsreader',serif;font-weight:500;font-size:32px;line-height:1.15;margin-bottom:26px;">Porozmawiajmy o Twojej nieruchomości</h2>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div><div style="font-size:12px;color:#9A8F6E;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Telefon</div><div style="font-size:18px;font-weight:700;color:#2C4A38;">+48 690 008 273</div></div>
+          <div><div style="font-size:12px;color:#9A8F6E;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">E-mail</div><div style="font-size:16px;font-weight:600;">biuro@lw.nieruchomosci.pl</div></div>
+          <div><div style="font-size:12px;color:#9A8F6E;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;">Biuro mobilne</div><div style="font-size:16px;font-weight:600;">58-506 Jelenia Góra</div></div>
+        </div>
+        <a href="#" style="display:inline-block;margin-top:28px;background:#2C4A38;color:#fff;padding:14px 30px;border-radius:12px;font-weight:600;font-size:16px;">Wyślij wiadomość</a>
+      </div>
+      <div style="min-height:360px;">
+        <iframe src="https://maps.google.com/maps?q=Jelenia+G%C3%B3ra,+58-506&z=12&output=embed" style="width:100%;height:100%;border:0;filter:saturate(.9);" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#23271F;color:#CFCBBE;padding:52px 48px 34px;">
+    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <div style="width:42px;height:42px;border-radius:11px;background:#2C4A38;color:#E9D19A;display:flex;align-items:center;justify-content:center;font-family:'Newsreader',serif;font-size:18px;">LW</div>
+          <div style="font-family:'Newsreader',serif;font-size:18px;color:#fff;">LW Nieruchomości</div>
+        </div>
+        <p style="font-size:14px;line-height:1.6;color:#8F8B7E;max-width:280px;">Mobilne biuro nieruchomości z sercem do ludzi i domów. Jelenia Góra i Kotlina Jeleniogórska.</p>
+      </div>
+      <div><div style="color:#fff;font-weight:600;font-size:14px;margin-bottom:14px;">Nawigacja</div><div style="display:flex;flex-direction:column;gap:9px;font-size:14px;"><a href="#">Strona główna</a><a href="#">Oferty</a><a href="#">O nas</a><a href="#">Kontakt</a></div></div>
+      <div><div style="color:#fff;font-weight:600;font-size:14px;margin-bottom:14px;">Kategorie</div><div style="display:flex;flex-direction:column;gap:9px;font-size:14px;"><a href="#">Mieszkania</a><a href="#">Domy</a><a href="#">Działki</a><a href="#">Lokale</a></div></div>
+      <div><div style="color:#fff;font-weight:600;font-size:14px;margin-bottom:14px;">Kontakt</div><div style="display:flex;flex-direction:column;gap:9px;font-size:14px;color:#8F8B7E;"><span>+48 690 008 273</span><span>biuro@lw.nieruchomosci.pl</span><span>58-506 Jelenia Góra</span></div></div>
+    </div>
+    <div style="border-top:1px solid #363A2E;margin-top:34px;padding-top:20px;font-size:13px;color:#7C7869;">© 2026 LW Nieruchomości. Wszelkie prawa zastrzeżone.</div>
+  </footer>
+
+</div>
+
+<script>
+/* ---- CONTENT MODEL (identyczny z content.json) ---- */
+const U = (id, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+
+const categories = [
+  { name: 'Mieszkania', deal: 'Sprzedaż / wynajem',   img: U('photo-1560448204-e02f11c3d0e2') },
+  { name: 'Domy',       deal: 'Sprzedaż / wynajem',   img: U('photo-1600585154340-be6161a56a0c') },
+  { name: 'Działki',    deal: 'Sprzedaż / dzierżawa', img: '../assets/karkonosze-panorama.png' },
+  { name: 'Lokale',     deal: 'Sprzedaż / wynajem',   img: U('photo-1497366216548-37526070297c') },
+];
+
+const offers = [
+  { badge: 'Polecana',      subtitle: 'Mieszkanie 3-pokojowe', city: 'Jelenia Góra', street: 'ul. Szymanowskiego', title: 'Mieszkanie ul. Szymanowskiego, 3 pokoje', price: '465 000 zł',   perM2: '8 020 zł/m²', specs: [{ l: 'Pokoje', v: '3' }, { l: 'Powierzchnia', v: '58 m²' }, { l: 'Piętro', v: '2' }],               img: U('photo-1522708323590-d24dbb6b0267') },
+  { badge: '',              subtitle: 'Segment szeregowy',     city: 'Jelenia Góra', street: 'Cieplice',           title: 'Nowoczesny segment szeregówki, Cieplice', price: '1 259 000 zł', perM2: '7 070 zł/m²', specs: [{ l: 'Pokoje', v: '5' }, { l: 'Powierzchnia', v: '178 m²' }, { l: 'Działka', v: '220 m²' }],        img: U('photo-1600585154340-be6161a56a0c') },
+  { badge: 'Na wyłączność', subtitle: 'Dom szeregowy',         city: 'Jelenia Góra', street: 'ul. Moniuszki',      title: 'Dom w zabudowie szeregowej, Moniuszki',   price: '1 399 000 zł', perM2: '5 490 zł/m²', specs: [{ l: 'Pokoje', v: '6' }, { l: 'Powierzchnia', v: '255 m²' }, { l: 'Działka', v: '320 m²' }],        img: U('photo-1512917774080-9991f1c4c750') },
+  { badge: '',              subtitle: 'Działka budowlana',     city: 'Sosnówka',     street: 'Podgórzyn, widokowa', title: 'Działka widokowa w Sosnówce',             price: '1 650 000 zł', perM2: '179 zł/m²',   specs: [{ l: 'Powierzchnia', v: '9220 m²' }, { l: 'Przeznaczenie', v: 'Budowlana' }, { l: 'Media', v: 'W drodze' }],    img: '../assets/sunset-dolina.png' },
+  { badge: 'Na wyłączność', subtitle: 'Działka budowlana',     city: 'Sosnówka',     street: 'Podgórzyn',           title: 'Atrakcyjna działka w Sosnówce',           price: '740 000 zł',   perM2: '180 zł/m²',   specs: [{ l: 'Powierzchnia', v: '4122 m²' }, { l: 'Przeznaczenie', v: 'Budowlana' }, { l: 'Dojazd', v: 'Utwardzony' }],  img: '../assets/karkonosze-panorama.png' },
+  { badge: '',              subtitle: 'Działka inwestycyjna',  city: 'Sosnówka',     street: 'Podgórzyn',           title: 'Działka pod budowę 10 domów',             price: '2 385 000 zł', perM2: '180 zł/m²',   specs: [{ l: 'Powierzchnia', v: '13 250 m²' }, { l: 'Zabudowa', v: 'do 10 domów' }, { l: 'Media', v: 'Dostępne' }],     img: U('photo-1500382017468-9049fed747ef') },
+];
+
+const stats = [
+  { n: '120+',   l: 'sprzedanych' },
+  { n: '11 lat', l: 'w branży' },
+  { n: '250+',   l: 'klientów' },
+  { n: '4,9',    l: 'ocena Google' },
+];
+
+const services = [
+  { no: '01', t: 'Pośrednictwo w obrocie nieruchomości', d: 'Cała transakcja od A do Z.',   long: 'Prowadzimy transakcję od początku do końca — wycena, prezentacja, negocjacje i formalności aż po akt notarialny. Pilnujemy terminów i dokumentów, żebyś Ty nie musiał.', img: U('photo-1521791136064-7986c2920216') },
+  { no: '02', t: 'Marketing nieruchomości',              d: 'Widoczność tam, gdzie kupujący.', long: 'Przygotowujemy profesjonalną prezentację oferty i publikujemy ją tam, gdzie są kupujący — portale, social media i nasza baza klientów. Twoja nieruchomość wyróżnia się od pierwszego dnia.', img: U('photo-1460925895917-afdab827c52f') },
+  { no: '03', t: 'Doradztwo kredytowe',                  d: 'Najlepsi doradcy w regionie.',  long: 'Współpracujemy z najlepszymi doradcami kredytowymi w regionie. Pomożemy dobrać finansowanie, porównać oferty banków i spokojnie przejść przez cały proces.', img: U('photo-1554224155-6726b3ff858f') },
+  { no: '04', t: 'Zdjęcia i filmy z drona',              d: 'Ujęcia, które robią wrażenie.', long: 'Zdjęcia i ujęcia z drona pokazują nieruchomość oraz okolicę z perspektywy, która robi wrażenie. W standardzie każdej naszej oferty — bez dodatkowych dopłat.', img: U('photo-1473968512647-3e447244af8f') },
+  { no: '05', t: 'Projekt i remont',                     d: 'Projektant i sprawdzone ekipy.', long: 'Łączymy Cię z projektantem wnętrz i sprawdzonymi ekipami remontowymi. Pomożemy zaplanować metamorfozę i podnieść wartość nieruchomości przed sprzedażą lub po zakupie.', img: U('photo-1581858726788-75bc0f6a952d') },
+  { no: '06', t: 'Video-prezentacja',                    d: 'Film, który sprzedaje.',        long: 'Nagrywamy film-spacer po nieruchomości, który sprzedaje jeszcze zanim kupujący przyjedzie na miejsce. Idealny do ofert premium i sprzedaży na odległość.', img: U('photo-1526628953301-3e589a6a8b74') },
+];
+
+const regionGallery = [
+  { size: 'big',   img: '../assets/karkonosze-panorama.png', caption: 'Panorama Kotliny Jeleniogórskiej' },
+  { size: 'small', img: '../assets/jelenia-gora-zima.png',    caption: 'Jelenia Góra zimą' },
+  { size: 'big',   img: '../assets/schronisko-staw.png',      caption: 'Schronisko nad stawem' },
+  { size: 'small', img: '../assets/sunset-dolina.png',        caption: 'Zachód nad doliną' },
+  { size: 'big',   img: U('photo-1476514525535-07fb3b4ae5f1', 1400), caption: 'Grzbiet Karkonoszy o świcie' },
+  { size: 'small', img: U('photo-1441974231531-c6227db76b6e', 1000), caption: 'Droga w głąb lasu' },
+];
+
+const testimonials = [
+  { quote: 'Sprzedaż mieszkania poszła sprawnie i bez stresu. Czułam, że ktoś naprawdę o mnie dba.', name: 'Joanna K.', loc: 'Jelenia Góra', initials: 'JK' },
+  { quote: 'Znaleźli nam działkę z widokiem na góry — dokładnie taką, o jakiej marzyliśmy.',         name: 'Michał i Ola', loc: 'Sosnówka',   initials: 'MO' },
+  { quote: 'Profesjonalnie, ciepło i konkretnie. Cały czas wiedziałem, co dzieje się z moją ofertą.', name: 'Robert W.', loc: 'Cieplice',    initials: 'RW' },
+];
+
+/* ---- RENDER ---- */
+const el = (id) => document.getElementById(id);
+
+el('categories').innerHTML = categories.map(cat => `
+  <a href="#" style="position:relative;height:300px;border-radius:16px;overflow:hidden;display:block;box-shadow:0 16px 30px -22px rgba(30,40,30,.5);">
+    <div style="position:absolute;inset:0;background-image:url('${cat.img}');background-size:cover;background-position:center;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,30,22,.14),rgba(20,30,22,.34));"></div>
+    <div style="position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);background:rgba(18,26,20,.44);backdrop-filter:blur(2px);border-top:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16);padding:16px 18px;text-align:center;color:#fff;">
+      <div style="font-family:'Newsreader',serif;font-size:25px;font-weight:600;letter-spacing:.01em;">${cat.name}</div>
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.88);margin-top:5px;">${cat.deal}</div>
+    </div>
+  </a>`).join('');
+
+el('offers').innerHTML = offers.map(offer => `
+  <div style="background:#fff;border-radius:18px;overflow:hidden;border:1px solid #EFEADD;box-shadow:0 20px 44px -30px rgba(30,40,30,.55);display:flex;flex-direction:column;">
+    <div style="position:relative;height:290px;">
+      <div style="position:absolute;inset:0;background-image:url('${offer.img}');background-size:cover;background-position:center;"></div>
+      ${offer.badge ? `<span style="position:absolute;top:16px;left:16px;background:#B4894C;color:#fff;font-size:12px;font-weight:700;letter-spacing:.04em;padding:6px 13px;border-radius:999px;box-shadow:0 4px 10px rgba(0,0,0,.15);">${offer.badge}</span>` : ``}
+      <span style="position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:#2C4A38;font-size:18px;">♡</span>
+      <div style="position:absolute;top:42%;left:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;color:#23271F;font-size:17px;">‹</div>
+      <div style="position:absolute;top:42%;right:12px;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;color:#23271F;font-size:17px;">›</div>
+      <div style="position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(18,26,20,.62);backdrop-filter:blur(3px);border-top:1px solid rgba(255,255,255,.14);padding:13px 18px;color:#fff;">
+        <div style="line-height:1.3;"><div style="font-weight:700;font-size:17px;">${offer.city}</div><div style="font-size:12px;color:rgba(255,255,255,.82);">${offer.street}</div></div>
+        <div style="text-align:right;line-height:1.3;border-left:1px solid rgba(255,255,255,.32);padding-left:14px;"><div style="font-weight:800;font-size:18px;">${offer.price}</div><div style="font-size:12px;color:rgba(255,255,255,.82);">${offer.perM2}</div></div>
+      </div>
+    </div>
+    <div style="padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;">
+      <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#B4894C;font-weight:700;margin-bottom:6px;">${offer.subtitle}</div>
+      <div style="font-family:'Newsreader',serif;font-size:21px;font-weight:500;line-height:1.25;margin-bottom:18px;">${offer.title}</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px 0;border-top:1px solid #EFEADD;border-bottom:1px solid #EFEADD;margin-top:auto;">
+        ${offer.specs.map(sp => `<div><div style="font-size:11px;color:#9A8F6E;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px;">${sp.l}</div><div style="font-size:15px;font-weight:700;color:#2C3A2E;">${sp.v}</div></div>`).join('')}
+      </div>
+      <a href="#" style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;background:#2C4A38;color:#fff;padding:13px;border-radius:12px;font-weight:600;font-size:15px;">Zobacz ofertę →</a>
+    </div>
+  </div>`).join('');
+
+el('stats').innerHTML = stats.map(s => `
+  <div>
+    <div style="font-family:'Newsreader',serif;font-size:34px;font-weight:600;color:#E9D19A;">${s.n}</div>
+    <div style="font-size:13px;color:rgba(243,238,225,.7);margin-top:4px;">${s.l}</div>
+  </div>`).join('');
+
+/* ---- SERVICES interaction: click row -> swap image + long text ---- */
+let activeSvc = 0;
+el('svc-list').innerHTML = services.map((sv, i) => `
+  <div class="svc-row${i === 0 ? ' active' : ''}" data-idx="${i}">
+    <div class="rowbar"></div>
+    <div style="position:relative;font-family:'Newsreader',serif;font-size:30px;font-weight:500;color:#B4894C;line-height:1;min-width:44px;">${sv.no}</div>
+    <div style="position:relative;">
+      <div style="font-family:'Newsreader',serif;font-size:22px;font-weight:500;line-height:1.2;">${sv.t}</div>
+      <div style="font-size:13.5px;line-height:1.5;color:#6C7064;margin-top:3px;">${sv.d}</div>
+    </div>
+  </div>`).join('');
+
+function paintService(i) {
+  const sv = services[i];
+  el('svc-img').style.backgroundImage = `url('${sv.img}')`;
+  el('svc-img-title').textContent = sv.t;
+  el('svc-label').textContent = 'Usługa ' + sv.no;
+  el('svc-long').textContent = sv.long;
+  document.querySelectorAll('.svc-row').forEach(r => r.classList.toggle('active', +r.dataset.idx === i));
+}
+document.querySelectorAll('.svc-row').forEach(r => r.addEventListener('click', () => { activeSvc = +r.dataset.idx; paintService(activeSvc); }));
+paintService(0);
+
+/* ---- REGION gallery: drag / wheel / arrows / progress bar (NO auto-play, NO scroll-jacking) ---- */
+el('region-scroller').innerHTML = regionGallery.map(tile => `
+  <div style="flex:0 0 ${tile.size === 'big' ? '560px' : '340px'};height:440px;scroll-snap-align:start;position:relative;border-radius:18px;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:url('${tile.img}');background-size:cover;background-position:center;"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(0deg,rgba(18,26,20,.6),transparent 45%);"></div>
+    <div style="position:absolute;left:${tile.size === 'big' ? '22px' : '18px'};bottom:${tile.size === 'big' ? '20px' : '16px'};color:#fff;${tile.size === 'big' ? "font-family:'Newsreader',serif;font-size:22px;" : 'font-size:15px;font-weight:600;'}">${tile.caption}</div>
+  </div>`).join('');
+
+(function initRegionScroller() {
+  const scroller = el('region-scroller');
+  const bar = el('region-progress');
+  const updateBar = () => {
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    const pct = max > 0 ? Math.min(Math.max(scroller.scrollLeft / max, 0), 1) : 0;
+    bar.style.width = (10 + pct * 90) + '%';
+  };
+  scroller.addEventListener('scroll', updateBar, { passive: true });
+
+  // wheel: vertical wheel gesture moves the gallery horizontally
+  scroller.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      scroller.scrollLeft += e.deltaY;
+    }
+  }, { passive: false });
+
+  // click-and-drag with mouse
+  let dragging = false, startX = 0, startScroll = 0;
+  scroller.addEventListener('mousedown', (e) => {
+    dragging = true; startX = e.pageX; startScroll = scroller.scrollLeft;
+    scroller.style.cursor = 'grabbing';
+    scroller.style.scrollSnapType = 'none';
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    e.preventDefault();
+    scroller.scrollLeft = startScroll - (e.pageX - startX);
+  });
+  window.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    scroller.style.cursor = 'grab';
+    scroller.style.scrollSnapType = 'x mandatory';
+  });
+
+  el('region-prev').addEventListener('click', () => scroller.scrollBy({ left: -580, behavior: 'smooth' }));
+  el('region-next').addEventListener('click', () => scroller.scrollBy({ left: 580, behavior: 'smooth' }));
+})();
+
+/* ---- TESTIMONIALS: single rotating quote, auto-advance every 6.5s + clickable dots ---- */
+(function initTestimonials() {
+  let idx = 0;
+  let timer;
+  function paint() {
+    const t = testimonials[idx];
+    el('testi-quote').textContent = t.quote;
+    el('testi-name').textContent = t.name + ' · ' + t.loc;
+    el('testi-dots').innerHTML = testimonials.map((_, i) => `
+      <button class="testi-dot" data-idx="${i}" style="width:${i === idx ? '26px' : '8px'};height:8px;border-radius:999px;border:none;cursor:pointer;background:${i === idx ? '#E9D19A' : 'rgba(243,238,225,.3)'};padding:0;"></button>
+    `).join('');
+    document.querySelectorAll('.testi-dot').forEach(d => d.addEventListener('click', () => { idx = +d.dataset.idx; restart(); }));
+  }
+  function restart() {
+    paint();
+    clearInterval(timer);
+    timer = setInterval(() => { idx = (idx + 1) % testimonials.length; paint(); }, 6500);
+  }
+  restart();
+})();
+</script>
+</body>
+</html>

@@ -17,7 +17,75 @@
 	const svc = $derived(uslugi[active]);
 
 	let menuOpen = $state(false);
+
+	// ── Region: pozioma galeria (drag / wheel / strzałki, BEZ auto-play i BEZ scroll-jackingu) ──
+	let regionScroller: HTMLDivElement | undefined = $state();
+	let regionProgress = $state(10);
+	let regionDragging = false;
+	let regionStartX = 0;
+	let regionStartScroll = 0;
+	let regionWheelIdleTimer: ReturnType<typeof setTimeout> | undefined;
+
+	function updateRegionProgress() {
+		if (!regionScroller) return;
+		const max = regionScroller.scrollWidth - regionScroller.clientWidth;
+		const pct = max > 0 ? Math.min(Math.max(regionScroller.scrollLeft / max, 0), 1) : 0;
+		regionProgress = 10 + pct * 90;
+	}
+	function onRegionWheel(e: WheelEvent) {
+		if (!regionScroller) return;
+		if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+			e.preventDefault();
+			// `scroll-snap-type: mandatory` potrafi natychmiast cofać drobne programistyczne
+			// przesunięcia scrollLeft, które nie trafiają w punkt zatrzaśnięcia — wyłączamy snap
+			// na czas aktywnego kręcenia kółkiem i przywracamy chwilę po jego zatrzymaniu (wtedy
+			// przeglądarka ładnie "zatrzaśnie" do najbliższego kafla, zgodnie ze specyfikacją).
+			regionScroller.style.scrollSnapType = 'none';
+			regionScroller.scrollLeft += e.deltaY;
+			clearTimeout(regionWheelIdleTimer);
+			regionWheelIdleTimer = setTimeout(() => {
+				if (regionScroller) regionScroller.style.scrollSnapType = 'x mandatory';
+			}, 150);
+		}
+	}
+	function onRegionMouseDown(e: MouseEvent) {
+		if (!regionScroller) return;
+		regionDragging = true;
+		regionStartX = e.pageX;
+		regionStartScroll = regionScroller.scrollLeft;
+		regionScroller.style.cursor = 'grabbing';
+		regionScroller.style.scrollSnapType = 'none';
+	}
+	function onWindowMouseMove(e: MouseEvent) {
+		if (!regionDragging || !regionScroller) return;
+		e.preventDefault();
+		regionScroller.scrollLeft = regionStartScroll - (e.pageX - regionStartX);
+	}
+	function onWindowMouseUp() {
+		if (!regionDragging || !regionScroller) return;
+		regionDragging = false;
+		regionScroller.style.cursor = 'grab';
+		regionScroller.style.scrollSnapType = 'x mandatory';
+	}
+	function regionPrev() {
+		regionScroller?.scrollBy({ left: -580, behavior: 'smooth' });
+	}
+	function regionNext() {
+		regionScroller?.scrollBy({ left: 580, behavior: 'smooth' });
+	}
+
+	// ── Opinie: pojedynczy rotujący cytat, auto-rotacja co 6,5s + kropki (restartują timer) ──
+	let testiIndex = $state(0);
+	$effect(() => {
+		testiIndex; // odczyt = zależność efektu; zmiana (auto lub klik) restartuje timer
+		const id = setInterval(() => {
+			testiIndex = (testiIndex + 1) % opinie.length;
+		}, 6500);
+		return () => clearInterval(id);
+	});
 </script>
+
+<svelte:window onmousemove={onWindowMouseMove} onmouseup={onWindowMouseUp} />
 
 <svelte:head>
 	<title>LW Nieruchomości — biuro nieruchomości Jelenia Góra i Karkonosze</title>
@@ -242,57 +310,74 @@
 			</div>
 		</section>
 
-		<!-- ============ REGION ============ -->
-		<section class="section region-section" id="region">
+		<!-- ============ REGION — pozioma przeciągana galeria ============ -->
+		<section class="region-section" id="region">
 			<div class="region-head">
-				<div class="eyebrow">Region Karkonosze</div>
-				<h2 class="region-h2">Nasze miejsce na ziemi</h2>
-				<p class="region-sub">{region.podtytul}</p>
+				<div class="region-head-text">
+					<div class="eyebrow eyebrow-dark">Region Karkonosze</div>
+					<h2 class="region-h2">{region.tytul}</h2>
+				</div>
+				<div class="region-hint">{region.hint}</div>
 			</div>
-			<div class="region-grid">
-				{#each region.kafle as k}
-					<div class="region-tile" class:big={k.duzy}>
-						<div class="region-img" style="background-image:url('{k.img}')"></div>
-						<div class="region-cap" class:big={k.duzy}>{k.podpis}</div>
-					</div>
-				{/each}
-			</div>
-		</section>
-
-		<!-- ============ TESTIMONIALS ============ -->
-		<section class="section testi-section">
-			<div class="section-head col">
-				<div class="eyebrow">Opinie klientów</div>
-				<h2 class="h2">Mówią o nas</h2>
-			</div>
-			<div class="testi-grid">
-				{#each opinie as t}
-					<div class="testi">
-						<div class="testi-quote">”</div>
-						<p class="testi-text">{t.quote}</p>
-						<div class="testi-author">
-							<span class="testi-av">{t.initials}</span>
-							<div>
-								<div class="testi-name">{t.name}</div>
-								<div class="testi-loc">{t.loc}</div>
-							</div>
+			<div class="region-gallery-wrap">
+				<div
+					class="region-scroller"
+					bind:this={regionScroller}
+					onscroll={updateRegionProgress}
+					onwheel={onRegionWheel}
+					onmousedown={onRegionMouseDown}
+				>
+					{#each region.galeria as tile}
+						<div class="region-tile {tile.size}">
+							<div class="region-img" style="background-image:url('{tile.img}')"></div>
+							<div class="region-cap {tile.size}">{tile.caption}</div>
 						</div>
-					</div>
-				{/each}
+					{/each}
+				</div>
+				<button class="region-arrow left" aria-label="Poprzednie zdjęcie" onclick={regionPrev}>‹</button>
+				<button class="region-arrow right" aria-label="Następne zdjęcie" onclick={regionNext}>›</button>
+			</div>
+			<div class="region-progress-track">
+				<div class="region-progress-bar" style="width:{regionProgress}%"></div>
 			</div>
 		</section>
 
-		<!-- ============ DUAL CTA ============ -->
-		<section class="section dual-section">
-			<div class="dual-grid">
-				{#each dualCta as c}
-					<div class="dual-card {c.wariant}">
-						<h3 class="dual-h3">{c.tytul}</h3>
-						<p class="dual-p">{c.opis}</p>
-						<a href="#kontakt" class="dual-btn">{c.przycisk}</a>
-					</div>
-				{/each}
+		<!-- ============ TESTIMONIALS — pojedynczy rotujący cytat na zdjęciu ============ -->
+		<section class="testi-section-v2">
+			<div class="testi-bg" style="background-image:url('/sunset-dolina.png')"></div>
+			<div class="testi-overlay"></div>
+			<div class="testi-content">
+				<div class="eyebrow eyebrow-dark">Opinie klientów</div>
+				<div class="testi-bigquote">”</div>
+				<p class="testi-quote-text">{opinie[testiIndex].quote}</p>
+				<div class="testi-author-v2">{opinie[testiIndex].name} · {opinie[testiIndex].loc}</div>
+				<div class="testi-dots">
+					{#each opinie as _, i}
+						<button
+							type="button"
+							class="testi-dot"
+							class:active={i === testiIndex}
+							aria-label="Pokaż opinię {i + 1}"
+							onclick={() => (testiIndex = i)}
+						></button>
+					{/each}
+				</div>
 			</div>
+		</section>
+
+		<!-- ============ DUAL CTA — przekątny podział ============ -->
+		<section class="dual-diag">
+			<div class="dual-panel dual-left">
+				<h3 class="dual-h3">{dualCta[0].tytul}</h3>
+				<p class="dual-p-left">{dualCta[0].opis}</p>
+				<a href="#kontakt" class="dual-btn-left">{dualCta[0].przycisk}</a>
+			</div>
+			<div class="dual-panel dual-right">
+				<h3 class="dual-h3">{dualCta[1].tytul}</h3>
+				<p class="dual-p-right">{dualCta[1].opis}</p>
+				<a href="#kontakt" class="dual-btn-right">{dualCta[1].przycisk}</a>
+			</div>
+			<div class="dual-badge">Wybierz swoją ścieżkę</div>
 		</section>
 
 		<!-- ============ CONTACT + MAP ============ -->
@@ -1190,40 +1275,60 @@
 		color: #fff;
 	}
 
-	/* ===== REGION ===== */
+	/* ===== REGION — pozioma przeciągana galeria ===== */
 	.region-section {
-		padding-top: 64px;
-		padding-bottom: 20px;
+		background: var(--green-ink);
+		padding: 56px 0 28px;
 	}
 	.region-head {
-		text-align: center;
-		margin-bottom: 32px;
+		padding: 0 48px 28px;
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 24px;
+	}
+	.region-head-text {
+		max-width: 520px;
+	}
+	.eyebrow-dark {
+		color: var(--gold-soft);
 	}
 	.region-h2 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
 		font-size: 40px;
+		line-height: 1.1;
+		color: var(--bg-site);
 	}
-	.region-sub {
-		max-width: 560px;
-		margin: 14px auto 0;
-		color: var(--muted);
-		font-size: 16px;
-		line-height: 1.6;
+	.region-hint {
+		font-size: 12px;
+		letter-spacing: 0.08em;
+		color: rgba(243, 238, 225, 0.6);
+		white-space: nowrap;
+		padding-bottom: 6px;
 	}
-	.region-grid {
-		display: grid;
-		grid-template-columns: 2fr 1fr;
-		grid-template-rows: 220px 220px;
-		gap: 18px;
+	.region-gallery-wrap {
+		position: relative;
+	}
+	.region-scroller {
+		display: flex;
+		gap: 20px;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		padding: 4px 48px 10px;
+		cursor: grab;
+		scrollbar-width: thin;
 	}
 	.region-tile {
+		flex: 0 0 340px;
+		height: 440px;
+		scroll-snap-align: start;
 		position: relative;
 		border-radius: 18px;
 		overflow: hidden;
 	}
 	.region-tile.big {
-		grid-row: 1 / span 2;
+		flex: 0 0 560px;
 	}
 	.region-img {
 		position: absolute;
@@ -1235,10 +1340,7 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(0deg, rgba(20, 30, 22, 0.55), rgba(20, 30, 22, 0) 55%);
-	}
-	.region-tile.big::after {
-		background: linear-gradient(0deg, rgba(20, 30, 22, 0.6), rgba(20, 30, 22, 0) 50%);
+		background: linear-gradient(0deg, rgba(18, 26, 20, 0.6), transparent 45%);
 	}
 	.region-cap {
 		position: absolute;
@@ -1256,123 +1358,195 @@
 		font-size: 22px;
 		font-weight: 500;
 	}
-
-	/* ===== TESTIMONIALS ===== */
-	.testi-section {
-		padding-top: 64px;
-		padding-bottom: 20px;
-	}
-	.testi-section .section-head {
-		margin-bottom: 28px;
-	}
-	.testi-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 24px;
-	}
-	.testi {
-		background: #fff;
-		border: 1px solid var(--border);
-		border-radius: 16px;
-		padding: 28px 26px;
-	}
-	.testi-quote {
-		font-family: 'Newsreader', serif;
-		font-size: 44px;
-		color: var(--gold-soft);
-		line-height: 0.6;
-		height: 24px;
-	}
-	.testi-text {
-		font-size: 16px;
-		line-height: 1.6;
-		color: var(--quote);
-		margin: 12px 0 22px;
-	}
-	.testi-author {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-	}
-	.testi-av {
-		width: 42px;
-		height: 42px;
+	.region-arrow {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 46px;
+		height: 46px;
 		border-radius: 50%;
-		background: var(--green);
-		color: var(--gold-light);
+		background: rgba(255, 255, 255, 0.88);
+		border: none;
+		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-weight: 700;
-		font-size: 14px;
+		color: var(--green-ink);
+		font-size: 19px;
+		box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.55);
 	}
-	.testi-name {
-		font-weight: 700;
-		font-size: 15px;
+	.region-arrow.left {
+		left: 20px;
 	}
-	.testi-loc {
-		font-size: 13px;
-		color: var(--label);
+	.region-arrow.right {
+		right: 20px;
+	}
+	.region-progress-track {
+		margin: 18px 48px 0;
+		height: 2px;
+		background: rgba(243, 238, 225, 0.18);
+		border-radius: 2px;
+		overflow: hidden;
+	}
+	.region-progress-bar {
+		height: 100%;
+		background: var(--gold-light);
 	}
 
-	/* ===== DUAL CTA ===== */
-	.dual-section {
-		padding-top: 56px;
-		padding-bottom: 56px;
+	/* ===== TESTIMONIALS — pojedynczy rotujący cytat ===== */
+	.testi-section-v2 {
+		position: relative;
+		padding: 100px 48px;
+		text-align: center;
+		overflow: hidden;
 	}
-	.dual-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 24px;
+	.testi-bg {
+		position: absolute;
+		inset: 0;
+		background-size: cover;
+		background-position: center;
 	}
-	.dual-card {
-		border-radius: 18px;
-		padding: 38px 36px;
+	.testi-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(rgba(18, 26, 20, 0.82), rgba(18, 26, 20, 0.88));
 	}
-	.dual-card.cream {
+	.testi-content {
+		position: relative;
+		z-index: 1;
+	}
+	.testi-bigquote {
+		font-family: 'Newsreader', serif;
+		font-size: 70px;
+		color: var(--gold-soft);
+		opacity: 0.6;
+		line-height: 0.4;
+		height: 40px;
+	}
+	.testi-quote-text {
+		font-family: 'Newsreader', serif;
+		font-style: italic;
+		font-weight: 500;
+		font-size: 32px;
+		line-height: 1.45;
+		color: var(--bg-site);
+		max-width: 760px;
+		margin: 22px auto 24px;
+	}
+	.testi-author-v2 {
+		font-size: 14px;
+		letter-spacing: 0.03em;
+		color: rgba(243, 238, 225, 0.72);
+		margin-bottom: 30px;
+	}
+	.testi-dots {
+		display: flex;
+		justify-content: center;
+		gap: 9px;
+	}
+	.testi-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 999px;
+		border: none;
+		cursor: pointer;
+		background: rgba(243, 238, 225, 0.3);
+		padding: 0;
+		transition: all 0.3s ease;
+	}
+	.testi-dot.active {
+		width: 26px;
+		background: var(--gold-light);
+	}
+
+	/* ===== DUAL CTA — przekątny podział ===== */
+	.dual-diag {
+		position: relative;
+		height: 440px;
+		overflow: hidden;
+	}
+	.dual-panel {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	.dual-left {
+		width: 58%;
 		background: var(--bg-cream);
-		border: 1px solid var(--border);
+		clip-path: polygon(0 0, 100% 0, 84% 100%, 0 100%);
+		z-index: 1;
+		padding: 0 10% 0 48px;
+		color: var(--green-ink);
 	}
-	.dual-card.green {
+	.dual-right {
+		left: 45%;
+		width: 55%;
 		background: var(--green);
+		clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+		z-index: 2;
+		padding: 0 48px 0 10%;
 		color: var(--on-green);
 	}
 	.dual-h3 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
-		font-size: 27px;
+		font-size: 32px;
 		line-height: 1.2;
-		margin-bottom: 12px;
+		margin-bottom: 14px;
+		max-width: 380px;
 	}
-	.dual-p {
-		font-size: 16px;
+	.dual-p-left,
+	.dual-p-right {
+		font-size: 15px;
 		line-height: 1.6;
-		margin-bottom: 22px;
+		max-width: 360px;
+		margin-bottom: 24px;
 	}
-	.dual-card.cream .dual-p {
+	.dual-p-left {
 		color: #5c6054;
 	}
-	.dual-card.green .dual-p {
+	.dual-p-right {
 		color: rgba(243, 238, 225, 0.8);
 	}
-	.dual-btn {
-		display: inline-block;
+	.dual-btn-left,
+	.dual-btn-right {
+		align-self: flex-start;
 		padding: 13px 26px;
 		border-radius: 999px;
 		font-weight: 600;
 		font-size: 15px;
 	}
-	.dual-card.cream .dual-btn {
+	.dual-btn-left {
 		background: var(--green);
 		color: #fff;
 	}
-	.dual-card.green .dual-btn {
+	.dual-btn-right {
 		background: var(--gold-light);
 		color: var(--green);
 		font-weight: 700;
 	}
-	.dual-btn:hover {
+	.dual-btn-left:hover,
+	.dual-btn-right:hover {
 		opacity: 0.92;
+	}
+	.dual-badge {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%) rotate(-7deg);
+		z-index: 3;
+		background: var(--green-ink);
+		color: var(--bg-site);
+		font-size: 11px;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		font-weight: 600;
+		padding: 9px 18px;
+		border-radius: 999px;
+		white-space: nowrap;
+		box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.5);
 	}
 
 	/* ===== CONTACT ===== */
@@ -1540,22 +1714,45 @@
 		}
 		.about-grid,
 		.services-grid,
-		.contact-box,
-		.region-grid {
+		.contact-box {
 			grid-template-columns: 1fr;
-		}
-		.region-grid {
-			grid-template-rows: auto;
-		}
-		.region-tile {
-			height: 220px;
-		}
-		.region-tile.big {
-			grid-row: auto;
-			height: 300px;
 		}
 		.footer-grid {
 			grid-template-columns: 1fr 1fr;
+		}
+		.region-tile {
+			flex-basis: 300px;
+			height: 380px;
+		}
+		.region-tile.big {
+			flex-basis: 460px;
+		}
+		.testi-quote-text {
+			font-size: 26px;
+		}
+		.dual-h3 {
+			font-size: 26px;
+		}
+	}
+	/* Przekątny podział Dual CTA nie działa przy wąskich układach — poniżej
+	   tego progu wracamy do zwykłego stosu dwóch bloków bez clip-path. */
+	@media (max-width: 760px) {
+		.dual-diag {
+			height: auto;
+		}
+		.dual-panel {
+			position: static;
+			width: 100%;
+			clip-path: none;
+			padding: 40px 24px;
+		}
+		.dual-h3,
+		.dual-p-left,
+		.dual-p-right {
+			max-width: none;
+		}
+		.dual-badge {
+			display: none;
 		}
 	}
 	@media (max-width: 640px) {
@@ -1596,8 +1793,6 @@
 		}
 		.cats-grid,
 		.offers-grid,
-		.testi-grid,
-		.dual-grid,
 		.stats {
 			grid-template-columns: 1fr;
 		}
@@ -1618,6 +1813,34 @@
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 14px;
+		}
+		.region-head {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+			padding: 0 20px 20px;
+		}
+		.region-scroller {
+			padding: 4px 20px 10px;
+		}
+		.region-progress-track {
+			margin: 18px 20px 0;
+		}
+		.region-tile {
+			flex-basis: 240px;
+			height: 300px;
+		}
+		.region-tile.big {
+			flex-basis: 360px;
+		}
+		.testi-section-v2 {
+			padding: 64px 24px;
+		}
+		.testi-bigquote {
+			font-size: 50px;
+		}
+		.testi-quote-text {
+			font-size: 21px;
 		}
 	}
 </style>

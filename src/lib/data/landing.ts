@@ -200,13 +200,23 @@ export const uslugi: Service[] = [
 	}
 ];
 
+export interface RegionTile {
+	size: 'big' | 'small';
+	img: string;
+	caption: string;
+}
+
 export const region = {
-	podtytul: 'Mieszkamy i pracujemy w Kotlinie Jeleniogórskiej. Znamy każdą dolinę, drogę i widok na góry.',
-	kafle: [
-		{ podpis: 'Panorama Kotliny Jeleniogórskiej', img: '/karkonosze-panorama.png', duzy: true },
-		{ podpis: 'Jelenia Góra zimą', img: '/jelenia-gora-zima.png' },
-		{ podpis: 'Zachód nad doliną', img: '/sunset-dolina.png' }
-	]
+	tytul: 'Rozejrzyj się po Karkonoszach',
+	hint: 'PRZECIĄGNIJ / PRZEWIŃ →',
+	galeria: [
+		{ size: 'big', img: '/karkonosze-panorama.png', caption: 'Panorama Kotliny Jeleniogórskiej' },
+		{ size: 'small', img: '/jelenia-gora-zima.png', caption: 'Jelenia Góra zimą' },
+		{ size: 'big', img: '/schronisko-staw.png', caption: 'Schronisko nad stawem' },
+		{ size: 'small', img: '/sunset-dolina.png', caption: 'Zachód nad doliną' },
+		{ size: 'big', img: U('photo-1476514525535-07fb3b4ae5f1', 1400), caption: 'Grzbiet Karkonoszy o świcie' },
+		{ size: 'small', img: U('photo-1441974231531-c6227db76b6e', 1000), caption: 'Droga w głąb lasu' }
+	] satisfies RegionTile[]
 };
 
 export const opinie = [
