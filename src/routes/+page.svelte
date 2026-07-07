@@ -450,11 +450,11 @@
 <style>
 	/* ===== TOKENY (scope: .lw-landing) ===== */
 	.lw-landing {
-		--green: #2c4a38;
+		--green: #223a2c;
 		--green-ink: #23271f;
 		--green-spec: #2c3a2e;
 		--gold: #b4894c;
-		--gold-light: #e9d19a;
+		--gold-light: #e9c8a2;
 		--gold-soft: #d9be84;
 		--gold-logo: #e9d9ae;
 		--bg-site: #fbf8f2;
