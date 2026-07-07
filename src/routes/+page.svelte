@@ -24,7 +24,7 @@
 	let regionDragging = false;
 	let regionStartX = 0;
 	let regionStartScroll = 0;
-	let regionWheelIdleTimer: ReturnType<typeof setTimeout> | undefined;
+	let regionWheelCooldown = false;
 
 	function updateRegionProgress() {
 		if (!regionScroller) return;
@@ -36,16 +36,21 @@
 		if (!regionScroller) return;
 		if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
 			e.preventDefault();
-			// `scroll-snap-type: mandatory` potrafi natychmiast cofać drobne programistyczne
-			// przesunięcia scrollLeft, które nie trafiają w punkt zatrzaśnięcia — wyłączamy snap
-			// na czas aktywnego kręcenia kółkiem i przywracamy chwilę po jego zatrzymaniu (wtedy
-			// przeglądarka ładnie "zatrzaśnie" do najbliższego kafla, zgodnie ze specyfikacją).
-			regionScroller.style.scrollSnapType = 'none';
-			regionScroller.scrollLeft += e.deltaY;
-			clearTimeout(regionWheelIdleTimer);
-			regionWheelIdleTimer = setTimeout(() => {
-				if (regionScroller) regionScroller.style.scrollSnapType = 'x mandatory';
-			}, 150);
+			// Drobny ruch kółkiem (np. jeden "click" myszy) to za mało, by natywny scroll-snap
+			// przesunął widok o cały kafel — mandatory snap potrafi wtedy cofnąć widok do punktu
+			// startowego, co wygląda jak "nie działa". Zamiast swobodnego scrolla + zgadywania przez
+			// przeglądarkę, każdy gest kółkiem przesuwa dokładnie o jedną pozycję (jak strzałki),
+			// z krótkim wyciszeniem, by seria eventów z jednego obrotu/swipe'a nie przewinęła kilku na raz.
+			if (regionWheelCooldown) return;
+			regionWheelCooldown = true;
+			if (e.deltaY > 0) {
+				regionNext();
+			} else {
+				regionPrev();
+			}
+			setTimeout(() => {
+				regionWheelCooldown = false;
+			}, 500);
 		}
 	}
 	function onRegionMouseDown(e: MouseEvent) {
