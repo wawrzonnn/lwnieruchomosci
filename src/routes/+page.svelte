@@ -15,6 +15,13 @@
 
 	let active = $state(0);
 	const svc = $derived(uslugi[active]);
+	// Akordeon usług na mobile (osobny od `active`, bo na telefonie tap ma zwijać/rozwijać
+	// wiersz w miejscu zamiast tylko podmieniać zdjęcie w bocznym panelu jak na desktopie).
+	let svcMobileOpen = $state(0);
+	function onSvcRowClick(i: number) {
+		active = i;
+		svcMobileOpen = svcMobileOpen === i ? -1 : i;
+	}
 
 	let menuOpen = $state(false);
 
@@ -288,14 +295,26 @@
 			<div class="services-grid">
 				<div class="svc-list">
 					{#each uslugi as sv, i}
-						<button type="button" class="svc-row" class:active={i === active} onclick={() => (active = i)}>
-							<span class="rowbar"></span>
-							<span class="svc-no">{sv.no}</span>
-							<span class="svc-text">
-								<span class="svc-t">{sv.t}</span>
-								<span class="svc-d">{sv.d}</span>
-							</span>
-						</button>
+						<div class="svc-item">
+							<button
+								type="button"
+								class="svc-row"
+								class:active={i === active}
+								onclick={() => onSvcRowClick(i)}
+							>
+								<span class="rowbar"></span>
+								<span class="svc-no">{sv.no}</span>
+								<span class="svc-text">
+									<span class="svc-t">{sv.t}</span>
+									<span class="svc-d">{sv.d}</span>
+								</span>
+								<span class="svc-chevron" class:open={svcMobileOpen === i} aria-hidden="true">⌄</span>
+							</button>
+							<div class="svc-mobile-panel" class:open={svcMobileOpen === i}>
+								<div class="svc-mobile-img" style="background-image:url('{sv.img}')"></div>
+								<p class="svc-mobile-desc">{sv.long}</p>
+							</div>
+						</div>
 					{/each}
 				</div>
 				<div class="svc-panel">
@@ -1207,6 +1226,12 @@
 		color: var(--muted);
 		margin-top: 3px;
 	}
+	.svc-chevron {
+		display: none;
+	}
+	.svc-mobile-panel {
+		display: none;
+	}
 	.svc-panel {
 		position: relative;
 		background: #fff;
@@ -1793,18 +1818,19 @@
 			padding-right: 20px;
 		}
 		.hero {
-			height: 560px;
-			padding: 0 24px;
+			height: 400px;
+			justify-content: flex-end;
+			padding: 24px 20px 40px;
 		}
 		.hero-h1 {
-			font-size: 38px;
+			font-size: 34px;
 		}
 		.search-card {
 			position: static;
 			left: auto;
 			right: auto;
 			bottom: auto;
-			margin: 24px 24px 0;
+			margin: -28px 16px 0;
 			grid-template-columns: 1fr;
 		}
 		.search-btn {
@@ -1819,15 +1845,14 @@
 		.trust-sep {
 			display: none;
 		}
-		.cats-grid,
 		.offers-grid,
 		.stats {
 			grid-template-columns: 1fr;
 		}
+		.cats-grid,
 		.stats {
 			grid-template-columns: repeat(2, 1fr);
 		}
-		.hero-h1,
 		.h2,
 		.about-h2,
 		.services-h2,
@@ -1835,7 +1860,12 @@
 			font-size: 32px;
 		}
 		.footer-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: 1fr 1fr;
+			gap: 16px;
+		}
+		.footer-grid > div:first-child,
+		.footer-col.muted {
+			grid-column: 1 / -1;
 		}
 		.section-head {
 			flex-direction: column;
@@ -1855,11 +1885,50 @@
 			margin: 18px 20px 0;
 		}
 		.region-tile {
-			flex-basis: 240px;
-			height: 300px;
+			flex-basis: 160px;
+			height: 280px;
 		}
 		.region-tile.big {
-			flex-basis: 360px;
+			flex-basis: 240px;
+		}
+		.region-arrow {
+			display: none;
+		}
+		.svc-panel {
+			display: none;
+		}
+		.svc-row {
+			align-items: center;
+		}
+		.svc-chevron {
+			display: block;
+			margin-left: auto;
+			font-size: 18px;
+			color: var(--gold);
+			transition: transform 0.2s ease;
+		}
+		.svc-chevron.open {
+			transform: rotate(180deg);
+		}
+		.svc-mobile-panel {
+			display: none;
+			padding: 0 18px 20px;
+		}
+		.svc-mobile-panel.open {
+			display: block;
+		}
+		.svc-mobile-img {
+			height: 150px;
+			border-radius: 12px;
+			overflow: hidden;
+			margin-bottom: 12px;
+			background-size: cover;
+			background-position: center;
+		}
+		.svc-mobile-desc {
+			font-size: 13.5px;
+			line-height: 1.6;
+			color: #3b3f34;
 		}
 		.testi-section-v2 {
 			padding: 64px 24px;
