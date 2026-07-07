@@ -347,8 +347,8 @@
 			<div class="testi-bg" style="background-image:url('/sunset-dolina.png')"></div>
 			<div class="testi-overlay"></div>
 			<div class="testi-content">
+				<span class="testi-watermark" aria-hidden="true">”</span>
 				<div class="eyebrow eyebrow-dark">Opinie klientów</div>
-				<div class="testi-bigquote">”</div>
 				<p class="testi-quote-text">{opinie[testiIndex].quote}</p>
 				<div class="testi-author-v2">{opinie[testiIndex].name} · {opinie[testiIndex].loc}</div>
 				<div class="testi-dots">
@@ -1317,7 +1317,13 @@
 		scroll-snap-type: x mandatory;
 		padding: 4px 48px 10px;
 		cursor: grab;
-		scrollbar-width: thin;
+		/* pasek postępu pod galerią zastępuje natywny scrollbar — ukrywamy go */
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+	.region-scroller::-webkit-scrollbar {
+		display: none;
+		height: 0;
 	}
 	.region-tile {
 		flex: 0 0 340px;
@@ -1414,16 +1420,25 @@
 	.testi-content {
 		position: relative;
 		z-index: 1;
+		padding-top: 8px;
 	}
-	.testi-bigquote {
+	/* delikatny, duży cudzysłów jako watermark w tle — nie wpływa na przepływ treści */
+	.testi-watermark {
+		position: absolute;
+		top: -76px;
+		left: 50%;
+		transform: translateX(-50%);
 		font-family: 'Newsreader', serif;
-		font-size: 70px;
+		font-size: 220px;
+		line-height: 1;
 		color: var(--gold-soft);
-		opacity: 0.6;
-		line-height: 0.4;
-		height: 40px;
+		opacity: 0.16;
+		pointer-events: none;
+		user-select: none;
+		z-index: 0;
 	}
 	.testi-quote-text {
+		position: relative;
 		font-family: 'Newsreader', serif;
 		font-style: italic;
 		font-weight: 500;
@@ -1431,20 +1446,26 @@
 		line-height: 1.45;
 		color: var(--bg-site);
 		max-width: 760px;
-		margin: 22px auto 24px;
+		margin: 26px auto 24px;
 	}
 	.testi-author-v2 {
+		position: relative;
 		font-size: 14px;
 		letter-spacing: 0.03em;
 		color: rgba(243, 238, 225, 0.72);
 		margin-bottom: 30px;
 	}
 	.testi-dots {
+		position: relative;
 		display: flex;
+		align-items: center;
 		justify-content: center;
 		gap: 9px;
 	}
 	.testi-dot {
+		appearance: none;
+		-webkit-appearance: none;
+		display: block;
 		width: 8px;
 		height: 8px;
 		border-radius: 999px;
@@ -1456,6 +1477,8 @@
 	}
 	.testi-dot.active {
 		width: 26px;
+		height: 8px;
+		border-radius: 999px;
 		background: var(--gold-light);
 	}
 
@@ -1836,8 +1859,9 @@
 		.testi-section-v2 {
 			padding: 64px 24px;
 		}
-		.testi-bigquote {
-			font-size: 50px;
+		.testi-watermark {
+			font-size: 130px;
+			top: -46px;
 		}
 		.testi-quote-text {
 			font-size: 21px;
