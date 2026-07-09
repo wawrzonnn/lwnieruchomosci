@@ -278,12 +278,6 @@
 </div>
 
 <style lang="scss">
-	.site {
-		width: 1440px;
-		max-width: 100%;
-		margin: 0 auto;
-	}
-
 	/* ===== BREADCRUMBS ===== */
 	.breadcrumbs {
 		padding: 14px 48px;
