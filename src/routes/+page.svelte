@@ -4,7 +4,6 @@
 		wyszukiwarka,
 		kategorie,
 		filtryChipy,
-		oferty,
 		oNas,
 		statystyki,
 		uslugi,
@@ -13,8 +12,39 @@
 		faq,
 		dualCta
 	} from '$lib/data/landing';
+	import { CATEGORY_LABELS, formatArea, formatPrice, pricePerM2 } from '$lib/utils';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
+	import type { Listing, ListingImage } from '@prisma/client';
+
+	let { data } = $props();
+
+	// ── Polecane oferty: karuzela zdjęć per karta ──
+	let activeImages = $state(data.featuredListings.map(() => 0));
+
+	function sortedImages(listing: Listing & { images?: ListingImage[] }) {
+		return [...(listing.images ?? [])].sort(
+			(a, b) => Number(b.isMain) - Number(a.isMain) || a.order - b.order
+		);
+	}
+	function prevImage(i: number, len: number) {
+		activeImages[i] = (activeImages[i] - 1 + len) % len;
+	}
+	function nextImage(i: number, len: number) {
+		activeImages[i] = (activeImages[i] + 1) % len;
+	}
+	function offerBadge(listing: Listing) {
+		if (listing.isFeatured) return 'Polecana';
+		if (listing.isExclusive) return 'Na wyłączność';
+		return '';
+	}
+	function offerSpecs(listing: Listing) {
+		const specs: { l: string; v: string }[] = [];
+		if (listing.rooms) specs.push({ l: 'Pokoje', v: String(listing.rooms) });
+		if (listing.area) specs.push({ l: 'Powierzchnia', v: formatArea(listing.area) });
+		if (listing.floor != null) specs.push({ l: 'Piętro', v: String(listing.floor) });
+		return specs.slice(0, 3);
+	}
 
 	let active = $state(0);
 	const svc = $derived(uslugi[active]);
@@ -190,36 +220,56 @@
 				{/each}
 			</div>
 			<div class="offers-grid">
-				{#each oferty as o}
+				{#each data.featuredListings as listing, i}
+					{@const imgs = sortedImages(listing)}
+					{@const activeIdx = imgs.length ? activeImages[i] % imgs.length : 0}
+					{@const mainImg = imgs[activeIdx]?.url}
+					{@const badge = offerBadge(listing)}
 					<article class="offer">
-						<div class="offer-media" style="background-image:url('{o.img}')">
-							{#if o.badge}<span class="offer-badge">{o.badge}</span>{/if}
+						<div class="offer-media" style={mainImg ? `background-image:url('${mainImg}')` : ''}>
+							{#if badge}<span class="offer-badge">{badge}</span>{/if}
 							<span class="offer-heart">♡</span>
-							<span class="offer-arrow left">‹</span>
-							<span class="offer-arrow right">›</span>
+							{#if imgs.length > 1}
+								<button
+									type="button"
+									class="offer-arrow left"
+									aria-label="Poprzednie zdjęcie"
+									onclick={() => prevImage(i, imgs.length)}>‹</button
+								>
+								<button
+									type="button"
+									class="offer-arrow right"
+									aria-label="Następne zdjęcie"
+									onclick={() => nextImage(i, imgs.length)}>›</button
+								>
+							{/if}
 							<div class="offer-strip">
 								<div class="strip-loc">
-									<div class="strip-city">{o.city}</div>
-									<div class="strip-street">{o.street}</div>
+									<div class="strip-city">{listing.city}</div>
+									{#if listing.district}<div class="strip-street">{listing.district}</div>{/if}
 								</div>
 								<div class="strip-price">
-									<div class="strip-amount">{o.price}</div>
-									<div class="strip-perm2">{o.perM2}</div>
+									<div class="strip-amount">{formatPrice(listing.price)}</div>
+									{#if pricePerM2(listing.price, listing.area)}
+										<div class="strip-perm2">{pricePerM2(listing.price, listing.area)}</div>
+									{/if}
 								</div>
 							</div>
 						</div>
 						<div class="offer-body">
-							<div class="offer-subtitle">{o.subtitle}</div>
-							<div class="offer-title">{o.title}</div>
+							<div class="offer-subtitle">
+								{CATEGORY_LABELS[listing.category]}{listing.rooms ? ` ${listing.rooms}-pokojowe` : ''}
+							</div>
+							<div class="offer-title">{listing.title}</div>
 							<div class="offer-specs">
-								{#each o.specs as sp}
+								{#each offerSpecs(listing) as sp}
 									<div>
 										<div class="spec-l">{sp.l}</div>
 										<div class="spec-v">{sp.v}</div>
 									</div>
 								{/each}
 							</div>
-							<a href="/oferty" class="offer-cta">Zobacz ofertę →</a>
+							<a href="/oferty/{listing.slug}" class="offer-cta">Zobacz ofertę →</a>
 						</div>
 					</article>
 				{/each}
@@ -708,16 +758,29 @@
 	}
 	.offer-arrow {
 		position: absolute;
-		top: 42%;
+		top: 50%;
+		transform: translateY(-50%);
 		width: 34px;
 		height: 34px;
 		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.8);
+		border: none;
+		background: rgba(255, 255, 255, 0.9);
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		color: var(--text);
-		font-size: 17px;
+		font-family: inherit;
+		font-size: 18px;
+		line-height: 1;
+		padding: 0;
+		cursor: pointer;
+		z-index: 2;
+		transition: background 0.15s ease, transform 0.15s ease;
+	}
+	.offer-arrow:hover {
+		background: #fff;
+		transform: translateY(-50%) scale(1.08);
 	}
 	.offer-arrow.left {
 		left: 12px;
