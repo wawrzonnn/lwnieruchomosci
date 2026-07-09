@@ -372,10 +372,11 @@
 					onmousedown={onRegionMouseDown}
 				>
 					{#each region.galeria as tile}
-						<div class="region-tile {tile.size}">
+						<a href={tile.href} class="region-tile {tile.size}">
 							<div class="region-img" style="background-image:url('{tile.img}')"></div>
 							<div class="region-cap {tile.size}">{tile.caption}</div>
-						</div>
+							<span class="region-link">Zobacz lokalizację →</span>
+						</a>
 					{/each}
 				</div>
 				<button class="region-arrow left" aria-label="Poprzednie zdjęcie" onclick={regionPrev}>‹</button>
@@ -1205,6 +1206,7 @@
 		height: 0;
 	}
 	.region-tile {
+		display: block;
 		flex: 0 0 340px;
 		height: 440px;
 		scroll-snap-align: start;
@@ -1220,17 +1222,21 @@
 		inset: 0;
 		background-size: cover;
 		background-position: center;
+		transition: transform 0.5s ease;
+	}
+	.region-tile:hover .region-img {
+		transform: scale(1.045);
 	}
 	.region-tile::after {
 		content: '';
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(0deg, rgba(18, 26, 20, 0.6), transparent 45%);
+		background: linear-gradient(0deg, rgba(18, 26, 20, 0.64), transparent 48%);
 	}
 	.region-cap {
 		position: absolute;
 		left: 18px;
-		bottom: 16px;
+		bottom: 40px;
 		color: #fff;
 		font-size: 15px;
 		font-weight: 600;
@@ -1238,10 +1244,29 @@
 	}
 	.region-cap.big {
 		left: 22px;
-		bottom: 20px;
+		bottom: 48px;
 		font-family: 'Newsreader', serif;
 		font-size: 22px;
 		font-weight: 500;
+	}
+	.region-link {
+		position: absolute;
+		left: 18px;
+		bottom: 16px;
+		z-index: 1;
+		font-size: 12.5px;
+		font-weight: 600;
+		color: rgba(255, 255, 255, 0.82);
+		border-bottom: 1px solid rgba(233, 209, 154, 0.55);
+		padding-bottom: 1px;
+		transition: color 0.2s ease;
+	}
+	.region-tile.big .region-link {
+		left: 22px;
+	}
+	.region-tile:hover .region-link {
+		color: var(--gold-light);
+		border-bottom-color: var(--gold-light);
 	}
 	.region-arrow {
 		position: absolute;

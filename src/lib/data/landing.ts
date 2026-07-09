@@ -225,18 +225,34 @@ export interface RegionTile {
 	size: 'big' | 'small';
 	img: string;
 	caption: string;
+	href: string;
 }
 
 export const region = {
 	tytul: 'Rozejrzyj się po Karkonoszach',
 	hint: 'PRZECIĄGNIJ / PRZEWIŃ →',
 	galeria: [
-		{ size: 'big', img: '/karkonosze-panorama.png', caption: 'Panorama Kotliny Jeleniogórskiej' },
-		{ size: 'small', img: '/jelenia-gora-zima.png', caption: 'Jelenia Góra zimą' },
-		{ size: 'big', img: '/schronisko-staw.png', caption: 'Schronisko nad stawem' },
-		{ size: 'small', img: '/sunset-dolina.png', caption: 'Zachód nad doliną' },
-		{ size: 'big', img: U('photo-1476514525535-07fb3b4ae5f1', 1400), caption: 'Grzbiet Karkonoszy o świcie' },
-		{ size: 'small', img: U('photo-1441974231531-c6227db76b6e', 1000), caption: 'Droga w głąb lasu' }
+		{ size: 'big', img: '/karkonosze-panorama.png', caption: 'Karpacz', href: '/lokalizacje/karpacz' },
+		{ size: 'small', img: '/jelenia-gora-zima.png', caption: 'Jelenia Góra', href: '/lokalizacje/jelenia-gora' },
+		{
+			size: 'big',
+			img: '/schronisko-staw.png',
+			caption: 'Szklarska Poręba',
+			href: '/lokalizacje/szklarska-poreba'
+		},
+		{ size: 'small', img: '/sunset-dolina.png', caption: 'Kowary', href: '/lokalizacje/kowary' },
+		{
+			size: 'big',
+			img: U('photo-1476514525535-07fb3b4ae5f1', 1400),
+			caption: 'Piechowice',
+			href: '/lokalizacje/piechowice'
+		},
+		{
+			size: 'small',
+			img: U('photo-1441974231531-c6227db76b6e', 1000),
+			caption: 'Podgórzyn',
+			href: '/lokalizacje/podgorzyn'
+		}
 	] satisfies RegionTile[]
 };
 
