@@ -54,9 +54,11 @@
 				</svg>
 			</button>
 			<div class="dropdown">
-				{#each ofertyLinks as link}
-					<a href={link.href}>{link.label}</a>
-				{/each}
+				<div class="dropdown-inner">
+					{#each ofertyLinks as link}
+						<a href={link.href}>{link.label}</a>
+					{/each}
+				</div>
 			</div>
 		</div>
 
@@ -68,9 +70,11 @@
 				</svg>
 			</button>
 			<div class="dropdown">
-				{#each uslugiLinks as link}
-					<a href={link.href}>{link.label}</a>
-				{/each}
+				<div class="dropdown-inner">
+					{#each uslugiLinks as link}
+						<a href={link.href}>{link.label}</a>
+					{/each}
+				</div>
 			</div>
 		</div>
 
@@ -216,29 +220,37 @@
 	.has-dropdown:focus-within .chevron {
 		transform: rotate(180deg);
 	}
+	/* .dropdown zaczyna się od razu pod triggerem (top:100%, bez przerwy) i jest
+	   przezroczystym „mostkiem" hover — samo padding-top daje wizualny odstęp,
+	   ale kursor cały czas pozostaje nad elementem-potomkiem .has-dropdown,
+	   więc nie traci hover między przyciskiem a kartą menu. */
 	.dropdown {
 		display: none;
 		position: absolute;
-		top: calc(100% + 6px);
+		top: 100%;
 		left: 0;
+		padding-top: 6px;
 		min-width: 240px;
+	}
+	.has-dropdown:hover .dropdown,
+	.has-dropdown:focus-within .dropdown {
+		display: block;
+	}
+	.dropdown-inner {
+		display: flex;
+		flex-direction: column;
 		background: var(--bg-site);
 		border: 1px solid var(--border);
 		border-radius: 14px;
 		padding: 8px;
 		box-shadow: 0 24px 44px -22px rgba(30, 40, 30, 0.35);
-		flex-direction: column;
 	}
-	.has-dropdown:hover .dropdown,
-	.has-dropdown:focus-within .dropdown {
-		display: flex;
-	}
-	.dropdown a {
+	.dropdown-inner a {
 		padding: 10px 12px;
 		border-radius: 8px;
 		font-size: 14.5px;
 	}
-	.dropdown a:hover {
+	.dropdown-inner a:hover {
 		background: var(--bg-cream-2);
 		color: var(--green);
 	}
