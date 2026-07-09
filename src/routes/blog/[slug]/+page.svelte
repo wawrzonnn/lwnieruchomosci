@@ -314,13 +314,6 @@
 </div>
 
 <style lang="scss">
-	.site {
-		position: relative;
-		width: 1440px;
-		max-width: 100%;
-		margin: 0 auto;
-	}
-
 	/* ===== PASEK POSTĘPU ===== */
 	.progress-track {
 		position: sticky;
