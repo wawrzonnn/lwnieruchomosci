@@ -22,7 +22,7 @@
 		</div>
 		<div class="footer-col">
 			<div class="footer-col-title">Nawigacja</div>
-			<a href="/">Strona główna</a><a href="/oferty">Oferty</a><a href="/#o-nas">O nas</a><a
+			<a href="/">Strona główna</a><a href="/oferty">Oferty</a><a href="/o-nas">O nas</a><a
 				href="/blog">Blog</a
 			><a href="/kontakt">Kontakt</a>
 		</div>

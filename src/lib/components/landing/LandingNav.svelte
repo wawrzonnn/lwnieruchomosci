@@ -24,7 +24,7 @@
 	];
 
 	const simpleLinks = [
-		{ href: '/#o-nas', label: 'O nas' },
+		{ href: '/o-nas', label: 'O nas' },
 		{ href: '/blog', label: 'Blog' },
 		{ href: '/kontakt', label: 'Kontakt' }
 	];
