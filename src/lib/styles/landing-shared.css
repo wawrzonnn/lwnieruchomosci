@@ -1,7 +1,9 @@
-/* Wspólne tokeny i bazowe style dla stron w stylu landing page 1a
-   (scope: .lw-landing). Współdzielone przez stronę główną i podstrony usługowe. */
+/* Wspólne tokeny i bazowe style dla stron w stylu landing page 1a.
+   Tokeny na :root — dostępne wszędzie (m.in. w LandingNav/LandingFooter,
+   używanych też na podstronach spoza pełnego layoutu .lw-landing, np. /oferty).
+   Reszta reguł ograniczona do .lw-landing (strona główna i podstrony usługowe). */
 
-.lw-landing {
+:root {
 	--green: #223a2c;
 	--green-ink: #23271f;
 	--green-spec: #2c3a2e;
@@ -20,7 +22,9 @@
 	--border: #efeadd;
 	--divider: #e8e2d5;
 	--nav-border: #ece6d9;
+}
 
+.lw-landing {
 	font-family: 'Hanken Grotesk', system-ui, sans-serif;
 	color: var(--text);
 	background: var(--bg-site);

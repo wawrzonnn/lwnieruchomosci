@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Navbar from '$lib/components/Navbar.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import LandingNav from '$lib/components/landing/LandingNav.svelte';
+	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import ListingCard from '$lib/components/ListingCard.svelte';
 	import {
 		CATEGORY_LABELS,
@@ -49,7 +49,7 @@
 	<title>{listing.title} — LW Nieruchomości</title>
 </svelte:head>
 
-<Navbar />
+<LandingNav />
 
 <main class="section">
 	<div class="container">
@@ -155,7 +155,7 @@
 	</div>
 </main>
 
-<Footer />
+<LandingFooter />
 
 <style lang="scss">
 	.breadcrumb {

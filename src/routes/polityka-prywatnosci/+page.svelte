@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Navbar from '$lib/components/Navbar.svelte';
-	import Footer from '$lib/components/Footer.svelte';
+	import LandingNav from '$lib/components/landing/LandingNav.svelte';
+	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 
 	const sections = [
 		{
@@ -75,7 +75,7 @@
 	/>
 </svelte:head>
 
-<Navbar />
+<LandingNav />
 
 <main>
 	<section class="policy-hero">
@@ -127,7 +127,7 @@
 	</section>
 </main>
 
-<Footer />
+<LandingFooter />
 
 <style lang="scss">
 	.container {

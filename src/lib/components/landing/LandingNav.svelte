@@ -3,16 +3,37 @@
 	import { kontakt } from '$lib/data/landing';
 
 	let menuOpen = $state(false);
+	let mobileOfertySubOpen = $state(false);
+	let mobileUslugiSubOpen = $state(false);
 
-	const links = [
-		{ href: '/oferty', label: 'Oferty' },
-		{ href: '/#uslugi', label: 'Usługi' },
+	const ofertyLinks = [
+		{ href: '/oferty', label: 'Wszystkie oferty' },
+		{ href: '/oferty?category=MIESZKANIE', label: 'Mieszkania' },
+		{ href: '/oferty?category=DOM', label: 'Domy' },
+		{ href: '/oferty?category=DZIALKA', label: 'Działki' },
+		{ href: '/oferty?category=LOKAL', label: 'Lokale' }
+	];
+
+	const uslugiLinks = [
+		{ href: '/sprzedaz-nieruchomosci', label: 'Sprzedaż nieruchomości' },
+		{ href: '/kupno-nieruchomosci', label: 'Kupno nieruchomości' },
+		{ href: '/wycena-nieruchomosci', label: 'Wycena nieruchomości' },
+		{ href: '/marketing-nieruchomosci', label: 'Marketing nieruchomości' },
+		{ href: '/doradztwo-kredytowe', label: 'Doradztwo kredytowe' }
+	];
+
+	const simpleLinks = [
 		{ href: '/#o-nas', label: 'O nas' },
-		{ href: '/#region', label: 'Region' },
 		{ href: '/kontakt', label: 'Kontakt' }
 	];
 
 	const phoneHref = `tel:${kontakt.telefon.replace(/\s/g, '')}`;
+
+	function closeMobile() {
+		menuOpen = false;
+		mobileOfertySubOpen = false;
+		mobileUslugiSubOpen = false;
+	}
 </script>
 
 <header class="nav">
@@ -23,15 +44,46 @@
 			<span class="brand-sub">Jelenia Góra · Karkonosze</span>
 		</span>
 	</a>
+
 	<nav class="nav-links">
-		{#each links as link}
-			<a href={link.href}>{link.label}</a>
+		<div class="nav-item has-dropdown">
+			<button type="button" class="nav-trigger">
+				Znajdź nieruchomość
+				<svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none">
+					<path d="M1 1l4.5 4.5L10 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+				</svg>
+			</button>
+			<div class="dropdown">
+				{#each ofertyLinks as link}
+					<a href={link.href}>{link.label}</a>
+				{/each}
+			</div>
+		</div>
+
+		<div class="nav-item has-dropdown">
+			<button type="button" class="nav-trigger">
+				Usługi
+				<svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none">
+					<path d="M1 1l4.5 4.5L10 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+				</svg>
+			</button>
+			<div class="dropdown">
+				{#each uslugiLinks as link}
+					<a href={link.href}>{link.label}</a>
+				{/each}
+			</div>
+		</div>
+
+		{#each simpleLinks as link}
+			<a href={link.href} class="nav-item">{link.label}</a>
 		{/each}
 	</nav>
+
 	<div class="nav-right">
 		<a href={phoneHref} class="nav-phone">{kontakt.telefon}</a>
-		<a href="/kontakt#formularz" class="nav-cta">Zgłoś ofertę</a>
+		<a href="/kontakt#formularz" class="nav-cta">Umów konsultację</a>
 	</div>
+
 	<button class="nav-burger" class:open={menuOpen} aria-label="Menu" onclick={() => (menuOpen = !menuOpen)}>
 		<span></span><span></span><span></span>
 	</button>
@@ -39,10 +91,49 @@
 
 {#if menuOpen}
 	<div class="mobile-menu">
-		{#each links as link}
-			<a href={link.href} onclick={() => (menuOpen = false)}>{link.label}</a>
+		<button
+			type="button"
+			class="mobile-toggle"
+			class:open={mobileOfertySubOpen}
+			onclick={() => (mobileOfertySubOpen = !mobileOfertySubOpen)}
+		>
+			Znajdź nieruchomość
+			<svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none">
+				<path d="M1 1l4.5 4.5L10 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+			</svg>
+		</button>
+		{#if mobileOfertySubOpen}
+			<div class="mobile-submenu">
+				{#each ofertyLinks as link}
+					<a href={link.href} onclick={closeMobile}>{link.label}</a>
+				{/each}
+			</div>
+		{/if}
+
+		<button
+			type="button"
+			class="mobile-toggle"
+			class:open={mobileUslugiSubOpen}
+			onclick={() => (mobileUslugiSubOpen = !mobileUslugiSubOpen)}
+		>
+			Usługi
+			<svg class="chevron" width="11" height="7" viewBox="0 0 11 7" fill="none">
+				<path d="M1 1l4.5 4.5L10 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+			</svg>
+		</button>
+		{#if mobileUslugiSubOpen}
+			<div class="mobile-submenu">
+				{#each uslugiLinks as link}
+					<a href={link.href} onclick={closeMobile}>{link.label}</a>
+				{/each}
+			</div>
+		{/if}
+
+		{#each simpleLinks as link}
+			<a href={link.href} onclick={closeMobile}>{link.label}</a>
 		{/each}
-		<a href={phoneHref} onclick={() => (menuOpen = false)}>{kontakt.telefon}</a>
+		<a href={phoneHref} onclick={closeMobile}>{kontakt.telefon}</a>
+		<a href="/kontakt#formularz" class="mobile-cta" onclick={closeMobile}>Umów konsultację</a>
 	</div>
 {/if}
 
@@ -54,6 +145,8 @@
 		padding: 22px 48px;
 		background: rgba(251, 248, 242, 0.9);
 		border-bottom: 1px solid var(--nav-border);
+		position: relative;
+		z-index: 50;
 	}
 	.brand {
 		display: flex;
@@ -84,11 +177,69 @@
 	}
 	.nav-links {
 		display: flex;
-		gap: 34px;
+		align-items: center;
+		gap: 6px;
 		font-size: 15px;
 		color: var(--text-nav, #4a4e42);
 	}
-	.nav-links a:hover {
+	.nav-item {
+		padding: 10px 12px;
+		border-radius: 8px;
+	}
+	a.nav-item:hover {
+		color: var(--green);
+	}
+	.nav-item.has-dropdown {
+		position: relative;
+	}
+	.nav-trigger {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font: inherit;
+		color: inherit;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 10px 12px;
+		border-radius: 8px;
+	}
+	.chevron {
+		flex: none;
+		transition: transform 0.15s ease;
+	}
+	.has-dropdown:hover .nav-trigger,
+	.has-dropdown:focus-within .nav-trigger {
+		color: var(--green);
+	}
+	.has-dropdown:hover .chevron,
+	.has-dropdown:focus-within .chevron {
+		transform: rotate(180deg);
+	}
+	.dropdown {
+		display: none;
+		position: absolute;
+		top: calc(100% + 6px);
+		left: 0;
+		min-width: 240px;
+		background: var(--bg-site);
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 8px;
+		box-shadow: 0 24px 44px -22px rgba(30, 40, 30, 0.35);
+		flex-direction: column;
+	}
+	.has-dropdown:hover .dropdown,
+	.has-dropdown:focus-within .dropdown {
+		display: flex;
+	}
+	.dropdown a {
+		padding: 10px 12px;
+		border-radius: 8px;
+		font-size: 14.5px;
+	}
+	.dropdown a:hover {
+		background: var(--bg-cream-2);
 		color: var(--green);
 	}
 	.nav-right {
@@ -107,6 +258,7 @@
 		border-radius: 999px;
 		font-size: 14px;
 		font-weight: 600;
+		white-space: nowrap;
 	}
 	.nav-cta:hover {
 		opacity: 0.9;
@@ -153,10 +305,52 @@
 		color: var(--text-nav, #4a4e42);
 		border-bottom: 1px solid var(--nav-border);
 	}
-	.mobile-menu a:last-child {
+	.mobile-toggle {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		font: inherit;
+		font-size: 16px;
+		color: var(--text-nav, #4a4e42);
+		background: none;
+		border: none;
+		border-bottom: 1px solid var(--nav-border);
+		padding: 12px 4px;
+		cursor: pointer;
+	}
+	.mobile-toggle .chevron {
+		transition: transform 0.2s ease;
+	}
+	.mobile-toggle.open .chevron {
+		transform: rotate(180deg);
+	}
+	.mobile-submenu {
+		display: flex;
+		flex-direction: column;
+		padding-left: 14px;
+		background: var(--bg-cream-2);
+		border-radius: 10px;
+		margin: 4px 0;
+	}
+	.mobile-submenu a {
+		border-bottom: 1px solid var(--nav-border);
+		font-size: 15px;
+	}
+	.mobile-submenu a:last-child {
 		border-bottom: none;
-		color: var(--green);
+	}
+	.mobile-menu a:last-of-type {
+		border-bottom: none;
+	}
+	.mobile-cta {
+		margin-top: 10px;
+		text-align: center;
+		background: var(--green);
+		color: #fff;
+		border-radius: 999px;
 		font-weight: 600;
+		border-bottom: none !important;
 	}
 
 	@media (max-width: 980px) {
