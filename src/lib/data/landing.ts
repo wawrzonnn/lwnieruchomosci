@@ -17,10 +17,30 @@ export const wyszukiwarka = {
 };
 
 export const kategorie = [
-	{ name: 'Mieszkania', deal: 'Sprzedaż / wynajem', img: U('photo-1560448204-e02f11c3d0e2') },
-	{ name: 'Domy', deal: 'Sprzedaż / wynajem', img: U('photo-1600585154340-be6161a56a0c') },
-	{ name: 'Działki', deal: 'Sprzedaż / dzierżawa', img: '/karkonosze-panorama.png' },
-	{ name: 'Lokale', deal: 'Sprzedaż / wynajem', img: U('photo-1497366216548-37526070297c') }
+	{
+		name: 'Mieszkania',
+		deal: 'Sprzedaż / wynajem',
+		img: U('photo-1560448204-e02f11c3d0e2'),
+		category: 'MIESZKANIE'
+	},
+	{
+		name: 'Domy',
+		deal: 'Sprzedaż / wynajem',
+		img: U('photo-1600585154340-be6161a56a0c'),
+		category: 'DOM'
+	},
+	{
+		name: 'Działki',
+		deal: 'Sprzedaż / dzierżawa',
+		img: '/karkonosze-panorama.png',
+		category: 'DZIALKA'
+	},
+	{
+		name: 'Lokale',
+		deal: 'Sprzedaż / wynajem',
+		img: U('photo-1497366216548-37526070297c'),
+		category: 'LOKAL'
+	}
 ];
 
 export const filtryChipy = ['Wszystkie', 'Mieszkania', 'Domy', 'Działki', 'Lokale'];

@@ -195,7 +195,7 @@
 			</div>
 			<div class="cats-grid">
 				{#each kategorie as cat}
-					<a href="/oferty" class="cat" style="background-image:url('{cat.img}')">
+					<a href="/oferty?category={cat.category}" class="cat" style="background-image:url('{cat.img}')">
 						<div class="cat-shade"></div>
 						<div class="cat-bar">
 							<div class="cat-name">{cat.name}</div>
