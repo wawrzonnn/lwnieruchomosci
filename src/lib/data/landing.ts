@@ -240,6 +240,38 @@ export const opinie = [
 	}
 ];
 
+export const faq = {
+	eyebrow: 'FAQ',
+	tytul: 'Najczęściej zadawane pytania',
+	cta: { label: 'Zadaj pytanie →', href: '#kontakt' },
+	lista: [
+		{
+			q: 'Ile kosztuje współpraca z biurem?',
+			a: 'Wysokość wynagrodzenia ustalamy indywidualnie i zawsze przed rozpoczęciem współpracy — bez ukrytych opłat. Prowizję rozliczamy dopiero po skutecznej transakcji.'
+		},
+		{
+			q: 'Co daje umowa na wyłączność?',
+			a: 'Powierzasz sprzedaż wyłącznie nam, dzięki czemu inwestujemy pełen budżet w marketing — profesjonalne zdjęcia, ujęcia z drona, film i promocję. Ty masz jeden pewny kontakt i pełną kontrolę nad procesem.'
+		},
+		{
+			q: 'Jak długo trwa sprzedaż nieruchomości?',
+			a: 'To zależy od lokalizacji, ceny i stanu nieruchomości. Dobrze przygotowana i realnie wyceniona oferta w Kotlinie Jeleniogórskiej najczęściej znajduje kupca w ciągu kilku do kilkunastu tygodni.'
+		},
+		{
+			q: 'Czy pomagacie uzyskać kredyt hipoteczny?',
+			a: 'Tak. Współpracujemy z najlepszymi doradcami kredytowymi w regionie — pomożemy porównać oferty banków, dobrać finansowanie i spokojnie przejść przez wszystkie formalności.'
+		},
+		{
+			q: 'Jak wygląda wycena nieruchomości?',
+			a: 'Bezpłatnie oglądamy nieruchomość, analizujemy ceny transakcyjne w okolicy i przygotowujemy realną wycenę rynkową wraz z rekomendacją strategii sprzedaży.'
+		},
+		{
+			q: 'W jakim regionie działacie?',
+			a: 'Działamy w Jeleniej Górze i całej Kotlinie Jeleniogórskiej — m.in. w Cieplicach, Sosnówce, Mysłakowicach, Podgórzynie, Karpaczu i Szklarskiej Porębie.'
+		}
+	]
+};
+
 export const dualCta = [
 	{
 		tytul: 'Zgłoś nieruchomość do sprzedaży lub wynajęcia',

@@ -10,9 +10,11 @@
 		uslugi,
 		region,
 		opinie,
+		faq,
 		dualCta
 	} from '$lib/data/landing';
-	import logo from '$lib/assets/lw-logo.png';
+	import LandingNav from '$lib/components/landing/LandingNav.svelte';
+	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 
 	let active = $state(0);
 	const svc = $derived(uslugi[active]);
@@ -24,7 +26,11 @@
 		svcMobileOpen = svcMobileOpen === i ? -1 : i;
 	}
 
-	let menuOpen = $state(false);
+	// ── FAQ: akordeon z pojedynczym rozwinięciem ──
+	let faqOpen = $state(0);
+	function toggleFaq(i: number) {
+		faqOpen = faqOpen === i ? -1 : i;
+	}
 
 	// ── Region: pozioma galeria (drag / wheel / strzałki, BEZ auto-play i BEZ scroll-jackingu) ──
 	let regionScroller: HTMLDivElement | undefined = $state();
@@ -110,46 +116,7 @@
 
 <div class="lw-page">
 	<div class="lw-landing site">
-		<!-- ============ NAV ============ -->
-		<header class="nav">
-			<a href="/" class="brand">
-				<img class="brand-logo" src={logo} alt="LW Nieruchomości" />
-				<span class="brand-text">
-					<span class="brand-name">LW Nieruchomości</span>
-					<span class="brand-sub">Jelenia Góra · Karkonosze</span>
-				</span>
-			</a>
-			<nav class="nav-links">
-				<a href="/oferty">Oferty</a><a href="#uslugi">Usługi</a><a href="#o-nas">O nas</a><a
-					href="#region">Region</a
-				><a href="#kontakt">Kontakt</a>
-			</nav>
-			<div class="nav-right">
-				<a href="tel:{kontakt.telefon.replace(/\s/g, '')}" class="nav-phone">{kontakt.telefon}</a>
-				<a href="#kontakt" class="nav-cta">Zgłoś ofertę</a>
-			</div>
-			<button
-				class="nav-burger"
-				class:open={menuOpen}
-				aria-label="Menu"
-				onclick={() => (menuOpen = !menuOpen)}
-			>
-				<span></span><span></span><span></span>
-			</button>
-		</header>
-
-		{#if menuOpen}
-			<div class="mobile-menu">
-				<a href="/oferty" onclick={() => (menuOpen = false)}>Oferty</a>
-				<a href="#uslugi" onclick={() => (menuOpen = false)}>Usługi</a>
-				<a href="#o-nas" onclick={() => (menuOpen = false)}>O nas</a>
-				<a href="#region" onclick={() => (menuOpen = false)}>Region</a>
-				<a href="#kontakt" onclick={() => (menuOpen = false)}>Kontakt</a>
-				<a href="tel:{kontakt.telefon.replace(/\s/g, '')}" onclick={() => (menuOpen = false)}
-					>{kontakt.telefon}</a
-				>
-			</div>
-		{/if}
+		<LandingNav />
 
 		<!-- ============ HERO ============ -->
 		<section class="hero">
@@ -390,6 +357,43 @@
 			</div>
 		</section>
 
+		<!-- ============ FAQ — akordeon ============ -->
+		<section class="section faq-section" id="faq">
+			<div class="faq-grid">
+				<div class="faq-intro">
+					<div class="eyebrow">{faq.eyebrow}</div>
+					<h2 class="h2 faq-h2">{faq.tytul}</h2>
+					<p class="faq-lead">
+						Krótkie odpowiedzi na pytania, które słyszymy najczęściej. Nie znalazłeś swojego? Zadzwoń lub
+						napisz — chętnie pomożemy.
+					</p>
+					<a href={faq.cta.href} class="faq-cta">{faq.cta.label}</a>
+				</div>
+				<div class="faq-list">
+					{#each faq.lista as item, i}
+						<div class="faq-item" class:open={faqOpen === i}>
+							<div class="faq-bar"></div>
+							<button
+								type="button"
+								class="faq-q"
+								aria-expanded={faqOpen === i}
+								onclick={() => toggleFaq(i)}
+							>
+								<span class="faq-q-text">{item.q}</span>
+								<span class="faq-icon" aria-hidden="true">{faqOpen === i ? '−' : '+'}</span>
+								<span class="faq-chevron" class:open={faqOpen === i} aria-hidden="true">⌄</span>
+							</button>
+							{#if faqOpen === i}
+								<div class="faq-panel">
+									<p class="faq-answer">{item.a}</p>
+								</div>
+							{/if}
+						</div>
+					{/each}
+				</div>
+			</div>
+		</section>
+
 		<!-- ============ DUAL CTA — przekątny podział ============ -->
 		<section class="dual-diag">
 			<div class="dual-panel dual-left">
@@ -433,241 +437,11 @@
 			</div>
 		</section>
 
-		<!-- ============ FOOTER ============ -->
-		<footer class="footer">
-			<div class="footer-grid">
-				<div>
-					<div class="footer-brand">
-						<img class="footer-logo" src={logo} alt="LW Nieruchomości" />
-						<span class="footer-name">LW Nieruchomości</span>
-					</div>
-					<p class="footer-desc">
-						Mobilne biuro nieruchomości z sercem do ludzi i domów. Jelenia Góra i Kotlina Jeleniogórska.
-					</p>
-				</div>
-				<div class="footer-col">
-					<div class="footer-col-title">Nawigacja</div>
-					<a href="/">Strona główna</a><a href="/oferty">Oferty</a><a href="#o-nas">O nas</a><a
-						href="#kontakt">Kontakt</a
-					>
-				</div>
-				<div class="footer-col">
-					<div class="footer-col-title">Kategorie</div>
-					<a href="/oferty">Mieszkania</a><a href="/oferty">Domy</a><a href="/oferty">Działki</a><a
-						href="/oferty">Lokale</a
-					>
-				</div>
-				<div class="footer-col muted">
-					<div class="footer-col-title">Kontakt</div>
-					<span>{kontakt.telefon}</span><span>{kontakt.email}</span><span>{kontakt.adres}</span>
-				</div>
-			</div>
-			<div class="footer-bottom">© 2026 LW Nieruchomości. Wszelkie prawa zastrzeżone.</div>
-		</footer>
+		<LandingFooter />
 	</div>
 </div>
 
 <style>
-	/* ===== TOKENY (scope: .lw-landing) ===== */
-	.lw-landing {
-		--green: #223a2c;
-		--green-ink: #23271f;
-		--green-spec: #2c3a2e;
-		--gold: #b4894c;
-		--gold-light: #e9c8a2;
-		--gold-soft: #d9be84;
-		--gold-logo: #e9d9ae;
-		--bg-site: #fbf8f2;
-		--bg-cream: #f1efe6;
-		--bg-cream-2: #f5f1e7;
-		--text: #23271f;
-		--muted: #6c7064;
-		--label: #9a8f6e;
-		--quote: #3b3f34;
-		--on-green: #f3eee1;
-		--border: #efeadd;
-		--divider: #e8e2d5;
-		--nav-border: #ece6d9;
-
-		font-family: 'Hanken Grotesk', system-ui, sans-serif;
-		color: var(--text);
-		background: var(--bg-site);
-		width: 100%;
-		overflow: hidden;
-	}
-	.lw-page {
-		background: #e9e7e1;
-	}
-	.lw-landing :global(select) {
-		font-family: inherit;
-		cursor: pointer;
-	}
-	/* niska specyficzność (sam `a`), żeby nie nadpisywać kolorów przycisków-linków */
-	a {
-		text-decoration: none;
-		color: inherit;
-		transition: opacity 0.15s ease;
-	}
-	.lw-landing h1,
-	.lw-landing h2,
-	.lw-landing h3 {
-		margin: 0;
-	}
-
-	.section {
-		padding: 0 48px;
-	}
-	.eyebrow {
-		font-size: 12px;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--gold);
-		font-weight: 600;
-		margin-bottom: 8px;
-	}
-	.eyebrow-green {
-		color: var(--gold-soft);
-		margin-bottom: 14px;
-	}
-	.h2 {
-		font-family: 'Newsreader', serif;
-		font-weight: 500;
-		font-size: 38px;
-	}
-	.section-head {
-		display: flex;
-		align-items: end;
-		justify-content: space-between;
-		margin-bottom: 24px;
-	}
-	.section-head.col {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 0;
-	}
-	.head-link {
-		font-weight: 600;
-		color: var(--green);
-		border-bottom: 1.5px solid var(--gold);
-		padding-bottom: 2px;
-	}
-	.head-link:hover {
-		opacity: 0.82;
-	}
-
-	/* ===== NAV ===== */
-	.nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 22px 48px;
-		background: rgba(251, 248, 242, 0.9);
-		border-bottom: 1px solid var(--nav-border);
-	}
-	.brand {
-		display: flex;
-		align-items: center;
-		gap: 14px;
-	}
-	.brand-logo {
-		width: 46px;
-		height: 46px;
-		object-fit: contain;
-		flex-shrink: 0;
-	}
-	.brand-text {
-		line-height: 1.15;
-		display: flex;
-		flex-direction: column;
-	}
-	.brand-name {
-		font-family: 'Newsreader', serif;
-		font-size: 20px;
-		font-weight: 600;
-	}
-	.brand-sub {
-		font-size: 12px;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--label);
-	}
-	.nav-links {
-		display: flex;
-		gap: 34px;
-		font-size: 15px;
-		color: var(--text-nav, #4a4e42);
-	}
-	.nav-links a:hover {
-		color: var(--green);
-	}
-	.nav-right {
-		display: flex;
-		align-items: center;
-		gap: 18px;
-	}
-	.nav-phone {
-		font-weight: 600;
-		font-size: 15px;
-	}
-	.nav-cta {
-		background: var(--green);
-		color: #fff;
-		padding: 11px 20px;
-		border-radius: 999px;
-		font-size: 14px;
-		font-weight: 600;
-	}
-	.nav-cta:hover {
-		opacity: 0.9;
-		color: #fff;
-	}
-	.nav-burger {
-		display: none;
-		flex-direction: column;
-		gap: 5px;
-		width: 26px;
-		padding: 0;
-		background: none;
-		border: none;
-		cursor: pointer;
-	}
-	.nav-burger span {
-		display: block;
-		height: 2px;
-		width: 100%;
-		background: var(--green);
-		border-radius: 2px;
-		transition: all 0.25s ease;
-	}
-	.nav-burger.open span:nth-child(1) {
-		transform: translateY(7px) rotate(45deg);
-	}
-	.nav-burger.open span:nth-child(2) {
-		opacity: 0;
-	}
-	.nav-burger.open span:nth-child(3) {
-		transform: translateY(-7px) rotate(-45deg);
-	}
-	.mobile-menu {
-		display: none;
-		flex-direction: column;
-		gap: 2px;
-		padding: 8px 48px 20px;
-		background: rgba(251, 248, 242, 0.98);
-		border-bottom: 1px solid var(--nav-border);
-	}
-	.mobile-menu a {
-		padding: 12px 4px;
-		font-size: 16px;
-		color: var(--text-nav, #4a4e42);
-		border-bottom: 1px solid var(--nav-border);
-	}
-	.mobile-menu a:last-child {
-		border-bottom: none;
-		color: var(--green);
-		font-weight: 600;
-	}
-
 	/* ===== HERO ===== */
 	.hero {
 		position: relative;
@@ -1506,6 +1280,103 @@
 		background: var(--gold-light);
 	}
 
+	/* ===== FAQ — akordeon ===== */
+	.faq-section {
+		padding-top: 76px;
+		padding-bottom: 44px;
+	}
+	.faq-grid {
+		display: grid;
+		grid-template-columns: 0.85fr 1.15fr;
+		gap: 56px;
+		align-items: start;
+	}
+	.faq-h2 {
+		margin-bottom: 16px;
+	}
+	.faq-lead {
+		font-size: 16px;
+		line-height: 1.65;
+		color: var(--muted);
+		margin-bottom: 24px;
+		max-width: 340px;
+	}
+	.faq-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: var(--green);
+		color: #fff;
+		padding: 13px 26px;
+		border-radius: 999px;
+		font-weight: 600;
+		font-size: 15px;
+	}
+	.faq-list {
+		border-bottom: 1px solid var(--divider);
+	}
+	.faq-item {
+		position: relative;
+		border-top: 1px solid var(--divider);
+	}
+	.faq-bar {
+		position: absolute;
+		inset: 0;
+		background: var(--bg-cream-2);
+		border-left: 3px solid var(--gold);
+		display: none;
+	}
+	.faq-item.open .faq-bar {
+		display: block;
+	}
+	.faq-q {
+		position: relative;
+		width: 100%;
+		text-align: left;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		font-family: inherit;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 20px;
+		padding: 22px 18px;
+	}
+	.faq-q-text {
+		font-family: 'Newsreader', serif;
+		font-size: 20px;
+		font-weight: 500;
+		color: var(--text);
+		line-height: 1.3;
+	}
+	.faq-icon {
+		flex: 0 0 auto;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		border: 1px solid rgba(180, 137, 76, 0.4);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: var(--gold);
+		font-size: 18px;
+		line-height: 1;
+	}
+	.faq-chevron {
+		display: none;
+	}
+	.faq-panel {
+		position: relative;
+		padding: 0 18px 24px;
+	}
+	.faq-answer {
+		font-size: 16px;
+		line-height: 1.7;
+		color: var(--quote);
+		max-width: 620px;
+	}
+
 	/* ===== DUAL CTA — przekątny podział ===== */
 	.dual-diag {
 		position: relative;
@@ -1664,66 +1535,6 @@
 		filter: saturate(0.9);
 	}
 
-	/* ===== FOOTER ===== */
-	.footer {
-		background: var(--green-ink);
-		color: #cfcbbe;
-		padding: 52px 48px 34px;
-	}
-	.footer-grid {
-		display: grid;
-		grid-template-columns: 1.6fr 1fr 1fr 1fr;
-		gap: 40px;
-	}
-	.footer-brand {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		margin-bottom: 16px;
-	}
-	.footer-logo {
-		width: 42px;
-		height: 42px;
-		object-fit: contain;
-		flex-shrink: 0;
-	}
-	.footer-name {
-		font-family: 'Newsreader', serif;
-		font-size: 18px;
-		color: #fff;
-	}
-	.footer-desc {
-		font-size: 14px;
-		line-height: 1.6;
-		color: #8f8b7e;
-		max-width: 280px;
-	}
-	.footer-col {
-		display: flex;
-		flex-direction: column;
-		gap: 9px;
-		font-size: 14px;
-	}
-	.footer-col-title {
-		color: #fff;
-		font-weight: 600;
-		font-size: 14px;
-		margin-bottom: 5px;
-	}
-	.footer-col a:hover {
-		color: #fff;
-	}
-	.footer-col.muted {
-		color: #8f8b7e;
-	}
-	.footer-bottom {
-		border-top: 1px solid var(--green-border, #363a2e);
-		margin-top: 34px;
-		padding-top: 20px;
-		font-size: 13px;
-		color: #7c7869;
-	}
-
 	/* ===== RESPONSYWNOŚĆ ===== */
 	@media (max-width: 1199px) {
 		.cats-grid {
@@ -1734,16 +1545,6 @@
 		}
 	}
 	@media (max-width: 980px) {
-		.nav-links,
-		.nav-right {
-			display: none;
-		}
-		.nav-burger {
-			display: flex;
-		}
-		.mobile-menu {
-			display: flex;
-		}
 		.hero-h1 {
 			font-size: 48px;
 		}
@@ -1755,11 +1556,9 @@
 		}
 		.about-grid,
 		.services-grid,
+		.faq-grid,
 		.contact-box {
 			grid-template-columns: 1fr;
-		}
-		.footer-grid {
-			grid-template-columns: 1fr 1fr;
 		}
 		.region-tile {
 			flex-basis: 300px;
@@ -1798,10 +1597,7 @@
 	}
 	@media (max-width: 640px) {
 		.section,
-		.nav,
-		.about,
-		.footer,
-		.mobile-menu {
+		.about {
 			padding-left: 20px;
 			padding-right: 20px;
 		}
@@ -1846,14 +1642,6 @@
 		.services-h2,
 		.region-h2 {
 			font-size: 32px;
-		}
-		.footer-grid {
-			grid-template-columns: 1fr 1fr;
-			gap: 16px;
-		}
-		.footer-grid > div:first-child,
-		.footer-col.muted {
-			grid-column: 1 / -1;
 		}
 		.section-head {
 			flex-direction: column;
@@ -1927,6 +1715,47 @@
 		}
 		.testi-quote-text {
 			font-size: 21px;
+		}
+		.faq-section {
+			padding-top: 40px;
+			padding-bottom: 8px;
+		}
+		.faq-lead {
+			font-size: 13px;
+			max-width: none;
+			margin-bottom: 12px;
+		}
+		.faq-cta {
+			display: inline-block;
+			margin-top: 4px;
+		}
+		.faq-q {
+			padding: 15px 2px;
+			gap: 12px;
+		}
+		.faq-q-text {
+			font-size: 15.5px;
+		}
+		.faq-panel {
+			padding: 0 2px 16px;
+		}
+		.faq-answer {
+			font-size: 13.5px;
+		}
+		.faq-icon {
+			display: none;
+		}
+		.faq-chevron {
+			display: block;
+			font-size: 18px;
+			color: var(--gold);
+			transition: transform 0.2s ease;
+		}
+		.faq-chevron.open {
+			transform: rotate(180deg);
+		}
+		.faq-bar {
+			display: none !important;
 		}
 	}
 </style>
