@@ -58,6 +58,7 @@ export interface ListingFilters {
 	category?: string;
 	location?: string;
 	maxPrice?: number;
+	featured?: boolean;
 	sort?: 'newest' | 'price-asc' | 'price-desc';
 }
 
@@ -66,6 +67,7 @@ export function getFilteredListings(filters: ListingFilters) {
 	if (filters.category) where.category = filters.category as ListingCategory;
 	if (filters.location) where.city = { contains: filters.location, mode: 'insensitive' };
 	if (filters.maxPrice) where.price = { lte: filters.maxPrice };
+	if (filters.featured) where.isFeatured = true;
 
 	const sortKey: Prisma.ListingOrderByWithRelationInput =
 		filters.sort === 'price-asc'

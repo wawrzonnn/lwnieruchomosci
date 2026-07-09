@@ -11,7 +11,8 @@
 		{ href: '/oferty?category=MIESZKANIE', label: 'Mieszkania' },
 		{ href: '/oferty?category=DOM', label: 'Domy' },
 		{ href: '/oferty?category=DZIALKA', label: 'Działki' },
-		{ href: '/oferty?category=LOKAL', label: 'Lokale' }
+		{ href: '/oferty?category=LOKAL', label: 'Lokale' },
+		{ href: '/oferty?featured=1', label: 'Oferty premium' }
 	];
 
 	const uslugiLinks = [
@@ -24,6 +25,7 @@
 
 	const simpleLinks = [
 		{ href: '/#o-nas', label: 'O nas' },
+		{ href: '/blog', label: 'Blog' },
 		{ href: '/kontakt', label: 'Kontakt' }
 	];
 

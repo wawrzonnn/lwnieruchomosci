@@ -153,50 +153,51 @@ export interface Service {
 	d: string;
 	long: string;
 	img: string;
+	href: string;
 }
 
+// Te same 5 usług co w dropdownie nawigacji i stopce — kafelki prowadzą
+// do realnych podstron usługowych.
 export const uslugi: Service[] = [
 	{
 		no: '01',
-		t: 'Pośrednictwo w obrocie nieruchomości',
+		t: 'Sprzedaż nieruchomości',
 		d: 'Cała transakcja od A do Z.',
-		long: 'Prowadzimy transakcję od początku do końca — wycena, prezentacja, negocjacje i formalności aż po akt notarialny. Pilnujemy terminów i dokumentów, żebyś Ty nie musiał.',
-		img: U('photo-1521791136064-7986c2920216')
+		long: 'Prowadzimy sprzedaż od początku do końca — wycena, prezentacja, negocjacje i formalności aż po akt notarialny. Wiele ofert prowadzimy na wyłączność.',
+		img: U('photo-1600585154340-be6161a56a0c'),
+		href: '/sprzedaz-nieruchomosci'
 	},
 	{
 		no: '02',
-		t: 'Marketing nieruchomości',
-		d: 'Widoczność tam, gdzie kupujący.',
-		long: 'Przygotowujemy profesjonalną prezentację oferty i publikujemy ją tam, gdzie są kupujący — portale, social media i nasza baza klientów. Twoja nieruchomość wyróżnia się od pierwszego dnia.',
-		img: U('photo-1460925895917-afdab827c52f')
+		t: 'Kupno nieruchomości',
+		d: 'Ktoś, kto stoi po Twojej stronie.',
+		long: 'Reprezentujemy kupującego — szukamy ofert, sprawdzamy stan prawny i techniczny, negocjujemy cenę i przeprowadzamy przez formalności aż po klucze.',
+		img: U('photo-1512917774080-9991f1c4c750'),
+		href: '/kupno-nieruchomosci'
 	},
 	{
 		no: '03',
-		t: 'Doradztwo kredytowe',
-		d: 'Najlepsi doradcy w regionie.',
-		long: 'Współpracujemy z najlepszymi doradcami kredytowymi w regionie. Pomożemy dobrać finansowanie, porównać oferty banków i spokojnie przejść przez cały proces.',
-		img: U('photo-1554224155-6726b3ff858f')
+		t: 'Wycena nieruchomości',
+		d: 'Realna wartość, nie życzenia.',
+		long: 'Rzetelna, rynkowa wycena mieszkania, domu lub działki oparta na danych transakcyjnych w okolicy — z komentarzem i rekomendacją ceny.',
+		img: U('photo-1554224155-6726b3ff858f'),
+		href: '/wycena-nieruchomosci'
 	},
 	{
 		no: '04',
-		t: 'Zdjęcia i filmy z drona',
-		d: 'Ujęcia, które robią wrażenie.',
-		long: 'Zdjęcia i ujęcia z drona pokazują nieruchomość oraz okolicę z perspektywy, która robi wrażenie. W standardzie każdej naszej oferty — bez dodatkowych dopłat.',
-		img: U('photo-1473968512647-3e447244af8f')
+		t: 'Marketing nieruchomości',
+		d: 'Widoczność tam, gdzie kupujący.',
+		long: 'Profesjonalne zdjęcia, film, ujęcia z drona i skuteczna promocja — Twoja nieruchomość wyróżnia się od pierwszego dnia. W standardzie oferty.',
+		img: U('photo-1460925895917-afdab827c52f'),
+		href: '/marketing-nieruchomosci'
 	},
 	{
 		no: '05',
-		t: 'Projekt i remont',
-		d: 'Projektant i sprawdzone ekipy.',
-		long: 'Łączymy Cię z projektantem wnętrz i sprawdzonymi ekipami remontowymi. Pomożemy zaplanować metamorfozę i podnieść wartość nieruchomości przed sprzedażą lub po zakupie.',
-		img: U('photo-1581858726788-75bc0f6a952d')
-	},
-	{
-		no: '06',
-		t: 'Video-prezentacja',
-		d: 'Film, który sprzedaje.',
-		long: 'Nagrywamy film-spacer po nieruchomości, który sprzedaje jeszcze zanim kupujący przyjedzie na miejsce. Idealny do ofert premium i sprzedaży na odległość.',
-		img: U('photo-1526628953301-3e589a6a8b74')
+		t: 'Doradztwo kredytowe',
+		d: 'Najlepsi doradcy w regionie.',
+		long: 'Współpracujemy z najlepszymi doradcami kredytowymi w regionie. Pomożemy dobrać finansowanie, porównać oferty banków i spokojnie przejść przez cały proces.',
+		img: U('photo-1554224155-6726b3ff858f'),
+		href: '/doradztwo-kredytowe'
 	}
 ];
 

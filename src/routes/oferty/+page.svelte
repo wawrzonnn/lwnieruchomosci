@@ -11,6 +11,7 @@
 	let location = $state(data.filters.location);
 	let maxPrice = $state(data.filters.maxPrice);
 	let sort = $state(data.filters.sort);
+	const featured = data.filters.featured;
 
 	function applyFilters() {
 		const params = new URLSearchParams();
@@ -18,21 +19,27 @@
 		if (location) params.set('location', location);
 		if (maxPrice) params.set('maxPrice', maxPrice);
 		if (sort !== 'newest') params.set('sort', sort);
+		if (featured) params.set('featured', '1');
 		goto(`/oferty?${params.toString()}`);
 	}
 </script>
 
 <svelte:head>
-	<title>Oferty — LW Nieruchomości</title>
+	<title>{featured ? 'Oferty premium' : 'Oferty'} — LW Nieruchomości</title>
 </svelte:head>
 
 <LandingNav />
 
 <main class="section">
 	<div class="container">
-		<span class="breadcrumb">Strona główna · Oferty</span>
-		<h1 class="h-page">Wszystkie oferty</h1>
-		<p class="lead">{data.listings.length} nieruchomości w Jeleniej Górze i okolicach</p>
+		<span class="breadcrumb">Strona główna · Oferty{featured ? ' · Premium' : ''}</span>
+		<h1 class="h-page">{featured ? 'Oferty premium' : 'Wszystkie oferty'}</h1>
+		<p class="lead">
+			{data.listings.length} nieruchomości w Jeleniej Górze i okolicach
+			{#if featured}
+				· <a href="/oferty" class="clear-featured">pokaż wszystkie →</a>
+			{/if}
+		</p>
 
 		<div class="filters-bar">
 			<div class="filter-select">
@@ -107,6 +114,8 @@
 	.breadcrumb { font-size: 13px; color: var(--c-subtle); }
 	h1 { margin: 8px 0 6px; }
 	.lead { margin-bottom: 28px; }
+	.clear-featured { color: var(--c-primary); font-weight: 600; }
+	.clear-featured:hover { opacity: 0.8; }
 
 	.filters-bar {
 		display: flex; gap: 12px; flex-wrap: wrap; align-items: center;

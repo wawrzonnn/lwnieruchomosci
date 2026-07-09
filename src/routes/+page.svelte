@@ -13,6 +13,7 @@
 		dualCta
 	} from '$lib/data/landing';
 	import { CATEGORY_LABELS, formatArea, formatPrice, pricePerM2 } from '$lib/utils';
+	import { godziny, social } from '$lib/data/kontakt-strona';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import type { Listing, ListingImage } from '@prisma/client';
@@ -331,6 +332,7 @@
 							<div class="svc-mobile-panel" class:open={svcMobileOpen === i}>
 								<div class="svc-mobile-img" style="background-image:url('{sv.img}')"></div>
 								<p class="svc-mobile-desc">{sv.long}</p>
+								<a href={sv.href} class="svc-ask">Zobacz szczegóły →</a>
 							</div>
 						</div>
 					{/each}
@@ -346,7 +348,7 @@
 					<div class="svc-panel-body">
 						<div class="svc-label">Usługa {svc.no}</div>
 						<p class="svc-long">{svc.long}</p>
-						<a href="#kontakt" class="svc-ask">Zapytaj o tę usługę →</a>
+						<a href={svc.href} class="svc-ask">Zobacz szczegóły usługi →</a>
 					</div>
 				</div>
 			</div>
@@ -479,7 +481,23 @@
 							<div class="contact-val">{kontakt.adres}</div>
 						</div>
 					</div>
-					<a href="mailto:{kontakt.email}" class="contact-btn">Wyślij wiadomość</a>
+
+					<div class="contact-hours">
+						<div class="contact-label">Godziny pracy</div>
+						{#each godziny as g}
+							<div class="contact-hours-row"><span>{g.d}</span><span>{g.h}</span></div>
+						{/each}
+					</div>
+
+					<div class="contact-social">
+						{#each social as s}
+							<a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.nazwa}
+								>{s.znak}</a
+							>
+						{/each}
+					</div>
+
+					<a href="/kontakt#formularz" class="contact-btn">Wyślij wiadomość</a>
 				</div>
 				<div class="contact-map">
 					<iframe src={kontakt.mapaEmbed} title="Mapa — Jelenia Góra" loading="lazy"></iframe>
@@ -1573,6 +1591,45 @@
 	.contact-val {
 		font-size: 16px;
 		font-weight: 600;
+	}
+	.contact-hours {
+		margin-top: 22px;
+		padding-top: 18px;
+		border-top: 1px solid var(--divider, var(--border));
+	}
+	.contact-hours-row {
+		display: flex;
+		justify-content: space-between;
+		gap: 16px;
+		font-size: 14.5px;
+		margin-top: 8px;
+		color: var(--muted);
+		span:last-child {
+			font-weight: 600;
+			color: var(--text);
+		}
+	}
+	.contact-social {
+		display: flex;
+		gap: 10px;
+		margin-top: 20px;
+	}
+	.contact-social a {
+		width: 38px;
+		height: 38px;
+		border-radius: 50%;
+		background: var(--bg-cream-2);
+		border: 1px solid var(--border);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--green);
+	}
+	.contact-social a:hover {
+		background: var(--green);
+		color: #fff;
 	}
 	.contact-btn {
 		display: inline-block;
