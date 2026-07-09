@@ -1533,8 +1533,8 @@
 	.dual-badge {
 		position: absolute;
 		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%) rotate(-7deg);
+		top: 56px;
+		transform: translateX(-50%) rotate(-7deg);
 		z-index: 3;
 		background: var(--green-ink);
 		color: var(--bg-site);

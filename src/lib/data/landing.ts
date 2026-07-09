@@ -303,7 +303,7 @@ export const dualCta = [
 	{
 		tytul: 'Szukasz oferty zakupu lub najmu?',
 		opis: 'Powiedz nam, czego szukasz. Odezwiemy się, gdy pojawi się nieruchomość pasująca do Twoich potrzeb i budżetu.',
-		przycisk: 'Zgłoś czego szukam',
+		przycisk: 'Zgłoś czego szukasz',
 		wariant: 'green'
 	}
 ];
