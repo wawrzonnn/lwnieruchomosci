@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { initials } from '$lib/utils';
+	import logo from '$lib/assets/lw-logo.png';
 
 	let { children, data } = $props();
 	let mobileOpen = $state(false);
@@ -36,7 +37,7 @@
 	<aside class="admin__sidebar" class:open={mobileOpen}>
 		<div class="sidebar-header">
 			<a href="/" class="sidebar-logo">
-				<span class="logo-mark">LW</span>
+				<img class="logo-mark" src={logo} alt="LW Nieruchomości" />
 				<span class="logo-text">Panel<br />LW Nieruchomości</span>
 			</a>
 		</div>
@@ -101,18 +102,10 @@
 		gap: 10px;
 	}
 	.logo-mark {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		width: 34px;
 		height: 34px;
-		border-radius: var(--r-md);
+		object-fit: contain;
 		flex-shrink: 0;
-		background: var(--c-primary);
-		color: #f3efe4;
-		font-family: var(--font-serif);
-		font-weight: 600;
-		font-size: 13px;
 	}
 	.logo-text {
 		font-size: 13px;

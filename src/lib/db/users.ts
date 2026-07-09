@@ -21,3 +21,22 @@ export async function createUser(data: { email: string; password: string; name: 
 	const hash = await bcrypt.hash(data.password, 12);
 	return prisma.user.create({ data: { ...data, password: hash } });
 }
+
+export function getUserById(id: number) {
+	return prisma.user.findUnique({ where: { id } });
+}
+
+export async function updateUser(
+	id: number,
+	data: { name: string; email: string; role: Role; password?: string }
+) {
+	const { password, ...rest } = data;
+	return prisma.user.update({
+		where: { id },
+		data: password ? { ...rest, password: await bcrypt.hash(password, 12) } : rest
+	});
+}
+
+export function deleteUsers(ids: number[]) {
+	return prisma.user.deleteMany({ where: { id: { in: ids } } });
+}

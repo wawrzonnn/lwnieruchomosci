@@ -1,8 +1,12 @@
+<script lang="ts">
+	import logo from '$lib/assets/lw-logo.png';
+</script>
+
 <footer class="footer">
 	<div class="container footer-grid">
 		<div class="footer-brand">
 			<div class="brand-row">
-				<span class="brand-mark">LW</span>
+				<img class="brand-mark" src={logo} alt="LW Nieruchomości" />
 				<strong>LW Nieruchomości</strong>
 			</div>
 			<p>Mobilne biuro nieruchomości z sercem do ludzi i domów. Jelenia Góra i Kotlina Jeleniogórska.</p>
@@ -91,17 +95,10 @@
 		}
 	}
 	.brand-mark {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		width: 36px;
 		height: 36px;
-		border-radius: var(--r-md);
-		background: var(--c-primary);
-		color: #f3efe4;
-		font-family: var(--font-serif);
-		font-weight: 600;
-		font-size: 14px;
+		object-fit: contain;
+		flex-shrink: 0;
 	}
 	.socials {
 		display: flex;

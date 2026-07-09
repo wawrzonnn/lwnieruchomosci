@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import Select from '$lib/components/Select.svelte';
 	import {
-		AMENITIES,
+		AMENITY_GROUPS,
 		CATEGORY_LABELS,
 		formatPrice,
 		locationLabel,
@@ -280,26 +280,33 @@
 			<!-- Udogodnienia -->
 			<section class="card form-card">
 				<h2 class="card-title">Udogodnienia</h2>
-				<p class="card-hint">Zaznacz, co wyróżnia tę nieruchomość.</p>
-				<div class="amenity-grid">
-					{#each AMENITIES as a}
-						<button
-							type="button"
-							class="amenity-chip"
-							class:on={amenities.includes(a)}
-							onclick={() => toggleAmenity(a)}
-						>
-							{#if amenities.includes(a)}<span class="check">✓</span>{/if}
-							{a}
-						</button>
-					{/each}
-				</div>
+				<p class="card-hint">
+					Zaznacz, co wyróżnia tę nieruchomość. Możesz łączyć udogodnienia z dowolnych kategorii.
+				</p>
+				{#each AMENITY_GROUPS as group}
+					<div class="amenity-group">
+						<span class="amenity-group__label">{group.label}</span>
+						<div class="amenity-grid">
+							{#each group.items as a}
+								<button
+									type="button"
+									class="amenity-chip"
+									class:on={amenities.includes(a)}
+									onclick={() => toggleAmenity(a)}
+								>
+									{#if amenities.includes(a)}<span class="check">✓</span>{/if}
+									{a}
+								</button>
+							{/each}
+						</div>
+					</div>
+				{/each}
 			</section>
 
 			<!-- Opis -->
 			<section class="card form-card">
 				<h2 class="card-title">Opis</h2>
-				<textarea class="textarea" name="description" rows="6" placeholder="Opisz nieruchomość…"
+				<textarea class="textarea textarea--lg" name="description" rows="14" placeholder="Opisz nieruchomość…"
 					>{listing?.description ?? ''}</textarea
 				>
 			</section>
@@ -395,6 +402,10 @@
 	}
 	.form-card {
 		padding: 24px;
+	}
+	.textarea--lg {
+		min-height: 260px;
+		resize: vertical;
 	}
 	.card-title {
 		font-family: var(--font-serif);
@@ -513,6 +524,22 @@
 	}
 
 	/* ── udogodnienia ── */
+	.amenity-group {
+		margin-bottom: 18px;
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.amenity-group__label {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 10.5px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--c-subtle);
+		margin-bottom: 8px;
+	}
 	.amenity-grid {
 		display: flex;
 		flex-wrap: wrap;

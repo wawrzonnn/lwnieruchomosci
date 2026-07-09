@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import logo from '$lib/assets/lw-logo.png';
 
 	let { form } = $props();
 </script>
@@ -11,7 +12,7 @@
 <div class="login-screen">
 	<div class="card login-card">
 		<div class="brand-row">
-			<span class="brand-mark">LW</span>
+			<img class="brand-mark" src={logo} alt="LW Nieruchomości" />
 			<strong>LW Nieruchomości</strong>
 		</div>
 		<h1 class="h3">Panel zarządzania</h1>
@@ -75,17 +76,9 @@
 		}
 	}
 	.brand-mark {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		width: 36px;
 		height: 36px;
-		border-radius: var(--r-md);
-		background: var(--c-primary);
-		color: #f3efe4;
-		font-family: var(--font-serif);
-		font-weight: 600;
-		font-size: 14px;
+		object-fit: contain;
 	}
 	h1 {
 		margin-bottom: 6px;

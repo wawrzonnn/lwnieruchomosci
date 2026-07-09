@@ -1,7 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { fail } from '@sveltejs/kit';
-import { createUser, getAllUsers, getUserByEmail } from '$lib/db/users';
-import type { Role } from '@prisma/client';
+import { deleteUsers, getAllUsers } from '$lib/db/users';
 
 export const load: PageServerLoad = async () => {
 	const users = await getAllUsers();
@@ -9,21 +8,19 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	delete: async ({ request, locals }) => {
 		const data = await request.formData();
-		const name = String(data.get('name') ?? '').trim();
-		const email = String(data.get('email') ?? '').trim();
-		const role = data.get('role') as Role;
+		const ids = data
+			.getAll('ids')
+			.map((v) => Number(v))
+			.filter((n) => !Number.isNaN(n));
 
-		if (!name || !email) {
-			return fail(400, { error: 'Podaj imię i e-mail.' });
+		if (!ids.length) return fail(400, { error: 'Nie wybrano żadnego użytkownika.' });
+		if (locals.user && ids.includes(locals.user.id)) {
+			return fail(400, { error: 'Nie możesz usunąć własnego konta.' });
 		}
 
-		if (await getUserByEmail(email)) {
-			return fail(400, { error: 'Użytkownik z tym e-mailem już istnieje.' });
-		}
-
-		await createUser({ name, email, role, password: Math.random().toString(36).slice(2, 10) });
+		await deleteUsers(ids);
 		return { success: true };
 	}
 };

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import logo from '$lib/assets/lw-logo.png';
+
 	let mobileOpen = $state(false);
 
 	const links = [
@@ -12,7 +14,7 @@
 <header class="navbar">
 	<div class="container navbar-inner">
 		<a href="/" class="brand">
-			<span class="brand-mark">LW</span>
+			<img class="brand-mark" src={logo} alt="LW Nieruchomości" />
 			<span class="brand-text">
 				<strong>LW Nieruchomości</strong>
 				<span class="brand-sub">Jelenia Góra · Karkonosze</span>
@@ -72,17 +74,9 @@
 		margin-right: auto;
 	}
 	.brand-mark {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		width: 42px;
 		height: 42px;
-		border-radius: var(--r-md);
-		background: var(--c-primary);
-		color: #f3efe4;
-		font-family: var(--font-serif);
-		font-weight: 600;
-		font-size: 16px;
+		object-fit: contain;
 		flex-shrink: 0;
 	}
 	.brand-text {

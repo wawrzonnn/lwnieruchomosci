@@ -12,6 +12,7 @@
 		opinie,
 		dualCta
 	} from '$lib/data/landing';
+	import logo from '$lib/assets/lw-logo.png';
 
 	let active = $state(0);
 	const svc = $derived(uslugi[active]);
@@ -112,7 +113,7 @@
 		<!-- ============ NAV ============ -->
 		<header class="nav">
 			<a href="/" class="brand">
-				<span class="brand-logo">LW</span>
+				<img class="brand-logo" src={logo} alt="LW Nieruchomości" />
 				<span class="brand-text">
 					<span class="brand-name">LW Nieruchomości</span>
 					<span class="brand-sub">Jelenia Góra · Karkonosze</span>
@@ -437,7 +438,7 @@
 			<div class="footer-grid">
 				<div>
 					<div class="footer-brand">
-						<span class="footer-logo">LW</span>
+						<img class="footer-logo" src={logo} alt="LW Nieruchomości" />
 						<span class="footer-name">LW Nieruchomości</span>
 					</div>
 					<p class="footer-desc">
@@ -571,15 +572,8 @@
 	.brand-logo {
 		width: 46px;
 		height: 46px;
-		border-radius: 12px;
-		background: var(--green);
-		color: var(--gold-logo);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-family: 'Newsreader', serif;
-		font-weight: 600;
-		font-size: 20px;
+		object-fit: contain;
+		flex-shrink: 0;
 	}
 	.brand-text {
 		line-height: 1.15;
@@ -1690,14 +1684,8 @@
 	.footer-logo {
 		width: 42px;
 		height: 42px;
-		border-radius: 11px;
-		background: var(--green);
-		color: var(--gold-light);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-family: 'Newsreader', serif;
-		font-size: 18px;
+		object-fit: contain;
+		flex-shrink: 0;
 	}
 	.footer-name {
 		font-family: 'Newsreader', serif;

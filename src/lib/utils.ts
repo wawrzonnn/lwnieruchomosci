@@ -60,22 +60,84 @@ export const HEATING_LABELS: Record<string, string> = {
 	KOMINKOWE: 'Kominkowe'
 };
 
-export const AMENITIES: string[] = [
-	'Balkon',
-	'Taras',
-	'Ogród',
-	'Garaż',
-	'Miejsce postojowe',
-	'Winda',
-	'Piwnica',
-	'Klimatyzacja',
-	'Ogrzewanie miejskie',
-	'Kominek',
-	'Umeblowane',
-	'Monitoring',
-	'Ochrona',
-	'Nowe budownictwo'
+export const AMENITY_GROUPS: { label: string; items: string[] }[] = [
+	{
+		label: 'Ogólne',
+		items: [
+			'Umeblowane',
+			'Klimatyzacja',
+			'Ogrzewanie miejskie',
+			'Kominek',
+			'Monitoring',
+			'Ochrona',
+			'Nowe budownictwo',
+			'Internet światłowodowy',
+			'Domofon / wideofon',
+			'Alarm'
+		]
+	},
+	{
+		label: 'Mieszkanie',
+		items: [
+			'Balkon',
+			'Taras',
+			'Loggia',
+			'Winda',
+			'Piwnica',
+			'Miejsce postojowe',
+			'Garaż',
+			'Komórka lokatorska',
+			'Drzwi antywłamaniowe',
+			'Zamknięte osiedle'
+		]
+	},
+	{
+		label: 'Dom',
+		items: [
+			'Ogród',
+			'Taras',
+			'Garaż',
+			'Basen',
+			'Poddasze użytkowe',
+			'Strych',
+			'Piwnica',
+			'Ogrodzenie',
+			'Instalacja solarna / fotowoltaika',
+			'Dojazd asfaltowy'
+		]
+	},
+	{
+		label: 'Działka',
+		items: [
+			'Media na działce',
+			'Prąd',
+			'Woda',
+			'Kanalizacja',
+			'Gaz',
+			'Dojazd asfaltowy',
+			'Ogrodzenie',
+			'Warunki zabudowy',
+			'Płaska',
+			'Zalesiona'
+		]
+	},
+	{
+		label: 'Lokal',
+		items: [
+			'Witryna / ekspozycja',
+			'Zaplecze socjalne',
+			'Klimatyzacja',
+			'Winda towarowa',
+			'Parking dla klientów',
+			'Osobne wejście',
+			'Wysoki standard wykończenia'
+		]
+	}
 ];
+
+export const AMENITIES: string[] = Array.from(
+	new Set(AMENITY_GROUPS.flatMap((g) => g.items))
+);
 
 export const INQUIRY_TYPE_LABELS: Record<string, string> = {
 	OFFER: 'Zgłoszenie oferty',
