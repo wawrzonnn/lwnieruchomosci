@@ -29,6 +29,7 @@ export interface Artykul {
 	date: string;
 	img: string;
 	featured?: boolean;
+	slug?: string;
 }
 
 export const artykuly: Artykul[] = [
@@ -38,7 +39,8 @@ export const artykuly: Artykul[] = [
 		excerpt: 'Co dzieje się na lokalnym rynku i czego spodziewać się w najbliższych miesiącach.',
 		date: '20 marca 2026',
 		img: U('photo-1600585154340-be6161a56a0c'),
-		featured: true
+		featured: true,
+		slug: 'ceny-nieruchomosci-jelenia-gora-trendy-2026'
 	},
 	{
 		cat: 'Porady',

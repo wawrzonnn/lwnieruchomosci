@@ -58,7 +58,7 @@
 
 		<!-- ============ POLECANY WPIS ============ -->
 		<section class="section featured-section">
-			<div class="featured-card">
+			<svelte:element this={featured.slug ? 'a' : 'div'} href={featured.slug ? `/blog/${featured.slug}` : undefined} class="featured-card">
 				<div class="featured-media">
 					<img src={featured.img} alt={featured.title} />
 					<span class="featured-badge">Polecany wpis</span>
@@ -69,7 +69,7 @@
 					<p class="featured-excerpt">{featured.excerpt}</p>
 					<span class="read-more">Czytaj artykuł →</span>
 				</div>
-			</div>
+			</svelte:element>
 		</section>
 
 		<!-- ============ WYSZUKIWARKA + KATEGORIE ============ -->
@@ -95,7 +95,7 @@
 			{#if filtered.length}
 				<div class="articles-grid">
 					{#each filtered as a}
-						<article class="article-card">
+						<svelte:element this={a.slug ? 'a' : 'article'} href={a.slug ? `/blog/${a.slug}` : undefined} class="article-card">
 							<div class="article-media">
 								<img src={a.img} alt={a.title} loading="lazy" />
 								<span class="article-cat">{a.cat}</span>
@@ -106,7 +106,7 @@
 								<p class="article-excerpt">{a.excerpt}</p>
 								<span class="read-more">Czytaj →</span>
 							</div>
-						</article>
+						</svelte:element>
 					{/each}
 				</div>
 			{:else}
