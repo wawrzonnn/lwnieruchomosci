@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	const miasto = getMiastoBySlug(params.slug);
 	if (!miasto) throw error(404, 'Nie znaleziono lokalizacji');
 
-	const oferty = (await getFilteredListings({ location: miasto.nazwa })).slice(0, 6);
+	const oferty = (await getFilteredListings({ location: miasto.nazwa })).slice(0, 12);
 	const inne = miasta.filter((m) => m.slug !== miasto.slug);
 
 	return { miasto, oferty, inne };

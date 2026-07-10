@@ -43,6 +43,17 @@ export function getListingsExcept(id: number, take = 6) {
 	});
 }
 
+// Liczba publicznych (nie-DRAFT) ofert per miejscowość — do matchowania
+// kafelków regionów na stronie głównej z faktycznymi ofertami.
+export async function getCityOfferCounts() {
+	const groups = await prisma.listing.groupBy({
+		by: ['city'],
+		_count: true,
+		where: { status: { not: 'DRAFT' } }
+	});
+	return groups.map((g) => ({ city: g.city, count: g._count as number }));
+}
+
 export async function getCategoryCounts() {
 	const groups = await prisma.listing.groupBy({
 		by: ['category'],

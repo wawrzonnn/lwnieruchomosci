@@ -124,6 +124,19 @@
 		regionScroller?.scrollBy({ left: 580, behavior: 'smooth' });
 	}
 
+	// ── Kafelki regionu: pokazujemy tylko lokalizacje, w których faktycznie mamy oferty ──
+	function regionCount(href: string) {
+		const slug = href.split('/').pop() ?? '';
+		return data.regionCounts?.[slug] ?? 0;
+	}
+	function offerWord(n: number) {
+		if (n === 1) return 'oferta';
+		const d = n % 10;
+		const dd = n % 100;
+		return d >= 2 && d <= 4 && !(dd >= 12 && dd <= 14) ? 'oferty' : 'ofert';
+	}
+	const regionTiles = $derived(region.galeria.filter((t) => regionCount(t.href) > 0));
+
 	// ── Opinie: pojedynczy rotujący cytat, auto-rotacja co 6,5s + kropki (restartują timer) ──
 	let testiIndex = $state(0);
 	$effect(() => {
@@ -354,38 +367,43 @@
 			</div>
 		</section>
 
-		<!-- ============ REGION — pozioma przeciągana galeria ============ -->
-		<section class="region-section" id="region">
-			<div class="region-head">
-				<div class="region-head-text">
-					<div class="eyebrow eyebrow-dark">Region Karkonosze</div>
-					<h2 class="region-h2">{region.tytul}</h2>
+		<!-- ============ REGION — pozioma przeciągana galeria (tylko lokalizacje z ofertami) ============ -->
+		{#if regionTiles.length}
+			<section class="region-section" id="region">
+				<div class="region-head">
+					<div class="region-head-text">
+						<div class="eyebrow eyebrow-dark">Region Karkonosze</div>
+						<h2 class="region-h2">{region.tytul}</h2>
+					</div>
+					<div class="region-hint">{region.hint}</div>
 				</div>
-				<div class="region-hint">{region.hint}</div>
-			</div>
-			<div class="region-gallery-wrap">
-				<div
-					class="region-scroller"
-					bind:this={regionScroller}
-					onscroll={updateRegionProgress}
-					onwheel={onRegionWheel}
-					onmousedown={onRegionMouseDown}
-				>
-					{#each region.galeria as tile}
-						<a href={tile.href} class="region-tile {tile.size}">
-							<div class="region-img" style="background-image:url('{tile.img}')"></div>
-							<div class="region-cap {tile.size}">{tile.caption}</div>
-							<span class="region-link">Zobacz lokalizację →</span>
-						</a>
-					{/each}
+				<div class="region-gallery-wrap">
+					<div
+						class="region-scroller"
+						bind:this={regionScroller}
+						onscroll={updateRegionProgress}
+						onwheel={onRegionWheel}
+						onmousedown={onRegionMouseDown}
+					>
+						{#each regionTiles as tile}
+							{@const n = regionCount(tile.href)}
+							<a href={tile.href} class="region-tile {tile.size}">
+								<div class="region-img" style="background-image:url('{tile.img}')"></div>
+								<div class="region-cap {tile.size}">{tile.caption}</div>
+								<span class="region-link">{n} {offerWord(n)} →</span>
+							</a>
+						{/each}
+					</div>
+					<button class="region-arrow left" aria-label="Poprzednie zdjęcie" onclick={regionPrev}>‹</button
+					>
+					<button class="region-arrow right" aria-label="Następne zdjęcie" onclick={regionNext}>›</button
+					>
 				</div>
-				<button class="region-arrow left" aria-label="Poprzednie zdjęcie" onclick={regionPrev}>‹</button>
-				<button class="region-arrow right" aria-label="Następne zdjęcie" onclick={regionNext}>›</button>
-			</div>
-			<div class="region-progress-track">
-				<div class="region-progress-bar" style="width:{regionProgress}%"></div>
-			</div>
-		</section>
+				<div class="region-progress-track">
+					<div class="region-progress-bar" style="width:{regionProgress}%"></div>
+				</div>
+			</section>
+		{/if}
 
 		<!-- ============ TESTIMONIALS — pojedynczy rotujący cytat na zdjęciu ============ -->
 		<section class="testi-section-v2">
