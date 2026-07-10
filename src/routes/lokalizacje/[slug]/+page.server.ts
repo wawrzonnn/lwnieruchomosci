@@ -1,7 +1,8 @@
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad, Actions } from './$types';
 import { error } from '@sveltejs/kit';
 import { getMiastoBySlug, miasta } from '$lib/data/lokalizacje';
 import { getFilteredListings } from '$lib/db/listings';
+import { submitLead } from '$lib/server/lead-form';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const miasto = getMiastoBySlug(params.slug);
@@ -11,4 +12,15 @@ export const load: PageServerLoad = async ({ params }) => {
 	const inne = miasta.filter((m) => m.slug !== miasto.slug);
 
 	return { miasto, oferty, inne };
+};
+
+export const actions: Actions = {
+	lead: async ({ request, params }) => {
+		const miasto = getMiastoBySlug(params.slug);
+		return submitLead(await request.formData(), {
+			type: 'SEARCH',
+			subject: `Lokalizacja: ${miasto?.nazwa ?? params.slug}`,
+			extra: [{ key: 'type', label: 'Szukam' }]
+		});
+	}
 };

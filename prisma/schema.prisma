@@ -179,6 +179,7 @@ model Inquiry {
 
   type    InquiryType
   status  InquiryStatus @default(NEW)
+  subject String? // skąd/temat, np. "Wycena nieruchomości", "Lokalizacja: Karpacz"
   name    String
   message String        @db.Text
   contact String
@@ -192,6 +193,9 @@ model Inquiry {
 enum InquiryType {
   OFFER
   SEARCH
+  CONTACT
+  SERVICE
+  NEWSLETTER
 }
 
 enum InquiryStatus {

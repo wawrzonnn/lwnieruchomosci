@@ -25,7 +25,8 @@ export const actions: Actions = {
 
 		const listing = await getListingBySlug(params.slug);
 		await createInquiry({
-			type: 'SEARCH',
+			type: 'OFFER',
+			subject: `Oferta: ${listing?.title ?? params.slug}`,
 			name,
 			contact,
 			message: message || `Zapytanie o ofertę: ${listing?.title ?? params.slug}`,

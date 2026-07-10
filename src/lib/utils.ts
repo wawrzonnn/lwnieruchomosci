@@ -140,8 +140,11 @@ export const AMENITIES: string[] = Array.from(
 );
 
 export const INQUIRY_TYPE_LABELS: Record<string, string> = {
-	OFFER: 'Zgłoszenie oferty',
-	SEARCH: 'Poszukiwanie'
+	OFFER: 'Zapytanie o ofertę',
+	SEARCH: 'Poszukiwanie',
+	CONTACT: 'Kontakt',
+	SERVICE: 'Usługa',
+	NEWSLETTER: 'Newsletter'
 };
 
 export const INQUIRY_STATUS_LABELS: Record<string, string> = {

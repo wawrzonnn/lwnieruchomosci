@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import type { Blok } from '$lib/blog/types';
@@ -88,10 +90,15 @@
 
 	// ── Newsletter ──
 	let newsletterSubmitted = $state(false);
-	function onSubmitNewsletter(e: SubmitEvent) {
-		e.preventDefault();
-		newsletterSubmitted = true;
-	}
+	let newsletterError = $state("");
+	const onSubmitNewsletter: SubmitFunction = () => async ({ result }) => {
+		if (result.type === "success") {
+			newsletterSubmitted = true;
+			newsletterError = "";
+		} else if (result.type === "failure") {
+			newsletterError = String(result.data?.error ?? "Nie udało się zapisać.");
+		}
+	};
 </script>
 
 <svelte:head>
@@ -294,7 +301,8 @@
 				</div>
 				<div class="newsletter-form-wrap">
 					{#if !newsletterSubmitted}
-						<form class="newsletter-form" onsubmit={onSubmitNewsletter}>
+						<form class="newsletter-form" method="POST" action="?/newsletter" use:enhance={onSubmitNewsletter}>
+							<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
 							<input type="email" name="email" required placeholder="Twój e-mail" />
 							<button type="submit">{newsletter.przycisk}</button>
 						</form>

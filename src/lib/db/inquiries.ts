@@ -9,7 +9,14 @@ export function getNewInquiriesCount() {
 	return prisma.inquiry.count({ where: { status: 'NEW' } });
 }
 
-export function createInquiry(data: { type: InquiryType; name: string; message: string; contact: string; listingId?: number }) {
+export function createInquiry(data: {
+	type: InquiryType;
+	name: string;
+	message: string;
+	contact: string;
+	subject?: string;
+	listingId?: number;
+}) {
 	return prisma.inquiry.create({ data });
 }
 

@@ -32,7 +32,7 @@
 				<span class="t-avatar">{initials(inquiry.name)}</span>
 				<div class="inquiry-title">
 					<strong>{inquiry.name}</strong>
-					<span>{INQUIRY_TYPE_LABELS[inquiry.type]}</span>
+					<span>{INQUIRY_TYPE_LABELS[inquiry.type] ?? inquiry.type}{inquiry.subject ? ` · ${inquiry.subject}` : ''}</span>
 				</div>
 				<span class="inquiry-date">{formatDate(inquiry.createdAt)}</span>
 				<form method="POST" action="?/cycleStatus" use:enhance>

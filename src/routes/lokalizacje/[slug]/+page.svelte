@@ -1,6 +1,8 @@
 <script lang="ts">
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { seoWzor, ctaKontakt } from '$lib/data/lokalizacje';
 	import { CATEGORY_LABELS, formatArea, formatPrice, pricePerM2 } from '$lib/utils';
 
@@ -34,10 +36,15 @@
 
 	// ── Formularz zgłoszenia ──
 	let submitted = $state(false);
-	function onSubmit(e: SubmitEvent) {
-		e.preventDefault();
-		submitted = true;
-	}
+	let formError = $state('');
+	const onSubmit: SubmitFunction = () => async ({ result }) => {
+		if (result.type === 'success') {
+			submitted = true;
+			formError = '';
+		} else if (result.type === 'failure') {
+			formError = String(result.data?.error ?? 'Nie udało się wysłać. Spróbuj ponownie.');
+		}
+	};
 </script>
 
 <svelte:head>
@@ -208,7 +215,9 @@
 				</div>
 				<div class="kontakt-form-wrap">
 					{#if !submitted}
-						<form class="kontakt-form" onsubmit={onSubmit}>
+						<form class="kontakt-form" method="POST" action="?/lead" use:enhance={onSubmit}>
+							<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+							{#if formError}<p style="color:#b3261e;font-size:14px;">{formError}</p>{/if}
 							<label class="field"
 								>Imię i nazwisko
 								<input type="text" name="name" required />

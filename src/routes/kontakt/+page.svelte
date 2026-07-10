@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import {
@@ -13,10 +15,15 @@
 	} from '$lib/data/kontakt-strona';
 
 	let formSubmitted = $state(false);
-	function onSubmitForm(e: SubmitEvent) {
-		e.preventDefault();
-		formSubmitted = true;
-	}
+	let formError = $state('');
+	const enhanceLead: SubmitFunction = () => async ({ result }) => {
+		if (result.type === 'success') {
+			formSubmitted = true;
+			formError = '';
+		} else if (result.type === 'failure') {
+			formError = String(result.data?.error ?? 'Nie udało się wysłać. Spróbuj ponownie.');
+		}
+	};
 
 	const phoneHref = `tel:${dane.telefon.replace(/\s/g, '')}`;
 </script>
@@ -106,7 +113,9 @@
 					<div class="eyebrow">{formularz.eyebrow}</div>
 					<h2 class="h2 contact-form-h2">{formularz.tytul}</h2>
 					{#if !formSubmitted}
-						<form class="lead-form" onsubmit={onSubmitForm}>
+						<form class="lead-form" method="POST" use:enhance={enhanceLead}>
+						<input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
+						{#if formError}<p style="color:#b3261e;font-size:14px;margin-top:6px;">{formError}</p>{/if}
 							<label class="lead-field">
 								Imię i nazwisko
 								<input type="text" name="name" required />
