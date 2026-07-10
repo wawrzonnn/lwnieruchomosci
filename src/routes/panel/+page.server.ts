@@ -1,6 +1,7 @@
 import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { verifyPassword } from '$lib/db/users';
+import { sealSession } from '$lib/server/session';
 
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {
@@ -15,7 +16,7 @@ export const actions: Actions = {
 
 		cookies.set(
 			'lw_session',
-			JSON.stringify({ id: user.id, email: user.email, name: user.name, role: user.role }),
+			sealSession({ id: user.id, email: user.email, name: user.name, role: user.role }),
 			{ path: '/', httpOnly: true, sameSite: 'lax', maxAge: 60 * 60 * 24 * 7 }
 		);
 
