@@ -1,7 +1,7 @@
 <script lang="ts">
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
-	import { seoWzor, pustyStanOfert, ctaKontakt } from '$lib/data/lokalizacje';
+	import { seoWzor, ctaKontakt } from '$lib/data/lokalizacje';
 	import { CATEGORY_LABELS, formatArea, formatPrice, pricePerM2 } from '$lib/utils';
 
 	let { data } = $props();
@@ -67,7 +67,9 @@
 					{/each}
 				</div>
 				<div class="hero-cta-row">
-					<a href="#oferty" class="btn-solid">Zobacz oferty</a>
+					{#if oferty.length}
+						<a href="#oferty" class="btn-solid">Zobacz oferty</a>
+					{/if}
 					<a href="#kontakt" class="btn-outline-light">Skontaktuj się</a>
 				</div>
 			</div>
@@ -99,19 +101,17 @@
 			</div>
 		</section>
 
-		<!-- ============ OFERTY ============ -->
-		<section class="section oferty-section" id="oferty">
-			<div class="section-head">
-				<div>
-					<div class="eyebrow">Nieruchomości</div>
-					<h2 class="h2">Oferty w {miasto.nazwaLoc}</h2>
-				</div>
-				{#if oferty.length}
+		<!-- ============ OFERTY (tylko gdy lokalizacja ma oferty) ============ -->
+		{#if oferty.length}
+			<section class="section oferty-section" id="oferty">
+				<div class="section-head">
+					<div>
+						<div class="eyebrow">Nieruchomości</div>
+						<h2 class="h2">Oferty w {miasto.nazwaLoc}</h2>
+					</div>
 					<a href="/oferty" class="head-link">Zobacz wszystkie oferty →</a>
-				{/if}
-			</div>
+				</div>
 
-			{#if oferty.length}
 				<div class="offers-grid">
 					{#each oferty as listing}
 						{@const imgs = sortedImages(listing)}
@@ -151,25 +151,8 @@
 						</article>
 					{/each}
 				</div>
-			{:else}
-				<div class="empty-offers">
-					<div class="empty-icon">
-						<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M3 10.5 12 4l9 6.5"></path><path d="M5 9.5V20h14V9.5"></path><path d="M9.5 20v-5h5v5"></path>
-						</svg>
-					</div>
-					<h3 class="empty-title">{pustyStanOfert.tytulWzor.replace('{nazwaLoc}', miasto.nazwaLoc)}</h3>
-					<p class="empty-desc">{pustyStanOfert.opis}</p>
-					<div class="empty-cta-row">
-						{#each pustyStanOfert.cta as c}
-							<a href={c.href} class={c.wariant === 'green' ? 'btn-solid-green' : 'btn-outline-green'}
-								>{c.label}</a
-							>
-						{/each}
-					</div>
-				</div>
-			{/if}
-		</section>
+			</section>
+		{/if}
 
 		<!-- ============ ATUTY ============ -->
 		<section class="section atuty-section">
@@ -630,66 +613,6 @@
 		color: #fff;
 		padding: 13px;
 		border-radius: 12px;
-		font-weight: 600;
-		font-size: 15px;
-	}
-
-	/* ===== EMPTY STATE OFERT ===== */
-	.empty-offers {
-		background: var(--bg-cream);
-		border: 1px solid var(--border);
-		border-radius: 20px;
-		padding: 60px 48px;
-		text-align: center;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.empty-icon {
-		width: 66px;
-		height: 66px;
-		border-radius: 50%;
-		background: var(--gold-soft);
-		color: var(--gold);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: 20px;
-	}
-	.empty-title {
-		font-family: 'Newsreader', serif;
-		font-weight: 500;
-		font-size: 28px;
-		line-height: 1.2;
-		margin-bottom: 12px;
-	}
-	.empty-desc {
-		font-size: 16px;
-		line-height: 1.7;
-		color: #5c6054;
-		max-width: 460px;
-		margin-bottom: 26px;
-	}
-	.empty-cta-row {
-		display: flex;
-		gap: 12px;
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-	.btn-solid-green {
-		background: var(--green);
-		color: #fff;
-		padding: 13px 26px;
-		border-radius: 999px;
-		font-weight: 600;
-		font-size: 15px;
-	}
-	.btn-outline-green {
-		background: #fff;
-		border: 1px solid var(--border);
-		color: var(--green);
-		padding: 13px 26px;
-		border-radius: 999px;
 		font-weight: 600;
 		font-size: 15px;
 	}
