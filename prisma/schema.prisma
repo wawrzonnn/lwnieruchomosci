@@ -127,6 +127,52 @@ enum Heating {
   KOMINKOWE
 }
 
+model Article {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  slug     String        @unique
+  status   ArticleStatus @default(DRAFT)
+  featured Boolean       @default(false) // wyróżniony (duża karta na górze bloga)
+
+  // Karta / nagłówek
+  category      String // "Rynek", "Porady", "Sprzedaż", "Kupno", "Kredyty"
+  title         String
+  titleEmphasis String? // słowo/fraza z tytułu wyróżniona na złoto w H1
+  excerpt       String  @db.Text // zajawka na karcie listy
+  lead          String? @db.Text // wprowadzenie pod H1 na stronie artykułu
+  readTime      String? // np. "8 min czytania"
+  publishedAt   DateTime? // data publikacji (wyświetlana + sortowanie)
+
+  // Zdjęcie główne (też miniatura karty + og:image)
+  coverImage   String
+  coverAlt     String?
+  coverCaption String?
+
+  // Treść — tablica bloków (sekcja / akapit / cytat / lista / zdjecie / statystyki)
+  content Json     @default("[]")
+  tags    String[] @default([])
+
+  // Autor (denormalizowany — małe biuro)
+  authorName     String  @default("Zespół LW Nieruchomości")
+  authorRole     String?
+  authorInitials String?
+  authorBio      String? @db.Text
+
+  // SEO
+  seoTitle       String?
+  seoDescription String? @db.Text
+  ogImage        String?
+
+  @@map("articles")
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+}
+
 model Inquiry {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())

@@ -1,7 +1,10 @@
 <script lang="ts">
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
-	import { seo, breadcrumbs, hero, kategorie, artykuly, newsletter } from '$lib/data/blog';
+	import { seo, breadcrumbs, hero, kategorie, newsletter } from '$lib/data/blog';
+
+	let { data } = $props();
+	const artykuly = data.artykuly;
 
 	let activeCat = $state('Wszystkie');
 	let query = $state('');
@@ -57,20 +60,22 @@
 		</section>
 
 		<!-- ============ POLECANY WPIS ============ -->
-		<section class="section featured-section">
-			<svelte:element this={featured.slug ? 'a' : 'div'} href={featured.slug ? `/blog/${featured.slug}` : undefined} class="featured-card">
-				<div class="featured-media">
-					<img src={featured.img} alt={featured.title} />
-					<span class="featured-badge">Polecany wpis</span>
-				</div>
-				<div class="featured-body">
-					<div class="featured-meta">{featured.cat} · {featured.date}</div>
-					<div class="featured-title">{featured.title}</div>
-					<p class="featured-excerpt">{featured.excerpt}</p>
-					<span class="read-more">Czytaj artykuł →</span>
-				</div>
-			</svelte:element>
-		</section>
+		{#if featured}
+			<section class="section featured-section">
+				<a href="/blog/{featured.slug}" class="featured-card">
+					<div class="featured-media">
+						<img src={featured.img} alt={featured.title} />
+						<span class="featured-badge">Polecany wpis</span>
+					</div>
+					<div class="featured-body">
+						<div class="featured-meta">{featured.cat} · {featured.date}</div>
+						<div class="featured-title">{featured.title}</div>
+						<p class="featured-excerpt">{featured.excerpt}</p>
+						<span class="read-more">Czytaj artykuł →</span>
+					</div>
+				</a>
+			</section>
+		{/if}
 
 		<!-- ============ WYSZUKIWARKA + KATEGORIE ============ -->
 		<section class="section filters-bar">
@@ -95,7 +100,7 @@
 			{#if filtered.length}
 				<div class="articles-grid">
 					{#each filtered as a}
-						<svelte:element this={a.slug ? 'a' : 'article'} href={a.slug ? `/blog/${a.slug}` : undefined} class="article-card">
+						<a href="/blog/{a.slug}" class="article-card">
 							<div class="article-media">
 								<img src={a.img} alt={a.title} loading="lazy" />
 								<span class="article-cat">{a.cat}</span>
@@ -106,7 +111,7 @@
 								<p class="article-excerpt">{a.excerpt}</p>
 								<span class="read-more">Czytaj →</span>
 							</div>
-						</svelte:element>
+						</a>
 					{/each}
 				</div>
 			{:else}

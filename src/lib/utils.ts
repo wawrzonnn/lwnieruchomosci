@@ -169,11 +169,25 @@ export function initials(name: string): string {
 		.toUpperCase();
 }
 
+const PL_MONTHS = [
+	'stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca',
+	'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'
+];
+
+// Data w polskim formacie dopełniacza, np. "20 marca 2026".
+export function formatPlDate(date: Date | string | null | undefined): string {
+	if (!date) return '';
+	const d = typeof date === 'string' ? new Date(date) : date;
+	if (Number.isNaN(d.getTime())) return '';
+	return `${d.getDate()} ${PL_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
 const DIACRITICS = new RegExp('[̀-ͯ]', 'g');
 
 export function slugify(text: string): string {
 	return text
 		.toLowerCase()
+		.replace(/ł/g, 'l') // ł nie rozkłada się przez NFD
 		.normalize('NFD')
 		.replace(DIACRITICS, '')
 		.replace(/[^a-z0-9]+/g, '-')

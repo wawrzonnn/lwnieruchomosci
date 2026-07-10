@@ -1,7 +1,8 @@
 <script lang="ts">
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
-	import { getArticleBySlug, type Blok } from '$lib/data/blog-artykuly';
+	import type { Blok } from '$lib/blog/types';
+	import { newsletter } from '$lib/data/blog';
 
 	let { data } = $props();
 	const article = data.article;
@@ -90,10 +91,6 @@
 	function onSubmitNewsletter(e: SubmitEvent) {
 		e.preventDefault();
 		newsletterSubmitted = true;
-	}
-
-	function relatedHref(slug: string) {
-		return getArticleBySlug(slug) ? `/blog/${slug}` : undefined;
 	}
 </script>
 
@@ -257,52 +254,54 @@
 		</div>
 
 		<!-- ============ PRZECZYTAJ RÓWNIEŻ ============ -->
-		<div class="related-wrap">
-			<div class="related-head">
-				<div>
-					<div class="eyebrow">Przeczytaj również</div>
-					<h2 class="h2">{article.powiazane.tytul}</h2>
+		{#if article.powiazane.wpisy.length}
+			<div class="related-wrap">
+				<div class="related-head">
+					<div>
+						<div class="eyebrow">Przeczytaj również</div>
+						<h2 class="h2">{article.powiazane.tytul}</h2>
+					</div>
+					<a href={article.powiazane.linkWszystkie.href} class="head-link"
+						>{article.powiazane.linkWszystkie.label}</a
+					>
 				</div>
-				<a href={article.powiazane.linkWszystkie.href} class="head-link"
-					>{article.powiazane.linkWszystkie.label}</a
-				>
+				<div class="related-grid">
+					{#each article.powiazane.wpisy as w}
+						<a href="/blog/{w.slug}" class="related-card">
+							<div class="related-media">
+								<img src={w.img} alt={w.title} loading="lazy" />
+								<span class="related-cat">{w.cat}</span>
+							</div>
+							<div class="related-body">
+								<div class="related-date">{w.date}</div>
+								<div class="related-title">{w.title}</div>
+								<p class="related-excerpt">{w.excerpt}</p>
+								<span class="read-more">Czytaj →</span>
+							</div>
+						</a>
+					{/each}
+				</div>
 			</div>
-			<div class="related-grid">
-				{#each article.powiazane.wpisy as w}
-					<svelte:element this={relatedHref(w.slug) ? 'a' : 'div'} href={relatedHref(w.slug)} class="related-card">
-						<div class="related-media">
-							<img src={w.img} alt={w.title} loading="lazy" />
-							<span class="related-cat">{w.cat}</span>
-						</div>
-						<div class="related-body">
-							<div class="related-date">{w.date}</div>
-							<div class="related-title">{w.title}</div>
-							<p class="related-excerpt">{w.excerpt}</p>
-							<span class="read-more">Czytaj →</span>
-						</div>
-					</svelte:element>
-				{/each}
-			</div>
-		</div>
+		{/if}
 
 		<!-- ============ NEWSLETTER ============ -->
 		<section class="section newsletter-section">
 			<div class="newsletter-box">
 				<div class="newsletter-copy">
-					<div class="eyebrow eyebrow-green">{article.newsletter.eyebrow}</div>
-					<h2 class="h2 newsletter-h2">{article.newsletter.tytul}</h2>
-					<p class="newsletter-lead">{article.newsletter.podtytul}</p>
+					<div class="eyebrow eyebrow-green">{newsletter.eyebrow}</div>
+					<h2 class="h2 newsletter-h2">{newsletter.tytul}</h2>
+					<p class="newsletter-lead">{newsletter.podtytul}</p>
 				</div>
 				<div class="newsletter-form-wrap">
 					{#if !newsletterSubmitted}
 						<form class="newsletter-form" onsubmit={onSubmitNewsletter}>
 							<input type="email" name="email" required placeholder="Twój e-mail" />
-							<button type="submit">{article.newsletter.przycisk}</button>
+							<button type="submit">{newsletter.przycisk}</button>
 						</form>
 					{:else}
 						<div class="newsletter-thanks">
 							<span class="newsletter-thanks-icon">✓</span>
-							<span>{article.newsletter.potwierdzenie}</span>
+							<span>{newsletter.potwierdzenie}</span>
 						</div>
 					{/if}
 				</div>

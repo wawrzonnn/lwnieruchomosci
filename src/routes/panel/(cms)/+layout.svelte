@@ -9,12 +9,14 @@
 	const navItems = [
 		{ href: '/panel/oferty', label: 'Oferty' },
 		{ href: '/panel/oferty/nowa', label: 'Dodaj ofertę' },
+		{ href: '/panel/artykuly', label: 'Blog' },
 		{ href: '/panel/uzytkownicy', label: 'Użytkownicy' },
 		{ href: '/panel/zgloszenia', label: 'Zgłoszenia', badge: data.newInquiries }
 	];
 
 	function isActive(href: string) {
 		if (href === '/panel/oferty') return $page.url.pathname === '/panel/oferty';
+		if (href === '/panel/artykuly') return $page.url.pathname.startsWith('/panel/artykuly');
 		return $page.url.pathname.startsWith(href);
 	}
 </script>
