@@ -35,6 +35,9 @@ model Listing {
   category ListingCategory
   status   ListingStatus   @default(ACTIVE)
 
+  // Numer oferty ze źródła / systemu pośrednika (np. import z lw.nieruchomosci.pl)
+  referenceNumber String?
+
   transactionType TransactionType @default(SPRZEDAZ)
   market          Market?
 

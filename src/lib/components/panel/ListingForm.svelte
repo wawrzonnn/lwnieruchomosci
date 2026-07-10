@@ -15,6 +15,7 @@
 
 	// ── pola tekstowe (część śledzona dla podglądu) ──
 	let title = $state(listing?.title ?? '');
+	let referenceNumber = $state(listing?.referenceNumber ?? '');
 	let category = $state(listing?.category ?? 'MIESZKANIE');
 	let transactionType = $state(listing?.transactionType ?? 'SPRZEDAZ');
 	let market = $state(listing?.market ?? '');
@@ -111,6 +112,16 @@
 					<label class="field span-2">
 						<span class="field__label">Tytuł oferty</span>
 						<input class="input" name="title" bind:value={title} required />
+					</label>
+
+					<label class="field span-2">
+						<span class="field__label">Numer oferty</span>
+						<input
+							class="input"
+							name="referenceNumber"
+							bind:value={referenceNumber}
+							placeholder="np. numer z systemu pośrednika (opcjonalnie)"
+						/>
 					</label>
 
 					<label class="field">

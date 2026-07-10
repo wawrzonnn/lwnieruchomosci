@@ -64,6 +64,7 @@ export function parseListingForm(data: FormData, existingSlug?: string): ParsedL
 
 	const parsed: ListingData = {
 		title,
+		referenceNumber: String(data.get('referenceNumber') ?? '').trim() || null,
 		slug: existingSlug ?? `${slugify(title)}-${Math.random().toString(36).slice(2, 7)}`,
 		category: enumOrNull<ListingCategory>(data.get('category')) ?? 'MIESZKANIE',
 		transactionType: enumOrNull<TransactionType>(data.get('transactionType')) ?? 'SPRZEDAZ',

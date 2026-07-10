@@ -91,6 +91,9 @@
 
 			<div class="detail-info">
 				<span class="category-chip">{CATEGORY_LABELS[listing.category]}</span>
+				{#if listing.referenceNumber}
+					<span class="ref-number">Nr oferty: {listing.referenceNumber}</span>
+				{/if}
 				<h1 class="h-page">{listing.title}</h1>
 				<span class="location">
 					<span class="location-dot"></span>{locationLabel(listing.city, listing.district)}
@@ -261,6 +264,11 @@
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		color: var(--c-primary);
+	}
+	.ref-number {
+		margin-left: 10px;
+		font-size: 12px;
+		color: var(--c-subtle);
 	}
 	.detail-info h1 {
 		margin: 6px 0 6px;
