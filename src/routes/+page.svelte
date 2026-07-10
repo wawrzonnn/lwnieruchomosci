@@ -156,6 +156,14 @@
 		name="description"
 		content="Lokalne biuro nieruchomości z Jeleniej Góry. Kupno, sprzedaż i wynajem nieruchomości w Kotlinie Jeleniogórskiej i Karkonoszach."
 	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="LW Nieruchomości — Jelenia Góra i Karkonosze" />
+	<meta
+		property="og:description"
+		content="Lokalne biuro nieruchomości z Jeleniej Góry. Kupno, sprzedaż i wynajem w Kotlinie Jeleniogórskiej i Karkonoszach."
+	/>
+	<meta property="og:image" content={data.ogImage} />
+	{@html data.jsonLd}
 </svelte:head>
 
 <div class="lw-page">

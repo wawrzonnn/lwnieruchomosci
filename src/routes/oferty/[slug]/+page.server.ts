@@ -2,14 +2,33 @@ import type { PageServerLoad, Actions } from './$types';
 import { error, fail } from '@sveltejs/kit';
 import { getListingBySlug, getListingsExcept } from '$lib/db/listings';
 import { createInquiry } from '$lib/db/inquiries';
+import { resolveBase, listingLd, jsonLdScript, abs, defaultOgImage } from '$lib/seo';
+import { CATEGORY_LABELS, formatArea, formatPrice, locationLabel } from '$lib/utils';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, url }) => {
 	const listing = await getListingBySlug(params.slug);
 	if (!listing) throw error(404, 'Nie znaleziono oferty');
 
 	const similar = await getListingsExcept(listing.id, 3);
 
-	return { listing, similar };
+	const base = resolveBase(url.origin);
+	const mainImg = listing.images?.find((i) => i.isMain)?.url ?? listing.images?.[0]?.url;
+	const parts = [
+		CATEGORY_LABELS[listing.category],
+		locationLabel(listing.city, listing.district),
+		formatPrice(listing.price),
+		listing.area ? formatArea(listing.area) : null
+	].filter(Boolean);
+
+	return {
+		listing,
+		similar,
+		seo: {
+			description: `${parts.join(' · ')}. ${listing.description ?? ''}`.slice(0, 160),
+			ogImage: mainImg ? abs(base, mainImg) : defaultOgImage(base),
+			jsonLd: jsonLdScript(listingLd(base, listing))
+		}
+	};
 };
 
 export const actions: Actions = {

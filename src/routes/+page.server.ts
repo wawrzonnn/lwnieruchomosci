@@ -1,12 +1,14 @@
 import type { PageServerLoad } from './$types';
 import { getPublicListings, getCityOfferCounts } from '$lib/db/listings';
 import { miasta } from '$lib/data/lokalizacje';
+import { resolveBase, organizationLd, jsonLdScript, defaultOgImage } from '$lib/seo';
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ url }) => {
 	const [featuredListings, cityCounts] = await Promise.all([
 		getPublicListings(6),
 		getCityOfferCounts()
 	]);
+	const base = resolveBase(url.origin);
 
 	// Ile ofert przypada na każdą lokalizację regionu (city zawiera nazwę miasta).
 	const regionCounts: Record<string, number> = {};
@@ -16,5 +18,10 @@ export const load: PageServerLoad = async () => {
 			.reduce((sum, c) => sum + c.count, 0);
 	}
 
-	return { featuredListings, regionCounts };
+	return {
+		featuredListings,
+		regionCounts,
+		jsonLd: jsonLdScript(organizationLd(base)),
+		ogImage: defaultOgImage(base)
+	};
 };

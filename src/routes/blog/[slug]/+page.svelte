@@ -104,7 +104,11 @@
 <svelte:head>
 	<title>{article.seo.title}</title>
 	<meta name="description" content={article.seo.description} />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content={article.naglowek.tytul} />
+	<meta property="og:description" content={article.seo.description} />
 	<meta property="og:image" content={article.seo.ogImage} />
+	{@html data.jsonLd}
 </svelte:head>
 
 <div class="lw-page">
