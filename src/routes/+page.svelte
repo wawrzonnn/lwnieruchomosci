@@ -303,7 +303,7 @@
 			<div class="about-grid">
 				<div>
 					<div class="eyebrow eyebrow-green">O nas</div>
-					<h2 class="about-h2">Z sercem do ludzi<br />i domów</h2>
+					<h2 class="about-h2">Nieruchomości to nie tylko transakcje. To przede wszystkim ludzie i ich historie.</h2>
 					{#each oNas.akapity as p}<p class="about-p">{p}</p>{/each}
 					<div class="stats">
 						{#each statystyki as s}

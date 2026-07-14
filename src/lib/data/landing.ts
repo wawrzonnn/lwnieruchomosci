@@ -152,8 +152,9 @@ export const oferty: Offer[] = [
 
 export const oNas = {
 	akapity: [
+		'Sprzedaż nieruchomości to nie tylko podpisanie aktu notarialnego. To często początek nowego etapu życia, spełnianie marzeń, trudne rodzinne decyzje lub zamknięcie ważnego rozdziału. Dlatego od ponad 11 lat pomagamy naszym klientom przejść przez ten proces spokojnie i świadomie.',
 		'LW Nieruchomości powstało z przekonania, że dobra współpraca zaczyna się od rozmowy i poznania potrzeb klienta. Każdą nieruchomość traktujemy indywidualnie, poświęcając jej czas i uwagę, na jakie zasługuje.',
-		'Nie stawiamy na ilość obsługiwanych ofert — stawiamy na jakość współpracy. Dzięki temu jesteśmy z klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap procesu.'
+		'Nie stawiamy na ilość obsługiwanych ofert. Stawiamy na jakość współpracy. Dzięki temu możemy być z naszymi klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap całego procesu.'
 	],
 	zdjecie: U('photo-1573496359142-b8d87734a5a2', 800),
 	podpisZdjecia: 'Poznajmy się osobiście',
