@@ -168,6 +168,40 @@ export const statystyki = [
 	{ n: '4,9', l: 'ocena Google' }
 ];
 
+// Sekcja „Dlaczego klienci wybierają LW" — 6 kafelków (copy: dokument Canva)
+export const dlaczego = [
+	{
+		ikona: '📍',
+		t: 'Mobilne biuro',
+		d: 'Dla komfortu i oszczędności Twojego czasu spotykamy się w miejscu, które będzie dla Ciebie najwygodniejsze. W spokojnej atmosferze porozmawiamy o Twojej nieruchomości i wspólnie znajdziemy najlepsze rozwiązanie.'
+	},
+	{
+		ikona: '🤝',
+		t: 'Indywidualne podejście',
+		d: 'Nie ilość ofert, a jakość współpracy. Każdej nieruchomości poświęcamy czas, aby dobrze poznać jej potencjał i przygotować najlepszą strategię sprzedaży.'
+	},
+	{
+		ikona: '💬',
+		t: 'Uczciwe doradztwo',
+		d: 'Naszym celem nie jest szybka transakcja za wszelką cenę. Doradzamy rzetelnie i pomagamy podjąć decyzję, która będzie najlepsza dla Ciebie i Twojej rodziny.'
+	},
+	{
+		ikona: '🛡️',
+		t: 'Bezpieczeństwo',
+		d: 'Dbamy o to, aby cały proces przebiegał sprawnie i bezpiecznie. Jesteśmy z Tobą od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi.'
+	},
+	{
+		ikona: '🗺️',
+		t: 'Znajomość lokalnego rynku',
+		d: 'Od ponad 11 lat działamy na terenie Jeleniej Góry i Karkonoszy. Doskonale znamy lokalny rynek nieruchomości i pomagamy podejmować decyzje oparte na wiedzy oraz doświadczeniu.'
+	},
+	{
+		ikona: '⭐',
+		t: '11 lat doświadczenia',
+		d: 'Ponad dekada pracy w branży nieruchomości to setki rozmów, przeprowadzonych transakcji i zdobytego doświadczenia. Dzięki temu możemy skutecznie wspierać klientów na każdym etapie sprzedaży lub zakupu nieruchomości.'
+	}
+];
+
 export interface Service {
 	no: string;
 	t: string;
