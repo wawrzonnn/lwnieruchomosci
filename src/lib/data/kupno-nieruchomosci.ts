@@ -17,10 +17,10 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Kupno nieruchomości',
-	tytul: 'Kupno nieruchomości w Jeleniej Górze i Karkonoszach',
-	tytulEmfaza: 'Karkonoszach',
+	tytul: 'Kupno nieruchomości z kimś, kto stoi po Twojej stronie',
+	tytulEmfaza: 'po Twojej stronie',
 	podtytul:
-		'Zakup nieruchomości to ważna decyzja, która wymaga nie tylko znalezienia odpowiedniej oferty, ale także dokładnej analizy i bezpiecznego przeprowadzenia całego procesu. Pomożemy Ci znaleźć nieruchomość dopasowaną do Twoich potrzeb i przeprowadzimy Cię przez każdy etap zakupu.',
+		'Pomożemy znaleźć wymarzone mieszkanie, dom lub działkę w Jeleniej Górze i Karkonoszach — sprawdzimy stan prawny, wynegocjujemy cenę i przeprowadzimy przez formalności.',
 	tlo: U('photo-1512917774080-9991f1c4c750', 1600),
 	cta: [
 		{ label: 'Powiedz, czego szukasz', href: '#formularz', wariant: 'green' },
@@ -96,20 +96,16 @@ export const etapy = {
 };
 
 export const formalnosci = {
-	eyebrow: 'Co obejmuje usługa',
-	tytul: 'W czym Ci pomagamy przy zakupie',
-	podtytul: 'Prowadzimy Cię przez cały zakup — od poznania potrzeb aż po bezpieczną finalizację.',
+	eyebrow: 'Formalności',
+	tytul: 'Formalności bierzemy na siebie',
+	podtytul: 'Czuwamy nad każdym dokumentem i terminem, żebyś kupował bezpiecznie i bez niespodzianek.',
 	lista: [
-		'Poznanie Twoich potrzeb i możliwości',
-		'Wyszukiwanie odpowiednich ofert',
-		'Organizacja prezentacji nieruchomości',
-		'Analiza wybranych ofert',
-		'Profesjonalne prezentacje wideo — poznasz ofertę jeszcze przed umówieniem spotkania',
-		'Wsparcie podczas negocjacji',
-		'Pomoc w kompletowaniu dokumentów',
-		'Koordynacja formalności',
-		'Współpraca z doradcą kredytowym (jeśli jest potrzebna)',
-		'Bezpieczna finalizacja zakupu'
+		'Weryfikacja księgi wieczystej i stanu prawnego',
+		'Sprawdzenie obciążeń i zadłużenia',
+		'Analiza umowy przedwstępnej i rezerwacyjnej',
+		'Koordynacja z notariuszem',
+		'Wsparcie przy kredycie hipotecznym',
+		'Pomoc przy odbiorze nieruchomości'
 	]
 };
 
@@ -147,8 +143,8 @@ export const faq = {
 
 export const formularz = {
 	eyebrow: 'Zacznijmy',
-	tytul: 'Szukasz nieruchomości?',
-	podtytul: 'Powiedz nam, czego szukasz, a pomożemy Ci znaleźć miejsce dopasowane do Twoich potrzeb.',
+	tytul: 'Powiedz nam, czego szukasz',
+	podtytul: 'Zostaw kontakt i kilka słów o wymarzonej nieruchomości — odezwiemy się z dopasowanymi ofertami.',
 	przycisk: 'Wyślij zgłoszenie',
 	potwierdzenie: {
 		tytul: 'Dziękujemy!',

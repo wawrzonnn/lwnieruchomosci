@@ -17,10 +17,10 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Wycena nieruchomości',
-	tytul: 'Wycena nieruchomości w Jeleniej Górze i Karkonoszach',
-	tytulEmfaza: 'Karkonoszach',
+	tytul: 'Poznaj realną wartość swojej nieruchomości',
+	tytulEmfaza: 'realną wartość',
 	podtytul:
-		'Właściwie ustalona cena to jeden z najważniejszych elementów skutecznej sprzedaży nieruchomości. Zbyt wysoka może wydłużyć czas sprzedaży, a zbyt niska oznacza realną stratę. Dlatego przygotowujemy wycenę opartą na analizie lokalnego rynku, potencjału nieruchomości i naszego doświadczenia.',
+		'Rzetelna, rynkowa wycena mieszkania, domu lub działki w Jeleniej Górze i Karkonoszach — oparta na danych transakcyjnych, a nie na życzeniach.',
 	tlo: U('photo-1600585154340-be6161a56a0c', 1600),
 	cta: [
 		{ label: 'Zamów wycenę', href: '#formularz', wariant: 'green' },
@@ -135,8 +135,8 @@ export const faq = {
 
 export const formularz = {
 	eyebrow: 'Zacznijmy',
-	tytul: 'Chcesz poznać wartość swojej nieruchomości?',
-	podtytul: 'Umów spotkanie i dowiedz się, ile naprawdę może być warta Twoja nieruchomość.',
+	tytul: 'Zamów wycenę nieruchomości',
+	podtytul: 'Zostaw kontakt i podstawowe dane — przygotujemy rzetelną wycenę i rekomendację ceny.',
 	przycisk: 'Zamów wycenę',
 	potwierdzenie: {
 		tytul: 'Dziękujemy!',

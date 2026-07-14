@@ -152,9 +152,8 @@ export const oferty: Offer[] = [
 
 export const oNas = {
 	akapity: [
-		'Sprzedaż nieruchomości to nie tylko podpisanie aktu notarialnego. To często początek nowego etapu życia, spełnianie marzeń, trudne rodzinne decyzje lub zamknięcie ważnego rozdziału. Dlatego od ponad 11 lat pomagamy naszym klientom przejść przez ten proces spokojnie i świadomie.',
-		'LW Nieruchomości powstało z przekonania, że dobra współpraca zaczyna się od rozmowy i poznania potrzeb klienta. Każdą nieruchomość traktujemy indywidualnie, poświęcając jej czas i uwagę, na jakie zasługuje.',
-		'Nie stawiamy na ilość obsługiwanych ofert. Stawiamy na jakość współpracy. Dzięki temu możemy być z naszymi klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap całego procesu.'
+		'Jesteśmy lokalnym biurem z Jeleniej Góry, które powstało z pasji do pracy z ludźmi i miłości do miejsc, w których można naprawdę poczuć się jak w domu.',
+		'Stawiamy na uczciwość, empatię i elastyczne podejście. Prowadzimy Cię krok po kroku przez cały proces — byś na każdym etapie czuł się pewnie i spokojnie.'
 	],
 	zdjecie: U('photo-1573496359142-b8d87734a5a2', 800),
 	podpisZdjecia: 'Poznajmy się osobiście',
@@ -166,40 +165,6 @@ export const statystyki = [
 	{ n: '11 lat', l: 'w branży' },
 	{ n: '250+', l: 'klientów' },
 	{ n: '4,9', l: 'ocena Google' }
-];
-
-// Sekcja „Dlaczego klienci wybierają LW" — 6 kafelków (copy: dokument Canva)
-export const dlaczego = [
-	{
-		ikona: '📍',
-		t: 'Mobilne biuro',
-		d: 'Dla komfortu i oszczędności Twojego czasu spotykamy się w miejscu, które będzie dla Ciebie najwygodniejsze. W spokojnej atmosferze porozmawiamy o Twojej nieruchomości i wspólnie znajdziemy najlepsze rozwiązanie.'
-	},
-	{
-		ikona: '🤝',
-		t: 'Indywidualne podejście',
-		d: 'Nie ilość ofert, a jakość współpracy. Każdej nieruchomości poświęcamy czas, aby dobrze poznać jej potencjał i przygotować najlepszą strategię sprzedaży.'
-	},
-	{
-		ikona: '💬',
-		t: 'Uczciwe doradztwo',
-		d: 'Naszym celem nie jest szybka transakcja za wszelką cenę. Doradzamy rzetelnie i pomagamy podjąć decyzję, która będzie najlepsza dla Ciebie i Twojej rodziny.'
-	},
-	{
-		ikona: '🛡️',
-		t: 'Bezpieczeństwo',
-		d: 'Dbamy o to, aby cały proces przebiegał sprawnie i bezpiecznie. Jesteśmy z Tobą od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi.'
-	},
-	{
-		ikona: '🗺️',
-		t: 'Znajomość lokalnego rynku',
-		d: 'Od ponad 11 lat działamy na terenie Jeleniej Góry i Karkonoszy. Doskonale znamy lokalny rynek nieruchomości i pomagamy podejmować decyzje oparte na wiedzy oraz doświadczeniu.'
-	},
-	{
-		ikona: '⭐',
-		t: '11 lat doświadczenia',
-		d: 'Ponad dekada pracy w branży nieruchomości to setki rozmów, przeprowadzonych transakcji i zdobytego doświadczenia. Dzięki temu możemy skutecznie wspierać klientów na każdym etapie sprzedaży lub zakupu nieruchomości.'
-	}
 ];
 
 export interface Service {

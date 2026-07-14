@@ -10,8 +10,7 @@
 		region,
 		opinie,
 		faq,
-		dualCta,
-		dlaczego
+		dualCta
 	} from '$lib/data/landing';
 	import { CATEGORY_LABELS, formatArea, formatPrice, pricePerM2 } from '$lib/utils';
 	import { godziny, social } from '$lib/data/kontakt-strona';
@@ -175,13 +174,10 @@
 		<section class="hero">
 			<div class="hero-copy">
 				<span class="hero-eyebrow">Lokalne biuro nieruchomości</span>
-				<h1 class="hero-h1">Biuro nieruchomości Jelenia Góra – zaufaj lokalnym ekspertom z <em>Karkonoszy</em></h1>
+				<h1 class="hero-h1">Znajdź swój dom<br />w sercu <em>Karkonoszy</em></h1>
 				<p class="hero-lead">
-					Kupno lub sprzedaż nieruchomości to jedna z najważniejszych decyzji w życiu. W LW
-					Nieruchomości wiemy, że liczy się nie tylko skuteczna sprzedaż, ale przede wszystkim
-					zaufanie i poczucie bezpieczeństwa. Od ponad 11 lat pomagamy naszym klientom przejść
-					przez cały proces spokojnie i świadomie – od pierwszego spotkania aż po przekazanie
-					nieruchomości.
+					Pomagamy kupić, sprzedać i wynająć nieruchomości w Jeleniej Górze i całej Kotlinie
+					Jeleniogórskiej — uczciwie, spokojnie, po ludzku.
 				</p>
 			</div>
 			<form class="search-card" onsubmit={(e) => e.preventDefault()}>
@@ -208,25 +204,6 @@
 			<div class="trust-item"><b>120+</b><span class="muted">transakcji</span></div>
 			<div class="trust-sep"></div>
 			<div class="trust-item"><b>Na wyłączność</b><span class="muted">wiele ofert</span></div>
-		</section>
-
-		<!-- ============ DLACZEGO LW — 6 kafelków ============ -->
-		<section class="section why-section">
-			<div class="section-head">
-				<div>
-					<div class="eyebrow">Dlaczego LW</div>
-					<h2 class="h2">Dlaczego klienci wybierają LW Nieruchomości?</h2>
-				</div>
-			</div>
-			<div class="why-grid">
-				{#each dlaczego as tile}
-					<div class="why-card">
-						<div class="why-ico">{tile.ikona}</div>
-						<h3 class="why-t">{tile.t}</h3>
-						<p class="why-d">{tile.d}</p>
-					</div>
-				{/each}
-			</div>
 		</section>
 
 		<!-- ============ CATEGORIES ============ -->
@@ -326,7 +303,7 @@
 			<div class="about-grid">
 				<div>
 					<div class="eyebrow eyebrow-green">O nas</div>
-					<h2 class="about-h2">Nieruchomości to nie tylko transakcje. To przede wszystkim ludzie i ich historie.</h2>
+					<h2 class="about-h2">Z sercem do ludzi<br />i domów</h2>
 					{#each oNas.akapity as p}<p class="about-p">{p}</p>{/each}
 					<div class="stats">
 						{#each statystyki as s}
@@ -696,54 +673,6 @@
 	.trust-sep {
 		width: 1px;
 		background: var(--divider);
-	}
-
-	/* ===== DLACZEGO LW — 6 kafelków ===== */
-	.why-section {
-		padding-top: 44px;
-		padding-bottom: 20px;
-	}
-	.why-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 20px;
-	}
-	.why-card {
-		background: #fff;
-		border: 1px solid var(--border);
-		border-radius: 18px;
-		padding: 30px 28px;
-		box-shadow: 0 16px 34px -28px rgba(30, 40, 30, 0.5);
-		transition: transform 0.2s ease, box-shadow 0.2s ease;
-	}
-	.why-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 24px 46px -26px rgba(30, 40, 30, 0.5);
-	}
-	.why-ico {
-		width: 56px;
-		height: 56px;
-		border-radius: 14px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 26px;
-		background: var(--bg-cream-2);
-		border: 1px solid var(--border);
-		margin-bottom: 18px;
-	}
-	.why-t {
-		font-family: 'Newsreader', serif;
-		font-weight: 500;
-		font-size: 22px;
-		line-height: 1.2;
-		margin-bottom: 10px;
-		color: var(--text);
-	}
-	.why-d {
-		font-size: 15px;
-		line-height: 1.65;
-		color: var(--muted);
 	}
 
 	/* ===== CATEGORIES ===== */
@@ -1785,9 +1714,6 @@
 		.offers-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
-		.why-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
 	}
 	@media (max-width: 980px) {
 		.hero-h1 {
@@ -1875,8 +1801,7 @@
 			display: none;
 		}
 		.offers-grid,
-		.stats,
-		.why-grid {
+		.stats {
 			grid-template-columns: 1fr;
 		}
 		.cats-grid,

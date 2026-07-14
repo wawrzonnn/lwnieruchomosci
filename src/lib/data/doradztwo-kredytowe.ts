@@ -17,10 +17,10 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Doradztwo kredytowe',
-	tytul: 'Doradztwo kredytowe dla klientów LW Nieruchomości',
-	tytulEmfaza: 'LW Nieruchomości',
+	tytul: 'Kredyt hipoteczny bez chaosu i bieganiny',
+	tytulEmfaza: 'bez chaosu',
 	podtytul:
-		'Zakup nieruchomości nie kończy się na znalezieniu odpowiedniego domu czy mieszkania. Jeśli planujesz finansowanie kredytem hipotecznym, zapewniamy dostęp do sprawdzonych doradców kredytowych, którzy pomogą wybrać najlepsze rozwiązanie i przeprowadzą Cię przez cały proces.',
+		'Współpracujemy z najlepszymi doradcami kredytowymi w regionie. Porównamy oferty banków, pomożemy skompletować dokumenty i przejdziemy z Tobą przez cały proces — spokojnie i po ludzku.',
 	tlo: U('photo-1554224155-6726b3ff858f', 1600),
 	cta: [
 		{ label: 'Sprawdź swoją zdolność', href: '#formularz', wariant: 'green' },
@@ -30,10 +30,10 @@ export const hero = {
 
 export const opis = {
 	eyebrow: 'O usłudze',
-	tytul: 'Nie musisz szukać wszystkiego samodzielnie',
+	tytul: 'Finansowanie dopasowane do Ciebie',
 	akapity: [
-		'Zakup nieruchomości i uzyskanie kredytu to dwa procesy, które powinny się wzajemnie uzupełniać. Dlatego współpracujemy z doświadczonymi doradcami kredytowymi, aby nasi klienci mogli w jednym miejscu otrzymać kompleksowe wsparcie.',
-		'Nie musisz samodzielnie szukać doradcy kredytowego ani koordynować dwóch niezależnych procesów. Zakup nieruchomości i finansowanie są prowadzone równolegle, dzięki czemu cały proces jest prostszy, bardziej uporządkowany i pozwala zaoszczędzić czas.'
+		'Kredyt hipoteczny potrafi przytłoczyć — dziesiątki ofert, dokumentów i wymagań. My to porządkujemy: łączymy Cię ze sprawdzonym doradcą, który przeanalizuje Twoją sytuację i dobierze najlepsze rozwiązanie.',
+		'Nie jesteśmy bankiem, więc gramy do jednej bramki — Twojej. Porównujemy oferty wielu banków i tłumaczymy wszystko prostym językiem, żebyś podejmował decyzje świadomie.'
 	],
 	zdjecie: U('photo-1521791136064-7986c2920216'),
 	badge: 'Najlepsi doradcy w regionie',
@@ -144,8 +144,8 @@ export const faq = {
 
 export const formularz = {
 	eyebrow: 'Zacznijmy',
-	tytul: 'Planujesz zakup nieruchomości z kredytem?',
-	podtytul: 'Powiedz nam, czego szukasz. Pomożemy Ci znaleźć odpowiednią nieruchomość i skontaktujemy Cię ze sprawdzonym doradcą kredytowym.',
+	tytul: 'Sprawdź swoją zdolność kredytową',
+	podtytul: 'Zostaw kontakt — bezpłatnie i bez zobowiązań sprawdzimy, na jaki kredyt możesz liczyć.',
 	przycisk: 'Sprawdź zdolność',
 	potwierdzenie: {
 		tytul: 'Dziękujemy!',
