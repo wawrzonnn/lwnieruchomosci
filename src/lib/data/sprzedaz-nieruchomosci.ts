@@ -17,10 +17,10 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Sprzedaż nieruchomości',
-	tytul: 'Sprzedaż nieruchomości bez stresu — od wyceny po akt notarialny',
-	tytulEmfaza: 'bez stresu',
+	tytul: 'Sprzedaż nieruchomości w Jeleniej Górze i Karkonoszach',
+	tytulEmfaza: 'Karkonoszach',
 	podtytul:
-		'Zajmiemy się całą sprzedażą Twojego mieszkania, domu lub działki w Jeleniej Górze i Karkonoszach. Profesjonalna wycena, prezentacja i negocjacje — Ty tylko odbierasz klucze.',
+		'Każda nieruchomość wymaga odpowiednio zaplanowanej sprzedaży. Dlatego przygotowujemy indywidualną strategię działania, dbamy o profesjonalną prezentację oferty i prowadzimy cały proces aż do bezpiecznej finalizacji transakcji.',
 	tlo: U('photo-1600585154340-be6161a56a0c', 1600),
 	cta: [
 		{ label: 'Umów bezpłatną wycenę', href: '#formularz', wariant: 'green' },
@@ -81,16 +81,15 @@ export const zakres = {
 	eyebrow: 'Co obejmuje usługa',
 	tytul: 'Wszystko w jednym pakiecie',
 	lista: [
-		'Bezpłatna wycena rynkowa',
-		'Umowa na wyłączność',
+		'Analiza nieruchomości',
+		'Przygotowanie strategii sprzedaży',
 		'Profesjonalna sesja zdjęciowa',
-		'Zdjęcia i film z drona',
-		'Doradztwo w przygotowaniu nieruchomości',
-		'Publikacja na portalach i w social media',
-		'Obsługa zapytań i prezentacje',
-		'Negocjacje cenowe',
-		'Weryfikacja kupujących',
-		'Wsparcie w formalnościach i przy akcie notarialnym'
+		'Prezentacja wideo nieruchomości — lepiej pokazuje jej przestrzeń i potencjał kupującym',
+		'Promocja oferty',
+		'Prezentacje nieruchomości',
+		'Negocjacje',
+		'Koordynacja formalności',
+		'Przekazanie nieruchomości'
 	],
 	uwaga: 'Zdjęcia, dron i film są w standardzie — bez dodatkowych dopłat.'
 };
@@ -165,6 +164,10 @@ export const faq = {
 			a: 'Dobrze wyceniona i przygotowana oferta najczęściej znajduje kupca w ciągu kilku do kilkunastu tygodni.'
 		},
 		{
+			q: 'Czy możecie przeprowadzić sprzedaż na odległość?',
+			a: 'Tak. Mieszkasz za granicą lub poza regionem? Nie musisz przyjeżdżać na każde spotkanie ani zajmować się organizacją sprzedaży — możemy przeprowadzić cały proces w Twoim imieniu: od przygotowania oferty i prezentacji nieruchomości, przez kontakt z kupującymi i formalności, aż po finalizację transakcji. Jeżeli będzie taka potrzeba, sprzedaż może odbyć się również na podstawie pełnomocnictwa notarialnego, dzięki czemu Twoja obecność nie będzie konieczna.'
+		},
+		{
 			q: 'Jakie dokumenty są potrzebne do sprzedaży?',
 			a: 'Podpowiemy dokładną listę i pomożemy ją skompletować — m.in. akt własności, numer księgi wieczystej i niezbędne zaświadczenia. Zajmiemy się formalnościami razem z Tobą.'
 		}
@@ -173,7 +176,7 @@ export const faq = {
 
 export const formularz = {
 	eyebrow: 'Zacznijmy',
-	tytul: 'Umów bezpłatną wycenę nieruchomości',
+	tytul: 'Porozmawiajmy o sprzedaży Twojej nieruchomości',
 	podtytul: 'Zostaw kontakt i podstawowe informacje — oddzwonimy i umówimy dogodny termin oględzin.',
 	przycisk: 'Wyślij zgłoszenie',
 	potwierdzenie: {

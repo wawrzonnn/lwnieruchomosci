@@ -17,7 +17,7 @@ export const hero = {
 	tytul: 'Ludzie i miejsca — nie tylko metry',
 	tytulEmfaza: 'nie tylko metry',
 	podtytul:
-		'Jesteśmy lokalnym biurem z Jeleniej Góry. Powstaliśmy z pasji do pracy z ludźmi i miłości do miejsc, w których naprawdę można poczuć się jak w domu.',
+		'Sprzedaż nieruchomości to nie tylko podpisanie aktu notarialnego. To często początek nowego etapu życia, spełnianie marzeń, trudne rodzinne decyzje lub zamknięcie ważnego rozdziału. Dlatego od ponad 11 lat pomagamy naszym klientom przejść przez ten proces spokojnie i świadomie.',
 	tlo: '/karkonosze-panorama.png',
 	cta: [
 		{ label: 'Poznajmy się', href: '#kontakt', wariant: 'green' },
