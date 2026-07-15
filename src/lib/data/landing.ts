@@ -16,6 +16,59 @@ export const wyszukiwarka = {
 	cenaDo: ['Bez limitu', '400 000 zł', '700 000 zł', '1 000 000 zł', '2 000 000 zł']
 };
 
+export const hero = {
+	eyebrow: 'Lokalne biuro · Jelenia Góra i Karkonosze',
+	tytul: 'Biuro nieruchomości Jelenia Góra — zaufaj lokalnym ekspertom z Karkonoszy',
+	tytulEmfaza: 'lokalnym ekspertom',
+	podtytul:
+		'Kupno lub sprzedaż nieruchomości to jedna z najważniejszych decyzji w życiu. W LW Nieruchomości wiemy, że liczy się nie tylko skuteczna sprzedaż, ale przede wszystkim zaufanie i poczucie bezpieczeństwa. Od ponad 11 lat pomagamy naszym klientom przejść przez cały proces spokojnie i świadomie — od pierwszego spotkania aż po przekazanie nieruchomości.'
+};
+
+// Sekcja „Dlaczego my" — 6 kafelków pod wyszukiwarką. Zastąpiła dawny cienki
+// pasek zaufania (4,9 / 120+ / Na wyłączność) — zgodnie z handoffem refinement.
+// `ikona` = wnętrze <svg viewBox="0 0 24 24"> (ikony liniowe, renderowane {@html}).
+export const dlaczegoMy = {
+	eyebrow: 'Dlaczego my',
+	tytul: 'Dlaczego klienci wybierają LW Nieruchomości?',
+	kafle: [
+		{
+			ikona:
+				'<path d="M12 21s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10Z"></path><circle cx="12" cy="11" r="2.2"></circle>',
+			t: 'Mobilne biuro',
+			d: 'Spotykamy się tam, gdzie jest Ci wygodnie. W spokojnej atmosferze porozmawiamy o Twojej nieruchomości i wspólnie znajdziemy najlepsze rozwiązanie.'
+		},
+		{
+			ikona:
+				'<circle cx="9" cy="8" r="3"></circle><path d="M4 19a5 5 0 0 1 10 0"></path><path d="M15.5 5.3a3 3 0 0 1 0 5.4"></path><path d="M17 13.2A5 5 0 0 1 20.5 18"></path>',
+			t: 'Indywidualne podejście',
+			d: 'Nie ilość ofert, a jakość współpracy. Każdej nieruchomości poświęcamy czas, by poznać jej potencjał i przygotować najlepszą strategię sprzedaży.'
+		},
+		{
+			ikona:
+				'<path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4 3.5V6.5A2.5 2.5 0 0 1 7.5 4h10A2.5 2.5 0 0 1 20 6.5Z"></path><path d="M9 10.5h6M9 13.5h3.5"></path>',
+			t: 'Uczciwe doradztwo',
+			d: 'Naszym celem nie jest szybka transakcja za wszelką cenę. Doradzamy rzetelnie i pomagamy podjąć decyzję najlepszą dla Ciebie i Twojej rodziny.'
+		},
+		{
+			ikona:
+				'<path d="M12 3l7 3v5.5c0 4.3-3 8-7 9.2-4-1.2-7-4.9-7-9.2V6l7-3Z"></path><path d="M9 11.5l2 2 4-4.2"></path>',
+			t: 'Bezpieczeństwo',
+			d: 'Dbamy, aby cały proces przebiegał sprawnie i bezpiecznie — jesteśmy z Tobą od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi.'
+		},
+		{
+			ikona: '<path d="M9 5 3.5 7v12L9 17l6 2 5.5-2V5L15 7 9 5Z"></path><path d="M9 5v12M15 7v12"></path>',
+			t: 'Znajomość lokalnego rynku',
+			d: 'Od ponad 11 lat działamy w Jeleniej Górze i Karkonoszach. Doskonale znamy lokalny rynek i pomagamy podejmować decyzje oparte na wiedzy i doświadczeniu.'
+		},
+		{
+			ikona:
+				'<circle cx="12" cy="9" r="4.5"></circle><path d="M8.8 12.7 7.5 20l4.5-2.3L16.5 20l-1.3-7.3"></path>',
+			t: '11 lat doświadczenia',
+			d: 'Ponad dekada w branży to setki rozmów i przeprowadzonych transakcji. Dzięki temu skutecznie wspieramy klientów na każdym etapie zakupu i sprzedaży.'
+		}
+	]
+};
+
 export const kategorie = [
 	{
 		name: 'Mieszkania',
@@ -151,9 +204,13 @@ export const oferty: Offer[] = [
 ];
 
 export const oNas = {
+	eyebrow: 'O nas',
+	tytul: 'Nieruchomości to nie tylko transakcje. To przede wszystkim ludzie i ich historie.',
+	tytulEmfaza: 'ludzie i ich historie',
 	akapity: [
-		'Jesteśmy lokalnym biurem z Jeleniej Góry, które powstało z pasji do pracy z ludźmi i miłości do miejsc, w których można naprawdę poczuć się jak w domu.',
-		'Stawiamy na uczciwość, empatię i elastyczne podejście. Prowadzimy Cię krok po kroku przez cały proces — byś na każdym etapie czuł się pewnie i spokojnie.'
+		'Sprzedaż nieruchomości to nie tylko podpisanie aktu notarialnego. To często początek nowego etapu życia, spełnianie marzeń, trudne rodzinne decyzje lub zamknięcie ważnego rozdziału. Dlatego od ponad 11 lat pomagamy naszym klientom przejść przez ten proces spokojnie i świadomie.',
+		'LW Nieruchomości powstało z przekonania, że dobra współpraca zaczyna się od rozmowy i poznania potrzeb klienta. Każdą nieruchomość traktujemy indywidualnie, poświęcając jej czas i uwagę, na jakie zasługuje.',
+		'Nie stawiamy na ilość obsługiwanych ofert — stawiamy na jakość współpracy. Dzięki temu jesteśmy z klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap procesu.'
 	],
 	zdjecie: U('photo-1573496359142-b8d87734a5a2', 800),
 	podpisZdjecia: 'Poznajmy się osobiście',
@@ -161,10 +218,9 @@ export const oNas = {
 };
 
 export const statystyki = [
-	{ n: '120+', l: 'sprzedanych' },
-	{ n: '11 lat', l: 'w branży' },
-	{ n: '250+', l: 'klientów' },
-	{ n: '4,9', l: 'ocena Google' }
+	{ n: '11+', l: 'lat doświadczenia' },
+	{ n: '250', l: 'przeprowadzonych transakcji' },
+	{ n: '5.0', l: 'średnia ocen Google' }
 ];
 
 export interface Service {
@@ -283,28 +339,44 @@ export const faq = {
 	cta: { label: 'Zadaj pytanie →', href: '#kontakt' },
 	lista: [
 		{
-			q: 'Ile kosztuje współpraca z biurem?',
-			a: 'Wysokość wynagrodzenia ustalamy indywidualnie i zawsze przed rozpoczęciem współpracy — bez ukrytych opłat. Prowizję rozliczamy dopiero po skutecznej transakcji.'
+			q: 'Jak wygląda współpraca z LW Nieruchomości?',
+			a: 'Współpracę rozpoczynamy od niezobowiązującej rozmowy, podczas której poznajemy Twoje potrzeby, oczekiwania i sytuację. Następnie analizujemy nieruchomość i przygotowujemy indywidualną strategię działania. Zajmujemy się całym procesem — od wyceny i przygotowania oferty, przez skuteczną promocję i negocjacje, aż po bezpieczne sfinalizowanie transakcji u notariusza i przekazanie nieruchomości. Na każdym etapie możesz liczyć na nasze wsparcie i stały kontakt.'
 		},
 		{
-			q: 'Co daje umowa na wyłączność?',
-			a: 'Powierzasz sprzedaż wyłącznie nam, dzięki czemu inwestujemy pełen budżet w marketing — profesjonalne zdjęcia, ujęcia z drona, film i promocję. Ty masz jeden pewny kontakt i pełną kontrolę nad procesem.'
+			q: 'Czy pierwsze spotkanie jest bezpłatne?',
+			a: 'Tak. Pierwsze spotkanie jest całkowicie bezpłatne i niezobowiązujące. To czas na poznanie Twoich planów, omówienie możliwości oraz odpowiedź na wszystkie pytania. Dzięki temu wspólnie wybieramy najlepszy sposób działania.'
 		},
 		{
-			q: 'Jak długo trwa sprzedaż nieruchomości?',
-			a: 'To zależy od lokalizacji, ceny i stanu nieruchomości. Dobrze przygotowana i realnie wyceniona oferta w Kotlinie Jeleniogórskiej najczęściej znajduje kupca w ciągu kilku do kilkunastu tygodni.'
+			q: 'Na jakim terenie działacie?',
+			a: 'Specjalizujemy się w sprzedaży i zakupie nieruchomości na terenie Jeleniej Góry oraz całego regionu Karkonoszy. Obsługujemy między innymi Karpacz, Szklarską Porębę, Kowary, Podgórzyn, Piechowice, Jeżów Sudecki i okoliczne miejscowości, np. Rudawy Janowickie. Doskonała znajomość lokalnego rynku pozwala nam skutecznie doradzać i osiągać najlepsze rezultaty dla klientów.'
 		},
 		{
-			q: 'Czy pomagacie uzyskać kredyt hipoteczny?',
-			a: 'Tak. Współpracujemy z najlepszymi doradcami kredytowymi w regionie — pomożemy porównać oferty banków, dobrać finansowanie i spokojnie przejść przez wszystkie formalności.'
+			q: 'Jak umówić się na spotkanie?',
+			a: 'To proste. Wystarczy skontaktować się z nami telefonicznie, mailowo lub przez formularz kontaktowy na stronie. Spotkanie zorganizujemy w dogodnym dla Ciebie miejscu.'
 		},
 		{
-			q: 'Jak wygląda wycena nieruchomości?',
-			a: 'Bezpłatnie oglądamy nieruchomość, analizujemy ceny transakcyjne w okolicy i przygotowujemy realną wycenę rynkową wraz z rekomendacją strategii sprzedaży.'
+			q: 'Czy pomagacie w formalnościach?',
+			a: 'Oczywiście. Dbamy o to, aby cały proces przebiegał sprawnie i bezpiecznie. Pomagamy w kompletowaniu dokumentów, wyjaśniamy wszystkie formalności oraz współpracujemy z notariuszami, doradcami finansowymi i innymi specjalistami. Dzięki temu możesz czuć się spokojnie na każdym etapie transakcji.'
 		},
 		{
-			q: 'W jakim regionie działacie?',
-			a: 'Działamy w Jeleniej Górze i całej Kotlinie Jeleniogórskiej — m.in. w Cieplicach, Sosnówce, Mysłakowicach, Podgórzynie, Karpaczu i Szklarskiej Porębie.'
+			q: 'Czy pomagacie w uzyskaniu kredytu hipotecznego?',
+			a: 'Tak. Współpracujemy z doświadczonymi doradcami kredytowymi, którzy bezpłatnie porównają oferty wielu banków, pomogą wybrać najkorzystniejsze finansowanie oraz przeprowadzą Cię przez cały proces uzyskania kredytu.'
+		},
+		{
+			q: 'Jak wygląda sprzedaż nieruchomości z LW Nieruchomości?',
+			a: 'Każda nieruchomość ma swoją historię i potencjał, dlatego nie działamy według jednego schematu. Przygotowujemy profesjonalną wycenę, wykonujemy zdjęcia, filmy i ujęcia z drona, tworzymy atrakcyjną ofertę oraz promujemy ją na największych portalach i w mediach społecznościowych. Prowadzimy prezentacje, negocjacje i czuwamy nad bezpiecznym przebiegiem całej transakcji aż do przekazania nieruchomości nowemu właścicielowi.'
+		},
+		{
+			q: 'Dlaczego warto wybrać LW Nieruchomości?',
+			a: 'Bo wierzymy, że za każdą nieruchomością stoi człowiek i jego historia. Od ponad 11 lat pomagamy klientom podejmować bezpieczne i świadome decyzje o sprzedaży oraz zakupie nieruchomości. Łączymy doświadczenie, skuteczny marketing i doskonałą znajomość lokalnego rynku z indywidualnym podejściem, uczciwym doradztwem i pełnym zaangażowaniem. Najważniejsze są dla nas relacje, zaufanie i poczucie bezpieczeństwa naszych klientów.'
+		},
+		{
+			q: 'Czy podpisanie umowy na wyłączność jest korzystne?',
+			a: 'Tak. Umowa na wyłączność pozwala nam w pełni zaangażować się w sprzedaż i wykorzystać wszystkie narzędzia marketingowe. Dzięki spójnej strategii promocji, profesjonalnej prezentacji i pełnej odpowiedzialności za proces zwiększamy szanse na szybszą i korzystniejszą transakcję. Współpracujemy z biurami nieruchomości w całej Polsce, więc nic nie tracisz — masz jednego agenta, który wszystkiego dopilnuje.'
+		},
+		{
+			q: 'Czy pomagacie przygotować nieruchomość do sprzedaży?',
+			a: 'Tak. Doradzamy, jak przygotować nieruchomość, aby zrobiła najlepsze pierwsze wrażenie na kupujących. Podpowiadamy, co warto zmienić przed sesją zdjęciową i prezentacjami, aby zwiększyć atrakcyjność oferty i osiągnąć jak najlepszą cenę sprzedaży.'
 		}
 	]
 };

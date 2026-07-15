@@ -2,6 +2,8 @@
 	import {
 		kontakt,
 		wyszukiwarka,
+		hero,
+		dlaczegoMy,
 		kategorie,
 		filtryChipy,
 		oNas,
@@ -173,12 +175,11 @@
 		<!-- ============ HERO ============ -->
 		<section class="hero">
 			<div class="hero-copy">
-				<span class="hero-eyebrow">Lokalne biuro nieruchomości</span>
-				<h1 class="hero-h1">Znajdź swój dom<br />w sercu <em>Karkonoszy</em></h1>
-				<p class="hero-lead">
-					Pomagamy kupić, sprzedać i wynająć nieruchomości w Jeleniej Górze i całej Kotlinie
-					Jeleniogórskiej — uczciwie, spokojnie, po ludzku.
-				</p>
+				<span class="hero-eyebrow">{hero.eyebrow}</span>
+				<h1 class="hero-h1">
+					{@html hero.tytul.replace(hero.tytulEmfaza, `<em>${hero.tytulEmfaza}</em>`)}
+				</h1>
+				<p class="hero-lead">{hero.podtytul}</p>
 			</div>
 			<form class="search-card" onsubmit={(e) => e.preventDefault()}>
 				<label class="search-field">
@@ -197,13 +198,32 @@
 			</form>
 		</section>
 
-		<!-- ============ TRUST ============ -->
-		<section class="trust">
-			<div class="trust-item"><span class="star">★</span><b>4,9</b><span class="muted">ocena Google</span></div>
-			<div class="trust-sep"></div>
-			<div class="trust-item"><b>120+</b><span class="muted">transakcji</span></div>
-			<div class="trust-sep"></div>
-			<div class="trust-item"><b>Na wyłączność</b><span class="muted">wiele ofert</span></div>
+		<!-- ============ DLACZEGO MY — 6 kafelków (zastąpiło dawny pasek trust) ============ -->
+		<section class="why">
+			<div class="why-head">
+				<div class="eyebrow">{dlaczegoMy.eyebrow}</div>
+				<h2 class="why-h2">{dlaczegoMy.tytul}</h2>
+			</div>
+			<div class="why-grid">
+				{#each dlaczegoMy.kafle as k}
+					<div class="why-card">
+						<div class="why-ico">
+							<svg
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.6"
+								stroke-linecap="round"
+								stroke-linejoin="round">{@html k.ikona}</svg
+							>
+						</div>
+						<h3 class="why-t">{k.t}</h3>
+						<p class="why-d">{k.d}</p>
+					</div>
+				{/each}
+			</div>
 		</section>
 
 		<!-- ============ CATEGORIES ============ -->
@@ -302,8 +322,10 @@
 		<section class="about" id="o-nas">
 			<div class="about-grid">
 				<div>
-					<div class="eyebrow eyebrow-green">O nas</div>
-					<h2 class="about-h2">Z sercem do ludzi<br />i domów</h2>
+					<div class="eyebrow eyebrow-green">{oNas.eyebrow}</div>
+					<h2 class="about-h2">
+						{@html oNas.tytul.replace(oNas.tytulEmfaza, `<em>${oNas.tytulEmfaza}</em>`)}
+					</h2>
 					{#each oNas.akapity as p}<p class="about-p">{p}</p>{/each}
 					<div class="stats">
 						{#each statystyki as s}
@@ -540,12 +562,12 @@
 	/* ===== HERO ===== */
 	.hero {
 		position: relative;
-		height: 660px;
+		min-height: 740px;
 		background-image: linear-gradient(
 				105deg,
-				rgba(18, 26, 20, 0.66) 0%,
-				rgba(18, 26, 20, 0.3) 48%,
-				rgba(18, 26, 20, 0.12) 100%
+				rgba(18, 26, 20, 0.76) 0%,
+				rgba(18, 26, 20, 0.46) 50%,
+				rgba(18, 26, 20, 0.16) 100%
 			),
 			url('/sniezka-sunset.png');
 		background-size: cover;
@@ -556,7 +578,7 @@
 		padding: 0 72px;
 	}
 	.hero-copy {
-		max-width: 640px;
+		max-width: 720px;
 		color: #fff;
 	}
 	.hero-eyebrow {
@@ -576,21 +598,22 @@
 	.hero-h1 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
-		font-size: 64px;
-		line-height: 1.04;
+		font-size: 47px;
+		line-height: 1.09;
 		letter-spacing: -0.01em;
-		margin-bottom: 20px;
+		margin-bottom: 18px;
 		color: #fff;
 	}
-	.hero-h1 em {
+	/* emfaza wstrzykiwana przez {@html} — Svelte nie scope'uje jej klasą, stąd :global */
+	.hero-h1 :global(em) {
 		font-style: italic;
 		color: var(--gold-light);
 	}
 	.hero-lead {
-		font-size: 18px;
-		line-height: 1.6;
+		font-size: 16.5px;
+		line-height: 1.65;
 		color: rgba(255, 255, 255, 0.9);
-		max-width: 520px;
+		max-width: 640px;
 	}
 	.search-card {
 		position: absolute;
@@ -647,32 +670,56 @@
 		opacity: 0.92;
 	}
 
-	/* ===== TRUST ===== */
-	.trust {
-		display: flex;
-		justify-content: center;
-		gap: 56px;
-		padding: 92px 48px 46px;
+	/* ===== DLACZEGO MY — 6 kafelków (zastąpiło dawny pasek trust) ===== */
+	.why {
+		/* górny padding robi miejsce dla wyszukiwarki wystającej z hero (bottom:-56px) */
+		padding: 104px 48px 26px;
 	}
-	.trust-item {
+	.why-head {
+		text-align: center;
+		max-width: 680px;
+		margin: 0 auto 40px;
+	}
+	.why-h2 {
+		font-family: 'Newsreader', serif;
+		font-weight: 500;
+		font-size: 38px;
+		line-height: 1.12;
+	}
+	.why-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+	.why-card {
+		background: #fff;
+		border: 1px solid var(--border);
+		border-radius: 16px;
+		padding: 28px 26px;
+		box-shadow: 0 16px 30px -26px rgba(30, 40, 30, 0.5);
+	}
+	.why-ico {
+		width: 50px;
+		height: 50px;
+		border-radius: 14px;
+		background: rgba(180, 137, 76, 0.12);
+		color: var(--gold);
 		display: flex;
 		align-items: center;
-		gap: 10px;
+		justify-content: center;
+		margin-bottom: 18px;
 	}
-	.trust-item b {
-		font-weight: 700;
-		font-size: 18px;
+	.why-t {
+		font-family: 'Newsreader', serif;
+		font-size: 21px;
+		font-weight: 500;
+		line-height: 1.2;
+		margin-bottom: 8px;
 	}
-	.trust-item .muted {
+	.why-d {
+		font-size: 14.5px;
+		line-height: 1.65;
 		color: var(--muted);
-	}
-	.trust-item .star {
-		color: var(--gold);
-		font-size: 20px;
-	}
-	.trust-sep {
-		width: 1px;
-		background: var(--divider);
 	}
 
 	/* ===== CATEGORIES ===== */
@@ -949,10 +996,14 @@
 	.about-h2 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
-		font-size: 42px;
-		line-height: 1.1;
+		font-size: 33px;
+		line-height: 1.22;
 		margin-bottom: 20px;
 		color: var(--on-green);
+	}
+	.about-h2 :global(em) {
+		font-style: italic;
+		color: var(--gold-light);
 	}
 	.about-p {
 		font-size: 17px;
@@ -965,7 +1016,7 @@
 	}
 	.stats {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		gap: 20px;
 		margin-top: 34px;
 	}
@@ -1714,10 +1765,13 @@
 		.offers-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
+		.why-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 	@media (max-width: 980px) {
 		.hero-h1 {
-			font-size: 48px;
+			font-size: 38px;
 		}
 		.search-card {
 			grid-template-columns: 1fr 1fr;
@@ -1773,12 +1827,37 @@
 			padding-right: 20px;
 		}
 		.hero {
-			height: 400px;
+			min-height: 472px;
 			justify-content: flex-end;
 			padding: 24px 20px 40px;
+			/* mobile: gradient pionowy (180°) zamiast desktopowego 105° */
+			background-image: linear-gradient(
+					180deg,
+					rgba(18, 26, 20, 0.3) 0%,
+					rgba(18, 26, 20, 0.82) 100%
+				),
+				url('/sniezka-sunset.png');
 		}
 		.hero-h1 {
-			font-size: 34px;
+			font-size: 26px;
+		}
+		.hero-lead {
+			font-size: 13.5px;
+			line-height: 1.55;
+		}
+		.why {
+			padding: 36px 20px 8px;
+		}
+		.why-head {
+			text-align: left;
+			margin: 0 0 16px;
+		}
+		.why-h2 {
+			font-size: 24px;
+		}
+		.why-grid {
+			grid-template-columns: 1fr;
+			gap: 12px;
 		}
 		.search-card {
 			position: static;
@@ -1791,22 +1870,15 @@
 		.search-btn {
 			grid-column: auto;
 		}
-		.trust {
-			flex-direction: column;
-			align-items: center;
-			gap: 16px;
-			padding-top: 48px;
-		}
-		.trust-sep {
-			display: none;
-		}
-		.offers-grid,
-		.stats {
+		.offers-grid {
 			grid-template-columns: 1fr;
 		}
-		.cats-grid,
-		.stats {
+		.cats-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+		.stats {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 12px;
 		}
 		.h2,
 		.about-h2,
