@@ -17,14 +17,14 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Wycena nieruchomości',
-	tytul: 'Poznaj realną wartość swojej nieruchomości',
-	tytulEmfaza: 'realną wartość',
+	tytul: 'Wycena nieruchomości w Jeleniej Górze i Karkonoszach',
+	tytulEmfaza: 'Karkonoszach',
 	podtytul:
-		'Rzetelna, rynkowa wycena mieszkania, domu lub działki w Jeleniej Górze i Karkonoszach — oparta na danych transakcyjnych, a nie na życzeniach.',
+		'Właściwie ustalona cena to jeden z najważniejszych elementów skutecznej sprzedaży. Zbyt wysoka może wydłużyć czas sprzedaży, a zbyt niska oznacza realną stratę. Przygotowujemy wycenę opartą na analizie lokalnego rynku, potencjału nieruchomości i naszego doświadczenia.',
 	tlo: U('photo-1600585154340-be6161a56a0c', 1600),
 	cta: [
-		{ label: 'Zamów wycenę', href: '#formularz', wariant: 'green' },
-		{ label: 'Jak wyceniamy', href: '#przebieg', wariant: 'outline' }
+		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
+		{ label: 'Co zapewniamy?', href: '#zakres', wariant: 'outline' }
 	]
 };
 
@@ -85,19 +85,18 @@ export const przebieg = {
 	]
 };
 
-export const czynniki = {
-	eyebrow: 'Co wpływa na cenę',
-	tytul: 'Czynniki wpływające na wartość',
-	uwaga: 'Analizujemy je łącznie — dopiero razem dają realną wartość rynkową.',
+export const zakres = {
+	eyebrow: 'W ramach współpracy',
+	tytul: 'W ramach współpracy zapewniamy',
+	uwaga: 'Wycena kończy się rekomendacją ceny — gotową do decyzji o sprzedaży.',
 	lista: [
-		'Lokalizacja i okolica',
-		'Metraż i układ pomieszczeń',
-		'Standard i stan techniczny',
-		'Piętro, winda, ekspozycja',
-		'Rok budowy i technologia',
-		'Balkon, ogród, miejsce postojowe',
-		'Stan prawny i księga wieczysta',
-		'Sytuacja rynkowa i popyt'
+		'Analiza lokalnego rynku nieruchomości',
+		'Ocena potencjału nieruchomości',
+		'Porównanie podobnych ofert',
+		'Rekomendacja optymalnej ceny sprzedaży',
+		'Omówienie czynników wpływających na wartość',
+		'Wskazówki dotyczące przygotowania do sprzedaży',
+		'Możliwość dalszej kompleksowej obsługi sprzedaży'
 	]
 };
 
@@ -135,8 +134,8 @@ export const faq = {
 
 export const formularz = {
 	eyebrow: 'Zacznijmy',
-	tytul: 'Zamów wycenę nieruchomości',
-	podtytul: 'Zostaw kontakt i podstawowe dane — przygotujemy rzetelną wycenę i rekomendację ceny.',
+	tytul: 'Chcesz poznać wartość swojej nieruchomości?',
+	podtytul: 'Umów spotkanie i dowiedz się, ile naprawdę może być warta Twoja nieruchomość.',
 	przycisk: 'Zamów wycenę',
 	potwierdzenie: {
 		tytul: 'Dziękujemy!',

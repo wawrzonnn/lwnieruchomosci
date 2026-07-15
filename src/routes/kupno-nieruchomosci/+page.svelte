@@ -10,7 +10,7 @@
 		opis,
 		pomagamy,
 		etapy,
-		formalnosci,
+		zakres,
 		faq,
 		formularz,
 		powiazane
@@ -136,18 +136,18 @@
 		</section>
 
 		<!-- ============ FORMALNOŚCI ============ -->
-		<section class="formalnosci-section">
-			<div class="formalnosci-grid">
+		<section class="zakres-section" id="zakres">
+			<div class="zakres-grid">
 				<div>
-					<div class="eyebrow eyebrow-green">{formalnosci.eyebrow}</div>
-					<h2 class="h2 formalnosci-h2">{formalnosci.tytul}</h2>
-					<p class="formalnosci-lead">{formalnosci.podtytul}</p>
+					<div class="eyebrow eyebrow-green">{zakres.eyebrow}</div>
+					<h2 class="h2 zakres-h2">{zakres.tytul}</h2>
+					<p class="zakres-lead">{zakres.podtytul}</p>
 				</div>
-				<div class="formalnosci-list">
-					{#each formalnosci.lista as item}
-						<div class="formalnosci-item">
-							<span class="formalnosci-check">✓</span>
-							<span class="formalnosci-text">{item}</span>
+				<div class="zakres-list">
+					{#each zakres.lista as item}
+						<div class="zakres-item">
+							<span class="zakres-check">✓</span>
+							<span class="zakres-text">{item}</span>
 						</div>
 					{/each}
 				</div>
@@ -542,39 +542,39 @@
 	}
 
 	/* ===== FORMALNOŚCI ===== */
-	.formalnosci-section {
+	.zakres-section {
 		padding: 64px 48px;
 		background: var(--green);
 		color: var(--on-green);
 	}
-	.formalnosci-grid {
+	.zakres-grid {
 		display: grid;
 		grid-template-columns: 0.9fr 1.1fr;
 		gap: 56px;
 		align-items: start;
 	}
-	.formalnosci-h2 {
+	.zakres-h2 {
 		color: var(--on-green);
 		margin-bottom: 16px;
 	}
-	.formalnosci-lead {
+	.zakres-lead {
 		font-size: 16px;
 		line-height: 1.65;
 		color: rgba(243, 238, 225, 0.82);
 	}
-	.formalnosci-list {
+	.zakres-list {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 12px 36px;
 	}
-	.formalnosci-item {
+	.zakres-item {
 		display: flex;
 		align-items: flex-start;
 		gap: 13px;
 		padding: 11px 0;
 		border-bottom: 1px solid rgba(243, 238, 225, 0.14);
 	}
-	.formalnosci-check {
+	.zakres-check {
 		flex: 0 0 auto;
 		width: 24px;
 		height: 24px;
@@ -588,7 +588,7 @@
 		font-size: 13px;
 		font-weight: 700;
 	}
-	.formalnosci-text {
+	.zakres-text {
 		font-size: 15.5px;
 		line-height: 1.45;
 	}
@@ -896,14 +896,14 @@
 		}
 		.opis-grid,
 		.lead-box,
-		.formalnosci-grid {
+		.zakres-grid {
 			grid-template-columns: 1fr;
 		}
 		.opis-photo {
 			order: -1;
 			height: 300px;
 		}
-		.formalnosci-list {
+		.zakres-list {
 			grid-template-columns: 1fr;
 			margin-top: 24px;
 		}
@@ -951,7 +951,7 @@
 			padding-left: 20px;
 			padding-right: 20px;
 		}
-		.formalnosci-section {
+		.zakres-section {
 			padding: 36px 20px;
 		}
 		.timeline-row {

@@ -17,14 +17,14 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Kupno nieruchomości',
-	tytul: 'Kupno nieruchomości z kimś, kto stoi po Twojej stronie',
-	tytulEmfaza: 'po Twojej stronie',
+	tytul: 'Kupno nieruchomości w Jeleniej Górze i Karkonoszach',
+	tytulEmfaza: 'Karkonoszach',
 	podtytul:
-		'Pomożemy znaleźć wymarzone mieszkanie, dom lub działkę w Jeleniej Górze i Karkonoszach — sprawdzimy stan prawny, wynegocjujemy cenę i przeprowadzimy przez formalności.',
+		'Zakup nieruchomości to ważna decyzja, która wymaga nie tylko znalezienia odpowiedniej oferty, ale także dokładnej analizy i bezpiecznego przeprowadzenia całego procesu. Pomożemy Ci znaleźć nieruchomość dopasowaną do Twoich potrzeb i przeprowadzimy Cię przez każdy etap zakupu.',
 	tlo: U('photo-1512917774080-9991f1c4c750', 1600),
 	cta: [
-		{ label: 'Powiedz, czego szukasz', href: '#formularz', wariant: 'green' },
-		{ label: 'Zobacz etapy zakupu', href: '#etapy', wariant: 'outline' }
+		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
+		{ label: 'Co obejmuje usługa?', href: '#zakres', wariant: 'outline' }
 	]
 };
 
@@ -95,17 +95,22 @@ export const etapy = {
 	]
 };
 
-export const formalnosci = {
-	eyebrow: 'Formalności',
-	tytul: 'Formalności bierzemy na siebie',
-	podtytul: 'Czuwamy nad każdym dokumentem i terminem, żebyś kupował bezpiecznie i bez niespodzianek.',
+export const zakres = {
+	eyebrow: 'Co obejmuje usługa?',
+	tytul: 'Prowadzimy zakup od A do Z',
+	podtytul:
+		'Bierzemy na siebie cały proces — od poznania Twoich potrzeb, przez wyszukiwanie i analizę ofert, po bezpieczną finalizację zakupu.',
 	lista: [
-		'Weryfikacja księgi wieczystej i stanu prawnego',
-		'Sprawdzenie obciążeń i zadłużenia',
-		'Analiza umowy przedwstępnej i rezerwacyjnej',
-		'Koordynacja z notariuszem',
-		'Wsparcie przy kredycie hipotecznym',
-		'Pomoc przy odbiorze nieruchomości'
+		'Poznanie Twoich potrzeb i możliwości',
+		'Wyszukiwanie odpowiednich ofert',
+		'Organizacja prezentacji nieruchomości',
+		'Analiza wybranych ofert',
+		'Profesjonalne prezentacje wideo nieruchomości',
+		'Wsparcie podczas negocjacji',
+		'Pomoc w kompletowaniu dokumentów',
+		'Koordynacja formalności',
+		'Współpraca z doradcą kredytowym (jeśli potrzebna)',
+		'Bezpieczna finalizacja zakupu'
 	]
 };
 
@@ -143,8 +148,9 @@ export const faq = {
 
 export const formularz = {
 	eyebrow: 'Zacznijmy',
-	tytul: 'Powiedz nam, czego szukasz',
-	podtytul: 'Zostaw kontakt i kilka słów o wymarzonej nieruchomości — odezwiemy się z dopasowanymi ofertami.',
+	tytul: 'Szukasz nieruchomości?',
+	podtytul:
+		'Powiedz nam, czego szukasz, a pomożemy Ci znaleźć miejsce dopasowane do Twoich potrzeb. Umów spotkanie — odezwiemy się z propozycjami ofert.',
 	przycisk: 'Wyślij zgłoszenie',
 	potwierdzenie: {
 		tytul: 'Dziękujemy!',

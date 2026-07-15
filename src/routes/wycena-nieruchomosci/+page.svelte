@@ -10,7 +10,7 @@
 		opis,
 		kiedy,
 		przebieg,
-		czynniki,
+		zakres,
 		faq,
 		formularz,
 		powiazane
@@ -131,20 +131,20 @@
 		</section>
 
 		<!-- ============ CZYNNIKI ============ -->
-		<section class="zakres-section">
+		<section class="zakres-section" id="zakres">
 			<div class="section-head col">
-				<div class="eyebrow eyebrow-green">{czynniki.eyebrow}</div>
-				<h2 class="h2 zakres-h2">{czynniki.tytul}</h2>
+				<div class="eyebrow eyebrow-green">{zakres.eyebrow}</div>
+				<h2 class="h2 zakres-h2">{zakres.tytul}</h2>
 			</div>
 			<div class="zakres-grid">
-				{#each czynniki.lista as item}
+				{#each zakres.lista as item}
 					<div class="zakres-item">
 						<span class="zakres-check">✓</span>
 						<span class="zakres-text">{item}</span>
 					</div>
 				{/each}
 			</div>
-			<p class="zakres-note">{czynniki.uwaga}</p>
+			<p class="zakres-note">{zakres.uwaga}</p>
 		</section>
 
 		<!-- ============ FAQ ============ -->

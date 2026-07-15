@@ -20,13 +20,13 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Marketing nieruchomości',
-	tytul: 'Marketing, który sprzedaje szybciej i drożej',
-	tytulEmfaza: 'szybciej i drożej',
+	tytul: 'Marketing nieruchomości, który pomaga skutecznie sprzedawać',
+	tytulEmfaza: 'skutecznie sprzedawać',
 	podtytul:
-		'Profesjonalne zdjęcia, film, ujęcia z drona i skuteczna promocja — Twoja nieruchomość wyróżnia się od pierwszego dnia i trafia dokładnie tam, gdzie są kupujący.',
+		'Pierwsze wrażenie można zrobić tylko raz. Dbamy o to, aby każda nieruchomość była zaprezentowana w sposób, który przyciąga uwagę i pokazuje jej największe atuty. Profesjonalne materiały i przemyślana promocja zwiększają zainteresowanie ofertą i pomagają szybciej znaleźć kupującego.',
 	tlo: U('photo-1460925895917-afdab827c52f', 1600),
 	cta: [
-		{ label: 'Wypromuj nieruchomość', href: '#formularz', wariant: 'green' },
+		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
 		{ label: 'Zobacz realizacje', href: '#realizacje', wariant: 'outline' }
 	]
 };

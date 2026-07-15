@@ -97,7 +97,7 @@
 		</section>
 
 		<!-- ============ ZAKRES POMOCY ============ -->
-		<section class="zakres-section">
+		<section class="zakres-section" id="zakres">
 			<div class="section-head col">
 				<div class="eyebrow eyebrow-green">{zakres.eyebrow}</div>
 				<h2 class="h2 zakres-h2">{zakres.tytul}</h2>
