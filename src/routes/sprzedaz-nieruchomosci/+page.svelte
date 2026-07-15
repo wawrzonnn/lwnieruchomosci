@@ -10,12 +10,20 @@
 		opis,
 		proces,
 		zakres,
+		naOdleglosc,
 		korzysci,
 		opinie,
 		faq,
 		formularz,
 		powiazane
 	} from '$lib/data/sprzedaz-nieruchomosci';
+
+	// Ikony mini-kafli sekcji „na odległość" (globus / users / dokument) — wg handoffu.
+	const odlIkony = [
+		'<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/>',
+		'<path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="8" r="3"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4"/><path d="M15.5 5.2a3 3 0 0 1 0 5.6"/>',
+		'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/>'
+	];
 
 	// ── Opinie: pojedynczy rotujący cytat, auto-rotacja co 6,5s + kropki ──
 	let testiIndex = $state(0);
@@ -122,7 +130,7 @@
 		</section>
 
 		<!-- ============ ZAKRES USŁUGI ============ -->
-		<section class="zakres-section">
+		<section class="zakres-section" id="zakres">
 			<div class="section-head col">
 				<div class="eyebrow eyebrow-green">{zakres.eyebrow}</div>
 				<h2 class="h2 zakres-h2">{zakres.tytul}</h2>
@@ -136,6 +144,46 @@
 				{/each}
 			</div>
 			<p class="zakres-note">{zakres.uwaga}</p>
+		</section>
+
+		<!-- ============ SPRZEDAŻ NA ODLEGŁOŚĆ ============ -->
+		<section class="section odl-section">
+			<div class="odl-panel">
+				<div class="odl-text">
+					<div class="eyebrow">{naOdleglosc.eyebrow}</div>
+					<h2 class="h2 odl-h2">
+						{@html naOdleglosc.tytul.replace(
+							naOdleglosc.tytulEmfaza,
+							`<em>${naOdleglosc.tytulEmfaza}</em>`
+						)}
+					</h2>
+					{#each naOdleglosc.akapity as akapit}
+						<p class="odl-p">{akapit}</p>
+					{/each}
+				</div>
+				<div class="odl-kafle">
+					{#each naOdleglosc.kafle as kafel, i}
+						<div class="odl-kafel">
+							<span class="odl-ico">
+								<svg
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.6"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									{@html odlIkony[i]}
+								</svg>
+							</span>
+							<div>
+								<h3 class="odl-kt">{kafel.t}</h3>
+								<p class="odl-kd">{kafel.d}</p>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</div>
 		</section>
 
 		<!-- ============ KORZYŚCI ============ -->
@@ -538,6 +586,80 @@
 		font-size: 14px;
 		color: var(--gold-soft);
 		margin-top: 26px;
+	}
+
+	/* ===== NA ODLEGŁOŚĆ ===== */
+	.odl-section {
+		padding-top: 88px;
+		padding-bottom: 88px;
+	}
+	.odl-panel {
+		display: grid;
+		grid-template-columns: 1.05fr 1fr;
+		gap: 44px;
+		align-items: center;
+		background: var(--bg-cream);
+		border: 1px solid var(--border);
+		border-radius: 20px;
+		padding: 48px;
+	}
+	.odl-h2 {
+		font-size: 33px;
+		line-height: 1.22;
+		margin-bottom: 16px;
+	}
+	.odl-h2 :global(em) {
+		font-style: italic;
+		color: var(--gold);
+	}
+	.odl-p {
+		font-size: 15.5px;
+		line-height: 1.72;
+		color: var(--muted);
+		margin: 0 0 14px;
+	}
+	.odl-p:last-child {
+		margin-bottom: 0;
+	}
+	.odl-kafle {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+	.odl-kafel {
+		display: flex;
+		align-items: flex-start;
+		gap: 14px;
+		background: #fff;
+		border: 1px solid var(--border);
+		border-radius: 14px;
+		padding: 18px;
+	}
+	.odl-ico {
+		flex: none;
+		width: 44px;
+		height: 44px;
+		display: grid;
+		place-items: center;
+		border-radius: 12px;
+		background: rgba(180, 137, 76, 0.12);
+		color: var(--gold);
+	}
+	.odl-ico svg {
+		width: 22px;
+		height: 22px;
+	}
+	.odl-kt {
+		font-family: 'Newsreader', serif;
+		font-weight: 500;
+		font-size: 17px;
+		margin-bottom: 4px;
+	}
+	.odl-kd {
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--muted);
+		margin: 0;
 	}
 
 	/* ===== KORZYŚCI ===== */
@@ -963,6 +1085,22 @@
 		}
 		.zakres-grid {
 			grid-template-columns: 1fr;
+		}
+		.odl-section {
+			padding-top: 56px;
+			padding-bottom: 56px;
+		}
+		.odl-panel {
+			grid-template-columns: 1fr;
+			gap: 24px;
+			padding: 24px 20px;
+			border-radius: 16px;
+		}
+		.odl-h2 {
+			font-size: 25px;
+		}
+		.odl-p {
+			font-size: 14px;
 		}
 		.faq-grid {
 			grid-template-columns: 1fr;

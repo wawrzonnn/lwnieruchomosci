@@ -17,14 +17,14 @@ export const breadcrumbs = [
 
 export const hero = {
 	eyebrow: 'Usługa · Sprzedaż nieruchomości',
-	tytul: 'Sprzedaż nieruchomości bez stresu — od wyceny po akt notarialny',
-	tytulEmfaza: 'bez stresu',
+	tytul: 'Sprzedaż nieruchomości w Jeleniej Górze i Karkonoszach',
+	tytulEmfaza: 'Karkonoszach',
 	podtytul:
-		'Zajmiemy się całą sprzedażą Twojego mieszkania, domu lub działki w Jeleniej Górze i Karkonoszach. Profesjonalna wycena, prezentacja i negocjacje — Ty tylko odbierasz klucze.',
+		'Każda nieruchomość wymaga odpowiednio zaplanowanej sprzedaży. Przygotowujemy indywidualną strategię działania, dbamy o profesjonalną prezentację oferty i prowadzimy cały proces aż do bezpiecznej finalizacji transakcji.',
 	tlo: U('photo-1600585154340-be6161a56a0c', 1600),
 	cta: [
-		{ label: 'Umów bezpłatną wycenę', href: '#formularz', wariant: 'green' },
-		{ label: 'Zobacz, jak działamy', href: '#proces', wariant: 'outline' }
+		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
+		{ label: 'Co obejmuje usługa?', href: '#zakres', wariant: 'outline' }
 	]
 };
 
@@ -78,21 +78,37 @@ export const proces = {
 };
 
 export const zakres = {
-	eyebrow: 'Co obejmuje usługa',
-	tytul: 'Wszystko w jednym pakiecie',
+	eyebrow: 'Co obejmuje usługa?',
+	tytul: 'Prowadzimy sprzedaż od A do Z',
 	lista: [
-		'Bezpłatna wycena rynkowa',
-		'Umowa na wyłączność',
+		'Analiza nieruchomości',
+		'Przygotowanie strategii sprzedaży',
 		'Profesjonalna sesja zdjęciowa',
-		'Zdjęcia i film z drona',
-		'Doradztwo w przygotowaniu nieruchomości',
-		'Publikacja na portalach i w social media',
-		'Obsługa zapytań i prezentacje',
-		'Negocjacje cenowe',
-		'Weryfikacja kupujących',
-		'Wsparcie w formalnościach i przy akcie notarialnym'
+		'Prezentacja wideo nieruchomości',
+		'Promocja oferty',
+		'Prezentacje nieruchomości',
+		'Negocjacje',
+		'Koordynacja formalności',
+		'Przekazanie nieruchomości'
 	],
 	uwaga: 'Zdjęcia, dron i film są w standardzie — bez dodatkowych dopłat.'
+};
+
+// Sekcja „na odległość" (handoff refinement 18): kremowy panel + 3 mini-karty.
+// Dla klientów spoza regionu / z zagranicy.
+export const naOdleglosc = {
+	eyebrow: 'Dla klientów spoza regionu',
+	tytul: 'Sprzedaż nieruchomości na odległość',
+	tytulEmfaza: 'na odległość',
+	akapity: [
+		'Mieszkasz za granicą lub poza regionem? Nie musisz przyjeżdżać na każde spotkanie ani zajmować się organizacją sprzedaży. Możemy przeprowadzić cały proces w Twoim imieniu — od przygotowania oferty i prezentacji nieruchomości, przez kontakt z kupującymi i formalności, aż do finalizacji transakcji.',
+		'Jeżeli będzie taka potrzeba, sprzedaż może odbyć się również na podstawie pełnomocnictwa notarialnego, dzięki czemu Twoja obecność nie będzie konieczna.'
+	],
+	kafle: [
+		{ t: 'Za granicą lub poza regionem', d: 'Nie musisz przyjeżdżać na spotkania ani prezentacje.' },
+		{ t: 'Prowadzimy w Twoim imieniu', d: 'Oferta, kupujący i formalności — całość po naszej stronie.' },
+		{ t: 'Pełnomocnictwo notarialne', d: 'W razie potrzeby sprzedaż bez Twojej obecności.' }
+	]
 };
 
 export const korzysci = {
@@ -173,8 +189,8 @@ export const faq = {
 
 export const formularz = {
 	eyebrow: 'Zacznijmy',
-	tytul: 'Umów bezpłatną wycenę nieruchomości',
-	podtytul: 'Zostaw kontakt i podstawowe informacje — oddzwonimy i umówimy dogodny termin oględzin.',
+	tytul: 'Porozmawiajmy o sprzedaży Twojej nieruchomości',
+	podtytul: 'Umów spotkanie i wspólnie przygotujmy plan działania dopasowany do Twojej sytuacji.',
 	przycisk: 'Wyślij zgłoszenie',
 	potwierdzenie: {
 		tytul: 'Dziękujemy!',
