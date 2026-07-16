@@ -268,6 +268,114 @@ export const miasta: Miasto[] = [
 			U('photo-1449824913935-59a10b8d2000'),
 			U('photo-1439066615861-d1af74d74000')
 		]
+	},
+	{
+		slug: 'kamienna-gora',
+		nazwa: 'Kamienna Góra',
+		nazwaLoc: 'Kamiennej Górze',
+		region: 'między Rudawami Janowickimi a Górami Kamiennymi',
+		hero: U('photo-1464822759023-fed622ff2c3b', 1600),
+		lead: 'Miasto powiatowe nad Bobrem, między Rudawami Janowickimi a Górami Kamiennymi — z opactwem w pobliskim Krzeszowie i cenami niższymi niż w Kotlinie Jeleniogórskiej.',
+		chips: ['Kotlina Kamiennogórska', '≈ 18 tys. mieszkańców', 'Miasto powiatowe'],
+		opis: [
+			'Kamienna Góra leży nad Bobrem, w kotlinie zamkniętej Rudawami Janowickimi od zachodu i Górami Kamiennymi od wschodu. To miasto powiatowe z własnym rynkiem, szkołami i strefą ekonomiczną, a jednocześnie punkt wypadowy w dwa różne pasma górskie.',
+			'Kilka kilometrów dalej leży Krzeszów z barokowym opactwem cystersów — jednym z najcenniejszych zabytków Dolnego Śląska. Nieruchomości bywają tu wyraźnie tańsze niż w okolicach Jeleniej Góry czy Karpacza, co przyciąga kupujących szukających przestrzeni za rozsądne pieniądze.'
+		],
+		fakty: [
+			{ k: 'Region', v: 'Kotlina Kamiennogórska' },
+			{ k: 'Powiat', v: 'kamiennogórski (miasto powiatowe)' },
+			{ k: 'Mieszkańcy', v: '≈ 18 000' },
+			{ k: 'Rzeka', v: 'Bóbr' },
+			{ k: 'W pobliżu', v: 'Krzeszów, Rudawy Janowickie' }
+		],
+		atuty: [
+			{ t: 'Opactwo w Krzeszowie', d: 'Barokowy zespół cystersów kilka km od miasta.' },
+			{ t: 'Dwa pasma górskie', d: 'Rudawy Janowickie i Góry Kamienne w zasięgu.' },
+			{ t: 'Przystępne ceny', d: 'Taniej niż w Kotlinie Jeleniogórskiej.' },
+			{ t: 'Miasto powiatowe', d: 'Urzędy, szkoły i handel na miejscu.' },
+			{ t: 'Strefa ekonomiczna', d: 'Lokalny rynek pracy i inwestycje.' },
+			{ t: 'Tradycje tkackie', d: 'Muzeum Tkactwa i historia przemysłu.' }
+		],
+		galeria: [
+			'/sunset-dolina.png',
+			'/karkonosze-panorama.png',
+			'/schronisko-staw.png',
+			U('photo-1454496522488-7a8e488e8606'),
+			U('photo-1441974231531-c6227db76b6e'),
+			U('photo-1449824913935-59a10b8d2000')
+		]
+	},
+	{
+		slug: 'myslakowice',
+		nazwa: 'Mysłakowice',
+		nazwaLoc: 'Mysłakowicach',
+		region: 'Dolina Pałaców i Ogrodów',
+		hero: U('photo-1476514525535-07fb3b4ae5f1', 1600),
+		lead: 'Gmina w Dolinie Pałaców i Ogrodów, w połowie drogi między Jelenią Górą a Karpaczem — z pałacem królewskim i tyrolskimi domami osadników.',
+		chips: ['Kotlina Jeleniogórska', '≈ 10 tys. (gmina)', 'Wieś / pałace'],
+		opis: [
+			'Mysłakowice leżą nad Łomnicą, u podnóża Karkonoszy, w sercu Doliny Pałaców i Ogrodów. Dawna letnia rezydencja króla Fryderyka Wilhelma IV i charakterystyczne domy tyrolskie — zbudowane przez osadników z doliny Zillertal — nadają miejscowości rys, jakiego nie ma żadna sąsiednia gmina.',
+			'To wygodny kompromis: kilkanaście minut do Jeleniej Góry i podobnie blisko do Karpacza, przy zachowaniu spokoju i widoku na góry. Dominują domy i działki, chętnie wybierane przez rodziny szukające przestrzeni bez odcinania się od miasta.'
+		],
+		fakty: [
+			{ k: 'Region', v: 'Kotlina Jeleniogórska' },
+			{ k: 'Typ', v: 'Gmina wiejska' },
+			{ k: 'Powiat', v: 'karkonoski' },
+			{ k: 'Mieszkańcy', v: '≈ 10 000 (gmina)' },
+			{ k: 'Atrakcje', v: 'Pałac Mysłakowice, domy tyrolskie' }
+		],
+		atuty: [
+			{ t: 'Dolina Pałaców i Ogrodów', d: 'Jeden z najcenniejszych zespołów rezydencji w kraju.' },
+			{ t: 'Domy tyrolskie', d: 'Ślad po osadnikach z doliny Zillertal.' },
+			{ t: 'Między miastem a Karpaczem', d: 'Blisko Jeleniej Góry i stoków.' },
+			{ t: 'Widok na Karkonosze', d: 'Panorama gór z wielu działek.' },
+			{ t: 'Domy i działki', d: 'Przestrzeń pod budowę własnego domu.' },
+			{ t: 'Nad Łomnicą', d: 'Tereny zielone wzdłuż rzeki.' }
+		],
+		galeria: [
+			'/karkonosze-panorama.png',
+			'/sniezka-sunset.png',
+			'/sunset-dolina.png',
+			U('photo-1464822759023-fed622ff2c3b'),
+			U('photo-1500382017468-9049fed747ef'),
+			U('photo-1552083375-1447ce886485')
+		]
+	},
+	{
+		slug: 'lesna',
+		nazwa: 'Leśna',
+		nazwaLoc: 'Leśnej',
+		region: 'Pogórze Izerskie',
+		hero: U('photo-1439066615861-d1af74d74000', 1600),
+		lead: 'Miasteczko nad Kwisą na Pogórzu Izerskim — z zamkiem Czocha i jeziorami zaporowymi, dla szukających wody i ciszy poza tłokiem Karkonoszy.',
+		chips: ['Pogórze Izerskie', '≈ 4,5 tys. mieszkańców', 'Miasteczko / jeziora'],
+		opis: [
+			'Leśna leży nad Kwisą, na Pogórzu Izerskim, w powiecie lubańskim. Okolicę definiuje woda: dwa jeziora zaporowe — Leśniańskie i Złotnickie — z zabytkowymi zaporami z początku XX wieku, a nad brzegiem pierwszego z nich stoi zamek Czocha, jeden z najbardziej rozpoznawalnych zamków w Polsce.',
+			'To inna okolica niż Karkonosze: łagodniejsza, mniej turystyczna i wyraźnie tańsza, za to z dostępem do jezior i lasów. Trafiają się tu domy i działki rekreacyjne dla osób, którym bardziej zależy na wodzie i spokoju niż na bliskości stoków.'
+		],
+		fakty: [
+			{ k: 'Region', v: 'Pogórze Izerskie' },
+			{ k: 'Powiat', v: 'lubański' },
+			{ k: 'Mieszkańcy', v: '≈ 4 500' },
+			{ k: 'Rzeka', v: 'Kwisa' },
+			{ k: 'Atrakcje', v: 'Zamek Czocha, jeziora zaporowe' }
+		],
+		atuty: [
+			{ t: 'Zamek Czocha', d: 'Znany zamek nad Jeziorem Leśniańskim.' },
+			{ t: 'Dwa jeziora', d: 'Leśniańskie i Złotnickie w zasięgu spaceru.' },
+			{ t: 'Nad Kwisą', d: 'Rzeka, zapory i tereny rekreacyjne.' },
+			{ t: 'Niskie ceny', d: 'Wyraźnie taniej niż w Karkonoszach.' },
+			{ t: 'Cisza i lasy', d: 'Mniej turystyczna okolica niż kurorty.' },
+			{ t: 'Domy i rekreacja', d: 'Działki i domy blisko wody.' }
+		],
+		galeria: [
+			'/schronisko-staw.png',
+			'/sunset-dolina.png',
+			'/karkonosze-panorama.png',
+			U('photo-1441974231531-c6227db76b6e'),
+			U('photo-1439066615861-d1af74d74000'),
+			U('photo-1454496522488-7a8e488e8606')
+		]
 	}
 ];
 

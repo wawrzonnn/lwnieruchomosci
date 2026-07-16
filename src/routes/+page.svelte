@@ -135,11 +135,30 @@
 		regionScroller.style.cursor = 'grab';
 		regionScroller.style.scrollSnapType = 'x mandatory';
 	}
+	// Celujemy w krawędź sąsiedniego kafla, a nie w stałe 580px: kafle mają różne szerokości
+	// (big/small), więc stały skok lądował między punktami zaczepienia — a `scroll-snap-type:
+	// x mandatory` potrafi wtedy ściągnąć widok z powrotem, co wygląda jak "nie działa".
+	// Krawędź kafla jest punktem zaczepienia (scroll-snap-align: start), więc snap nie ma z czym walczyć.
+	function regionScrollTo(kierunek: 1 | -1) {
+		const el = regionScroller;
+		if (!el) return;
+		const baza = el.getBoundingClientRect().left - el.scrollLeft;
+		const krawedzie = [...el.querySelectorAll<HTMLElement>('.region-tile')].map((t) =>
+			Math.round(t.getBoundingClientRect().left - baza)
+		);
+		const teraz = el.scrollLeft;
+		const cel =
+			kierunek > 0
+				? krawedzie.find((o) => o > teraz + 8)
+				: [...krawedzie].reverse().find((o) => o < teraz - 8);
+		if (cel === undefined) return;
+		el.scrollTo({ left: cel, behavior: 'smooth' });
+	}
 	function regionPrev() {
-		regionScroller?.scrollBy({ left: -580, behavior: 'smooth' });
+		regionScrollTo(-1);
 	}
 	function regionNext() {
-		regionScroller?.scrollBy({ left: 580, behavior: 'smooth' });
+		regionScrollTo(1);
 	}
 
 	// ── Kafelki regionu: pokazujemy tylko lokalizacje, w których faktycznie mamy oferty ──

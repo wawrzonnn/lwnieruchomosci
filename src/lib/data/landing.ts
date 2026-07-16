@@ -308,6 +308,24 @@ export const region = {
 			img: U('photo-1441974231531-c6227db76b6e', 1000),
 			caption: 'Podgórzyn',
 			href: '/lokalizacje/podgorzyn'
+		},
+		{
+			size: 'big',
+			img: U('photo-1464822759023-fed622ff2c3b', 1400),
+			caption: 'Kamienna Góra',
+			href: '/lokalizacje/kamienna-gora'
+		},
+		{
+			size: 'small',
+			img: U('photo-1476514525535-07fb3b4ae5f1', 1000),
+			caption: 'Mysłakowice',
+			href: '/lokalizacje/myslakowice'
+		},
+		{
+			size: 'big',
+			img: U('photo-1439066615861-d1af74d74000', 1400),
+			caption: 'Leśna',
+			href: '/lokalizacje/lesna'
 		}
 	] satisfies RegionTile[]
 };
