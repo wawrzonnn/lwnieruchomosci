@@ -1,6 +1,5 @@
 <script lang="ts">
 	import logo from '$lib/assets/lw-logo.png';
-	import { kontakt } from '$lib/data/landing';
 
 	let menuOpen = $state(false);
 	let mobileOfertySubOpen = $state(false);
@@ -28,8 +27,6 @@
 		{ href: '/blog', label: 'Blog' },
 		{ href: '/kontakt', label: 'Kontakt' }
 	];
-
-	const phoneHref = `tel:${kontakt.telefon.replace(/\s/g, '')}`;
 
 	function closeMobile() {
 		menuOpen = false;
@@ -86,7 +83,6 @@
 	</nav>
 
 	<div class="nav-right">
-		<a href={phoneHref} class="nav-phone">{kontakt.telefon}</a>
 		<a href="/kontakt#formularz" class="nav-cta">Umów konsultację</a>
 	</div>
 
@@ -138,7 +134,6 @@
 		{#each simpleLinks as link}
 			<a href={link.href} onclick={closeMobile}>{link.label}</a>
 		{/each}
-		<a href={phoneHref} onclick={closeMobile}>{kontakt.telefon}</a>
 		<a href="/kontakt#formularz" class="mobile-cta" onclick={closeMobile}>Umów konsultację</a>
 	</div>
 {/if}
@@ -260,10 +255,6 @@
 		display: flex;
 		align-items: center;
 		gap: 18px;
-	}
-	.nav-phone {
-		font-weight: 600;
-		font-size: 15px;
 	}
 	.nav-cta {
 		background: var(--green);

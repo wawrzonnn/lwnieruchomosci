@@ -311,14 +311,38 @@
 									type="button"
 									class="offer-arrow left"
 									aria-label="Poprzednie zdjęcie"
-									onclick={() => prevImage(i, imgs.length)}>‹</button
+									onclick={() => prevImage(i, imgs.length)}
 								>
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"
+									>
+										<path d="M15 5 8 12l7 7" />
+									</svg>
+								</button>
 								<button
 									type="button"
 									class="offer-arrow right"
 									aria-label="Następne zdjęcie"
-									onclick={() => nextImage(i, imgs.length)}>›</button
+									onclick={() => nextImage(i, imgs.length)}
 								>
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1.8"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										aria-hidden="true"
+									>
+										<path d="m9 5 7 7-7 7" />
+									</svg>
+								</button>
 							{/if}
 							<div class="offer-strip">
 								<div class="strip-loc">
@@ -911,31 +935,54 @@
 		color: var(--green);
 		font-size: 18px;
 	}
+	/* Ten sam język co strzałki galerii regionu, tylko mniejsze: mrożone szkło zamiast
+	   białego krążka, złoto marki pod kursorem. Na karcie budzą się dopiero przy najechaniu —
+	   sześć krążków naraz na trzech kartach robiłoby hałas. */
 	.offer-arrow {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
 		width: 34px;
 		height: 34px;
-		border-radius: 50%;
-		border: none;
-		background: rgba(255, 255, 255, 0.9);
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: var(--text);
-		font-family: inherit;
-		font-size: 18px;
-		line-height: 1;
 		padding: 0;
+		border-radius: 50%;
+		border: 1px solid rgba(243, 238, 225, 0.24);
+		background: rgba(35, 39, 31, 0.32);
+		-webkit-backdrop-filter: blur(10px) saturate(115%);
+		backdrop-filter: blur(10px) saturate(115%);
+		color: var(--on-green);
+		display: grid;
+		place-items: center;
 		cursor: pointer;
 		z-index: 2;
-		transition: background 0.15s ease, transform 0.15s ease;
+		opacity: 0.42;
+		box-shadow: 0 8px 18px -12px rgba(0, 0, 0, 0.6);
+		transition:
+			opacity 0.18s ease,
+			background 0.18s ease,
+			border-color 0.18s ease,
+			color 0.18s ease;
+	}
+	.offer-arrow svg {
+		width: 14px;
+		height: 14px;
+	}
+	.offer:hover .offer-arrow {
+		opacity: 0.88;
 	}
 	.offer-arrow:hover {
-		background: #fff;
-		transform: translateY(-50%) scale(1.08);
+		opacity: 1;
+		background: rgba(35, 39, 31, 0.6);
+		border-color: rgba(180, 137, 76, 0.85);
+		color: var(--gold-light);
+	}
+	.offer-arrow:active {
+		background: rgba(35, 39, 31, 0.75);
+	}
+	.offer-arrow:focus-visible {
+		opacity: 1;
+		outline: 2px solid var(--gold);
+		outline-offset: 2px;
 	}
 	.offer-arrow.left {
 		left: 12px;
