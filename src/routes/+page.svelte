@@ -68,6 +68,7 @@
 	// ── Region: pozioma galeria (drag / wheel / strzałki, BEZ auto-play i BEZ scroll-jackingu) ──
 	let regionScroller: HTMLDivElement | undefined = $state();
 	let regionProgress = $state(10);
+	let regionScrollable = $state(false);
 	let regionDragging = false;
 	let regionStartX = 0;
 	let regionStartScroll = 0;
@@ -76,9 +77,24 @@
 	function updateRegionProgress() {
 		if (!regionScroller) return;
 		const max = regionScroller.scrollWidth - regionScroller.clientWidth;
+		// Przy małej liczbie kafli mieszczą się one w całości na szerokim ekranie i nie ma czego
+		// przewijać — wtedy chowamy strzałki, podpowiedź i pasek, żeby nie obiecywały ruchu,
+		// którego nie będzie. Tolerancja 4px na zaokrąglenia sub-pikselowe.
+		regionScrollable = max > 4;
 		const pct = max > 0 ? Math.min(Math.max(regionScroller.scrollLeft / max, 0), 1) : 0;
 		regionProgress = 10 + pct * 90;
 	}
+	$effect(() => {
+		regionTiles; // przelicz też, gdy zmieni się liczba kafli
+		if (!regionScroller) return;
+		updateRegionProgress();
+		// ResizeObserver zamiast nasłuchu `resize` na oknie: odpala się dopiero po przeliczeniu
+		// układu, więc pomiar jest już aktualny (przy `resize` mierzylibyśmy sprzed reflow
+		// i strzałki zostałyby ukryte mimo zwężenia okna).
+		const ro = new ResizeObserver(() => updateRegionProgress());
+		ro.observe(regionScroller);
+		return () => ro.disconnect();
+	});
 	function onRegionWheel(e: WheelEvent) {
 		if (!regionScroller) return;
 		if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
@@ -405,7 +421,9 @@
 						<div class="eyebrow eyebrow-dark">Region Karkonosze</div>
 						<h2 class="region-h2">{region.tytul}</h2>
 					</div>
-					<div class="region-hint">{region.hint}</div>
+					{#if regionScrollable}
+						<div class="region-hint">{region.hint}</div>
+					{/if}
 				</div>
 				<div class="region-gallery-wrap">
 					<div
@@ -424,14 +442,20 @@
 							</a>
 						{/each}
 					</div>
-					<button class="region-arrow left" aria-label="Poprzednie zdjęcie" onclick={regionPrev}>‹</button
-					>
-					<button class="region-arrow right" aria-label="Następne zdjęcie" onclick={regionNext}>›</button
-					>
+					{#if regionScrollable}
+						<button class="region-arrow left" aria-label="Poprzednie zdjęcie" onclick={regionPrev}
+							>‹</button
+						>
+						<button class="region-arrow right" aria-label="Następne zdjęcie" onclick={regionNext}
+							>›</button
+						>
+					{/if}
 				</div>
-				<div class="region-progress-track">
-					<div class="region-progress-bar" style="width:{regionProgress}%"></div>
-				</div>
+				{#if regionScrollable}
+					<div class="region-progress-track">
+						<div class="region-progress-bar" style="width:{regionProgress}%"></div>
+					</div>
+				{/if}
 			</section>
 		{/if}
 
