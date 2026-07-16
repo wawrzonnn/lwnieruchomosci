@@ -462,12 +462,32 @@
 						{/each}
 					</div>
 					{#if regionScrollable}
-						<button class="region-arrow left" aria-label="Poprzednie zdjęcie" onclick={regionPrev}
-							>‹</button
-						>
-						<button class="region-arrow right" aria-label="Następne zdjęcie" onclick={regionNext}
-							>›</button
-						>
+						<button class="region-arrow left" aria-label="Poprzednia lokalizacja" onclick={regionPrev}>
+							<svg
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.6"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="M15 5 8 12l7 7" />
+							</svg>
+						</button>
+						<button class="region-arrow right" aria-label="Następna lokalizacja" onclick={regionNext}>
+							<svg
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="1.6"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								aria-hidden="true"
+							>
+								<path d="m9 5 7 7-7 7" />
+							</svg>
+						</button>
 					{/if}
 				</div>
 				{#if regionScrollable}
@@ -1388,22 +1408,53 @@
 		color: var(--gold-light);
 		border-bottom-color: var(--gold-light);
 	}
+	/* Dyskretne jak znak wodny: w spoczynku ledwo widoczne, wyraźnieją nad galerią,
+	   a pod kursorem dostają złoto marki. Mrożone szkło zamiast białego krążka —
+	   czyta się tak samo na jasnym i ciemnym zdjęciu. */
 	.region-arrow {
 		position: absolute;
 		top: 50%;
 		transform: translateY(-50%);
-		width: 46px;
-		height: 46px;
+		width: 48px;
+		height: 48px;
+		padding: 0;
 		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.88);
-		border: none;
+		border: 1px solid rgba(243, 238, 225, 0.24);
+		background: rgba(35, 39, 31, 0.32);
+		-webkit-backdrop-filter: blur(12px) saturate(115%);
+		backdrop-filter: blur(12px) saturate(115%);
+		color: var(--on-green);
 		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: var(--green-ink);
-		font-size: 19px;
-		box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.55);
+		display: grid;
+		place-items: center;
+		opacity: 0.58;
+		box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
+		transition:
+			opacity 0.18s ease,
+			background 0.18s ease,
+			border-color 0.18s ease,
+			color 0.18s ease;
+	}
+	.region-arrow svg {
+		width: 18px;
+		height: 18px;
+	}
+	.region-gallery-wrap:hover .region-arrow {
+		opacity: 0.92;
+	}
+	.region-arrow:hover {
+		opacity: 1;
+		background: rgba(35, 39, 31, 0.6);
+		border-color: rgba(180, 137, 76, 0.85);
+		color: var(--gold-light);
+	}
+	.region-arrow:active {
+		background: rgba(35, 39, 31, 0.75);
+	}
+	.region-arrow:focus-visible {
+		opacity: 1;
+		outline: 2px solid var(--gold);
+		outline-offset: 3px;
 	}
 	.region-arrow.left {
 		left: 20px;
