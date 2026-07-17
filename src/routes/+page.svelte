@@ -558,6 +558,34 @@
 						napisz — chętnie pomożemy.
 					</p>
 					<a href={faq.cta.href} class="faq-cta">{faq.cta.label}</a>
+
+					<div class="faq-contact">
+						<div class="faq-contact-head">Masz pytanie? Odezwij się</div>
+						<a class="faq-contact-row" href="tel:{kontakt.telefon.replace(/\s/g, '')}">
+							<span class="faq-contact-ico" aria-hidden="true">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M4 5c0 8.3 6.7 15 15 15a2 2 0 0 0 2-2v-2.6a1 1 0 0 0-.8-1l-3.2-.6a1 1 0 0 0-1 .5l-.8 1.4a12 12 0 0 1-5.5-5.5l1.4-.8a1 1 0 0 0 .5-1l-.6-3.2a1 1 0 0 0-1-.8H6a2 2 0 0 0-2 2Z"/>
+								</svg>
+							</span>
+							<span>{kontakt.telefon}</span>
+						</a>
+						<a class="faq-contact-row" href="mailto:{kontakt.email}">
+							<span class="faq-contact-ico" aria-hidden="true">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+									<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+								</svg>
+							</span>
+							<span>{kontakt.email}</span>
+						</a>
+						<div class="faq-contact-row static">
+							<span class="faq-contact-ico" aria-hidden="true">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+									<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+								</svg>
+							</span>
+							<span>{godziny[0].d}: {godziny[0].h}</span>
+						</div>
+					</div>
 				</div>
 				<div class="faq-list">
 					{#each faq.lista as item, i}
@@ -1617,6 +1645,12 @@
 		gap: 56px;
 		align-items: start;
 	}
+	/* Intro jedzie z widokiem — lista pytań jest wysoka, więc bez tego lewa kolumna
+	   robiła się pustą przestrzenią, gdy tytuł uciekł do góry. */
+	.faq-intro {
+		position: sticky;
+		top: 96px;
+	}
 	.faq-h2 {
 		margin-bottom: 16px;
 	}
@@ -1637,6 +1671,48 @@
 		border-radius: 999px;
 		font-weight: 600;
 		font-size: 15px;
+	}
+	.faq-contact {
+		margin-top: 34px;
+		padding-top: 26px;
+		border-top: 1px solid var(--divider);
+		max-width: 340px;
+	}
+	.faq-contact-head {
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--label);
+		letter-spacing: 0.02em;
+		margin-bottom: 14px;
+	}
+	.faq-contact-row {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 9px 0;
+		color: var(--text);
+		font-size: 15px;
+		transition: color 0.15s ease;
+	}
+	a.faq-contact-row:hover {
+		color: var(--green);
+	}
+	.faq-contact-row.static {
+		color: var(--muted);
+	}
+	.faq-contact-ico {
+		flex: none;
+		width: 34px;
+		height: 34px;
+		display: grid;
+		place-items: center;
+		border-radius: 10px;
+		background: rgba(180, 137, 76, 0.12);
+		color: var(--gold);
+	}
+	.faq-contact-ico svg {
+		width: 17px;
+		height: 17px;
 	}
 	.faq-list {
 		border-bottom: 1px solid var(--divider);
@@ -1927,6 +2003,12 @@
 		.faq-grid,
 		.contact-box {
 			grid-template-columns: 1fr;
+		}
+		.faq-intro {
+			position: static;
+		}
+		.faq-contact {
+			max-width: none;
 		}
 		.region-tile {
 			flex-basis: 300px;
