@@ -23,6 +23,9 @@
 	];
 
 	const simpleLinks = [
+		// „Region" wg paczki lokalizacji designerki („nawigacja (aktywna: Region)") — na szkielecie
+		// strony tej pozycji nie narysowała, ale bez niej podstrony miejscowości nie mają wejścia.
+		{ href: '/lokalizacje', label: 'Region' },
 		{ href: '/o-nas', label: 'O nas' },
 		{ href: '/blog', label: 'Blog' },
 		{ href: '/kontakt', label: 'Kontakt' }

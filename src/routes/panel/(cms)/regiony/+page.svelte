@@ -64,12 +64,16 @@
 <div class="info">
 	<strong>Kiedy kafelek jest widoczny na stronie?</strong>
 	<p>
-		Region pojawia się tylko wtedy, gdy ma <strong>co najmniej jedną ofertę</strong> — pusty kafelek
-		prowadziłby na podstronę bez ofert. Liczba ofert liczy się automatycznie po nazwie regionu:
-		oferta trafia do regionu, jeśli jej miasto zawiera tę nazwę (np. region <em>Podgórzyn</em> zbiera
-		oferty z Sosnówki i Staniszowa, bo mają wpisane miasto „Podgórzyn"). Nie trzeba nic ustawiać —
-		kafelek pojawi się sam, gdy dodasz ofertę w tym regionie, i zniknie, gdy ostatnia zostanie
-		sprzedana. Przełącznik <em>Widoczny</em> chowa kafelek niezależnie od liczby ofert.
+		Decyduje wyłącznie przełącznik <em>Widoczny</em> — kafelek pokazuje się także wtedy, gdy region
+		nie ma żadnej oferty. Kafelek prowadzi na stronę regionu, a to ona pokazuje oferty (albo
+		informację, że w tej okolicy chwilowo ich nie ma). Dzięki temu strony miejscowości bez ofert
+		wciąż są dostępne dla klientów i wyszukiwarek.
+	</p>
+	<p>
+		<strong>Liczba ofert</strong> pod nazwą regionu liczy się sama i służy tylko jako podpis: oferta
+		trafia do regionu, jeśli jej miasto zawiera nazwę regionu (np. <em>Podgórzyn</em> zbiera oferty
+		z Sosnówki i Staniszowa, bo mają wpisane miasto „Podgórzyn"). Gdy ofert nie ma, kafelek mówi
+		po prostu „Zobacz region".
 	</p>
 	<p>
 		<strong>Kadr zdjęcia:</strong> kliknij na podglądzie miejsce, które ma zostać widoczne. Kafelki są
@@ -135,12 +139,12 @@
 				</div>
 
 				<div class="status">
-					{#if r.ofert === 0}
-						<span class="plakietka zero">0 ofert — kafelek ukryty na stronie</span>
-					{:else if !r.visible}
-						<span class="plakietka zero">{r.ofert} ofert — ukryty przełącznikiem</span>
+					{#if !r.visible}
+						<span class="plakietka zero">Ukryty — nie pokazuje się na stronie głównej</span>
+					{:else if r.ofert === 0}
+						<span class="plakietka ok">Widoczny · brak ofert — kafelek mówi „Zobacz region"</span>
 					{:else}
-						<span class="plakietka ok">{r.ofert} ofert — widoczny na stronie</span>
+						<span class="plakietka ok">Widoczny · {r.ofert} ofert w tym regionie</span>
 					{/if}
 					<span class="sciezka">/lokalizacje/{r.slug}</span>
 				</div>

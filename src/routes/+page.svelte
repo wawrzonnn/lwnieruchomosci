@@ -481,7 +481,9 @@
 									style="background-image:url('{tile.image}'); background-position:{tile.focalX}% {tile.focalY}%"
 								></div>
 								<div class="region-cap {rozmiar}">{tile.nazwa}</div>
-								<span class="region-link">{tile.count} {offerWord(tile.count)} →</span>
+								<span class="region-link">
+									{tile.count ? `${tile.count} ${offerWord(tile.count)}` : 'Zobacz region'} →
+								</span>
 							</a>
 						{/each}
 					</div>
