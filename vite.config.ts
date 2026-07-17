@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-netlify';
+import adapter from '@sveltejs/adapter-node';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 
@@ -11,8 +11,10 @@ export default defineConfig({
 					filename.split(/[/\\]/).includes('node_modules') ? undefined : true
 			},
 
-			// Deploy na Netlify (funkcje serverless). Serwer SSR trafia do funkcji.
-			adapter: adapter({ edge: false, split: false })
+			// Deploy na VPS: samodzielny serwer Node pod PM2 (build/index.js), nginx jako proxy.
+			// Netlify (serverless) odpadło, bo nie utrzymuje wgranych zdjęć — dysk jest ulotny,
+			// a panel zapisuje pliki na dysk (patrz $lib/server/uploads.ts).
+			adapter: adapter()
 		})
 	]
 });
