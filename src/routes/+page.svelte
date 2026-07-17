@@ -232,29 +232,30 @@
 
 		<!-- ============ DLACZEGO MY — 6 kafelków (zastąpiło dawny pasek trust) ============ -->
 		<section class="why">
-			<div class="why-head">
-				<div class="eyebrow">{dlaczegoMy.eyebrow}</div>
-				<h2 class="why-h2">{dlaczegoMy.tytul}</h2>
-			</div>
 			<div class="why-grid">
-				{#each dlaczegoMy.kafle as k}
-					<div class="why-card">
-						<div class="why-ico">
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.6"
-								stroke-linecap="round"
-								stroke-linejoin="round">{@html k.ikona}</svg
-							>
+				<div class="why-intro">
+					<div class="eyebrow">{dlaczegoMy.eyebrow}</div>
+					<h2 class="why-h2">
+						{@html dlaczegoMy.tytul.replace(
+							dlaczegoMy.tytulEmfaza,
+							`<em>${dlaczegoMy.tytulEmfaza}</em>`
+						)}
+					</h2>
+					<p class="why-lead">{dlaczegoMy.lead}</p>
+					<div class="why-rule"></div>
+					<div class="why-podpis">{dlaczegoMy.podpis}</div>
+				</div>
+				<div class="why-list">
+					{#each dlaczegoMy.kafle as k, i}
+						<div class="why-row">
+							<div class="why-no">{String(i + 1).padStart(2, '0')}</div>
+							<div>
+								<h3 class="why-t">{k.t}</h3>
+								<p class="why-d">{k.d}</p>
+							</div>
 						</div>
-						<h3 class="why-t">{k.t}</h3>
-						<p class="why-d">{k.d}</p>
-					</div>
-				{/each}
+					{/each}
+				</div>
 			</div>
 		</section>
 
@@ -550,13 +551,26 @@
 		<!-- ============ FAQ — akordeon ============ -->
 		<section class="section faq-section" id="faq">
 			<div class="faq-grid">
-				<div class="faq-intro">
+				<div class="faq-aside">
 					<div class="eyebrow">{faq.eyebrow}</div>
-					<h2 class="h2 faq-h2">{faq.tytul}</h2>
-					<p class="faq-lead">
-						Krótkie odpowiedzi na pytania, które słyszymy najczęściej. Nie znalazłeś swojego? Zadzwoń lub
-						napisz — chętnie pomożemy.
-					</p>
+					<h2 class="h2 faq-aside-h2">{faq.panelTytul}</h2>
+					<p class="faq-lead">{faq.panelLead}</p>
+					<div class="faq-kontakt">
+						<div>
+							<div class="faq-k-label">Telefon</div>
+							<a class="faq-k-tel" href="tel:{faq.panelKontakt.telefon.replace(/\s/g, '')}"
+								>{faq.panelKontakt.telefon}</a
+							>
+						</div>
+						<div>
+							<div class="faq-k-label">E-mail</div>
+							<a class="faq-k-val" href="mailto:{faq.panelKontakt.email}">{faq.panelKontakt.email}</a>
+						</div>
+						<div>
+							<div class="faq-k-label">Godziny</div>
+							<div class="faq-k-val">{faq.panelKontakt.godziny}</div>
+						</div>
+					</div>
 					<a href={faq.cta.href} class="faq-cta">{faq.cta.label}</a>
 				</div>
 				<div class="faq-list">
@@ -759,55 +773,80 @@
 		opacity: 0.92;
 	}
 
-	/* ===== DLACZEGO MY — 6 kafelków (zastąpiło dawny pasek trust) ===== */
+	/* ===== DLACZEGO MY — układ redakcyjny (refinement 19) ===== */
 	.why {
 		/* górny padding robi miejsce dla wyszukiwarki wystającej z hero (bottom:-56px) */
-		padding: 104px 48px 26px;
+		padding: 104px 48px 40px;
 	}
-	.why-head {
-		text-align: center;
-		max-width: 680px;
-		margin: 0 auto 40px;
+	.why-grid {
+		display: grid;
+		grid-template-columns: 0.82fr 1.18fr;
+		gap: 64px;
+		align-items: start;
+	}
+	.why-intro {
+		position: sticky;
+		top: 40px;
 	}
 	.why-h2 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
 		font-size: 38px;
-		line-height: 1.12;
-	}
-	.why-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 20px;
-	}
-	.why-card {
-		background: #fff;
-		border: 1px solid var(--border);
-		border-radius: 16px;
-		padding: 28px 26px;
-		box-shadow: 0 16px 30px -26px rgba(30, 40, 30, 0.5);
-	}
-	.why-ico {
-		width: 50px;
-		height: 50px;
-		border-radius: 14px;
-		background: rgba(180, 137, 76, 0.12);
-		color: var(--gold);
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		line-height: 1.14;
 		margin-bottom: 18px;
+	}
+	.why-h2 :global(em) {
+		font-style: italic;
+		color: var(--gold);
+	}
+	.why-lead {
+		font-size: 16px;
+		line-height: 1.7;
+		color: var(--muted);
+		margin-bottom: 26px;
+		max-width: 360px;
+	}
+	.why-rule {
+		width: 46px;
+		height: 2px;
+		background: var(--gold);
+		margin-bottom: 14px;
+	}
+	.why-podpis {
+		font-family: 'Newsreader', serif;
+		font-style: italic;
+		font-size: 17px;
+		color: #5c6054;
+	}
+	.why-list {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: 48px;
+	}
+	.why-row {
+		display: flex;
+		gap: 20px;
+		padding: 22px 0;
+		border-top: 1px solid #eae4d6;
+	}
+	.why-no {
+		font-family: 'Newsreader', serif;
+		font-size: 32px;
+		font-weight: 500;
+		color: var(--gold);
+		line-height: 1;
+		min-width: 46px;
 	}
 	.why-t {
 		font-family: 'Newsreader', serif;
 		font-size: 21px;
 		font-weight: 500;
 		line-height: 1.2;
-		margin-bottom: 8px;
+		margin-bottom: 5px;
 	}
 	.why-d {
 		font-size: 14.5px;
-		line-height: 1.65;
+		line-height: 1.6;
 		color: var(--muted);
 	}
 
@@ -1611,29 +1650,66 @@
 		padding-top: 76px;
 		padding-bottom: 44px;
 	}
+	/* Redesign 1a (refinement 19): lewa kolumna = kremowy panel na pełną wysokość
+	   (align-items:stretch). Panel wypełnia pustkę bez position:sticky, więc nie
+	   koliduje z overflow:hidden na .lw-landing. */
 	.faq-grid {
 		display: grid;
-		grid-template-columns: 0.85fr 1.15fr;
-		gap: 56px;
-		align-items: start;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: 52px;
+		align-items: stretch;
 	}
-	.faq-h2 {
-		margin-bottom: 16px;
+	.faq-aside {
+		background: var(--bg-cream);
+		border: 1px solid var(--divider);
+		border-radius: 18px;
+		padding: 38px 34px;
+		display: flex;
+		flex-direction: column;
+	}
+	.faq-aside-h2 {
+		font-size: 34px;
+		line-height: 1.12;
+		margin-bottom: 14px;
 	}
 	.faq-lead {
 		font-size: 16px;
 		line-height: 1.65;
 		color: var(--muted);
-		margin-bottom: 24px;
-		max-width: 340px;
+		margin-bottom: 28px;
+	}
+	.faq-kontakt {
+		border-top: 1px solid #e1dbcb;
+		padding-top: 24px;
+		margin-top: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+	}
+	.faq-k-label {
+		font-size: 11px;
+		color: var(--label);
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		margin-bottom: 4px;
+	}
+	.faq-k-tel {
+		font-family: 'Newsreader', serif;
+		font-size: 28px;
+		font-weight: 500;
+		color: var(--green);
+	}
+	.faq-k-val {
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--text);
 	}
 	.faq-cta {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
+		margin-top: 28px;
+		text-align: center;
 		background: var(--green);
 		color: #fff;
-		padding: 13px 26px;
+		padding: 14px 26px;
 		border-radius: 999px;
 		font-weight: 600;
 		font-size: 15px;
@@ -1909,7 +1985,11 @@
 			grid-template-columns: repeat(2, 1fr);
 		}
 		.why-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+		.why-intro {
+			position: static;
 		}
 	}
 	@media (max-width: 980px) {
@@ -1927,6 +2007,17 @@
 		.faq-grid,
 		.contact-box {
 			grid-template-columns: 1fr;
+		}
+		/* mobile: akordeon najpierw, kremowa karta kontaktu na dole (wg handoffu 19) */
+		.faq-list {
+			order: 1;
+		}
+		.faq-aside {
+			order: 2;
+			padding: 28px 22px;
+		}
+		.faq-aside-h2 {
+			font-size: 26px;
 		}
 		.region-tile {
 			flex-basis: 300px;
@@ -1991,16 +2082,25 @@
 		.why {
 			padding: 36px 20px 8px;
 		}
-		.why-head {
-			text-align: left;
-			margin: 0 0 16px;
-		}
 		.why-h2 {
 			font-size: 24px;
 		}
+		.why-lead {
+			font-size: 14px;
+		}
 		.why-grid {
 			grid-template-columns: 1fr;
-			gap: 12px;
+			gap: 28px;
+		}
+		.why-list {
+			grid-template-columns: 1fr;
+		}
+		.why-no {
+			font-size: 24px;
+			min-width: 38px;
+		}
+		.why-row {
+			padding: 18px 0;
 		}
 		.search-card {
 			position: static;

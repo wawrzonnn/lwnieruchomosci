@@ -27,45 +27,22 @@ export const hero = {
 // Sekcja „Dlaczego my" — 6 kafelków pod wyszukiwarką. Zastąpiła dawny cienki
 // pasek zaufania (4,9 / 120+ / Na wyłączność) — zgodnie z handoffem refinement.
 // `ikona` = wnętrze <svg viewBox="0 0 24 24"> (ikony liniowe, renderowane {@html}).
+// Redesign 1a (refinement 19): układ redakcyjny zamiast siatki 6 kart.
+// Lewa kolumna: eyebrow + tytul (emfaza w złocie) + lead + kreska + podpis.
+// Prawa: numerowana lista 01–06 (numer = index+1). Pole `ikona` w 1a nieużywane.
 export const dlaczegoMy = {
 	eyebrow: 'Dlaczego my',
-	tytul: 'Dlaczego klienci wybierają LW Nieruchomości?',
+	tytul: 'Powodów jest sześć — a każdy z nich to człowiek.',
+	tytulEmfaza: 'człowiek',
+	lead: 'Nie jesteśmy największym biurem w regionie i nie chcemy nim być. Zależy nam na czymś innym — żebyś po całej sprzedaży czy zakupie czuł, że byłeś w dobrych rękach.',
+	podpis: 'Lidia Wolańska · LW Nieruchomości',
 	kafle: [
-		{
-			ikona:
-				'<path d="M12 21s6-5.3 6-10a6 6 0 1 0-12 0c0 4.7 6 10 6 10Z"></path><circle cx="12" cy="11" r="2.2"></circle>',
-			t: 'Mobilne biuro',
-			d: 'Spotykamy się tam, gdzie jest Ci wygodnie. W spokojnej atmosferze porozmawiamy o Twojej nieruchomości i wspólnie znajdziemy najlepsze rozwiązanie.'
-		},
-		{
-			ikona:
-				'<circle cx="9" cy="8" r="3"></circle><path d="M4 19a5 5 0 0 1 10 0"></path><path d="M15.5 5.3a3 3 0 0 1 0 5.4"></path><path d="M17 13.2A5 5 0 0 1 20.5 18"></path>',
-			t: 'Indywidualne podejście',
-			d: 'Nie ilość ofert, a jakość współpracy. Każdej nieruchomości poświęcamy czas, by poznać jej potencjał i przygotować najlepszą strategię sprzedaży.'
-		},
-		{
-			ikona:
-				'<path d="M20 14.5a2.5 2.5 0 0 1-2.5 2.5H9l-4 3.5V6.5A2.5 2.5 0 0 1 7.5 4h10A2.5 2.5 0 0 1 20 6.5Z"></path><path d="M9 10.5h6M9 13.5h3.5"></path>',
-			t: 'Uczciwe doradztwo',
-			d: 'Naszym celem nie jest szybka transakcja za wszelką cenę. Doradzamy rzetelnie i pomagamy podjąć decyzję najlepszą dla Ciebie i Twojej rodziny.'
-		},
-		{
-			ikona:
-				'<path d="M12 3l7 3v5.5c0 4.3-3 8-7 9.2-4-1.2-7-4.9-7-9.2V6l7-3Z"></path><path d="M9 11.5l2 2 4-4.2"></path>',
-			t: 'Bezpieczeństwo',
-			d: 'Dbamy, aby cały proces przebiegał sprawnie i bezpiecznie — jesteśmy z Tobą od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi.'
-		},
-		{
-			ikona: '<path d="M9 5 3.5 7v12L9 17l6 2 5.5-2V5L15 7 9 5Z"></path><path d="M9 5v12M15 7v12"></path>',
-			t: 'Znajomość lokalnego rynku',
-			d: 'Od ponad 11 lat działamy w Jeleniej Górze i Karkonoszach. Doskonale znamy lokalny rynek i pomagamy podejmować decyzje oparte na wiedzy i doświadczeniu.'
-		},
-		{
-			ikona:
-				'<circle cx="12" cy="9" r="4.5"></circle><path d="M8.8 12.7 7.5 20l4.5-2.3L16.5 20l-1.3-7.3"></path>',
-			t: '11 lat doświadczenia',
-			d: 'Ponad dekada w branży to setki rozmów i przeprowadzonych transakcji. Dzięki temu skutecznie wspieramy klientów na każdym etapie zakupu i sprzedaży.'
-		}
+		{ t: 'Mobilne biuro', d: 'Spotykamy się tam, gdzie jest Ci wygodnie i spokojnie.' },
+		{ t: 'Indywidualne podejście', d: 'Liczy się jakość współpracy, nie liczba ofert.' },
+		{ t: 'Uczciwe doradztwo', d: 'Radzimy rzetelnie — decyzja zawsze należy do Ciebie.' },
+		{ t: 'Bezpieczeństwo', d: 'Jesteśmy obok od pierwszego spotkania po klucze.' },
+		{ t: 'Znajomość rynku', d: 'Lokalny rynek Karkonoszy znamy od podszewki.' },
+		{ t: '11 lat doświadczenia', d: 'Setki rozmów i transakcji, które realnie pomagają.' }
 	]
 };
 
@@ -354,6 +331,15 @@ export const opinie = [
 export const faq = {
 	eyebrow: 'FAQ',
 	tytul: 'Najczęściej zadawane pytania',
+	// Redesign 1a (refinement 19): lewa kolumna = kremowy panel z blokiem kontaktowym.
+	panelTytul: 'Masz pytania? Zacznijmy od rozmowy.',
+	panelLead:
+		'Poniżej odpowiadamy na to, co słyszymy najczęściej. Nie znalazłeś swojego pytania? Zadzwoń albo napisz — bez zobowiązań.',
+	panelKontakt: {
+		telefon: '+48 690 008 273',
+		email: 'biuro@lw.nieruchomosci.pl',
+		godziny: 'Pon–Pt · 9:00–17:00'
+	},
 	cta: { label: 'Zadaj pytanie →', href: '#kontakt' },
 	lista: [
 		{
