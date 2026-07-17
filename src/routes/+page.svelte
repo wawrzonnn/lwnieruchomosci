@@ -161,18 +161,15 @@
 		regionScrollTo(1);
 	}
 
-	// ── Kafelki regionu: pokazujemy tylko lokalizacje, w których faktycznie mamy oferty ──
-	function regionCount(href: string) {
-		const slug = href.split('/').pop() ?? '';
-		return data.regionCounts?.[slug] ?? 0;
-	}
+	// ── Kafelki regionu: z bazy (redagowalne w /panel/regiony); serwer oddaje już tylko
+	//    regiony widoczne i mające min. 1 ofertę — patrz $lib/db/regions.ts ──
 	function offerWord(n: number) {
 		if (n === 1) return 'oferta';
 		const d = n % 10;
 		const dd = n % 100;
 		return d >= 2 && d <= 4 && !(dd >= 12 && dd <= 14) ? 'oferty' : 'ofert';
 	}
-	const regionTiles = $derived(region.galeria.filter((t) => regionCount(t.href) > 0));
+	const regionTiles = $derived(data.regionTiles ?? []);
 
 	// ── Opinie: pojedynczy rotujący cytat, auto-rotacja co 6,5s + kropki (restartują timer) ──
 	let testiIndex = $state(0);
@@ -477,11 +474,14 @@
 						onmousedown={onRegionMouseDown}
 					>
 						{#each regionTiles as tile}
-							{@const n = regionCount(tile.href)}
-							<a href={tile.href} class="region-tile {tile.size}">
-								<div class="region-img" style="background-image:url('{tile.img}')"></div>
-								<div class="region-cap {tile.size}">{tile.caption}</div>
-								<span class="region-link">{n} {offerWord(n)} →</span>
+							{@const rozmiar = tile.size === 'BIG' ? 'big' : 'small'}
+							<a href="/lokalizacje/{tile.slug}" class="region-tile {rozmiar}">
+								<div
+									class="region-img"
+									style="background-image:url('{tile.image}'); background-position:{tile.focalX}% {tile.focalY}%"
+								></div>
+								<div class="region-cap {rozmiar}">{tile.nazwa}</div>
+								<span class="region-link">{tile.count} {offerWord(tile.count)} →</span>
 							</a>
 						{/each}
 					</div>

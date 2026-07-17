@@ -10,6 +10,7 @@
 		{ href: '/panel/oferty', label: 'Oferty' },
 		{ href: '/panel/oferty/nowa', label: 'Dodaj ofertę' },
 		{ href: '/panel/artykuly', label: 'Blog' },
+		{ href: '/panel/regiony', label: 'Regiony' },
 		{ href: '/panel/uzytkownicy', label: 'Użytkownicy' },
 		{ href: '/panel/zgloszenia', label: 'Zgłoszenia', badge: data.newInquiries }
 	];

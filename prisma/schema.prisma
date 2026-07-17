@@ -140,8 +140,8 @@ model Article {
   category      String // "Rynek", "Porady", "Sprzedaż", "Kupno", "Kredyty"
   title         String
   titleEmphasis String? // słowo/fraza z tytułu wyróżniona na złoto w H1
-  excerpt       String  @db.Text // zajawka na karcie listy
-  lead          String? @db.Text // wprowadzenie pod H1 na stronie artykułu
+  excerpt       String    @db.Text // zajawka na karcie listy
+  lead          String?   @db.Text // wprowadzenie pod H1 na stronie artykułu
   readTime      String? // np. "8 min czytania"
   publishedAt   DateTime? // data publikacji (wyświetlana + sortowanie)
 
@@ -202,4 +202,38 @@ enum InquiryStatus {
   NEW
   IN_PROGRESS
   DONE
+}
+
+/// Kafelki sekcji „Rozejrzyj się po Karkonoszach" na stronie głównej.
+/// Wcześniej zahardkodowane w src/lib/data/landing.ts — teraz redagowalne w panelu.
+/// UWAGA: kafelek pokazuje się na stronie tylko, gdy region ma min. 1 aktywną ofertę
+/// (dopasowanie po nazwie miasta w ofercie) — patrz src/routes/+page.server.ts.
+model Region {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /// slug podstrony lokalizacji: /lokalizacje/<slug>
+  slug  String @unique
+  /// nazwa widoczna na kafelku; służy też do liczenia ofert (dopasowanie po mieście)
+  nazwa String
+
+  image String?
+
+  /// punkt ostrości zdjęcia w % (0–100) — kafelki są przycinane, to decyduje,
+  /// co zostaje widoczne; trafia do CSS jako object-position/background-position
+  focalX Int @default(50)
+  focalY Int @default(50)
+
+  size    RegionTileSize @default(SMALL)
+  order   Int            @default(0)
+  /// wyłączenie chowa kafelek niezależnie od liczby ofert
+  visible Boolean        @default(true)
+
+  @@map("regions")
+}
+
+enum RegionTileSize {
+  BIG
+  SMALL
 }
