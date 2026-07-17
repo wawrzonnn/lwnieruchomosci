@@ -256,7 +256,7 @@ export const uslugi: Service[] = [
 		t: 'Wycena nieruchomości',
 		d: 'Realna wartość, nie życzenia.',
 		long: 'Rzetelna, rynkowa wycena mieszkania, domu lub działki oparta na danych transakcyjnych w okolicy — z komentarzem i rekomendacją ceny.',
-		img: U('photo-1554224155-6726b3ff858f'),
+		img: U('photo-1560520653-9e0e4c89eb11'),
 		href: '/wycena-nieruchomosci'
 	},
 	{
