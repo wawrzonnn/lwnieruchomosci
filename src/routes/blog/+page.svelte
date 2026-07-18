@@ -14,6 +14,9 @@
 
 	const featured = artykuly.find((a) => a.featured) ?? artykuly[0];
 
+	// Czy działa jakiś filtr (kategoria inna niż „Wszystkie" albo szukanie)?
+	const filtrujeAktywny = $derived(activeCat !== 'Wszystkie' || query.trim() !== '');
+
 	const filtered = $derived(
 		artykuly.filter((a) => {
 			const catOk = activeCat === 'Wszystkie' || a.cat === activeCat;
@@ -21,6 +24,12 @@
 			const qOk = !q || `${a.title} ${a.excerpt}`.toLowerCase().includes(q);
 			return catOk && qOk;
 		})
+	);
+
+	// W widoku domyślnym wyróżniony jest w dużej karcie na górze — nie powtarzamy go w siatce.
+	// Przy aktywnym filtrze chowamy dużą kartę i pokazujemy w siatce wszystkie pasujące.
+	const gridArticles = $derived(
+		filtrujeAktywny ? filtered : filtered.filter((a) => a.slug !== featured?.slug)
 	);
 
 	let newsletterError = $state("");
@@ -66,8 +75,8 @@
 			<p class="blog-hero-lead">{hero.podtytul}</p>
 		</section>
 
-		<!-- ============ POLECANY WPIS ============ -->
-		{#if featured}
+		<!-- ============ POLECANY WPIS (tylko w widoku domyślnym) ============ -->
+		{#if featured && !filtrujeAktywny}
 			<section class="section featured-section">
 				<a href="/blog/{featured.slug}" class="featured-card">
 					<div class="featured-media">
@@ -104,9 +113,9 @@
 
 		<!-- ============ LISTA ARTYKUŁÓW ============ -->
 		<section class="section articles-section">
-			{#if filtered.length}
+			{#if gridArticles.length}
 				<div class="articles-grid">
-					{#each filtered as a}
+					{#each gridArticles as a}
 						<a href="/blog/{a.slug}" class="article-card">
 							<div class="article-media">
 								<img src={a.img} alt={a.title} loading="lazy" />
@@ -340,7 +349,9 @@
 	}
 	.articles-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		/* auto-fill zamiast repeat(3): 4 wpisy (po wyróżnionym) wchodzą w jeden rząd,
+		   a przy filtrze 1–2 wyniki zostają w rozmiarze karty, nie rozciągają się. */
+		grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
 		gap: 24px;
 	}
 	.article-card {

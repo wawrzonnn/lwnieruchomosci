@@ -17,7 +17,7 @@ export const hero = {
 		'Praktyczna wiedza o sprzedaży, kupnie, kredytach i rynku w Jeleniej Górze i okolicy — po ludzku i konkretnie.'
 };
 
-export const kategorie = ['Wszystkie', 'Sprzedaż', 'Kupno', 'Kredyty', 'Rynek', 'Porady'];
+export const kategorie = ['Wszystkie', 'Sprzedaż', 'Wycena', 'Marketing', 'Porady'];
 
 export const newsletter = {
 	eyebrow: 'Newsletter',
