@@ -159,8 +159,8 @@
 		gap: 14px;
 	}
 	.brand-logo {
-		width: 46px;
-		height: 46px;
+		width: 54px;
+		height: 54px;
 		object-fit: contain;
 		flex-shrink: 0;
 	}

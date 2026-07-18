@@ -89,7 +89,7 @@ export const zespol = {
 	uwaga: 'Zdjęcia zespołu to placeholdery — podmień na realne portrety.',
 	lista: [
 		{
-			name: 'Lidia W.',
+			name: 'Lucyna Wojtoń',
 			role: 'Właścicielka, agentka',
 			bio: 'Prowadzi biuro od pierwszego dnia. Łączy znajomość rynku z ciepłym, ludzkim podejściem.',
 			img: U('photo-1573496359142-b8d87734a5a2')

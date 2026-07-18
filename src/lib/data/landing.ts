@@ -35,7 +35,7 @@ export const dlaczegoMy = {
 	tytul: 'Powodów jest sześć — a każdy z nich to człowiek.',
 	tytulEmfaza: 'człowiek',
 	lead: 'Nie jesteśmy największym biurem w regionie i nie chcemy nim być. Zależy nam na czymś innym — żebyś po całej sprzedaży czy zakupie czuł, że byłeś w dobrych rękach.',
-	podpis: 'Lidia Wolańska · LW Nieruchomości',
+	podpis: 'Lucyna Wojtoń · LW Nieruchomości',
 	kafle: [
 		{ t: 'Mobilne biuro', d: 'Spotykamy się tam, gdzie jest Ci wygodnie i spokojnie.' },
 		{ t: 'Indywidualne podejście', d: 'Liczy się jakość współpracy, nie liczba ofert.' },
