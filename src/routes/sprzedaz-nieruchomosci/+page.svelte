@@ -7,13 +7,8 @@
 		seo,
 		breadcrumbs,
 		hero,
-		opis,
-		proces,
 		zakres,
 		naOdleglosc,
-		korzysci,
-		opinie,
-		faq,
 		formularz,
 		powiazane
 	} from '$lib/data/sprzedaz-nieruchomosci';
@@ -24,22 +19,6 @@
 		'<path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19"/><circle cx="10" cy="8" r="3"/><path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4"/><path d="M15.5 5.2a3 3 0 0 1 0 5.6"/>',
 		'<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/>'
 	];
-
-	// ── Opinie: pojedynczy rotujący cytat, auto-rotacja co 6,5s + kropki ──
-	let testiIndex = $state(0);
-	$effect(() => {
-		testiIndex;
-		const id = setInterval(() => {
-			testiIndex = (testiIndex + 1) % opinie.lista.length;
-		}, 6500);
-		return () => clearInterval(id);
-	});
-
-	// ── FAQ: akordeon z pojedynczym rozwinięciem ──
-	let faqOpen = $state(0);
-	function toggleFaq(i: number) {
-		faqOpen = faqOpen === i ? -1 : i;
-	}
 
 	// ── Formularz: potwierdzenie po wysłaniu (podłącz pod backend/e-mail) ──
 	let formSubmitted = $state(false);
@@ -95,40 +74,6 @@
 			</div>
 		</section>
 
-		<!-- ============ OPIS USŁUGI ============ -->
-		<section class="section opis-section">
-			<div class="opis-grid">
-				<div>
-					<div class="eyebrow">{opis.eyebrow}</div>
-					<h2 class="h2">{opis.tytul}</h2>
-					{#each opis.akapity as p}<p class="opis-p">{p}</p>{/each}
-				</div>
-				<div class="opis-photo">
-					<img src={opis.zdjecie} alt={opis.podpis} />
-					<span class="opis-badge">{opis.badge}</span>
-					<div class="opis-photo-grad"></div>
-					<div class="opis-photo-cap">{opis.podpis}</div>
-				</div>
-			</div>
-		</section>
-
-		<!-- ============ PROCES 6 KROKÓW ============ -->
-		<section class="section proces-section" id="proces">
-			<div class="section-head col">
-				<div class="eyebrow">{proces.eyebrow}</div>
-				<h2 class="h2">{proces.tytul}</h2>
-			</div>
-			<div class="proces-grid">
-				{#each proces.kroki as krok}
-					<div class="proces-card">
-						<div class="proces-no">{krok.no}</div>
-						<div class="proces-t">{krok.t}</div>
-						<p class="proces-d">{krok.d}</p>
-					</div>
-				{/each}
-			</div>
-		</section>
-
 		<!-- ============ ZAKRES USŁUGI ============ -->
 		<section class="zakres-section" id="zakres">
 			<div class="section-head col">
@@ -143,7 +88,6 @@
 					</div>
 				{/each}
 			</div>
-			<p class="zakres-note">{zakres.uwaga}</p>
 		</section>
 
 		<!-- ============ SPRZEDAŻ NA ODLEGŁOŚĆ ============ -->
@@ -180,83 +124,6 @@
 								<h3 class="odl-kt">{kafel.t}</h3>
 								<p class="odl-kd">{kafel.d}</p>
 							</div>
-						</div>
-					{/each}
-				</div>
-			</div>
-		</section>
-
-		<!-- ============ KORZYŚCI ============ -->
-		<section class="section korzysci-section">
-			<div class="section-head col">
-				<div class="eyebrow">{korzysci.eyebrow}</div>
-				<h2 class="h2">{korzysci.tytul}</h2>
-			</div>
-			<div class="korzysci-grid">
-				{#each korzysci.lista as k}
-					<div class="korzysci-card">
-						<div class="korzysci-star">★</div>
-						<div class="korzysci-t">{k.t}</div>
-						<p class="korzysci-d">{k.d}</p>
-					</div>
-				{/each}
-			</div>
-		</section>
-
-		<!-- ============ OPINIE ============ -->
-		<section class="testi-section-v2">
-			<div class="testi-bg" style="background-image:url('/sunset-dolina.png')"></div>
-			<div class="testi-overlay"></div>
-			<div class="testi-content">
-				<span class="testi-watermark" aria-hidden="true">”</span>
-				<div class="eyebrow eyebrow-dark">{opinie.eyebrow}</div>
-				<p class="testi-quote-text">{opinie.lista[testiIndex].quote}</p>
-				<div class="testi-author-v2">{opinie.lista[testiIndex].name} · {opinie.lista[testiIndex].loc}</div>
-				<div class="testi-dots">
-					{#each opinie.lista as _, i}
-						<button
-							type="button"
-							class="testi-dot"
-							class:active={i === testiIndex}
-							aria-label="Pokaż opinię {i + 1}"
-							onclick={() => (testiIndex = i)}
-						></button>
-					{/each}
-				</div>
-			</div>
-		</section>
-
-		<!-- ============ FAQ ============ -->
-		<section class="section faq-section" id="faq">
-			<div class="faq-grid">
-				<div class="faq-intro">
-					<div class="eyebrow">{faq.eyebrow}</div>
-					<h2 class="h2 faq-h2">{faq.tytul}</h2>
-					<p class="faq-lead">
-						Najczęstsze pytania sprzedających. Nie znalazłeś swojego? Zadzwoń lub napisz — odpowiemy bez
-						zobowiązań.
-					</p>
-					<a href={faq.cta.href} class="faq-cta">{faq.cta.label}</a>
-				</div>
-				<div class="faq-list">
-					{#each faq.lista as item, i}
-						<div class="faq-item" class:open={faqOpen === i}>
-							<div class="faq-bar"></div>
-							<button
-								type="button"
-								class="faq-q"
-								aria-expanded={faqOpen === i}
-								onclick={() => toggleFaq(i)}
-							>
-								<span class="faq-q-text">{item.q}</span>
-								<span class="faq-icon" aria-hidden="true">{faqOpen === i ? '−' : '+'}</span>
-								<span class="faq-chevron" class:open={faqOpen === i} aria-hidden="true">⌄</span>
-							</button>
-							{#if faqOpen === i}
-								<div class="faq-panel">
-									<p class="faq-answer">{item.a}</p>
-								</div>
-							{/if}
 						</div>
 					{/each}
 				</div>
@@ -444,105 +311,6 @@
 		color: #fff;
 	}
 
-	/* ===== OPIS USŁUGI ===== */
-	.opis-section {
-		padding-top: 72px;
-		padding-bottom: 72px;
-	}
-	.opis-grid {
-		display: grid;
-		grid-template-columns: 1.05fr 0.95fr;
-		gap: 56px;
-		align-items: center;
-	}
-	.opis-p {
-		font-size: 17px;
-		line-height: 1.7;
-		color: var(--muted);
-		margin-top: 16px;
-	}
-	.opis-photo {
-		position: relative;
-		height: 420px;
-		border-radius: 18px;
-		overflow: hidden;
-		border: 1px solid var(--border);
-		box-shadow: 0 30px 60px -34px rgba(30, 40, 30, 0.5);
-		img {
-			position: absolute;
-			inset: 0;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-	}
-	.opis-badge {
-		position: absolute;
-		top: 16px;
-		left: 16px;
-		background: var(--gold);
-		color: #fff;
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: 0.04em;
-		padding: 6px 13px;
-		border-radius: 999px;
-	}
-	.opis-photo-grad {
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		height: 120px;
-		background: linear-gradient(0deg, rgba(20, 30, 22, 0.72), transparent);
-	}
-	.opis-photo-cap {
-		position: absolute;
-		left: 22px;
-		bottom: 18px;
-		color: #fff;
-		font-family: 'Newsreader', serif;
-		font-size: 20px;
-	}
-
-	/* ===== PROCES ===== */
-	.proces-section {
-		padding-top: 8px;
-		padding-bottom: 76px;
-	}
-	.proces-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 20px;
-	}
-	.proces-card {
-		background: #fff;
-		border: 1px solid var(--border);
-		border-radius: 18px;
-		padding: 28px 26px;
-		box-shadow: 0 16px 30px -22px rgba(30, 40, 30, 0.5);
-	}
-	.proces-no {
-		font-family: 'Newsreader', serif;
-		font-size: 40px;
-		font-weight: 500;
-		color: var(--gold);
-		line-height: 1;
-	}
-	.proces-t {
-		font-family: 'Newsreader', serif;
-		font-size: 22px;
-		font-weight: 500;
-		line-height: 1.2;
-		margin-top: 14px;
-	}
-	.proces-d {
-		font-size: 15px;
-		line-height: 1.6;
-		color: var(--muted);
-		margin-top: 10px;
-	}
-
 	/* ===== ZAKRES ===== */
 	.zakres-section {
 		padding: 64px 48px;
@@ -582,12 +350,6 @@
 		font-size: 16px;
 		line-height: 1.45;
 	}
-	.zakres-note {
-		font-size: 14px;
-		color: var(--gold-soft);
-		margin-top: 26px;
-	}
-
 	/* ===== NA ODLEGŁOŚĆ ===== */
 	.odl-section {
 		padding-top: 88px;
@@ -660,209 +422,6 @@
 		line-height: 1.6;
 		color: var(--muted);
 		margin: 0;
-	}
-
-	/* ===== KORZYŚCI ===== */
-	.korzysci-section {
-		padding-top: 76px;
-		padding-bottom: 76px;
-	}
-	.korzysci-grid {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 20px;
-	}
-	.korzysci-card {
-		background: #fff;
-		border: 1px solid var(--border);
-		border-radius: 18px;
-		padding: 26px 24px;
-		box-shadow: 0 16px 30px -22px rgba(30, 40, 30, 0.5);
-	}
-	.korzysci-star {
-		color: var(--gold);
-		font-size: 26px;
-		line-height: 1;
-	}
-	.korzysci-t {
-		font-family: 'Newsreader', serif;
-		font-size: 21px;
-		font-weight: 500;
-		line-height: 1.2;
-		margin-top: 14px;
-	}
-	.korzysci-d {
-		font-size: 15px;
-		line-height: 1.6;
-		color: var(--muted);
-		margin-top: 9px;
-	}
-
-	/* ===== OPINIE (jak na stronie głównej) ===== */
-	.testi-section-v2 {
-		position: relative;
-		padding: 100px 48px;
-		text-align: center;
-		overflow: hidden;
-	}
-	.testi-bg {
-		position: absolute;
-		inset: 0;
-		background-size: cover;
-		background-position: center;
-	}
-	.testi-overlay {
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(rgba(18, 26, 20, 0.82), rgba(18, 26, 20, 0.88));
-	}
-	.testi-content {
-		position: relative;
-	}
-	.eyebrow-dark {
-		color: var(--gold-soft);
-	}
-	.testi-watermark {
-		display: block;
-		font-family: 'Newsreader', serif;
-		font-size: 70px;
-		color: var(--gold-soft);
-		opacity: 0.6;
-		line-height: 0.4;
-		height: 40px;
-		margin-bottom: 20px;
-	}
-	.testi-quote-text {
-		font-family: 'Newsreader', serif;
-		font-style: italic;
-		font-weight: 500;
-		font-size: 32px;
-		line-height: 1.45;
-		color: var(--bg-site);
-		max-width: 760px;
-		margin: 22px auto 24px;
-	}
-	.testi-author-v2 {
-		font-size: 14px;
-		letter-spacing: 0.03em;
-		color: rgba(243, 238, 225, 0.72);
-		margin-bottom: 30px;
-	}
-	.testi-dots {
-		display: flex;
-		justify-content: center;
-		gap: 9px;
-	}
-	.testi-dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 999px;
-		border: none;
-		cursor: pointer;
-		background: rgba(243, 238, 225, 0.3);
-		padding: 0;
-		transition: all 0.3s ease;
-	}
-	.testi-dot.active {
-		width: 26px;
-		background: var(--gold-light);
-	}
-
-	/* ===== FAQ (jak na stronie głównej) ===== */
-	.faq-section {
-		padding-top: 76px;
-		padding-bottom: 44px;
-	}
-	.faq-grid {
-		display: grid;
-		grid-template-columns: 0.85fr 1.15fr;
-		gap: 56px;
-		align-items: start;
-	}
-	.faq-h2 {
-		margin-bottom: 16px;
-	}
-	.faq-lead {
-		font-size: 16px;
-		line-height: 1.65;
-		color: var(--muted);
-		margin-bottom: 24px;
-		max-width: 340px;
-	}
-	.faq-cta {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		background: var(--green);
-		color: #fff;
-		padding: 13px 26px;
-		border-radius: 999px;
-		font-weight: 600;
-		font-size: 15px;
-	}
-	.faq-list {
-		border-bottom: 1px solid var(--divider);
-	}
-	.faq-item {
-		position: relative;
-		border-top: 1px solid var(--divider);
-	}
-	.faq-bar {
-		position: absolute;
-		inset: 0;
-		background: var(--bg-cream-2);
-		border-left: 3px solid var(--gold);
-		display: none;
-	}
-	.faq-item.open .faq-bar {
-		display: block;
-	}
-	.faq-q {
-		position: relative;
-		width: 100%;
-		text-align: left;
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		font-family: inherit;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 20px;
-		padding: 22px 18px;
-	}
-	.faq-q-text {
-		font-family: 'Newsreader', serif;
-		font-size: 20px;
-		font-weight: 500;
-		color: var(--text);
-		line-height: 1.3;
-	}
-	.faq-icon {
-		flex: 0 0 auto;
-		width: 30px;
-		height: 30px;
-		border-radius: 50%;
-		border: 1px solid rgba(180, 137, 76, 0.4);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: var(--gold);
-		font-size: 18px;
-		line-height: 1;
-	}
-	.faq-chevron {
-		display: none;
-	}
-	.faq-panel {
-		position: relative;
-		padding: 0 18px 24px;
-	}
-	.faq-answer {
-		font-size: 16px;
-		line-height: 1.7;
-		color: var(--quote);
-		max-width: 620px;
 	}
 
 	/* ===== CTA / FORMULARZ ===== */
@@ -1056,10 +615,6 @@
 
 	/* ===== RESPONSYWNOŚĆ ===== */
 	@media (max-width: 1199px) {
-		.proces-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-		.korzysci-grid,
 		.related-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
@@ -1075,13 +630,8 @@
 		.hero-svc-h1 {
 			font-size: 42px;
 		}
-		.opis-grid,
 		.lead-box {
 			grid-template-columns: 1fr;
-		}
-		.opis-photo {
-			order: -1;
-			height: 300px;
 		}
 		.zakres-grid {
 			grid-template-columns: 1fr;
@@ -1102,16 +652,8 @@
 		.odl-p {
 			font-size: 14px;
 		}
-		.faq-grid {
-			grid-template-columns: 1fr;
-		}
-		.testi-quote-text {
-			font-size: 26px;
-		}
 	}
 	@media (max-width: 760px) {
-		.proces-grid,
-		.korzysci-grid,
 		.related-grid {
 			grid-template-columns: 1fr;
 		}
@@ -1142,10 +684,6 @@
 		.hero-svc-cta {
 			text-align: center;
 		}
-		.opis-section,
-		.proces-section,
-		.korzysci-section,
-		.faq-section,
 		.lead-section,
 		.related-section {
 			padding-left: 20px;
@@ -1153,38 +691,6 @@
 		}
 		.zakres-section {
 			padding: 36px 20px;
-		}
-		.testi-section-v2 {
-			padding: 64px 24px;
-		}
-		.testi-watermark {
-			font-size: 44px;
-			height: 26px;
-		}
-		.testi-quote-text {
-			font-size: 19px;
-		}
-		.faq-lead {
-			font-size: 13px;
-			max-width: none;
-		}
-		.faq-q-text {
-			font-size: 15.5px;
-		}
-		.faq-icon {
-			display: none;
-		}
-		.faq-chevron {
-			display: block;
-			font-size: 18px;
-			color: var(--gold);
-			transition: transform 0.2s ease;
-		}
-		.faq-chevron.open {
-			transform: rotate(180deg);
-		}
-		.faq-bar {
-			display: none !important;
 		}
 		.lead-info,
 		.lead-form-wrap {

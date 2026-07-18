@@ -20,60 +20,11 @@ export const hero = {
 	tytul: 'Sprzedaż nieruchomości w Jeleniej Górze i Karkonoszach',
 	tytulEmfaza: 'Karkonoszach',
 	podtytul:
-		'Każda nieruchomość wymaga odpowiednio zaplanowanej sprzedaży. Przygotowujemy indywidualną strategię działania, dbamy o profesjonalną prezentację oferty i prowadzimy cały proces aż do bezpiecznej finalizacji transakcji.',
+		'Każda nieruchomość wymaga odpowiednio zaplanowanej sprzedaży. Dlatego przygotowujemy indywidualną strategię działania, dbamy o profesjonalną prezentację oferty i prowadzimy cały proces aż do bezpiecznej finalizacji transakcji.',
 	tlo: U('photo-1600585154340-be6161a56a0c', 1600),
 	cta: [
 		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
 		{ label: 'Co obejmuje usługa?', href: '#zakres', wariant: 'outline' }
-	]
-};
-
-export const opis = {
-	eyebrow: 'O usłudze',
-	tytul: 'Prowadzimy sprzedaż od początku do końca',
-	akapity: [
-		'Sprzedaż nieruchomości to często jedna z najważniejszych decyzji finansowych w życiu. Dlatego bierzemy na siebie cały proces — od rzetelnej wyceny, przez profesjonalną prezentację i promocję, po negocjacje i formalności u notariusza.',
-		'Wiele ofert prowadzimy na wyłączność, dzięki czemu inwestujemy pełen budżet marketingowy w Twoją nieruchomość i realnie walczymy o najlepszą cenę. Na każdym etapie masz jeden kontakt i pełną wiedzę o tym, co się dzieje.'
-	],
-	zdjecie: U('photo-1522708323590-d24dbb6b0267'),
-	badge: 'Na wyłączność',
-	podpis: 'Twoja oferta — dopracowana w każdym detalu'
-};
-
-export const proces = {
-	eyebrow: 'Jak to działa',
-	tytul: 'Sprzedaż w 6 krokach',
-	kroki: [
-		{
-			no: '01',
-			t: 'Bezpłatna wycena',
-			d: 'Oglądamy nieruchomość, analizujemy rynek i przygotowujemy realną wycenę oraz strategię sprzedaży.'
-		},
-		{
-			no: '02',
-			t: 'Umowa i plan',
-			d: 'Ustalamy warunki współpracy i cenę ofertową, podpisujemy umowę i ruszamy z przygotowaniami.'
-		},
-		{
-			no: '03',
-			t: 'Przygotowanie oferty',
-			d: 'Profesjonalna sesja zdjęciowa, ujęcia z drona i film — nieruchomość wygląda najlepiej, jak może.'
-		},
-		{
-			no: '04',
-			t: 'Promocja',
-			d: 'Publikujemy ofertę na portalach, w social media i w naszej bazie klientów. Docieramy do kupujących.'
-		},
-		{
-			no: '05',
-			t: 'Prezentacje i negocjacje',
-			d: 'Organizujemy pokazy, filtrujemy zapytania i negocjujemy najlepszą cenę w Twoim imieniu.'
-		},
-		{
-			no: '06',
-			t: 'Finalizacja',
-			d: 'Kompletujemy dokumenty i prowadzimy Cię aż po podpisanie aktu notarialnego.'
-		}
 	]
 };
 
@@ -84,14 +35,13 @@ export const zakres = {
 		'Analiza nieruchomości',
 		'Przygotowanie strategii sprzedaży',
 		'Profesjonalna sesja zdjęciowa',
-		'Prezentacja wideo nieruchomości',
+		'Prezentacja wideo nieruchomości, która pozwala lepiej pokazać jej przestrzeń i potencjał potencjalnym kupującym',
 		'Promocja oferty',
 		'Prezentacje nieruchomości',
 		'Negocjacje',
 		'Koordynacja formalności',
 		'Przekazanie nieruchomości'
-	],
-	uwaga: 'Zdjęcia, dron i film są w standardzie — bez dodatkowych dopłat.'
+	]
 };
 
 // Sekcja „na odległość" (handoff refinement 18): kremowy panel + 3 mini-karty.
@@ -108,82 +58,6 @@ export const naOdleglosc = {
 		{ t: 'Za granicą lub poza regionem', d: 'Nie musisz przyjeżdżać na spotkania ani prezentacje.' },
 		{ t: 'Prowadzimy w Twoim imieniu', d: 'Oferta, kupujący i formalności — całość po naszej stronie.' },
 		{ t: 'Pełnomocnictwo notarialne', d: 'W razie potrzeby sprzedaż bez Twojej obecności.' }
-	]
-};
-
-export const korzysci = {
-	eyebrow: 'Dlaczego my',
-	tytul: 'Co zyskujesz',
-	lista: [
-		{
-			t: 'Lepsza cena',
-			d: 'Profesjonalna prezentacja i twarde negocjacje przekładają się na wyższą cenę sprzedaży.'
-		},
-		{
-			t: 'Oszczędność czasu',
-			d: 'Bierzemy na siebie zapytania, prezentacje i papierologię. Ty zajmujesz się swoim życiem.'
-		},
-		{
-			t: 'Bezpieczeństwo',
-			d: 'Weryfikujemy kupujących i pilnujemy formalności, żeby transakcja była bezpieczna.'
-		},
-		{
-			t: 'Przejrzystość',
-			d: 'Regularne raporty i stały kontakt — zawsze wiesz, na jakim etapie jest sprzedaż.'
-		}
-	]
-};
-
-export const opinie = {
-	eyebrow: 'Opinie klientów',
-	lista: [
-		{
-			quote: 'Sprzedaż mieszkania poszła sprawnie i bez stresu. Czułam, że ktoś naprawdę o mnie dba.',
-			name: 'Joanna K.',
-			loc: 'Jelenia Góra'
-		},
-		{
-			quote: 'Dostaliśmy za dom więcej, niż się spodziewaliśmy. Świetne zdjęcia i twarde negocjacje.',
-			name: 'Michał i Ola',
-			loc: 'Sosnówka'
-		},
-		{
-			quote: 'Pełen profesjonalizm — od wyceny po notariusza. Wszystkim polecam.',
-			name: 'Robert W.',
-			loc: 'Cieplice'
-		}
-	]
-};
-
-export const faq = {
-	eyebrow: 'FAQ',
-	tytul: 'Pytania o sprzedaż',
-	cta: { label: 'Zadaj pytanie →', href: '#formularz' },
-	lista: [
-		{
-			q: 'Ile wynosi prowizja przy sprzedaży?',
-			a: 'Prowizję ustalamy indywidualnie, zawsze przed startem i bez ukrytych kosztów. Płacisz dopiero po skutecznej sprzedaży.'
-		},
-		{
-			q: 'Czy muszę podpisać umowę na wyłączność?',
-			a: 'Nie musisz, ale to się opłaca — przy wyłączności inwestujemy pełen budżet marketingowy i aktywniej szukamy kupca. Doradzimy, co będzie najlepsze w Twoim przypadku.'
-		},
-		{
-			q: 'Jak ustalacie cenę ofertową?',
-			a: 'Na podstawie realnych cen transakcyjnych w okolicy, stanu nieruchomości i sytuacji rynkowej. Cena ma przyciągać kupujących i chronić Twój interes.'
-		},
-		{
-			q: 'Co przygotowujecie w ramach oferty?',
-			a: 'Profesjonalne zdjęcia, ujęcia z drona, film-spacer, opis oraz publikację na portalach i w social media — w standardzie, bez dopłat.'
-		},
-		{
-			q: 'Jak długo trwa sprzedaż?',
-			a: 'Dobrze wyceniona i przygotowana oferta najczęściej znajduje kupca w ciągu kilku do kilkunastu tygodni.'
-		},
-		{
-			q: 'Jakie dokumenty są potrzebne do sprzedaży?',
-			a: 'Podpowiemy dokładną listę i pomożemy ją skompletować — m.in. akt własności, numer księgi wieczystej i niezbędne zaświadczenia. Zajmiemy się formalnościami razem z Tobą.'
-		}
 	]
 };
 
