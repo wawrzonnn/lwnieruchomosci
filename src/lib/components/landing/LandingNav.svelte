@@ -1,5 +1,6 @@
 <script lang="ts">
-	import logo from '$lib/assets/lw-logo.png';
+	// Header ma jasne tło → zielony wariant logo (stopka na ciemnym tle używa złotego).
+	import logo from '$lib/assets/lw-logo-green.png';
 
 	let menuOpen = $state(false);
 	let mobileOfertySubOpen = $state(false);
