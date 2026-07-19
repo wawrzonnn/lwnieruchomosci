@@ -164,10 +164,10 @@
 	/* Zielony kafel z emblematem. Wersja designera (50px/padding 8) była za mała,
 	   by odczytać szczegółową kreskę — większy kafel, minimalny padding. */
 	.brand-tile {
-		width: 62px;
-		height: 62px;
+		width: 72px;
+		height: 72px;
 		flex-shrink: 0;
-		border-radius: 11px;
+		border-radius: 13px;
 		padding: 4px;
 		background: var(--green);
 		border: 1px solid rgba(180, 137, 76, 0.35);
@@ -396,9 +396,9 @@
 			padding-right: 20px;
 		}
 		.brand-tile {
-			width: 48px;
-			height: 48px;
-			border-radius: 9px;
+			width: 54px;
+			height: 54px;
+			border-radius: 10px;
 			padding: 3px;
 		}
 	}
