@@ -1,13 +1,13 @@
-// Treść podstrony „O nas" (/o-nas). Historia, zespół i statystyki to
-// szkic/placeholder do zatwierdzenia z klientką — zdjęcia zespołu z
-// Unsplash (podmień na realne portrety).
-
-const U = (id: string, w = 800) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+// Treść podstrony „O nas" (/o-nas) wg handoffu designera (refinement 21).
+// GŁOS: LW Nieruchomości to BIURO — piszemy w 1. os. l.mnogiej („my / biuro"),
+// nie personalnie. Na czele biura stoi Lucyna Wojtoń. Brak sekcji „Zespół".
+// PLACEHOLDERY do potwierdzenia z klientką: zdjęcie biura (Unsplash), lata i
+// liczby w historii/statystykach oraz opinie (imiona przykładowe).
 
 export const seo = {
 	title: 'O nas — LW Nieruchomości Jelenia Góra i Karkonosze',
 	description:
-		'Lokalne biuro nieruchomości z Jeleniej Góry. Poznaj naszą historię, wartości i zespół — uczciwie, spokojnie, po ludzku.'
+		'LW Nieruchomości to lokalne biuro z Jeleniej Góry. Poznaj naszą historię, wartości i region — sprzedaż, kupno i wycena nieruchomości uczciwie i po ludzku.'
 };
 
 export const breadcrumbs = [{ label: 'Strona główna', href: '/' }, { label: 'O nas' }];
@@ -17,34 +17,61 @@ export const hero = {
 	tytul: 'Ludzie i miejsca — nie tylko metry',
 	tytulEmfaza: 'nie tylko metry',
 	podtytul:
-		'Jesteśmy lokalnym biurem z Jeleniej Góry. Powstaliśmy z pasji do pracy z ludźmi i miłości do miejsc, w których naprawdę można poczuć się jak w domu.',
+		'LW Nieruchomości to lokalne biuro z Jeleniej Góry. Pomagamy sprzedawać, kupować i wyceniać nieruchomości w Kotlinie Jeleniogórskiej — spokojnie, uczciwie i po ludzku.',
 	tlo: '/karkonosze-panorama.png',
 	cta: [
-		{ label: 'Poznajmy się', href: '#kontakt', wariant: 'green' },
-		{ label: 'Poznaj zespół', href: '#zespol', wariant: 'outline' }
+		{ label: 'Poznaj biuro', href: '#o-biurze', wariant: 'green' },
+		{ label: 'Zadzwoń: +48 690 008 273', href: 'tel:+48690008273', wariant: 'outline' }
 	]
+};
+
+export const oBiurze = {
+	eyebrow: 'Nasze biuro',
+	tytul: 'Biuro z lokalnymi korzeniami',
+	tytulEmfaza: 'lokalnymi korzeniami',
+	// PLACEHOLDER — podmień na realne zdjęcie biura / Lucyny (kadr pionowy 4:5, np. /biuro.jpg).
+	zdjecie: {
+		src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80',
+		alt: 'Biuro LW Nieruchomości'
+	},
+	badges: [
+		{ n: '4,9', l: 'ocena w Google' },
+		{ n: '11 lat', l: 'na rynku' }
+	],
+	akapity: [
+		'LW Nieruchomości to lokalne, mobilne biuro nieruchomości z Jeleniej Góry. Od lat pomagamy mieszkańcom Kotliny Jeleniogórskiej sprzedawać, kupować i wyceniać nieruchomości — bez pośpiechu i bez presji.',
+		'Na czele biura stoi Lucyna Wojtoń. Każdą sprawę prowadzimy z pełnym zaangażowaniem, od pierwszej rozmowy po odbiór kluczy — tak, żebyś na każdym etapie wiedział, co dalej i czuł się pewnie.',
+		'Wierzymy, że dobra transakcja to taka, po której obie strony chcą podać sobie rękę.'
+	],
+	kontakt: {
+		prowadzenie: 'Masz pytanie? Odezwij się —',
+		linki: [
+			{ label: '+48 690 008 273', href: 'tel:+48690008273' },
+			{ label: 'Napisz e-mail', href: 'mailto:biuro@lw.nieruchomosci.pl' }
+		]
+	}
 };
 
 export const historia = {
 	eyebrow: 'Nasza historia',
 	tytul: 'Jak to się zaczęło',
-	podtytul:
-		'Od pierwszej transakcji wierzymy w to samo: uczciwość, spokój i realne wsparcie. Poniżej kilka momentów, które nas ukształtowały.',
+	podtytul: 'Kilka momentów, które ukształtowały nasze biuro — krok po kroku.',
+	// Desktop = pozioma oś czasu; mobile = pionowa. Lata/opisy do potwierdzenia z klientką.
 	kroki: [
 		{
-			year: '2014',
+			year: '2015',
 			t: 'Początek',
-			d: 'Powstaje LW Nieruchomości — z pasji do ludzi i lokalnego rynku Kotliny Jeleniogórskiej.'
+			d: 'Rusza LW Nieruchomości — lokalne biuro z sercem do Kotliny Jeleniogórskiej.'
 		},
 		{
 			year: '2017',
-			t: 'Pierwsze dziesiątki transakcji',
-			d: 'Zdobywamy zaufanie klientów i budujemy reputację uczciwego, spokojnego biura.'
+			t: 'Marka na mapie',
+			d: 'Zdobywamy zaufanie pierwszych klientów i budujemy reputację spokojnego, uczciwego biura.'
 		},
 		{
 			year: '2020',
-			t: 'Marketing premium w standardzie',
-			d: 'Wprowadzamy profesjonalne zdjęcia, ujęcia z drona i film do każdej oferty — bez dopłat.'
+			t: 'Marketing w standardzie',
+			d: 'Do każdej oferty wprowadzamy profesjonalne zdjęcia, ujęcia z drona i film — bez dopłat.'
 		},
 		{
 			year: '2023',
@@ -54,7 +81,7 @@ export const historia = {
 		{
 			year: '2026',
 			t: 'Dziś',
-			d: 'Zaufane, mobilne biuro z oceną 4,9 w Google i wieloma ofertami prowadzonymi na wyłączność.'
+			d: 'Zaufane, mobilne biuro z oceną 4,9 w Google i ofertami prowadzonymi na wyłączność.'
 		}
 	]
 };
@@ -65,7 +92,7 @@ export const wartosci = {
 	lista: [
 		{
 			t: 'Uczciwość',
-			d: 'Mówimy wprost, nawet gdy trzeba odradzić. Bez ukrytych kosztów i gwiazdek.'
+			d: 'Mówimy wprost, nawet gdy trzeba odradzić. Bez ukrytych kosztów i gwiazdek w umowie.'
 		},
 		{ t: 'Empatia', d: 'Słuchamy i prowadzimy przez proces spokojnie, w Twoim tempie.' },
 		{ t: 'Lokalność', d: 'Znamy region na wylot — od Cieplic po Karpacz i Szklarską Porębę.' },
@@ -77,38 +104,26 @@ export const wartosci = {
 };
 
 export const statystyki = [
-	{ n: '11 lat', l: 'w branży' },
+	{ n: '11 lat', l: 'na rynku' },
 	{ n: '120+', l: 'transakcji' },
-	{ n: '250+', l: 'klientów' },
+	{ n: '250+', l: 'zadowolonych klientów' },
 	{ n: '4,9', l: 'ocena Google' }
 ];
 
-export const zespol = {
-	eyebrow: 'Zespół',
-	tytul: 'Ludzie, których poznasz',
-	uwaga: 'Zdjęcia zespołu to placeholdery — podmień na realne portrety.',
-	lista: [
-		{
-			name: 'Lucyna Wojtoń',
-			role: 'Właścicielka, agentka',
-			bio: 'Prowadzi biuro od pierwszego dnia. Łączy znajomość rynku z ciepłym, ludzkim podejściem.',
-			img: U('photo-1573496359142-b8d87734a5a2')
-		},
-		{
-			name: 'Marek K.',
-			role: 'Agent nieruchomości',
-			bio: 'Specjalista od domów i działek w Karkonoszach. Negocjuje spokojnie i skutecznie.',
-			img: U('photo-1507003211169-0a1dd7228f2d')
-		},
-		{
-			name: 'Anna S.',
-			role: 'Opieka nad klientem',
-			bio: 'Czuwa nad formalnościami i terminami, żebyś na każdym etapie czuł się pewnie.',
-			img: U('photo-1544005313-94ddf0286df2')
-		}
-	]
+export const region = {
+	eyebrow: 'Nasz region',
+	tytul: 'Karkonosze znamy od podszewki',
+	tytulEmfaza: 'od podszewki',
+	tlo: '/schronisko-staw.png',
+	akapity: [
+		'Działamy lokalnie — w Jeleniej Górze i całej Kotlinie Jeleniogórskiej. Wiemy, którą doliną rano niesie się mgła, gdzie najlepiej dochodzi słońce i czym różni się życie w Cieplicach od życia w Sosnówce.',
+		'Kupując dom w tym regionie, kupujesz też sąsiedztwo, drogę do szkoły i widok z okna. My znamy je z bliska — i chętnie się tą wiedzą dzielimy.'
+	],
+	cta: { label: 'Poznaj region →', href: '/#region' }
 };
 
+// PLACEHOLDER — opinie z przykładowymi imionami. Przed publikacją podmień na
+// realne recenzje (np. z profilu Google) po akceptacji klientki.
 export const opinie = {
 	eyebrow: 'Opinie klientów',
 	tlo: '/sunset-dolina.png',
@@ -134,7 +149,8 @@ export const opinie = {
 export const kontaktCta = {
 	eyebrow: 'Poznajmy się osobiście',
 	tytul: 'Porozmawiajmy o Twojej nieruchomości',
-	podtytul: 'Bez zobowiązań i bez presji. Zadzwoń lub napisz — odpowiemy po ludzku.',
+	podtytul:
+		'Bez zobowiązań i bez presji. Zadzwoń lub napisz — odpowiemy po ludzku i doradzimy, co dalej.',
 	cta: [
 		{ label: 'Skontaktuj się', href: '/kontakt', wariant: 'green' },
 		{ label: '+48 690 008 273', href: 'tel:+48690008273', wariant: 'outline' }

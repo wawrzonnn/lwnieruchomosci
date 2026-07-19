@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "lwnieruchomosci-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "4791"],
+      "port": 4791
+    },
+    {
       "name": "materialy-static",
       "runtimeExecutable": "npx",
       "runtimeArgs": ["http-server", "materialy", "-p", "4790", "-c-1"],
