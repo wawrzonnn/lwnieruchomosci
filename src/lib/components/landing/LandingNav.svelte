@@ -150,7 +150,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 22px 48px;
+		/* niski pionowy padding: duże logo (72px) nie rozpycha wysokości headera */
+		padding: 11px 48px;
 		background: rgba(251, 248, 242, 0.9);
 		border-bottom: 1px solid var(--nav-border);
 		position: relative;
