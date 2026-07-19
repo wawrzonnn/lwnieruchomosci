@@ -67,7 +67,7 @@
 	}
 
 	// ── FAQ: akordeon z pojedynczym rozwinięciem ──
-	let faqOpen = $state(0);
+	let faqOpen = $state(-1);
 	function toggleFaq(i: number) {
 		faqOpen = faqOpen === i ? -1 : i;
 	}
