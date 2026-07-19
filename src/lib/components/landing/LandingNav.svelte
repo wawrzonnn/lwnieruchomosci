@@ -161,13 +161,14 @@
 		align-items: center;
 		gap: 14px;
 	}
-	/* Zielony kafel z emblematem (handoff 20): desktop 50×50, radius 7, padding 8. */
+	/* Zielony kafel z emblematem. Wersja designera (50px/padding 8) była za mała,
+	   by odczytać szczegółową kreskę — większy kafel, minimalny padding. */
 	.brand-tile {
-		width: 50px;
-		height: 50px;
+		width: 62px;
+		height: 62px;
 		flex-shrink: 0;
-		border-radius: 7px;
-		padding: 8px;
+		border-radius: 11px;
+		padding: 4px;
 		background: var(--green);
 		border: 1px solid rgba(180, 137, 76, 0.35);
 		display: grid;
@@ -395,10 +396,10 @@
 			padding-right: 20px;
 		}
 		.brand-tile {
-			width: 40px;
-			height: 40px;
-			border-radius: 6px;
-			padding: 6px;
+			width: 48px;
+			height: 48px;
+			border-radius: 9px;
+			padding: 3px;
 		}
 	}
 </style>
