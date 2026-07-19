@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Select from '$lib/components/Select.svelte';
 	import {
 		kontakt,
 		wyszukiwarka,
@@ -21,6 +22,12 @@
 	import type { Listing, ListingImage } from '@prisma/client';
 
 	let { data } = $props();
+
+	// ── Wyszukiwarka hero: stan pól (desktop = stylowany dropdown, mobile = natywny select) ──
+	const szOpcje = (arr: string[]) => arr.map((o) => ({ value: o, label: o }));
+	let szRodzaj = $state(wyszukiwarka.rodzaj[0]);
+	let szLokalizacja = $state(wyszukiwarka.lokalizacja[0]);
+	let szCena = $state(wyszukiwarka.cenaDo[0]);
 
 	// ── Polecane oferty: karuzela zdjęć per karta ──
 	let activeImages = $state(data.featuredListings.map(() => 0));
@@ -214,18 +221,18 @@
 				<p class="hero-lead">{hero.podtytul}</p>
 			</div>
 			<form class="search-card" onsubmit={(e) => e.preventDefault()}>
-				<label class="search-field">
-					Rodzaj
-					<select>{#each wyszukiwarka.rodzaj as o}<option>{o}</option>{/each}</select>
-				</label>
-				<label class="search-field">
-					Lokalizacja
-					<select>{#each wyszukiwarka.lokalizacja as o}<option>{o}</option>{/each}</select>
-				</label>
-				<label class="search-field">
-					Cena do
-					<select>{#each wyszukiwarka.cenaDo as o}<option>{o}</option>{/each}</select>
-				</label>
+				<div class="search-field">
+					<span class="search-label">Rodzaj</span>
+					<Select bind:value={szRodzaj} options={szOpcje(wyszukiwarka.rodzaj)} />
+				</div>
+				<div class="search-field">
+					<span class="search-label">Lokalizacja</span>
+					<Select bind:value={szLokalizacja} options={szOpcje(wyszukiwarka.lokalizacja)} />
+				</div>
+				<div class="search-field">
+					<span class="search-label">Cena do</span>
+					<Select bind:value={szCena} options={szOpcje(wyszukiwarka.cenaDo)} />
+				</div>
 				<button type="submit" class="search-btn">Szukaj</button>
 			</form>
 		</section>
@@ -732,30 +739,41 @@
 		gap: 18px;
 		align-items: end;
 		border: 1px solid var(--border);
+		/* Dostrojenie komponentu Select do wyglądu wyszukiwarki (desktop: stylowany
+		   dropdown, mobile: natywny select). Nadpisujemy tokeny komponentu tokenami hero. */
+		--c-field: var(--bg-site);
+		--c-border-field: var(--divider);
+		--c-text: var(--text);
+		--c-primary: var(--green);
+		--c-muted: var(--green);
+		--c-placeholder: var(--muted);
+		--c-surface: #fff;
+		--c-border: var(--divider);
+		--c-text-nav: var(--text);
+		--c-green-tint: rgba(44, 74, 56, 0.08);
+		--r-sm: 12px;
+		--r-md: 12px;
+		--r-xs: 8px;
+		--sh-pop: 0 18px 40px -20px rgba(30, 40, 30, 0.45);
 	}
 	.search-field {
 		display: flex;
 		flex-direction: column;
 		gap: 7px;
+	}
+	.search-label {
 		font-size: 12px;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		color: var(--label);
 		font-weight: 600;
 	}
-	.search-field select {
-		appearance: none;
-		background: var(--bg-site)
-			url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%232C4A38' stroke-width='2'><path d='M2 4l4 4 4-4'/></svg>")
-			no-repeat right 14px center;
-		border: 1px solid var(--divider);
-		border-radius: 12px;
-		padding: 13px 15px;
+	/* Wyszukiwarka jest wyższa niż domyślny Select — dociągamy pole do 15px/13px jak wcześniej */
+	.search-field :global(.select-trigger),
+	.search-field :global(.select-native) {
 		font-size: 15px;
-		color: var(--text);
-		text-transform: none;
-		letter-spacing: 0;
-		font-weight: 500;
+		padding-top: 13px;
+		padding-bottom: 13px;
 	}
 	.search-btn {
 		background: var(--green);
