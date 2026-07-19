@@ -150,8 +150,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		/* niski pionowy padding: duże logo (72px) nie rozpycha wysokości headera */
-		padding: 11px 48px;
+		/* niski pionowy padding: duże logo (78px) nie rozpycha wysokości headera */
+		padding: 8px 48px;
 		background: rgba(251, 248, 242, 0.9);
 		border-bottom: 1px solid var(--nav-border);
 		position: relative;
@@ -165,10 +165,10 @@
 	/* Zielony kafel z emblematem. Wersja designera (50px/padding 8) była za mała,
 	   by odczytać szczegółową kreskę — większy kafel, minimalny padding. */
 	.brand-tile {
-		width: 72px;
-		height: 72px;
+		width: 78px;
+		height: 78px;
 		flex-shrink: 0;
-		border-radius: 13px;
+		border-radius: 9px;
 		padding: 4px;
 		background: var(--green);
 		border: 1px solid rgba(180, 137, 76, 0.35);
@@ -397,9 +397,9 @@
 			padding-right: 20px;
 		}
 		.brand-tile {
-			width: 54px;
-			height: 54px;
-			border-radius: 10px;
+			width: 58px;
+			height: 58px;
+			border-radius: 7px;
 			padding: 3px;
 		}
 	}
