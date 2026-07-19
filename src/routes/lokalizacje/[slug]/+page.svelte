@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { seoWzor, ctaKontakt } from '$lib/data/lokalizacje';
@@ -36,6 +37,8 @@
 
 	// ── Formularz zgłoszenia ──
 	let submitted = $state(false);
+	const szOpt = (arr: string[]) => arr.map((o) => ({ value: o, label: o }));
+	let szTyp = $state(ctaKontakt.typOpcje[0]);
 	let formError = $state('');
 	const onSubmit: SubmitFunction = () => async ({ result }) => {
 		if (result.type === 'success') {
@@ -234,11 +237,7 @@
 							</div>
 							<label class="field"
 								>Czego szukasz?
-								<select name="type">
-									{#each ctaKontakt.typOpcje as opt}
-										<option>{opt}</option>
-									{/each}
-								</select>
+								<Select name="type" bind:value={szTyp} options={szOpt(ctaKontakt.typOpcje)} />
 							</label>
 							<label class="field"
 								>Wiadomość
@@ -768,6 +767,35 @@
 		display: flex;
 		flex-direction: column;
 		gap: 16px;
+		/* Tokeny komponentu Select dopasowane do pól formularza. */
+		--c-field: var(--bg-site);
+		--c-border-field: var(--border);
+		--c-text: var(--text);
+		--c-primary: var(--green);
+		--c-muted: var(--green);
+		--c-placeholder: var(--muted);
+		--c-surface: #fff;
+		--c-border: var(--border);
+		--c-text-nav: var(--text);
+		--c-green-tint: rgba(44, 74, 56, 0.08);
+		--r-sm: 12px;
+		--r-md: 12px;
+		--r-xs: 8px;
+		--sh-pop: 0 18px 40px -20px rgba(30, 40, 30, 0.45);
+	}
+	/* .field narzuca uppercase — resetujemy na kontrolce Select + ujednolicamy wysokość. */
+	.kontakt-form :global(.select-trigger),
+	.kontakt-form :global(.select-native),
+	.kontakt-form :global(.select-list button) {
+		text-transform: none;
+		letter-spacing: normal;
+		font-weight: 400;
+	}
+	.kontakt-form :global(.select-trigger),
+	.kontakt-form :global(.select-native) {
+		font-size: 15px;
+		padding-top: 13px;
+		padding-bottom: 13px;
 	}
 	.field {
 		display: flex;
@@ -780,7 +808,6 @@
 		font-weight: 600;
 	}
 	.field input,
-	.field select,
 	.field textarea {
 		border: 1px solid var(--border);
 		border-radius: 12px;

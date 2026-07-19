@@ -3,6 +3,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
+	import Select from '$lib/components/Select.svelte';
 	import {
 		seo,
 		breadcrumbs,
@@ -14,6 +15,12 @@
 
 	// ── Formularz: potwierdzenie po wysłaniu (podłącz pod backend/e-mail) ──
 	let formSubmitted = $state(false);
+	const szOpt = (arr: string[]) => arr.map((o) => ({ value: o, label: o }));
+	const optType = ['Mieszkanie', 'Dom', 'Działka', 'Lokal'];
+	let szType = $state(optType[0]);
+	const optBudget = ['do 400 000 zł', '400–700 000 zł', '700 000–1 000 000 zł', 'powyżej 1 000 000 zł'];
+	let szBudget = $state(optBudget[0]);
+
 	let formError = $state('');
 	const enhanceLead: SubmitFunction = () => async ({ result }) => {
 		if (result.type === 'success') {
@@ -132,21 +139,11 @@
 							<div class="lead-field-row">
 								<label class="lead-field">
 									Rodzaj
-									<select name="type">
-										<option>Mieszkanie</option>
-										<option>Dom</option>
-										<option>Działka</option>
-										<option>Lokal</option>
-									</select>
+									<Select name="type" bind:value={szType} options={szOpt(optType)} />
 								</label>
 								<label class="lead-field">
 									Budżet
-									<select name="budget">
-										<option>do 400 000 zł</option>
-										<option>400–700 000 zł</option>
-										<option>700 000–1 000 000 zł</option>
-										<option>powyżej 1 000 000 zł</option>
-									</select>
+									<Select name="budget" bind:value={szBudget} options={szOpt(optBudget)} />
 								</label>
 							</div>
 							<label class="lead-field">
@@ -388,6 +385,35 @@
 		flex-direction: column;
 		gap: 16px;
 		width: 100%;
+		/* Tokeny komponentu Select dopasowane do pól formularza. */
+		--c-field: var(--bg-site);
+		--c-border-field: var(--divider);
+		--c-text: var(--text);
+		--c-primary: var(--green);
+		--c-muted: var(--green);
+		--c-placeholder: var(--muted);
+		--c-surface: #fff;
+		--c-border: var(--divider);
+		--c-text-nav: var(--text);
+		--c-green-tint: rgba(44, 74, 56, 0.08);
+		--r-sm: 12px;
+		--r-md: 12px;
+		--r-xs: 8px;
+		--sh-pop: 0 18px 40px -20px rgba(30, 40, 30, 0.45);
+	}
+	/* .lead-field narzuca uppercase — resetujemy na kontrolce Select + ujednolicamy wysokość. */
+	.lead-form :global(.select-trigger),
+	.lead-form :global(.select-native),
+	.lead-form :global(.select-list button) {
+		text-transform: none;
+		letter-spacing: normal;
+		font-weight: 400;
+	}
+	.lead-form :global(.select-trigger),
+	.lead-form :global(.select-native) {
+		font-size: 15px;
+		padding-top: 13px;
+		padding-bottom: 13px;
 	}
 	.lead-field {
 		display: flex;
@@ -400,7 +426,6 @@
 		font-weight: 600;
 	}
 	.lead-field input,
-	.lead-field select,
 	.lead-field textarea {
 		border: 1px solid var(--divider);
 		border-radius: 12px;
