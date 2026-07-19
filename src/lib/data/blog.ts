@@ -10,14 +10,17 @@ export const seo = {
 export const breadcrumbs = [{ label: 'Strona główna', href: '/' }, { label: 'Blog' }];
 
 export const hero = {
-	eyebrow: 'Blog',
+	eyebrow: 'Blog · Poradnik',
 	tytul: 'Poradnik nieruchomości w Karkonoszach',
 	tytulEmfaza: 'w Karkonoszach',
 	podtytul:
-		'Praktyczna wiedza o sprzedaży, kupnie, kredytach i rynku w Jeleniej Górze i okolicy — po ludzku i konkretnie.'
+		'Praktyczna wiedza o sprzedaży, wycenie, marketingu i rynku w Jeleniej Górze i okolicy — po ludzku i konkretnie.'
 };
 
 export const kategorie = ['Wszystkie', 'Sprzedaż', 'Wycena', 'Marketing', 'Porady'];
+
+// Autor wyróżnionego wpisu (duża karta u góry listy) — biuro pisze w głosie „my".
+export const autorFeatured = { imie: 'Lucyna Wojtoń', rola: 'Właścicielka biura' };
 
 export const newsletter = {
 	eyebrow: 'Newsletter',

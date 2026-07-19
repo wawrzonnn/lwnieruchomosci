@@ -150,9 +150,12 @@ model Article {
   coverAlt     String?
   coverCaption String?
 
-  // Treść — tablica bloków (sekcja / akapit / cytat / lista / zdjecie / statystyki)
+  // Treść — tablica bloków (sekcja / lista / bledy / podsumowanie / cytat)
   content Json     @default("[]")
   tags    String[] @default([])
+
+  // Box „W skrócie" nad treścią artykułu (kluczowe punkty). Pusty = box ukryty.
+  summaryPoints String[] @default([])
 
   // Autor (denormalizowany — małe biuro)
   authorName     String  @default("Zespół LW Nieruchomości")

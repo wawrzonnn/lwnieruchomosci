@@ -3,7 +3,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
-	import { seo, breadcrumbs, hero, kategorie, newsletter } from '$lib/data/blog';
+	import { seo, breadcrumbs, hero, kategorie, autorFeatured, newsletter } from '$lib/data/blog';
 
 	let { data } = $props();
 	const artykuly = data.artykuly;
@@ -84,9 +84,18 @@
 						<span class="featured-badge">Polecany wpis</span>
 					</div>
 					<div class="featured-body">
-						<div class="featured-meta">{featured.cat} · {featured.date}</div>
+						<div class="featured-meta">
+							{featured.cat} · {featured.date}{featured.read ? ` · ${featured.read}` : ''}
+						</div>
 						<div class="featured-title">{featured.title}</div>
 						<p class="featured-excerpt">{featured.excerpt}</p>
+						<div class="featured-author">
+							<div class="featured-avatar">LW</div>
+							<div class="featured-author-info">
+								<div class="featured-author-name">{autorFeatured.imie}</div>
+								<div class="featured-author-role">{autorFeatured.rola}</div>
+							</div>
+						</div>
 						<span class="read-more">Czytaj artykuł →</span>
 					</div>
 				</a>
@@ -114,6 +123,9 @@
 		<!-- ============ LISTA ARTYKUŁÓW ============ -->
 		<section class="section articles-section">
 			{#if gridArticles.length}
+				{#if !filtrujeAktywny}
+					<div class="eyebrow articles-heading">Najnowsze wpisy</div>
+				{/if}
 				<div class="articles-grid">
 					{#each gridArticles as a}
 						<a href="/blog/{a.slug}" class="article-card">
@@ -122,7 +134,7 @@
 								<span class="article-cat">{a.cat}</span>
 							</div>
 							<div class="article-body">
-								<div class="article-date">{a.date}</div>
+								<div class="article-date">{a.date}{a.read ? ` · ${a.read}` : ''}</div>
 								<div class="article-title">{a.title}</div>
 								<p class="article-excerpt">{a.excerpt}</p>
 								<span class="read-more">Czytaj →</span>
@@ -285,6 +297,35 @@
 		padding-bottom: 2px;
 		align-self: flex-start;
 	}
+	.featured-author {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-bottom: 24px;
+	}
+	.featured-avatar {
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: var(--green);
+		color: var(--gold-logo, #e9d9ae);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: 'Newsreader', serif;
+		font-size: 15px;
+		flex: none;
+	}
+	.featured-author-name {
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--text);
+		line-height: 1.25;
+	}
+	.featured-author-role {
+		font-size: 12px;
+		color: var(--label);
+	}
 
 	/* ===== FILTRY ===== */
 	.filters-bar {
@@ -347,25 +388,32 @@
 	.articles-section {
 		padding-bottom: 20px;
 	}
+	.articles-heading {
+		margin-bottom: 20px;
+	}
 	.articles-grid {
 		display: grid;
-		/* auto-fill zamiast repeat(3): 4 wpisy (po wyróżnionym) wchodzą w jeden rząd,
-		   a przy filtrze 1–2 wyniki zostają w rozmiarze karty, nie rozciągają się. */
-		grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
-		gap: 24px;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 26px;
 	}
+	/* Karty poziome: zdjęcie po lewej, tekst po prawej. */
 	.article-card {
-		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-template-columns: 0.85fr 1.15fr;
 		background: #fff;
 		border: 1px solid var(--border);
 		border-radius: 18px;
 		overflow: hidden;
 		box-shadow: 0 16px 30px -24px rgba(30, 40, 30, 0.5);
+		transition: box-shadow 0.25s ease, transform 0.25s ease;
+	}
+	.article-card:hover {
+		box-shadow: 0 34px 56px -30px rgba(30, 40, 30, 0.58);
+		transform: translateY(-3px);
 	}
 	.article-media {
 		position: relative;
-		height: 200px;
+		min-height: 200px;
 		img {
 			position: absolute;
 			inset: 0;
@@ -517,15 +565,11 @@
 		.featured-media {
 			min-height: 260px;
 		}
+		/* Karty poziome zostają, ale w jednej kolumnie (pełna szerokość). */
 		.articles-grid {
-			grid-template-columns: repeat(2, 1fr);
-		}
-		.newsletter-box {
 			grid-template-columns: 1fr;
 		}
-	}
-	@media (max-width: 760px) {
-		.articles-grid {
+		.newsletter-box {
 			grid-template-columns: 1fr;
 		}
 	}
@@ -558,6 +602,13 @@
 		}
 		.featured-title {
 			font-size: 21px;
+		}
+		/* Karty w siatce: pionowo (zdjęcie u góry) na telefonie. */
+		.article-card {
+			grid-template-columns: 1fr;
+		}
+		.article-media {
+			min-height: 190px;
 		}
 		.filters-bar {
 			flex-direction: column;

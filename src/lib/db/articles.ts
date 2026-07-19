@@ -1,7 +1,7 @@
 import { prisma } from './prisma';
 import type { Article, Prisma } from '@prisma/client';
 import { formatPlDate } from '$lib/utils';
-import type { Blok, ArticleCard, ArticleView } from '$lib/blog/types';
+import { maKotwice, type Blok, type ArticleCard, type ArticleView } from '$lib/blog/types';
 
 // ── Zapytania publiczne ──
 
@@ -68,6 +68,7 @@ export function toCard(a: Article): ArticleCard {
 		title: a.title,
 		excerpt: a.excerpt,
 		date: formatPlDate(a.publishedAt),
+		read: a.readTime || '',
 		img: a.coverImage,
 		featured: a.featured
 	};
@@ -75,9 +76,11 @@ export function toCard(a: Article): ArticleCard {
 
 export function toArticleView(a: Article, related: Article[]): ArticleView {
 	const bloki = blocksOf(a);
+	// Spis treści: każdy blok z kotwicą (sekcja / lista / bledy / podsumowanie),
+	// etykieta = tocLabel, a w razie braku — nagłówek bloku.
 	const pozycje = bloki
-		.filter((b): b is Extract<Blok, { typ: 'sekcja' }> => b.typ === 'sekcja')
-		.map((s) => ({ id: s.id, label: s.naglowek2 }));
+		.filter(maKotwice)
+		.map((b) => ({ id: b.id, label: b.tocLabel || b.naglowek }));
 
 	return {
 		slug: a.slug,
@@ -105,6 +108,7 @@ export function toArticleView(a: Article, related: Article[]): ArticleView {
 			alt: a.coverAlt || a.title,
 			podpis: a.coverCaption || ''
 		},
+		wSkrocie: Array.isArray(a.summaryPoints) ? a.summaryPoints : [],
 		spisTresci: { tytul: 'Na tej stronie', pozycje },
 		tresc: { bloki },
 		tagi: a.tags,

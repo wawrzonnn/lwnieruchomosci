@@ -10,66 +10,90 @@ export type ParsedArticle =
 const str = (v: FormDataEntryValue | null) => String(v ?? '').trim();
 const strOrNull = (v: FormDataEntryValue | null) => str(v) || null;
 
-// Normalizacja bloków z formularza + nadanie stabilnych, unikalnych id sekcjom
-// (kotwice spisu treści). Odrzuca bloki niepełne/nieznane.
+// Normalizacja bloków z formularza + nadanie stabilnych, unikalnych id blokom
+// z kotwicą (spis treści). Odrzuca bloki niepełne/nieznane. Model wg refinement 23.
 function normalizeBlocks(raw: unknown): Blok[] {
 	if (!Array.isArray(raw)) return [];
 	const usedIds = new Set<string>();
 	const out: Blok[] = [];
+
+	// Nadaje unikalne id (preferuje istniejące z bloku, w razie braku slug z nagłówka).
+	const takeId = (provided: string, naglowek: string, fallback: string) => {
+		const base = slugify(provided) || slugify(naglowek) || fallback;
+		let id = base;
+		let n = 2;
+		while (usedIds.has(id)) id = `${base}-${n++}`;
+		usedIds.add(id);
+		return id;
+	};
+	const akapityOf = (b: object) =>
+		(Array.isArray((b as { akapity?: unknown[] }).akapity) ? (b as { akapity: unknown[] }).akapity : [])
+			.map((p) => str(p as FormDataEntryValue))
+			.filter(Boolean);
+	const punktyOf = (b: object) =>
+		(Array.isArray((b as { punkty?: unknown[] }).punkty) ? (b as { punkty: unknown[] }).punkty : [])
+			.map((p) => str(p as FormDataEntryValue))
+			.filter(Boolean);
 
 	for (const b of raw) {
 		if (!b || typeof b !== 'object') continue;
 		const typ = (b as { typ?: string }).typ;
 
 		if (typ === 'sekcja') {
-			const naglowek2 = str((b as { naglowek2?: string }).naglowek2 ?? '');
-			if (!naglowek2) continue;
-			let id = slugify(naglowek2) || 'sekcja';
-			let n = 2;
-			while (usedIds.has(id)) id = `${slugify(naglowek2) || 'sekcja'}-${n++}`;
-			usedIds.add(id);
-			out.push({ typ: 'sekcja', id, naglowek2 });
-		} else if (typ === 'akapit') {
-			const html = str((b as { html?: string }).html ?? '');
-			if (!html) continue;
-			out.push({ typ: 'akapit', html, dropCap: !!(b as { dropCap?: boolean }).dropCap });
+			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
+			if (!naglowek) continue;
+			const akapity = akapityOf(b);
+			if (!akapity.length) continue;
+			const id = takeId(str((b as { id?: string }).id ?? ''), naglowek, 'sekcja');
+			const numer = str((b as { numer?: string }).numer ?? '');
+			out.push({
+				typ: 'sekcja',
+				id,
+				tocLabel: str((b as { tocLabel?: string }).tocLabel ?? '') || naglowek,
+				...(numer ? { numer } : {}),
+				naglowek,
+				akapity,
+				...((b as { dropCap?: boolean }).dropCap ? { dropCap: true } : {})
+			});
 		} else if (typ === 'cytat') {
 			const tekst = str((b as { tekst?: string }).tekst ?? '');
 			if (!tekst) continue;
 			out.push({ typ: 'cytat', tekst, autor: str((b as { autor?: string }).autor ?? '') });
 		} else if (typ === 'lista') {
-			const pozycje = (Array.isArray((b as { pozycje?: unknown[] }).pozycje)
-				? (b as { pozycje: unknown[] }).pozycje
-				: []
-			)
-				.map((p) => ({
-					mocne: str((p as { mocne?: string }).mocne ?? ''),
-					reszta: str((p as { reszta?: string }).reszta ?? '')
-				}))
-				.filter((p) => p.mocne || p.reszta);
-			if (!pozycje.length) continue;
-			out.push({ typ: 'lista', pozycje });
-		} else if (typ === 'zdjecie') {
-			const src = str((b as { src?: string }).src ?? '');
-			if (!src) continue;
+			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
+			const punkty = punktyOf(b);
+			if (!naglowek || !punkty.length) continue;
+			const wstep = str((b as { wstep?: string }).wstep ?? '');
 			out.push({
-				typ: 'zdjecie',
-				src,
-				alt: str((b as { alt?: string }).alt ?? ''),
-				podpis: str((b as { podpis?: string }).podpis ?? '')
+				typ: 'lista',
+				id: takeId(str((b as { id?: string }).id ?? ''), naglowek, 'lista'),
+				tocLabel: str((b as { tocLabel?: string }).tocLabel ?? '') || naglowek,
+				naglowek,
+				...(wstep ? { wstep } : {}),
+				punkty
 			});
-		} else if (typ === 'statystyki') {
-			const pozycje = (Array.isArray((b as { pozycje?: unknown[] }).pozycje)
-				? (b as { pozycje: unknown[] }).pozycje
-				: []
-			)
-				.map((p) => ({
-					wartosc: str((p as { wartosc?: string }).wartosc ?? ''),
-					opis: str((p as { opis?: string }).opis ?? '')
-				}))
-				.filter((p) => p.wartosc || p.opis);
-			if (!pozycje.length) continue;
-			out.push({ typ: 'statystyki', uwaga: str((b as { uwaga?: string }).uwaga ?? ''), pozycje });
+		} else if (typ === 'bledy') {
+			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
+			const punkty = punktyOf(b);
+			if (!naglowek || !punkty.length) continue;
+			out.push({
+				typ: 'bledy',
+				id: takeId(str((b as { id?: string }).id ?? ''), naglowek, 'bledy'),
+				tocLabel: str((b as { tocLabel?: string }).tocLabel ?? '') || naglowek,
+				naglowek,
+				punkty
+			});
+		} else if (typ === 'podsumowanie') {
+			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
+			const akapity = akapityOf(b);
+			if (!naglowek || !akapity.length) continue;
+			out.push({
+				typ: 'podsumowanie',
+				id: takeId(str((b as { id?: string }).id ?? ''), naglowek, 'podsumowanie'),
+				tocLabel: str((b as { tocLabel?: string }).tocLabel ?? '') || naglowek,
+				naglowek,
+				akapity
+			});
 		}
 	}
 	return out;
@@ -109,6 +133,12 @@ export function parseArticleForm(data: FormData, existingSlug?: string): ParsedA
 			.filter(Boolean);
 	}
 
+	// Box „W skrócie" — punkty z pola tekstowego (jeden na linię).
+	const summaryPoints = str(data.get('summaryPoints'))
+		.split('\n')
+		.map((p) => p.trim())
+		.filter(Boolean);
+
 	const publishedRaw = str(data.get('publishedAt'));
 	const publishedAt = publishedRaw ? new Date(publishedRaw) : status === 'PUBLISHED' ? new Date() : null;
 
@@ -130,6 +160,7 @@ export function parseArticleForm(data: FormData, existingSlug?: string): ParsedA
 		coverCaption: strOrNull(data.get('coverCaption')),
 		content: content as unknown as Prisma.InputJsonValue,
 		tags,
+		summaryPoints,
 		authorName,
 		authorRole: strOrNull(data.get('authorRole')),
 		authorInitials: strOrNull(data.get('authorInitials')) || initials(authorName),

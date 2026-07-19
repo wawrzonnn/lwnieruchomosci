@@ -9,7 +9,7 @@
 	// ── Pola tekstowe / meta ──
 	let title = $state(article?.title ?? '');
 	let titleEmphasis = $state(article?.titleEmphasis ?? '');
-	let category = $state(article?.category ?? 'Rynek');
+	let category = $state(article?.category ?? 'Porady');
 	let excerpt = $state(article?.excerpt ?? '');
 	let lead = $state(article?.lead ?? '');
 	let readTime = $state(article?.readTime ?? '');
@@ -53,17 +53,15 @@
 	function newBlock(typ: Blok['typ']): Blok {
 		switch (typ) {
 			case 'sekcja':
-				return { typ: 'sekcja', id: '', naglowek2: '' };
-			case 'akapit':
-				return { typ: 'akapit', html: '', dropCap: false };
+				return { typ: 'sekcja', id: '', tocLabel: '', numer: '', naglowek: '', akapity: [''], dropCap: false };
+			case 'lista':
+				return { typ: 'lista', id: '', tocLabel: '', naglowek: '', wstep: '', punkty: [''] };
+			case 'bledy':
+				return { typ: 'bledy', id: '', tocLabel: '', naglowek: '', punkty: [''] };
+			case 'podsumowanie':
+				return { typ: 'podsumowanie', id: '', tocLabel: '', naglowek: '', akapity: [''] };
 			case 'cytat':
 				return { typ: 'cytat', tekst: '', autor: '' };
-			case 'lista':
-				return { typ: 'lista', pozycje: [{ mocne: '', reszta: '' }] };
-			case 'zdjecie':
-				return { typ: 'zdjecie', src: '', alt: '', podpis: '' };
-			case 'statystyki':
-				return { typ: 'statystyki', uwaga: '', pozycje: [{ wartosc: '', opis: '' }] };
 		}
 	}
 	function addBlock(typ: Blok['typ']) {
@@ -79,16 +77,18 @@
 		[copy[i], copy[j]] = [copy[j], copy[i]];
 		blocks = copy;
 	}
-	function addItem(b: Extract<Blok, { typ: 'lista' }> | Extract<Blok, { typ: 'statystyki' }>) {
-		if (b.typ === 'lista') b.pozycje = [...b.pozycje, { mocne: '', reszta: '' }];
-		else b.pozycje = [...b.pozycje, { wartosc: '', opis: '' }];
+	// Edycja list tekstowych bloku (akapity / punkty).
+	function addLine(b: Blok, field: 'akapity' | 'punkty') {
+		const arr = (b as Record<string, unknown>)[field] as string[] | undefined;
+		(b as Record<string, unknown>)[field] = [...(arr ?? []), ''];
 	}
-	function removeItem(
-		b: Extract<Blok, { typ: 'lista' }> | Extract<Blok, { typ: 'statystyki' }>,
-		j: number
-	) {
-		b.pozycje = b.pozycje.filter((_, idx: number) => idx !== j) as never;
+	function removeLine(b: Blok, field: 'akapity' | 'punkty', j: number) {
+		const arr = (b as Record<string, unknown>)[field] as string[] | undefined;
+		(b as Record<string, unknown>)[field] = (arr ?? []).filter((_, idx) => idx !== j);
 	}
+
+	// Box „W skrócie" — punkty jako tekst (jeden na linię).
+	let summaryText = $state(article?.summaryPoints?.join('\n') ?? '');
 
 	const blocksJson = $derived(JSON.stringify(blocks));
 	const tagsJson = $derived(JSON.stringify(tags));
@@ -114,7 +114,7 @@
 		}
 	}
 
-	const ADD_BUTTONS: Blok['typ'][] = ['sekcja', 'akapit', 'lista', 'cytat', 'zdjecie', 'statystyki'];
+	const ADD_BUTTONS: Blok['typ'][] = ['sekcja', 'lista', 'bledy', 'podsumowanie', 'cytat'];
 </script>
 
 <form method="POST" use:enhance class="article-form">
@@ -143,10 +143,9 @@
 							name="category"
 							bind:value={category}
 							options={[
-								{ value: 'Rynek', label: 'Rynek' },
 								{ value: 'Sprzedaż', label: 'Sprzedaż' },
-								{ value: 'Kupno', label: 'Kupno' },
-								{ value: 'Kredyty', label: 'Kredyty' },
+								{ value: 'Wycena', label: 'Wycena' },
+								{ value: 'Marketing', label: 'Marketing' },
 								{ value: 'Porady', label: 'Porady' }
 							]}
 						/>
@@ -170,6 +169,10 @@
 					<label class="field span-2">
 						<span class="field__label">Lead (wprowadzenie pod tytułem)</span>
 						<textarea class="input" name="lead" rows="3" bind:value={lead}></textarea>
+						</label>
+						<label class="field span-2">
+							<span class="field__label">W skrócie (kluczowe punkty nad treścią — jeden na linię, opcjonalne)</span>
+							<textarea class="input" name="summaryPoints" rows="4" bind:value={summaryText}></textarea>
 					</label>
 				</div>
 			</section>
@@ -195,45 +198,55 @@
 							</div>
 
 							{#if block.typ === 'sekcja'}
-								<input class="input" placeholder="Nagłówek sekcji (H2)" bind:value={block.naglowek2} />
-							{:else if block.typ === 'akapit'}
-								<textarea class="input" rows="4" placeholder="Treść akapitu (dozwolone &lt;strong&gt; i &lt;a href&gt;)" bind:value={block.html}></textarea>
+								<div class="num-row">
+									<input class="input" placeholder="Nr (np. 01)" bind:value={block.numer} />
+									<input class="input" placeholder="Nagłówek sekcji (H2)" bind:value={block.naglowek} />
+								</div>
+								<input class="input" placeholder="Etykieta w spisie treści (opcjonalnie — domyślnie nagłówek)" bind:value={block.tocLabel} />
+								{#each block.akapity as _, j}
+									<div class="item-row">
+										<textarea class="input" rows="3" placeholder="Akapit (dozwolone &lt;strong&gt; i &lt;a href&gt;)" bind:value={block.akapity[j]}></textarea>
+										<button type="button" class="btn-icon danger" onclick={() => removeLine(block, 'akapity', j)}>×</button>
+									</div>
+								{/each}
+								<button type="button" class="btn-add-item" onclick={() => addLine(block, 'akapity')}>+ akapit</button>
 								<label class="inline-check">
-									<input type="checkbox" bind:checked={block.dropCap} /> inicjał (duża pierwsza litera)
+									<input type="checkbox" bind:checked={block.dropCap} /> inicjał (duża pierwsza litera pierwszego akapitu)
 								</label>
 							{:else if block.typ === 'cytat'}
 								<textarea class="input" rows="2" placeholder="Treść cytatu" bind:value={block.tekst}></textarea>
 								<input class="input" placeholder="Autor cytatu" bind:value={block.autor} />
 							{:else if block.typ === 'lista'}
-								{#each block.pozycje as _, j}
+								<input class="input" placeholder="Nagłówek listy (H2)" bind:value={block.naglowek} />
+								<input class="input" placeholder="Etykieta w spisie treści (opcjonalnie)" bind:value={block.tocLabel} />
+								<textarea class="input" rows="2" placeholder="Wstęp nad listą (opcjonalnie)" bind:value={block.wstep}></textarea>
+								{#each block.punkty as _, j}
 									<div class="item-row">
-										<input class="input item-strong" placeholder="Wyróżnienie" bind:value={block.pozycje[j].mocne} />
-										<input class="input" placeholder="Opis pozycji" bind:value={block.pozycje[j].reszta} />
-										<button type="button" class="btn-icon danger" onclick={() => removeItem(block, j)}>×</button>
+										<input class="input" placeholder="Punkt listy" bind:value={block.punkty[j]} />
+										<button type="button" class="btn-icon danger" onclick={() => removeLine(block, 'punkty', j)}>×</button>
 									</div>
 								{/each}
-								<button type="button" class="btn-add-item" onclick={() => addItem(block)}>+ pozycja</button>
-							{:else if block.typ === 'zdjecie'}
-								<div class="img-row">
-									<input class="input" placeholder="URL zdjęcia (np. Unsplash) lub prześlij →" bind:value={block.src} />
-									<label class="btn-upload">
-										{uploading === `img-${i}` ? '…' : 'Prześlij'}
-										<input type="file" accept="image/*" hidden onchange={(e) => uploadInto(`img-${i}`, (u) => (block.src = u), e)} />
-									</label>
-								</div>
-								{#if block.src}<img class="img-preview" src={block.src} alt="" />{/if}
-								<input class="input" placeholder="Opis alternatywny (alt)" bind:value={block.alt} />
-								<input class="input" placeholder="Podpis pod zdjęciem" bind:value={block.podpis} />
-							{:else if block.typ === 'statystyki'}
-								<input class="input" placeholder="Uwaga / przypis pod statystykami" bind:value={block.uwaga} />
-								{#each block.pozycje as _, j}
+								<button type="button" class="btn-add-item" onclick={() => addLine(block, 'punkty')}>+ punkt</button>
+							{:else if block.typ === 'bledy'}
+								<input class="input" placeholder="Nagłówek (np. Najczęstsze błędy)" bind:value={block.naglowek} />
+								<input class="input" placeholder="Etykieta w spisie treści (opcjonalnie)" bind:value={block.tocLabel} />
+								{#each block.punkty as _, j}
 									<div class="item-row">
-										<input class="input item-strong" placeholder="Wartość (np. „~45 dni”)" bind:value={block.pozycje[j].wartosc} />
-										<input class="input" placeholder="Opis" bind:value={block.pozycje[j].opis} />
-										<button type="button" class="btn-icon danger" onclick={() => removeItem(block, j)}>×</button>
+										<input class="input" placeholder="Błąd / punkt" bind:value={block.punkty[j]} />
+										<button type="button" class="btn-icon danger" onclick={() => removeLine(block, 'punkty', j)}>×</button>
 									</div>
 								{/each}
-								<button type="button" class="btn-add-item" onclick={() => addItem(block)}>+ statystyka</button>
+								<button type="button" class="btn-add-item" onclick={() => addLine(block, 'punkty')}>+ punkt</button>
+							{:else if block.typ === 'podsumowanie'}
+								<input class="input" placeholder="Nagłówek (np. Podsumowanie)" bind:value={block.naglowek} />
+								<input class="input" placeholder="Etykieta w spisie treści (opcjonalnie)" bind:value={block.tocLabel} />
+								{#each block.akapity as _, j}
+									<div class="item-row">
+										<textarea class="input" rows="3" placeholder="Akapit (dozwolone &lt;strong&gt; i &lt;a href&gt;)" bind:value={block.akapity[j]}></textarea>
+										<button type="button" class="btn-icon danger" onclick={() => removeLine(block, 'akapity', j)}>×</button>
+									</div>
+								{/each}
+								<button type="button" class="btn-add-item" onclick={() => addLine(block, 'akapity')}>+ akapit</button>
 							{/if}
 						</div>
 					{/each}
@@ -495,12 +508,15 @@
 	}
 	.item-row {
 		display: grid;
-		grid-template-columns: minmax(90px, 0.5fr) 1fr auto;
+		grid-template-columns: 1fr auto;
+		gap: 6px;
+		align-items: start;
+	}
+	.num-row {
+		display: grid;
+		grid-template-columns: minmax(80px, 110px) 1fr;
 		gap: 6px;
 		align-items: center;
-	}
-	.item-strong {
-		font-weight: 600;
 	}
 	.btn-add-item {
 		align-self: flex-start;
@@ -536,13 +552,6 @@
 		&:hover {
 			background: var(--c-surface);
 		}
-	}
-	.img-preview {
-		width: 100%;
-		max-height: 160px;
-		object-fit: cover;
-		border-radius: var(--r-sm);
-		border: 1px solid var(--c-border);
 	}
 	.add-bar {
 		display: flex;

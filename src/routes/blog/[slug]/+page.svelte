@@ -3,32 +3,11 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
-	import type { Blok } from '$lib/blog/types';
 	import { newsletter } from '$lib/data/blog';
 
 	let { data } = $props();
 	const article = data.article;
-
-	// ── Grupowanie bloków treści: 'sekcja' otwiera nowy wrapper z kotwicą
-	// dla spisu treści, 'statystyki' renderuje się samodzielnie (poza sekcją). ──
-	type SectionGroup = { kind: 'section'; id: string; heading: string; children: Blok[] };
-	type StatsGroup = { kind: 'statystyki'; block: Extract<Blok, { typ: 'statystyki' }> };
-	function groupBlocks(bloki: Blok[]): (SectionGroup | StatsGroup)[] {
-		const groups: (SectionGroup | StatsGroup)[] = [];
-		let current: SectionGroup | null = null;
-		for (const b of bloki) {
-			if (b.typ === 'sekcja') {
-				current = { kind: 'section', id: b.id, heading: b.naglowek2, children: [] };
-				groups.push(current);
-			} else if (b.typ === 'statystyki') {
-				groups.push({ kind: 'statystyki', block: b });
-			} else if (current) {
-				current.children.push(b);
-			}
-		}
-		return groups;
-	}
-	const groups = groupBlocks(article.tresc.bloki);
+	const bloki = article.tresc.bloki;
 
 	// ── Pasek postępu czytania ──
 	let progress = $state(0);
@@ -188,48 +167,64 @@
 			</aside>
 
 			<article class="prose">
-				{#each groups as g}
-					{#if g.kind === 'section'}
-						<div data-section id={g.id}>
-							<h2>{g.heading}</h2>
-							{#each g.children as child}
-								{#if child.typ === 'akapit'}
-									<p class:lead-cap={child.dropCap}>{@html child.html}</p>
-								{:else if child.typ === 'cytat'}
-									<blockquote>
-										„{child.tekst}"
-										<span class="quote-author">— {child.autor}</span>
-									</blockquote>
-								{:else if child.typ === 'lista'}
-									<ul class="prose-list">
-										{#each child.pozycje as item}
-											<li>
-												<span class="dot"></span>
-												<span><strong>{item.mocne}</strong> — {item.reszta}</span>
-											</li>
-										{/each}
-									</ul>
-								{:else if child.typ === 'zdjecie'}
-									<figure>
-										<div class="prose-figure-media">
-											<img src={child.src} alt={child.alt} />
-										</div>
-										<figcaption>{child.podpis}</figcaption>
-									</figure>
-								{/if}
+				{#if article.wSkrocie.length}
+					<div class="wskrocie">
+						<div class="wskrocie-title">W skrócie</div>
+						<ul>
+							{#each article.wSkrocie as punkt}
+								<li><span class="wskrocie-check">✓</span>{punkt}</li>
+							{/each}
+						</ul>
+					</div>
+				{/if}
+
+				{#each bloki as b}
+					{#if b.typ === 'cytat'}
+						<blockquote>
+							„{b.tekst}"
+							<span class="quote-author">— {b.autor}</span>
+						</blockquote>
+					{:else if b.typ === 'sekcja'}
+						<div data-section id={b.id}>
+							{#if b.numer}
+								<div class="section-head-num">
+									<span class="section-num">{b.numer}</span>
+									<h2>{b.naglowek}</h2>
+								</div>
+							{:else}
+								<h2>{b.naglowek}</h2>
+							{/if}
+							{#each b.akapity as akapit, i}
+								<p class:lead-cap={b.dropCap && i === 0}>{@html akapit}</p>
 							{/each}
 						</div>
-					{:else if g.kind === 'statystyki'}
-						<div class="stats-callout">
-							<div class="stats-callout-grid">
-								{#each g.block.pozycje as s}
-									<div class="stats-callout-item">
-										<div class="v">{s.wartosc}</div>
-										<div class="l">{s.opis}</div>
-									</div>
+					{:else if b.typ === 'lista'}
+						<div data-section id={b.id}>
+							<h2>{b.naglowek}</h2>
+							{#if b.wstep}<p>{@html b.wstep}</p>{/if}
+							<ul class="prose-list">
+								{#each b.punkty as punkt}
+									<li><span class="dot"></span><span>{@html punkt}</span></li>
 								{/each}
+							</ul>
+						</div>
+					{:else if b.typ === 'bledy'}
+						<div data-section id={b.id}>
+							<h2>{b.naglowek}</h2>
+							<div class="bledy-panel">
+								<ul>
+									{#each b.punkty as punkt}
+										<li><span class="bledy-mark">✕</span>{punkt}</li>
+									{/each}
+								</ul>
 							</div>
-							<div class="stats-callout-note">{g.block.uwaga}</div>
+						</div>
+					{:else if b.typ === 'podsumowanie'}
+						<div data-section id={b.id}>
+							<h2>{b.naglowek}</h2>
+							{#each b.akapity as akapit}
+								<p>{@html akapit}</p>
+							{/each}
 						</div>
 					{/if}
 				{/each}
@@ -628,66 +623,110 @@
 			background: var(--gold);
 			margin-top: 9px;
 		}
-		strong {
+		:global(strong) {
 			color: var(--text);
 		}
 	}
-	figure {
-		margin: 8px 0 28px;
+	/* Kotwica pod sticky nagłówek */
+	.prose :global([data-section]) {
+		scroll-margin-top: 90px;
 	}
-	.prose-figure-media {
-		height: 340px;
-		border-radius: 16px;
-		overflow: hidden;
-		border: 1px solid var(--border);
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
+	/* Numer sekcji (artykuły krokowe) */
+	.section-head-num {
+		display: flex;
+		align-items: baseline;
+		gap: 14px;
+		margin: 46px 0 16px;
 	}
-	figcaption {
-		font-size: 13px;
-		color: var(--label);
-		margin-top: 10px;
-		text-align: center;
+	.section-num {
+		flex: none;
+		font-family: 'Newsreader', serif;
+		font-size: 24px;
+		font-weight: 500;
+		color: var(--gold);
 	}
-	.stats-callout {
-		background: var(--bg-cream);
+	.section-head-num :global(h2) {
+		margin: 0;
+	}
+	/* Box „W skrócie" */
+	.wskrocie {
+		background: var(--bg-cream-2);
 		border: 1px solid var(--border);
 		border-radius: 18px;
-		padding: 32px 34px;
+		padding: 26px 30px;
+		margin-bottom: 40px;
+	}
+	.wskrocie-title {
+		font-size: 11px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--gold);
+		font-weight: 700;
+		margin-bottom: 14px;
+	}
+	.wskrocie ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+	.wskrocie li {
+		display: flex;
+		gap: 13px;
+		align-items: flex-start;
+		font-size: 16px;
+		line-height: 1.5;
+		color: #3a3e33;
+	}
+	.wskrocie-check {
+		flex: 0 0 auto;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		background: rgba(44, 74, 56, 0.12);
+		color: var(--green);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 13px;
+		font-weight: 700;
+		line-height: 1;
+	}
+	/* Panel „Najczęstsze błędy" */
+	.bledy-panel {
+		background: var(--bg-cream-2);
+		border: 1px solid var(--border);
+		border-radius: 18px;
+		padding: 28px 32px;
 		margin: 8px 0 34px;
 	}
-	.stats-callout-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 24px;
+	.bledy-panel ul {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 13px;
 	}
-	.stats-callout-item {
-		border-left: 1px solid #e4decf;
-		padding-left: 24px;
-		&:first-child {
-			border-left: none;
-			padding-left: 0;
-		}
-		.v {
-			font-family: 'Newsreader', serif;
-			font-size: 38px;
-			color: var(--green);
-			line-height: 1;
-		}
-		.l {
-			font-size: 13.5px;
-			color: var(--muted);
-			line-height: 1.4;
-			margin-top: 8px;
-		}
+	.bledy-panel li {
+		display: flex;
+		gap: 14px;
+		align-items: flex-start;
+		font-size: 17px;
+		line-height: 1.55;
+		color: #3a3e33;
 	}
-	.stats-callout-note {
-		font-size: 12px;
-		color: #a79c82;
-		margin-top: 18px;
+	.bledy-mark {
+		flex: 0 0 auto;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		background: rgba(180, 137, 76, 0.15);
+		color: var(--gold);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 1;
 	}
 	.tags-row {
 		display: flex;
