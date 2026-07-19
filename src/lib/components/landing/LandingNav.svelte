@@ -1,6 +1,7 @@
 <script lang="ts">
-	// Header ma jasne tło → zielony wariant logo (stopka na ciemnym tle używa złotego).
-	import logo from '$lib/assets/lw-logo-green.png';
+	// Emblemat (złoto+biel) zaprojektowany na ciemne tło — w jasnym headerze osadzamy
+	// go na zielonym kaflu (handoff refinement 20).
+	import logo from '$lib/assets/logo-emblem.png';
 
 	let menuOpen = $state(false);
 	let mobileOfertySubOpen = $state(false);
@@ -41,7 +42,9 @@
 
 <header class="nav">
 	<a href="/" class="brand">
-		<img class="brand-logo" src={logo} alt="LW Nieruchomości" />
+		<span class="brand-tile">
+			<img src={logo} alt="LW Nieruchomości" />
+		</span>
 		<span class="brand-text">
 			<span class="brand-name">LW Nieruchomości</span>
 			<span class="brand-sub">Jelenia Góra · Karkonosze</span>
@@ -158,11 +161,22 @@
 		align-items: center;
 		gap: 14px;
 	}
-	.brand-logo {
-		width: 54px;
-		height: 54px;
-		object-fit: contain;
+	/* Zielony kafel z emblematem (handoff 20): desktop 50×50, radius 7, padding 8. */
+	.brand-tile {
+		width: 50px;
+		height: 50px;
 		flex-shrink: 0;
+		border-radius: 7px;
+		padding: 8px;
+		background: var(--green);
+		border: 1px solid rgba(180, 137, 76, 0.35);
+		display: grid;
+		place-items: center;
+	}
+	.brand-tile img {
+		max-width: 100%;
+		max-height: 100%;
+		object-fit: contain;
 	}
 	.brand-text {
 		line-height: 1.15;
@@ -379,6 +393,12 @@
 		.mobile-menu {
 			padding-left: 20px;
 			padding-right: 20px;
+		}
+		.brand-tile {
+			width: 40px;
+			height: 40px;
+			border-radius: 6px;
+			padding: 6px;
 		}
 	}
 </style>

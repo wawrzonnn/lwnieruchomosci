@@ -1,5 +1,6 @@
 <script lang="ts">
-	import logo from '$lib/assets/lw-logo.png';
+	// Emblemat (złoto+biel) — na ciemnym tle stopki pokazuje się wprost, bez kafla.
+	import logo from '$lib/assets/logo-emblem.png';
 	import { kontakt } from '$lib/data/landing';
 	import { godziny, social } from '$lib/data/kontakt-strona';
 </script>
