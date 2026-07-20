@@ -168,10 +168,8 @@
 		width: 78px;
 		height: 78px;
 		flex-shrink: 0;
-		border-radius: 9px;
 		padding: 4px;
 		background: var(--green);
-		border: 1px solid rgba(180, 137, 76, 0.35);
 		display: grid;
 		place-items: center;
 	}
@@ -399,7 +397,6 @@
 		.brand-tile {
 			width: 58px;
 			height: 58px;
-			border-radius: 7px;
 			padding: 3px;
 		}
 	}
