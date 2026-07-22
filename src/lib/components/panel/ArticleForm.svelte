@@ -17,7 +17,7 @@
 	let coverAlt = $state(article?.coverAlt ?? '');
 	let coverCaption = $state(article?.coverCaption ?? '');
 	let authorName = $state(article?.authorName ?? 'Lucyna Wojtoń');
-	let authorRole = $state(article?.authorRole ?? 'Właścicielka biura · LW Nieruchomości');
+	let authorRole = $state(article?.authorRole ?? 'Pośredniczka w obrocie nieruchomościami');
 	let authorInitials = $state(article?.authorInitials ?? '');
 	let authorBio = $state(article?.authorBio ?? '');
 	let seoTitle = $state(article?.seoTitle ?? '');

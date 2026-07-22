@@ -20,7 +20,10 @@ export const hero = {
 export const kategorie = ['Wszystkie', 'Sprzedaż', 'Wycena', 'Marketing', 'Porady'];
 
 // Autor wyróżnionego wpisu (duża karta u góry listy) — biuro pisze w głosie „my".
-export const autorFeatured = { imie: 'Lucyna Wojtoń', rola: 'Właścicielka biura' };
+export const autorFeatured = {
+	imie: 'Lucyna Wojtoń',
+	rola: 'Pośredniczka w obrocie nieruchomościami'
+};
 
 export const newsletter = {
 	eyebrow: 'Newsletter',

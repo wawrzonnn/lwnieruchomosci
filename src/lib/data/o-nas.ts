@@ -40,7 +40,7 @@ export const oBiurze = {
 	],
 	akapity: [
 		'LW Nieruchomości to lokalne, mobilne biuro nieruchomości z Jeleniej Góry. Od lat pomagamy mieszkańcom Kotliny Jeleniogórskiej sprzedawać, kupować i wyceniać nieruchomości — bez pośpiechu i bez presji.',
-		'Na czele biura stoi Lucyna Wojtoń. Każdą sprawę prowadzimy z pełnym zaangażowaniem, od pierwszej rozmowy po odbiór kluczy — tak, żebyś na każdym etapie wiedział, co dalej i czuł się pewnie.',
+		'Biuro prowadzi Lucyna Wojtoń, a w codziennej pracy wspiera ją zespół — specjalista ds. nieruchomości i specjalistka ds. marketingu. Każdą transakcję prowadzimy od początku do końca, z jasnymi zasadami i konkretnymi terminami.',
 		'Wierzymy, że dobra transakcja to taka, po której obie strony chcą podać sobie rękę.'
 	],
 	kontakt: {
@@ -50,6 +50,35 @@ export const oBiurze = {
 			{ label: 'Napisz e-mail', href: 'mailto:biuro@lw.nieruchomosci.pl' }
 		]
 	}
+};
+
+export const zespol = {
+	eyebrow: 'Nasz zespół',
+	tytul: 'Kto poprowadzi Twoją sprawę',
+	tytulEmfaza: 'Twoją sprawę',
+	podtytul:
+		'Małe biuro, konkretne osoby. Zawsze wiesz, kto prowadzi Twoją sprawę i do kogo zadzwonić.',
+	// Zdjęcia realne (kadr pionowy 4:5, object-position: center top).
+	osoby: [
+		{
+			img: '/zespol-lucyna.png',
+			imie: 'Lucyna Wojtoń',
+			rola: 'Pośredniczka w obrocie nieruchomościami',
+			opis: 'Prowadzi biuro i osobiście zajmuje się transakcjami sprzedaży i zakupu — od wyceny, przez umowę pośrednictwa, po akt notarialny.'
+		},
+		{
+			img: '/zespol-jaroslaw.png',
+			imie: 'Jarosław Zięba',
+			rola: 'Specjalista ds. nieruchomości',
+			opis: 'Obsługuje sprzedających i kupujących: prezentacje nieruchomości, negocjacje i formalności. Zna lokalny rynek Kotliny Jeleniogórskiej.'
+		},
+		{
+			img: '/zespol-sylwia.png',
+			imie: 'Sylwia Szuman',
+			rola: 'Specjalistka ds. marketingu',
+			opis: 'Odpowiada za marketing ofert: sesje zdjęciowe, film, ujęcia z drona i publikację na portalach.'
+		}
+	]
 };
 
 export const historia = {

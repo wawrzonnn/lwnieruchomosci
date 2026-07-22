@@ -6,6 +6,7 @@
 		breadcrumbs,
 		hero,
 		oBiurze,
+		zespol,
 		historia,
 		wartosci,
 		statystyki,
@@ -107,6 +108,33 @@
 						{/each}
 					</div>
 				</div>
+			</div>
+		</section>
+
+		<!-- ============ ZESPÓŁ ============ -->
+		<section class="section zespol-section">
+			<div class="zespol-head">
+				<div class="eyebrow">{zespol.eyebrow}</div>
+				<h2 class="h2 zespol-h2">
+					{zespol.tytul.split(zespol.tytulEmfaza)[0]}<em>{zespol.tytulEmfaza}</em>{zespol.tytul.split(
+						zespol.tytulEmfaza
+					)[1]}
+				</h2>
+				<p class="zespol-lead">{zespol.podtytul}</p>
+			</div>
+			<div class="zespol-grid">
+				{#each zespol.osoby as osoba}
+					<div class="zespol-card">
+						<div class="zespol-photo">
+							<img src={osoba.img} alt={osoba.imie} />
+						</div>
+						<div class="zespol-body">
+							<div class="zespol-rola">{osoba.rola}</div>
+							<div class="zespol-imie">{osoba.imie}</div>
+							<p class="zespol-opis">{osoba.opis}</p>
+						</div>
+					</div>
+				{/each}
 			</div>
 		</section>
 
@@ -452,6 +480,122 @@
 		background: #fff;
 		border: 1px solid var(--border);
 		color: var(--text);
+	}
+
+	/* ===== ZESPÓŁ ===== */
+	.zespol-section {
+		padding-top: 8px;
+		padding-bottom: 84px;
+	}
+	.zespol-head {
+		max-width: 660px;
+		margin-bottom: 44px;
+	}
+	.zespol-h2 {
+		font-size: 40px;
+		line-height: 1.08;
+		margin: 4px 0 14px;
+		em {
+			font-style: italic;
+			color: var(--green);
+		}
+	}
+	.zespol-lead {
+		font-size: 17px;
+		line-height: 1.7;
+		color: var(--muted);
+		text-wrap: pretty;
+	}
+	.zespol-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 28px;
+	}
+	.zespol-card {
+		background: #fff;
+		border: 1px solid var(--border);
+		border-radius: 20px;
+		overflow: hidden;
+		box-shadow: 0 20px 40px -26px rgba(30, 40, 30, 0.5);
+	}
+	.zespol-photo {
+		position: relative;
+		aspect-ratio: 4 / 5;
+		background: #ece7d8;
+		overflow: hidden;
+		img {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center top;
+		}
+	}
+	.zespol-body {
+		padding: 24px 24px 28px;
+	}
+	.zespol-rola {
+		font-size: 12px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--gold);
+		font-weight: 600;
+		margin-bottom: 7px;
+	}
+	.zespol-imie {
+		font-family: 'Newsreader', serif;
+		font-size: 25px;
+		font-weight: 500;
+		line-height: 1.15;
+	}
+	.zespol-opis {
+		font-size: 15px;
+		line-height: 1.62;
+		color: var(--muted);
+		margin-top: 11px;
+		text-wrap: pretty;
+	}
+	/* Mobile/tablet: lista poziomych kart (foto po lewej). */
+	@media (max-width: 900px) {
+		.zespol-grid {
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+		.zespol-card {
+			display: flex;
+			gap: 15px;
+			align-items: center;
+			padding: 14px;
+			border-radius: 16px;
+		}
+		.zespol-photo {
+			flex: 0 0 auto;
+			width: 84px;
+			height: 104px;
+			aspect-ratio: auto;
+			border-radius: 14px;
+		}
+		.zespol-body {
+			padding: 0;
+		}
+		.zespol-rola {
+			font-size: 10.5px;
+			margin-bottom: 3px;
+		}
+		.zespol-imie {
+			font-size: 19px;
+		}
+		.zespol-opis {
+			font-size: 13px;
+			line-height: 1.5;
+			margin-top: 5px;
+		}
+	}
+	@media (max-width: 640px) {
+		.zespol-h2 {
+			font-size: 26px;
+		}
 	}
 
 	/* ===== HISTORIA (oś czasu) ===== */
