@@ -7,7 +7,6 @@
 		hero,
 		oBiurze,
 		zespol,
-		historia,
 		wartosci,
 		statystyki,
 		region,
@@ -101,6 +100,11 @@
 					{#each oBiurze.akapity as akapit}
 						<p class="biuro-p">{akapit}</p>
 					{/each}
+					<div class="biuro-osoba">
+						<div class="biuro-osoba-imie">{oBiurze.osoba.imie}</div>
+						<div class="biuro-osoba-rola">{oBiurze.osoba.rola}</div>
+						<p class="biuro-osoba-bio">{oBiurze.osoba.bio}</p>
+					</div>
 					<div class="biuro-contact">
 						<span class="biuro-contact-lead">{oBiurze.kontakt.prowadzenie}</span>
 						{#each oBiurze.kontakt.linki as link, i}
@@ -136,30 +140,6 @@
 					</div>
 				{/each}
 			</div>
-		</section>
-
-		<!-- ============ HISTORIA (pozioma na desktop / pionowa na mobile) ============ -->
-		<section class="section historia-section">
-			<div class="historia-head">
-				<div class="eyebrow">{historia.eyebrow}</div>
-				<h2 class="h2 historia-h2">{historia.tytul}</h2>
-				<p class="historia-lead">{historia.podtytul}</p>
-			</div>
-			<ol class="timeline">
-				{#each historia.kroki as krok, i}
-					<li class="tl-item" class:last={i === historia.kroki.length - 1}>
-						<div class="tl-head">
-							<span class="tl-dot"></span>
-							{#if i < historia.kroki.length - 1}<span class="tl-rail"></span>{/if}
-						</div>
-						<div class="tl-body">
-							<div class="tl-year">{krok.year}</div>
-							<div class="tl-t">{krok.t}</div>
-							<p class="tl-d">{krok.d}</p>
-						</div>
-					</li>
-				{/each}
-			</ol>
 		</section>
 
 		<!-- ============ WARTOŚCI ============ -->
@@ -481,6 +461,33 @@
 		border: 1px solid var(--border);
 		color: var(--text);
 	}
+	/* Osoba na głównym zdjęciu (Lucyna) + jej opis */
+	.biuro-osoba {
+		margin-top: 24px;
+		padding-top: 22px;
+		border-top: 1px solid var(--border);
+	}
+	.biuro-osoba-imie {
+		font-family: 'Newsreader', serif;
+		font-size: 22px;
+		font-weight: 500;
+		line-height: 1.2;
+	}
+	.biuro-osoba-rola {
+		font-size: 12px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--gold);
+		font-weight: 600;
+		margin-top: 4px;
+	}
+	.biuro-osoba-bio {
+		font-size: 15px;
+		line-height: 1.66;
+		color: var(--muted);
+		margin-top: 12px;
+		text-wrap: pretty;
+	}
 
 	/* ===== ZESPÓŁ ===== */
 	.zespol-section {
@@ -508,8 +515,9 @@
 	}
 	.zespol-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: 28px;
+		max-width: 720px;
 	}
 	.zespol-card {
 		background: #fff;
@@ -596,87 +604,6 @@
 		.zespol-h2 {
 			font-size: 26px;
 		}
-	}
-
-	/* ===== HISTORIA (oś czasu) ===== */
-	.historia-section {
-		padding-top: 8px;
-		padding-bottom: 82px;
-	}
-	.historia-head {
-		max-width: 640px;
-		margin-bottom: 46px;
-	}
-	.historia-h2 {
-		font-size: 40px;
-		line-height: 1.08;
-		margin-top: 4px;
-	}
-	.historia-lead {
-		font-size: 17px;
-		line-height: 1.7;
-		color: var(--muted);
-		margin-top: 14px;
-	}
-	/* Desktop = pozioma: 5 kolumn, kropka + pozioma linia łącząca. */
-	.timeline {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 28px;
-	}
-	.tl-item {
-		position: relative;
-		list-style: none;
-	}
-	.tl-head {
-		position: relative;
-		height: 16px;
-	}
-	.tl-dot {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: 1;
-		width: 16px;
-		height: 16px;
-		border-radius: 50%;
-		background: var(--gold);
-		box-shadow: 0 0 0 4px var(--bg-site), 0 0 0 5px #e7d8be;
-	}
-	.tl-rail {
-		position: absolute;
-		top: 7px;
-		left: 0;
-		width: calc(100% + 28px);
-		height: 2px;
-		background: var(--divider);
-	}
-	.tl-body {
-		margin-top: 22px;
-	}
-	.tl-year {
-		font-family: 'Newsreader', serif;
-		font-size: 15px;
-		letter-spacing: 0.06em;
-		color: var(--gold);
-		font-weight: 600;
-	}
-	.tl-t {
-		font-family: 'Newsreader', serif;
-		font-size: 22px;
-		font-weight: 500;
-		line-height: 1.18;
-		margin-top: 3px;
-	}
-	.tl-d {
-		font-size: 15px;
-		line-height: 1.6;
-		color: var(--muted);
-		margin-top: 9px;
-		text-wrap: pretty;
 	}
 
 	/* ===== WARTOŚCI ===== */
@@ -935,7 +862,7 @@
 			font-size: 42px;
 		}
 	}
-	/* Poniżej 900px: biuro w jednej kolumnie, oś czasu PIONOWA, region = zdjęcie u góry + karta. */
+	/* Poniżej 900px: biuro w jednej kolumnie, region = zdjęcie u góry + karta nachodząca. */
 	@media (max-width: 900px) {
 		.biuro-grid {
 			grid-template-columns: 1fr;
@@ -955,46 +882,6 @@
 		.biuro-h2 {
 			font-size: 30px;
 			margin-top: 6px;
-		}
-
-		.timeline {
-			display: flex;
-			flex-direction: column;
-			gap: 0;
-		}
-		.tl-item {
-			display: flex;
-			gap: 16px;
-		}
-		.tl-head {
-			height: auto;
-			flex: 0 0 auto;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			padding-top: 4px;
-		}
-		.tl-dot {
-			position: relative;
-			top: auto;
-			left: auto;
-			width: 14px;
-			height: 14px;
-			box-shadow: 0 0 0 4px var(--bg-cream-2), 0 0 0 5px #e7d8be;
-		}
-		.tl-rail {
-			position: relative;
-			top: auto;
-			left: auto;
-			width: 2px;
-			height: auto;
-			flex: 1;
-			min-height: 34px;
-			margin-top: 7px;
-		}
-		.tl-body {
-			margin-top: 0;
-			padding-bottom: 22px;
 		}
 
 		.region-section {
@@ -1059,7 +946,6 @@
 			padding-top: 40px;
 			padding-bottom: 8px;
 		}
-		.historia-h2,
 		.region-h2 {
 			font-size: 26px;
 		}

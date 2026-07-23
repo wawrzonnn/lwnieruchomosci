@@ -27,22 +27,26 @@ export const hero = {
 
 export const oBiurze = {
 	eyebrow: 'Nasze biuro',
-	tytul: 'Biuro z lokalnymi korzeniami',
-	tytulEmfaza: 'lokalnymi korzeniami',
-	// PLACEHOLDER — podmień na realne zdjęcie biura / Lucyny (kadr pionowy 4:5, np. /biuro.jpg).
+	tytul: 'LW Nieruchomości — doświadczenie i znajomość lokalnego rynku',
+	tytulEmfaza: 'lokalnego rynku',
+	// Główne zdjęcie sekcji = Lucyna Wojtoń (założycielka). Kadr pionowy 4:5.
 	zdjecie: {
-		src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80',
-		alt: 'Biuro LW Nieruchomości'
+		src: '/zespol-lucyna.png',
+		alt: 'Lucyna Wojtoń — LW Nieruchomości'
 	},
 	badges: [
 		{ n: '4,9', l: 'ocena w Google' },
 		{ n: '11 lat', l: 'na rynku' }
 	],
 	akapity: [
-		'LW Nieruchomości to lokalne, mobilne biuro nieruchomości z Jeleniej Góry. Od lat pomagamy mieszkańcom Kotliny Jeleniogórskiej sprzedawać, kupować i wyceniać nieruchomości — bez pośpiechu i bez presji.',
-		'Biuro prowadzi Lucyna Wojtoń, a w codziennej pracy wspiera ją zespół — specjalista ds. nieruchomości i specjalistka ds. marketingu. Każdą transakcję prowadzimy od początku do końca, z jasnymi zasadami i konkretnymi terminami.',
-		'Wierzymy, że dobra transakcja to taka, po której obie strony chcą podać sobie rękę.'
+		'Od ponad 11 lat pomagamy klientom sprzedawać i kupować nieruchomości w Jeleniej Górze i regionie Karkonoszy. Znamy nieruchomości, które oferujemy, ich potencjał i najważniejsze atuty, dzięki czemu możemy rzetelnie doradzać zarówno sprzedającym, jak i kupującym.'
 	],
+	// Osoba na głównym zdjęciu (Lucyna) + jej opis.
+	osoba: {
+		imie: 'Lucyna Wojtoń',
+		rola: 'Pośredniczka w obrocie nieruchomościami',
+		bio: 'Założycielka LW Nieruchomości z ponad 11-letnim doświadczeniem w branży. Osobiście prowadzi klientów przez proces sprzedaży i zakupu nieruchomości — od pierwszej rozmowy i ustalenia strategii działania aż po finalizację transakcji i przekazanie nieruchomości.'
+	},
 	kontakt: {
 		prowadzenie: 'Masz pytanie? Odezwij się —',
 		linki: [
@@ -59,58 +63,19 @@ export const zespol = {
 	podtytul:
 		'Małe biuro, konkretne osoby. Zawsze wiesz, kto prowadzi Twoją sprawę i do kogo zadzwonić.',
 	// Zdjęcia realne (kadr pionowy 4:5, object-position: center top).
+	// Lucyna jest na głównym zdjęciu sekcji „Nasze biuro" — tu zespół wspierający.
 	osoby: [
-		{
-			img: '/zespol-lucyna.png',
-			imie: 'Lucyna Wojtoń',
-			rola: 'Pośredniczka w obrocie nieruchomościami',
-			opis: 'Prowadzi biuro i osobiście zajmuje się transakcjami sprzedaży i zakupu — od wyceny, przez umowę pośrednictwa, po akt notarialny.'
-		},
 		{
 			img: '/zespol-jaroslaw.png',
 			imie: 'Jarosław Zięba',
 			rola: 'Specjalista ds. nieruchomości',
-			opis: 'Obsługuje sprzedających i kupujących: prezentacje nieruchomości, negocjacje i formalności. Zna lokalny rynek Kotliny Jeleniogórskiej.'
+			opis: 'Wieloletnie doświadczenie w sprzedaży wykorzystuje dziś na rynku nieruchomości. Doskonale odnajduje się w rozmowach z klientami i negocjacjach, dbając o sprawny przebieg sprzedaży oraz zakupu nieruchomości.'
 		},
 		{
 			img: '/zespol-sylwia.png',
 			imie: 'Sylwia Szuman',
 			rola: 'Specjalistka ds. marketingu',
-			opis: 'Odpowiada za marketing ofert: sesje zdjęciowe, film, ujęcia z drona i publikację na portalach.'
-		}
-	]
-};
-
-export const historia = {
-	eyebrow: 'Nasza historia',
-	tytul: 'Jak to się zaczęło',
-	podtytul: 'Kilka momentów, które ukształtowały nasze biuro — krok po kroku.',
-	// Desktop = pozioma oś czasu; mobile = pionowa. Lata/opisy do potwierdzenia z klientką.
-	kroki: [
-		{
-			year: '2015',
-			t: 'Początek',
-			d: 'Rusza LW Nieruchomości — lokalne biuro z sercem do Kotliny Jeleniogórskiej.'
-		},
-		{
-			year: '2017',
-			t: 'Marka na mapie',
-			d: 'Zdobywamy zaufanie pierwszych klientów i budujemy reputację spokojnego, uczciwego biura.'
-		},
-		{
-			year: '2020',
-			t: 'Marketing w standardzie',
-			d: 'Do każdej oferty wprowadzamy profesjonalne zdjęcia, ujęcia z drona i film — bez dopłat.'
-		},
-		{
-			year: '2023',
-			t: 'Ponad 100 rodzin',
-			d: 'Pomagamy kolejnym rodzinom sprzedać, kupić i znaleźć swoje miejsce w Karkonoszach.'
-		},
-		{
-			year: '2026',
-			t: 'Dziś',
-			d: 'Zaufane, mobilne biuro z oceną 4,9 w Google i ofertami prowadzonymi na wyłączność.'
+			opis: 'Odpowiada za video marketing nieruchomości. Tworzy prezentacje wideo i treści do mediów społecznościowych, które pokazują przestrzeń, charakter i największe atuty nieruchomości.'
 		}
 	]
 };
