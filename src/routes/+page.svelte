@@ -1723,6 +1723,7 @@
 		color: var(--text);
 	}
 	.faq-cta {
+		align-self: flex-start;
 		margin-top: 28px;
 		text-align: center;
 		background: var(--green);

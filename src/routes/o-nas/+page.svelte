@@ -509,7 +509,6 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 28px;
-		max-width: 720px;
 	}
 	.zespol-card {
 		background: #fff;
