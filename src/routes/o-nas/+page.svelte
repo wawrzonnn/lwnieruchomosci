@@ -100,16 +100,16 @@
 					{#each oBiurze.akapity as akapit}
 						<p class="biuro-p">{akapit}</p>
 					{/each}
-					<div class="biuro-osoba">
-						<div class="biuro-osoba-imie">{oBiurze.osoba.imie}</div>
-						<div class="biuro-osoba-rola">{oBiurze.osoba.rola}</div>
-						<p class="biuro-osoba-bio">{oBiurze.osoba.bio}</p>
-					</div>
-					<div class="biuro-contact">
-						<span class="biuro-contact-lead">{oBiurze.kontakt.prowadzenie}</span>
-						{#each oBiurze.kontakt.linki as link, i}
-							<a href={link.href} class="biuro-contact-btn" class:ghost={i > 0}>{link.label}</a>
-						{/each}
+					<div class="biuro-lider">
+						<div class="eyebrow">{oBiurze.lider.eyebrow}</div>
+						<div class="biuro-lider-imie">{oBiurze.lider.imie}</div>
+						<div class="biuro-lider-rola">{oBiurze.lider.rola}</div>
+						<p class="biuro-lider-bio">{oBiurze.lider.opis}</p>
+						<div class="biuro-lider-kontakt">
+							{#each oBiurze.kontakt.linki as link, i}
+								<a href={link.href} class="biuro-contact-btn" class:ghost={i > 0}>{link.label}</a>
+							{/each}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -352,6 +352,7 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center top;
 	}
 	.biuro-badge-google {
 		position: absolute;
@@ -412,8 +413,8 @@
 		align-self: end;
 	}
 	.biuro-h2 {
-		font-size: 42px;
-		line-height: 1.06;
+		font-size: 37px;
+		line-height: 1.1;
 		margin-top: 12px;
 		em {
 			font-style: italic;
@@ -432,18 +433,36 @@
 	.biuro-p + .biuro-p {
 		margin-top: 15px;
 	}
-	.biuro-contact {
+	/* Blok „Biuro prowadzi" — Lucyna + kontakt */
+	.biuro-lider {
 		margin-top: 26px;
 		padding-top: 24px;
 		border-top: 1px solid var(--border);
+	}
+	.biuro-lider-imie {
+		font-family: 'Newsreader', serif;
+		font-size: 26px;
+		font-weight: 500;
+		line-height: 1.12;
+		margin-top: 8px;
+	}
+	.biuro-lider-rola {
+		font-size: 14px;
+		color: var(--muted);
+		margin: 4px 0 13px;
+	}
+	.biuro-lider-bio {
+		font-size: 16px;
+		line-height: 1.68;
+		color: var(--muted);
+		text-wrap: pretty;
+	}
+	.biuro-lider-kontakt {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 14px;
-	}
-	.biuro-contact-lead {
-		font-size: 15px;
-		color: var(--muted);
+		gap: 12px;
+		margin-top: 20px;
 	}
 	.biuro-contact-btn {
 		display: inline-flex;
@@ -460,33 +479,6 @@
 		background: #fff;
 		border: 1px solid var(--border);
 		color: var(--text);
-	}
-	/* Osoba na głównym zdjęciu (Lucyna) + jej opis */
-	.biuro-osoba {
-		margin-top: 24px;
-		padding-top: 22px;
-		border-top: 1px solid var(--border);
-	}
-	.biuro-osoba-imie {
-		font-family: 'Newsreader', serif;
-		font-size: 22px;
-		font-weight: 500;
-		line-height: 1.2;
-	}
-	.biuro-osoba-rola {
-		font-size: 12px;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		color: var(--gold);
-		font-weight: 600;
-		margin-top: 4px;
-	}
-	.biuro-osoba-bio {
-		font-size: 15px;
-		line-height: 1.66;
-		color: var(--muted);
-		margin-top: 12px;
-		text-wrap: pretty;
 	}
 
 	/* ===== ZESPÓŁ ===== */

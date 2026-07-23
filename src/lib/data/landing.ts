@@ -189,9 +189,9 @@ export const oNas = {
 		'LW Nieruchomości powstało z przekonania, że dobra współpraca zaczyna się od rozmowy i poznania potrzeb klienta. Każdą nieruchomość traktujemy indywidualnie, poświęcając jej czas i uwagę, na jakie zasługuje.',
 		'Nie stawiamy na ilość obsługiwanych ofert — stawiamy na jakość współpracy. Dzięki temu jesteśmy z klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap procesu.'
 	],
-	zdjecie: U('photo-1573496359142-b8d87734a5a2', 800),
-	podpisZdjecia: 'Poznajmy się osobiście',
-	podpisZdjeciaMaly: 'LW NIERUCHOMOŚCI · JELENIA GÓRA'
+	zdjecie: '/zespol-lucyna.png',
+	podpisZdjecia: 'Lucyna Wojtoń',
+	podpisZdjeciaMaly: 'POŚREDNICZKA · ZAŁOŻYCIELKA'
 };
 
 export const statystyki = [

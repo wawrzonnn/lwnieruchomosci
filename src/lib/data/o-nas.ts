@@ -41,14 +41,14 @@ export const oBiurze = {
 	akapity: [
 		'Od ponad 11 lat pomagamy klientom sprzedawać i kupować nieruchomości w Jeleniej Górze i regionie Karkonoszy. Znamy nieruchomości, które oferujemy, ich potencjał i najważniejsze atuty, dzięki czemu możemy rzetelnie doradzać zarówno sprzedającym, jak i kupującym.'
 	],
-	// Osoba na głównym zdjęciu (Lucyna) + jej opis.
-	osoba: {
+	// Blok „Biuro prowadzi" pod tekstem o biurze — Lucyna (jedyne miejsce z jej opisem).
+	lider: {
+		eyebrow: 'Biuro prowadzi',
 		imie: 'Lucyna Wojtoń',
-		rola: 'Pośredniczka w obrocie nieruchomościami',
-		bio: 'Założycielka LW Nieruchomości z ponad 11-letnim doświadczeniem w branży. Osobiście prowadzi klientów przez proces sprzedaży i zakupu nieruchomości — od pierwszej rozmowy i ustalenia strategii działania aż po finalizację transakcji i przekazanie nieruchomości.'
+		rola: 'Pośredniczka w obrocie nieruchomościami · Założycielka',
+		opis: 'Założycielka LW Nieruchomości z ponad 11-letnim doświadczeniem w branży. Osobiście prowadzi klientów przez proces sprzedaży i zakupu nieruchomości — od pierwszej rozmowy i ustalenia strategii działania aż po finalizację transakcji i przekazanie nieruchomości.'
 	},
 	kontakt: {
-		prowadzenie: 'Masz pytanie? Odezwij się —',
 		linki: [
 			{ label: '+48 690 008 273', href: 'tel:+48690008273' },
 			{ label: 'Napisz e-mail', href: 'mailto:biuro@lw.nieruchomosci.pl' }
@@ -61,7 +61,7 @@ export const zespol = {
 	tytul: 'Kto poprowadzi Twoją sprawę',
 	tytulEmfaza: 'Twoją sprawę',
 	podtytul:
-		'Małe biuro, konkretne osoby. Zawsze wiesz, kto prowadzi Twoją sprawę i do kogo zadzwonić.',
+		'W codziennej pracy Lucynę wspiera zespół — zawsze wiesz, kto prowadzi Twoją sprawę i do kogo zadzwonić.',
 	// Zdjęcia realne (kadr pionowy 4:5, object-position: center top).
 	// Lucyna jest na głównym zdjęciu sekcji „Nasze biuro" — tu zespół wspierający.
 	osoby: [
