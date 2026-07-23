@@ -45,7 +45,7 @@ export const oBiurze = {
 	lider: {
 		eyebrow: 'Biuro prowadzi',
 		imie: 'Lucyna Wojtoń',
-		rola: 'Pośredniczka w obrocie nieruchomościami · Założycielka',
+		rola: 'Właścicielka i specjalistka ds. nieruchomości',
 		opis: 'Założycielka LW Nieruchomości z ponad 11-letnim doświadczeniem w branży. Osobiście prowadzi klientów przez proces sprzedaży i zakupu nieruchomości — od pierwszej rozmowy i ustalenia strategii działania aż po finalizację transakcji i przekazanie nieruchomości.'
 	},
 	kontakt: {

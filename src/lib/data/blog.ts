@@ -22,7 +22,7 @@ export const kategorie = ['Wszystkie', 'Sprzedaż', 'Wycena', 'Marketing', 'Pora
 // Autor wyróżnionego wpisu (duża karta u góry listy) — biuro pisze w głosie „my".
 export const autorFeatured = {
 	imie: 'Lucyna Wojtoń',
-	rola: 'Pośredniczka w obrocie nieruchomościami'
+	rola: 'Właścicielka i specjalistka ds. nieruchomości'
 };
 
 export const newsletter = {

@@ -191,7 +191,7 @@ export const oNas = {
 	],
 	zdjecie: '/zespol-lucyna.png',
 	podpisZdjecia: 'Lucyna Wojtoń',
-	podpisZdjeciaMaly: 'POŚREDNICZKA · ZAŁOŻYCIELKA'
+	podpisZdjeciaMaly: 'WŁAŚCICIELKA · SPECJALISTKA DS. NIERUCHOMOŚCI'
 };
 
 export const statystyki = [
