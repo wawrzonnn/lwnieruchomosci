@@ -24,6 +24,9 @@
 	let { data } = $props();
 
 	// ── Wyszukiwarka hero: stan pól (desktop = stylowany dropdown, mobile = natywny select) ──
+	// Pierwsze zdanie leadu — wersja hero na telefon (bez skracania oryginalnej treści).
+	const heroLeadKrotki = hero.podtytul.split('. ')[0] + '.';
+
 	const szOpcje = (arr: string[]) => arr.map((o) => ({ value: o, label: o }));
 	let szRodzaj = $state(wyszukiwarka.rodzaj[0]);
 	let szLokalizacja = $state(wyszukiwarka.lokalizacja[0]);
@@ -220,6 +223,9 @@
 					{@html hero.podtytulHero.replace(hero.tytulEmfaza, `<em>${hero.tytulEmfaza}</em>`)}
 				</p>
 				<p class="hero-lead">{hero.podtytul}</p>
+				<!-- Na telefonie pełny akapit zasłaniałby zdjęcie i wypychał wyszukiwarkę —
+				     pokazujemy pierwsze zdanie (ten sam tekst, bez skracania w treści). -->
+				<p class="hero-lead-krotki">{heroLeadKrotki}</p>
 			</div>
 			<form class="search-card" onsubmit={(e) => e.preventDefault()}>
 				<div class="search-field">
@@ -734,6 +740,10 @@
 		line-height: 1.65;
 		color: rgba(255, 255, 255, 0.9);
 		max-width: 640px;
+	}
+	/* Skrócony lead pokazujemy tylko na telefonie (patrz media 640px). */
+	.hero-lead-krotki {
+		display: none;
 	}
 	.search-card {
 		position: absolute;
@@ -2094,15 +2104,16 @@
 			padding-right: 20px;
 		}
 		.hero {
-			min-height: 540px;
+			min-height: 0;
 			justify-content: flex-end;
-			padding: 24px 20px 44px;
-			/* mobile: gradient pionowy (180°) zamiast desktopowego 105° */
+			padding: 92px 20px 26px;
+			/* mobile: gradient pionowy (180°) zamiast desktopowego 105°;
+			   lżejszy u góry, żeby zdjęcie było widoczne */
 			background-image: linear-gradient(
 					180deg,
-					rgba(18, 26, 20, 0.28) 0%,
-					rgba(18, 26, 20, 0.62) 46%,
-					rgba(18, 26, 20, 0.88) 100%
+					rgba(18, 26, 20, 0.2) 0%,
+					rgba(18, 26, 20, 0.5) 46%,
+					rgba(18, 26, 20, 0.86) 100%
 				),
 				url('/sniezka-sunset.png');
 		}
@@ -2113,18 +2124,24 @@
 			margin-bottom: 14px;
 		}
 		.hero-h1 {
-			font-size: 36px;
+			font-size: 34px;
 			line-height: 1.06;
 			margin-bottom: 8px;
 		}
 		.hero-sub {
-			font-size: 19px;
+			font-size: 18px;
 			line-height: 1.28;
-			margin-bottom: 12px;
+			margin-bottom: 10px;
 		}
+		/* Pełny akapit chowamy — w hero zostaje pierwsze zdanie. */
 		.hero-lead {
-			font-size: 13.5px;
-			line-height: 1.55;
+			display: none;
+		}
+		.hero-lead-krotki {
+			display: block;
+			font-size: 14px;
+			line-height: 1.5;
+			color: rgba(255, 255, 255, 0.88);
 		}
 		.why {
 			padding: 36px 20px 44px;
@@ -2149,16 +2166,40 @@
 		.why-row {
 			padding: 18px 0;
 		}
+		/* Wyszukiwarka w hero: kompaktowa siatka 2-kolumnowa zamiast czterech pełnych
+		   wierszy (zajmowała pół ekranu i nachodziła na tekst). */
 		.search-card {
 			position: static;
 			left: auto;
 			right: auto;
 			bottom: auto;
-			margin: -28px 16px 0;
-			grid-template-columns: 1fr;
+			margin: 22px 0 0;
+			grid-template-columns: 1fr 1fr;
+			gap: 12px;
+			padding: 16px;
+			border-radius: 16px;
+			align-items: stretch;
+		}
+		.search-field:nth-of-type(3),
+		.search-btn {
+			grid-column: 1 / -1;
+		}
+		.search-label {
+			font-size: 10.5px;
+			letter-spacing: 0.08em;
+		}
+		.search-field {
+			gap: 5px;
+		}
+		.search-field :global(.select-trigger),
+		.search-field :global(.select-native) {
+			font-size: 14px;
+			padding-top: 11px;
+			padding-bottom: 11px;
 		}
 		.search-btn {
-			grid-column: auto;
+			padding: 13px 20px;
+			font-size: 15px;
 		}
 		.offers-grid {
 			grid-template-columns: 1fr;

@@ -494,6 +494,9 @@
 		text-align: center;
 	}
 	.zespol-h2 {
+		/* .h2 z globalnych stylów ustawia ciemny kolor wprost — dziedziczenie po
+		   zielonej sekcji by przegrało, stąd jawny jasny kolor. */
+		color: var(--on-green);
 		font-size: 40px;
 		line-height: 1.08;
 		margin: 4px 0 14px;
@@ -518,6 +521,9 @@
 	}
 	.zespol-card {
 		background: #fff;
+		/* Karta jest biała — cofamy jasny kolor tekstu dziedziczony z zielonej sekcji
+		   (inaczej imiona są niewidoczne). */
+		color: var(--text);
 		border: 1px solid var(--border);
 		border-radius: 20px;
 		overflow: hidden;
@@ -963,6 +969,16 @@
 		.biuro-section {
 			padding-top: 40px;
 			padding-bottom: 8px;
+		}
+		.zespol-section {
+			padding-top: 40px;
+			padding-bottom: 44px;
+		}
+		.zespol-h2 {
+			font-size: 26px;
+		}
+		.zespol-lead {
+			font-size: 14.5px;
 		}
 		.region-h2 {
 			font-size: 26px;
