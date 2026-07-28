@@ -191,7 +191,7 @@
 					<div class="galeria-tile" class:big={i === 0} style="background-image:url('{img}')"></div>
 				{/each}
 			</div>
-			<p class="galeria-note">Zdjęcia poglądowe regionu — do zastąpienia realnymi fotografiami lokalizacji i ofert.</p>
+			<p class="galeria-note">Zdjęcia poglądowe regionu – do zastąpienia realnymi fotografiami lokalizacji i ofert.</p>
 		</section>
 
 		<!-- ============ CTA / KONTAKT ============ -->
@@ -942,8 +942,11 @@
 			padding: 32px 20px 8px;
 		}
 		.hero {
-			height: 430px;
-			padding: 24px 20px 28px;
+			/* auto zamiast sztywnych 430px — przy chipach i 2 przyciskach w kolumnie
+			   treść nie mieści się i była ucinana górą (overflow: hidden). */
+			height: auto;
+			min-height: 430px;
+			padding: 88px 20px 28px;
 			justify-content: flex-end;
 		}
 		.hero-overlay {
@@ -965,7 +968,11 @@
 			grid-template-columns: 1fr;
 			gap: 20px;
 		}
-		.h2 {
+		/* .atuty-head .h2 / .galeria-section .h2 mają wyższą specyficzność niż samo
+		   .h2 — bez tych selektorów nagłówki zostawały na 38px. */
+		.h2,
+		.atuty-head .h2,
+		.galeria-section .h2 {
 			font-size: 25px;
 		}
 		.offers-grid {
@@ -988,9 +995,21 @@
 			grid-template-columns: 1fr 1fr;
 		}
 	}
+	@media (max-width: 760px) {
+		/* Telefon/E-mail obok siebie nie mieszczą się na wąskim ekranie. */
+		.field-row {
+			grid-template-columns: 1fr;
+		}
+	}
 	@media (max-width: 640px) {
 		.breadcrumbs {
 			padding: 11px 20px;
+		}
+		.kontakt-form-wrap {
+			padding: 26px 22px;
+		}
+		.kontakt-info {
+			padding: 30px 22px;
 		}
 	}
 </style>

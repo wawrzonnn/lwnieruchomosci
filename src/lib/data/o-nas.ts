@@ -5,19 +5,19 @@
 // liczby w historii/statystykach oraz opinie (imiona przykładowe).
 
 export const seo = {
-	title: 'O nas — LW Nieruchomości Jelenia Góra i Karkonosze',
+	title: 'O nas – LW Nieruchomości Jelenia Góra i Karkonosze',
 	description:
-		'LW Nieruchomości to lokalne biuro z Jeleniej Góry. Poznaj naszą historię, wartości i region — sprzedaż, kupno i wycena nieruchomości uczciwie i po ludzku.'
+		'LW Nieruchomości to lokalne biuro z Jeleniej Góry. Poznaj naszą historię, wartości i region – sprzedaż, kupno i wycena nieruchomości uczciwie i po ludzku.'
 };
 
 export const breadcrumbs = [{ label: 'Strona główna', href: '/' }, { label: 'O nas' }];
 
 export const hero = {
 	eyebrow: 'O nas',
-	tytul: 'Ludzie i miejsca — nie tylko metry',
+	tytul: 'Ludzie i miejsca – nie tylko metry',
 	tytulEmfaza: 'nie tylko metry',
 	podtytul:
-		'LW Nieruchomości to lokalne biuro z Jeleniej Góry. Pomagamy sprzedawać, kupować i wyceniać nieruchomości w Kotlinie Jeleniogórskiej — spokojnie, uczciwie i po ludzku.',
+		'LW Nieruchomości to lokalne biuro z Jeleniej Góry. Pomagamy sprzedawać, kupować i wyceniać nieruchomości w Kotlinie Jeleniogórskiej – spokojnie, uczciwie i po ludzku.',
 	tlo: '/karkonosze-panorama.png',
 	cta: [
 		{ label: 'Poznaj biuro', href: '#o-biurze', wariant: 'green' },
@@ -27,12 +27,12 @@ export const hero = {
 
 export const oBiurze = {
 	eyebrow: 'Nasze biuro',
-	tytul: 'LW Nieruchomości — doświadczenie i znajomość lokalnego rynku',
+	tytul: 'LW Nieruchomości – doświadczenie i znajomość lokalnego rynku',
 	tytulEmfaza: 'lokalnego rynku',
 	// Główne zdjęcie sekcji = Lucyna Wojtoń (założycielka). Kadr pionowy 4:5.
 	zdjecie: {
 		src: '/zespol-lucyna.png',
-		alt: 'Lucyna Wojtoń — LW Nieruchomości'
+		alt: 'Lucyna Wojtoń – LW Nieruchomości'
 	},
 	badges: [
 		{ n: '4,9', l: 'ocena w Google' },
@@ -46,7 +46,7 @@ export const oBiurze = {
 		eyebrow: 'Biuro prowadzi',
 		imie: 'Lucyna Wojtoń',
 		rola: 'Właścicielka i specjalistka ds. nieruchomości',
-		opis: 'Założycielka LW Nieruchomości z ponad 11-letnim doświadczeniem w branży. Osobiście prowadzi klientów przez proces sprzedaży i zakupu nieruchomości — od pierwszej rozmowy i ustalenia strategii działania aż po finalizację transakcji i przekazanie nieruchomości.'
+		opis: 'Założycielka LW Nieruchomości z ponad 11-letnim doświadczeniem w branży. Osobiście prowadzi klientów przez proces sprzedaży i zakupu nieruchomości – od pierwszej rozmowy i ustalenia strategii działania aż po finalizację transakcji i przekazanie nieruchomości.'
 	},
 	kontakt: {
 		linki: [
@@ -61,7 +61,7 @@ export const zespol = {
 	tytul: 'Kto poprowadzi Twoją sprawę',
 	tytulEmfaza: 'Twoją sprawę',
 	podtytul:
-		'W codziennej pracy Lucynę wspiera zespół — zawsze wiesz, kto prowadzi Twoją sprawę i do kogo zadzwonić.',
+		'W codziennej pracy Lucynę wspiera zespół – zawsze wiesz, kto prowadzi Twoją sprawę i do kogo zadzwonić.',
 	// Zdjęcia realne (kadr pionowy 4:5, object-position: center top).
 	// Lucyna jest na głównym zdjęciu sekcji „Nasze biuro" — tu zespół wspierający.
 	osoby: [
@@ -89,10 +89,10 @@ export const wartosci = {
 			d: 'Mówimy wprost, nawet gdy trzeba odradzić. Bez ukrytych kosztów i gwiazdek w umowie.'
 		},
 		{ t: 'Empatia', d: 'Słuchamy i prowadzimy przez proces spokojnie, w Twoim tempie.' },
-		{ t: 'Lokalność', d: 'Znamy region na wylot — od Cieplic po Karpacz i Szklarską Porębę.' },
+		{ t: 'Lokalność', d: 'Znamy region na wylot – od Cieplic po Karpacz i Szklarską Porębę.' },
 		{
 			t: 'Zaangażowanie',
-			d: 'Twoja sprawa jest naszą sprawą — od pierwszej rozmowy po klucze.'
+			d: 'Twoja sprawa jest naszą sprawą – od pierwszej rozmowy po klucze.'
 		}
 	]
 };
@@ -110,8 +110,8 @@ export const region = {
 	tytulEmfaza: 'od podszewki',
 	tlo: '/schronisko-staw.png',
 	akapity: [
-		'Działamy lokalnie — w Jeleniej Górze i całej Kotlinie Jeleniogórskiej. Wiemy, którą doliną rano niesie się mgła, gdzie najlepiej dochodzi słońce i czym różni się życie w Cieplicach od życia w Sosnówce.',
-		'Kupując dom w tym regionie, kupujesz też sąsiedztwo, drogę do szkoły i widok z okna. My znamy je z bliska — i chętnie się tą wiedzą dzielimy.'
+		'Działamy lokalnie – w Jeleniej Górze i całej Kotlinie Jeleniogórskiej. Wiemy, którą doliną rano niesie się mgła, gdzie najlepiej dochodzi słońce i czym różni się życie w Cieplicach od życia w Sosnówce.',
+		'Kupując dom w tym regionie, kupujesz też sąsiedztwo, drogę do szkoły i widok z okna. My znamy je z bliska – i chętnie się tą wiedzą dzielimy.'
 	],
 	cta: { label: 'Poznaj region →', href: '/#region' }
 };
@@ -128,7 +128,7 @@ export const opinie = {
 			loc: 'Jelenia Góra'
 		},
 		{
-			quote: 'Znaleźli nam działkę z widokiem na góry — dokładnie taką, o jakiej marzyliśmy.',
+			quote: 'Znaleźli nam działkę z widokiem na góry – dokładnie taką, o jakiej marzyliśmy.',
 			name: 'Michał i Ola',
 			loc: 'Sosnówka'
 		},
@@ -144,7 +144,7 @@ export const kontaktCta = {
 	eyebrow: 'Poznajmy się osobiście',
 	tytul: 'Porozmawiajmy o Twojej nieruchomości',
 	podtytul:
-		'Bez zobowiązań i bez presji. Zadzwoń lub napisz — odpowiemy po ludzku i doradzimy, co dalej.',
+		'Bez zobowiązań i bez presji. Zadzwoń lub napisz – odpowiemy po ludzku i doradzimy, co dalej.',
 	cta: [
 		{ label: 'Skontaktuj się', href: '/kontakt', wariant: 'green' },
 		{ label: '+48 690 008 273', href: 'tel:+48690008273', wariant: 'outline' }

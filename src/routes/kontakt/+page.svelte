@@ -162,7 +162,7 @@
 		<!-- ============ MAPA ============ -->
 		<section class="section map-section">
 			<div class="map-box">
-				<iframe src={mapaEmbed} title="Mapa — lokalizacja biura" loading="lazy"></iframe>
+				<iframe src={mapaEmbed} title="Mapa – lokalizacja biura" loading="lazy"></iframe>
 			</div>
 		</section>
 
@@ -490,6 +490,12 @@
 			font-size: 40px;
 		}
 		.contact-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+	@media (max-width: 760px) {
+		/* Telefon/E-mail obok siebie nie mieszczą się na wąskim ekranie. */
+		.lead-field-row {
 			grid-template-columns: 1fr;
 		}
 	}

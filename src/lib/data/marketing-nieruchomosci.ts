@@ -5,7 +5,7 @@
 const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const seo = {
-	title: 'Marketing nieruchomości — LW Nieruchomości Jelenia Góra',
+	title: 'Marketing nieruchomości – LW Nieruchomości Jelenia Góra',
 	description:
 		'Marketing nieruchomości w Jeleniej Górze i Karkonoszach: profesjonalne zdjęcia, film-spacer, ujęcia z drona, promocja w social media i na portalach ogłoszeniowych. W standardzie oferty sprzedaży.'
 };
@@ -64,7 +64,7 @@ export const powiazane = [
 	{
 		t: 'Sprzedaż nieruchomości',
 		slug: '/sprzedaz-nieruchomosci',
-		d: 'Sprzedamy Twoją nieruchomość — od wyceny po akt notarialny.'
+		d: 'Sprzedamy Twoją nieruchomość – od wyceny po akt notarialny.'
 	},
 	{
 		t: 'Kupno nieruchomości',

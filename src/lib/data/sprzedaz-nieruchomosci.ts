@@ -4,9 +4,9 @@
 const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const seo = {
-	title: 'Sprzedaż nieruchomości — LW Nieruchomości Jelenia Góra',
+	title: 'Sprzedaż nieruchomości – LW Nieruchomości Jelenia Góra',
 	description:
-		'Kompleksowa sprzedaż nieruchomości w Jeleniej Górze i Karkonoszach — bezpłatna wycena, profesjonalny marketing, negocjacje i formalności. Wiele ofert na wyłączność.'
+		'Kompleksowa sprzedaż nieruchomości w Jeleniej Górze i Karkonoszach – bezpłatna wycena, profesjonalny marketing, negocjacje i formalności. Wiele ofert na wyłączność.'
 };
 
 export const breadcrumbs = [
@@ -51,12 +51,12 @@ export const naOdleglosc = {
 	tytul: 'Sprzedaż nieruchomości na odległość',
 	tytulEmfaza: 'na odległość',
 	akapity: [
-		'Mieszkasz za granicą lub poza regionem? Nie musisz przyjeżdżać na każde spotkanie ani zajmować się organizacją sprzedaży. Możemy przeprowadzić cały proces w Twoim imieniu — od przygotowania oferty i prezentacji nieruchomości, przez kontakt z kupującymi i formalności, aż do finalizacji transakcji.',
+		'Mieszkasz za granicą lub poza regionem? Nie musisz przyjeżdżać na każde spotkanie ani zajmować się organizacją sprzedaży. Możemy przeprowadzić cały proces w Twoim imieniu – od przygotowania oferty i prezentacji nieruchomości, przez kontakt z kupującymi i formalności, aż do finalizacji transakcji.',
 		'Jeżeli będzie taka potrzeba, sprzedaż może odbyć się również na podstawie pełnomocnictwa notarialnego, dzięki czemu Twoja obecność nie będzie konieczna.'
 	],
 	kafle: [
 		{ t: 'Za granicą lub poza regionem', d: 'Nie musisz przyjeżdżać na spotkania ani prezentacje.' },
-		{ t: 'Prowadzimy w Twoim imieniu', d: 'Oferta, kupujący i formalności — całość po naszej stronie.' },
+		{ t: 'Prowadzimy w Twoim imieniu', d: 'Oferta, kupujący i formalności – całość po naszej stronie.' },
 		{ t: 'Pełnomocnictwo notarialne', d: 'W razie potrzeby sprzedaż bez Twojej obecności.' }
 	]
 };

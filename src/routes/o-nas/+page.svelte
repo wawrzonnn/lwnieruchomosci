@@ -118,7 +118,7 @@
 		<!-- ============ ZESPÓŁ ============ -->
 		<section class="section zespol-section">
 			<div class="zespol-head">
-				<div class="eyebrow">{zespol.eyebrow}</div>
+				<div class="eyebrow eyebrow-green">{zespol.eyebrow}</div>
 				<h2 class="h2 zespol-h2">
 					{zespol.tytul.split(zespol.tytulEmfaza)[0]}<em>{zespol.tytulEmfaza}</em>{zespol.tytul.split(
 						zespol.tytulEmfaza
@@ -481,14 +481,17 @@
 		color: var(--text);
 	}
 
-	/* ===== ZESPÓŁ ===== */
+	/* ===== ZESPÓŁ (zielony band — rytm sekcji) ===== */
 	.zespol-section {
-		padding-top: 8px;
-		padding-bottom: 84px;
+		padding-top: 72px;
+		padding-bottom: 76px;
+		background: var(--green);
+		color: var(--on-green);
 	}
 	.zespol-head {
 		max-width: 660px;
-		margin-bottom: 44px;
+		margin: 0 auto 40px;
+		text-align: center;
 	}
 	.zespol-h2 {
 		font-size: 40px;
@@ -496,18 +499,21 @@
 		margin: 4px 0 14px;
 		em {
 			font-style: italic;
-			color: var(--green);
+			color: var(--gold-light);
 		}
 	}
 	.zespol-lead {
 		font-size: 17px;
 		line-height: 1.7;
-		color: var(--muted);
+		color: rgba(243, 238, 225, 0.82);
 		text-wrap: pretty;
 	}
+	/* Karty zespołu celowo węższe niż duże zdjęcie Lucyny w sekcji „Nasze biuro"
+	   (prośba klientki) — para kart wyśrodkowana w zielonym bandzie. */
 	.zespol-grid {
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(2, minmax(0, 340px));
+		justify-content: center;
 		gap: 28px;
 	}
 	.zespol-card {
@@ -867,6 +873,24 @@
 			align-self: auto;
 			margin: 16px 0 24px;
 		}
+		/* W jednej kolumnie zdjęcie dotyka marginesu strony — plakietki muszą
+		   wjechać do środka, inaczej wychodzą poza ekran. */
+		.biuro-badge-google {
+			left: 8px;
+			bottom: 16px;
+			padding: 11px 15px;
+		}
+		.bg-n {
+			font-size: 28px;
+		}
+		.biuro-badge-lata {
+			right: 8px;
+			top: 16px;
+			padding: 9px 13px;
+		}
+		.bl-n {
+			font-size: 20px;
+		}
 		.biuro-head {
 			align-self: auto;
 		}
@@ -915,9 +939,12 @@
 		.hero-svc {
 			padding-left: 20px;
 			padding-right: 20px;
-			height: 400px;
-			min-height: 0;
+			/* auto zamiast sztywnych 400px — z dwoma CTA w kolumnie treść nie mieściła
+			   się i nachodziła na breadcrumbs. */
+			height: auto;
+			min-height: 400px;
 			justify-content: flex-end;
+			padding-top: 84px;
 			padding-bottom: 30px;
 		}
 		.hero-svc-h1 {

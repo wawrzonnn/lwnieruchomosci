@@ -366,14 +366,17 @@
 	.mobile-menu a:last-of-type {
 		border-bottom: none;
 	}
-	.mobile-cta {
-		margin-top: 10px;
+	/* Selektor z `.mobile-menu`, bo samo `.mobile-cta` przegrywało specyficznością
+	   z `.mobile-menu a` — tekst wychodził ciemny na ciemnej zieleni (nieczytelny). */
+	.mobile-menu a.mobile-cta {
+		margin-top: 12px;
+		padding: 14px 20px;
 		text-align: center;
 		background: var(--green);
 		color: #fff;
 		border-radius: 999px;
-		font-weight: 600;
-		border-bottom: none !important;
+		font-weight: 700;
+		border-bottom: none;
 	}
 
 	@media (max-width: 980px) {

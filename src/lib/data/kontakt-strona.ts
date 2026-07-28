@@ -4,9 +4,9 @@
 const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const seo = {
-	title: 'Kontakt — LW Nieruchomości Jelenia Góra i Karkonosze',
+	title: 'Kontakt – LW Nieruchomości Jelenia Góra i Karkonosze',
 	description:
-		'Skontaktuj się z LW Nieruchomości — telefon, e-mail, formularz, mapa i godziny pracy. Jelenia Góra i Kotlina Jeleniogórska.'
+		'Skontaktuj się z LW Nieruchomości – telefon, e-mail, formularz, mapa i godziny pracy. Jelenia Góra i Kotlina Jeleniogórska.'
 };
 
 export const breadcrumbs = [{ label: 'Strona główna', href: '/' }, { label: 'Kontakt' }];
@@ -16,7 +16,7 @@ export const hero = {
 	tytul: 'Porozmawiajmy o Twojej nieruchomości',
 	tytulEmfaza: 'nieruchomości',
 	podtytul:
-		'Bez zobowiązań i bez presji. Zadzwoń, napisz lub zostaw wiadomość — odpowiemy po ludzku i konkretnie.',
+		'Bez zobowiązań i bez presji. Zadzwoń, napisz lub zostaw wiadomość – odpowiemy po ludzku i konkretnie.',
 	tlo: U('photo-1476514525535-07fb3b4ae5f1', 1600)
 };
 

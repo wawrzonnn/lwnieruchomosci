@@ -4,9 +4,9 @@
 const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const seo = {
-	title: 'Wycena nieruchomości — LW Nieruchomości Jelenia Góra',
+	title: 'Wycena nieruchomości – LW Nieruchomości Jelenia Góra',
 	description:
-		'Rzetelna, rynkowa wycena nieruchomości w Jeleniej Górze i Karkonoszach — oparta na danych transakcyjnych. Bezpłatna przy zleceniu sprzedaży.'
+		'Rzetelna, rynkowa wycena nieruchomości w Jeleniej Górze i Karkonoszach – oparta na danych transakcyjnych. Bezpłatna przy zleceniu sprzedaży.'
 };
 
 export const breadcrumbs = [
@@ -62,7 +62,7 @@ export const powiazane = [
 	{
 		t: 'Sprzedaż nieruchomości',
 		slug: '/sprzedaz-nieruchomosci',
-		d: 'Sprzedamy Twoją nieruchomość — od wyceny po akt notarialny.'
+		d: 'Sprzedamy Twoją nieruchomość – od wyceny po akt notarialny.'
 	},
 	{
 		t: 'Kupno nieruchomości',

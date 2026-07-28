@@ -182,7 +182,7 @@
 					{#if b.typ === 'cytat'}
 						<blockquote>
 							„{b.tekst}"
-							<span class="quote-author">— {b.autor}</span>
+							<span class="quote-author">– {b.autor}</span>
 						</blockquote>
 					{:else if b.typ === 'sekcja'}
 						<div data-section id={b.id}>
@@ -1040,6 +1040,25 @@
 		.breadcrumbs {
 			padding-left: 20px;
 			padding-right: 20px;
+		}
+		/* Panele treści miały 30-32px paddingu — na 390px zostawało ~290px na tekst. */
+		.wskrocie {
+			padding: 20px 18px;
+		}
+		.bledy-panel {
+			padding: 20px 18px;
+		}
+		blockquote {
+			font-size: 20px;
+			padding-left: 18px;
+			margin: 24px 0;
+		}
+		.section-head-num {
+			gap: 10px;
+			margin: 32px 0 12px;
+		}
+		.section-num {
+			font-size: 19px;
 		}
 		.article-header {
 			padding: 32px 20px 22px;

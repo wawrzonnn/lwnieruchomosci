@@ -44,6 +44,8 @@
   text-wrap: pretty;
 }
 
+// Bez dekoracyjnej kreski przed tekstem — wyróżnikiem jest sam złoty,
+// rozstrzelony uppercase (decyzja klientki: kreski rozpraszały przy scrollu).
 @mixin eyebrow {
   display: inline-flex;
   align-items: center;
@@ -54,13 +56,6 @@
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--c-subtle);
-
-  &::before {                 // złota kreska przed tekstem
-    content: '';
-    width: 22px;
-    height: 1.5px;
-    background: var(--c-gold);
-  }
 }
 
 @mixin price($size: 21px) {

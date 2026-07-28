@@ -4,9 +4,9 @@
 const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const seo = {
-	title: 'Kupno nieruchomości — LW Nieruchomości Jelenia Góra',
+	title: 'Kupno nieruchomości – LW Nieruchomości Jelenia Góra',
 	description:
-		'Pomoc w kupnie nieruchomości w Jeleniej Górze i Karkonoszach — reprezentacja kupującego, wyszukiwanie ofert, weryfikacja stanu prawnego, negocjacje i formalności.'
+		'Pomoc w kupnie nieruchomości w Jeleniej Górze i Karkonoszach – reprezentacja kupującego, wyszukiwanie ofert, weryfikacja stanu prawnego, negocjacje i formalności.'
 };
 
 export const breadcrumbs = [
@@ -32,7 +32,7 @@ export const zakres = {
 	eyebrow: 'Co obejmuje usługa?',
 	tytul: 'Prowadzimy zakup od A do Z',
 	podtytul:
-		'Bierzemy na siebie cały proces — od poznania Twoich potrzeb, przez wyszukiwanie i analizę ofert, po bezpieczną finalizację zakupu.',
+		'Bierzemy na siebie cały proces – od poznania Twoich potrzeb, przez wyszukiwanie i analizę ofert, po bezpieczną finalizację zakupu.',
 	lista: [
 		'Poznanie Twoich potrzeb i możliwości',
 		'Wyszukiwanie odpowiednich ofert',
@@ -68,7 +68,7 @@ export const powiazane = [
 	{
 		t: 'Sprzedaż nieruchomości',
 		slug: '/sprzedaz-nieruchomosci',
-		d: 'Sprzedamy Twoją nieruchomość — od wyceny po akt notarialny.'
+		d: 'Sprzedamy Twoją nieruchomość – od wyceny po akt notarialny.'
 	},
 	{
 		t: 'Wycena nieruchomości',

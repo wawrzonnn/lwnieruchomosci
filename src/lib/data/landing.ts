@@ -18,10 +18,13 @@ export const wyszukiwarka = {
 
 export const hero = {
 	eyebrow: 'Lokalne biuro · Jelenia Góra i Karkonosze',
-	tytul: 'Biuro nieruchomości Jelenia Góra — zaufaj lokalnym ekspertom z Karkonoszy',
+	// H1 = sama nazwa/kategoria (duża), a „zaufaj…" schodzi do podtytułu — mocniejsza
+	// hierarchia i lepsze SEO na frazę „biuro nieruchomości Jelenia Góra".
+	tytul: 'Biuro nieruchomości Jelenia Góra',
+	podtytulHero: 'Zaufaj lokalnym ekspertom z Karkonoszy',
 	tytulEmfaza: 'lokalnym ekspertom',
 	podtytul:
-		'Kupno lub sprzedaż nieruchomości to jedna z najważniejszych decyzji w życiu. W LW Nieruchomości wiemy, że liczy się nie tylko skuteczna sprzedaż, ale przede wszystkim zaufanie i poczucie bezpieczeństwa. Od ponad 11 lat pomagamy naszym klientom przejść przez cały proces spokojnie i świadomie — od pierwszego spotkania aż po przekazanie nieruchomości.'
+		'Kupno lub sprzedaż nieruchomości to jedna z najważniejszych decyzji w życiu. W LW Nieruchomości wiemy, że liczy się nie tylko skuteczna sprzedaż, ale przede wszystkim zaufanie i poczucie bezpieczeństwa. Od ponad 11 lat pomagamy naszym klientom przejść przez cały proces spokojnie i świadomie – od pierwszego spotkania aż po przekazanie nieruchomości.'
 };
 
 // Sekcja „Dlaczego my" — 6 kafelków pod wyszukiwarką. Zastąpiła dawny cienki
@@ -32,14 +35,14 @@ export const hero = {
 // Prawa: numerowana lista 01–06 (numer = index+1). Pole `ikona` w 1a nieużywane.
 export const dlaczegoMy = {
 	eyebrow: 'Dlaczego my',
-	tytul: 'Powodów jest sześć — a każdy z nich to człowiek.',
+	tytul: 'Powodów jest sześć – a każdy z nich to człowiek.',
 	tytulEmfaza: 'człowiek',
-	lead: 'Nie jesteśmy największym biurem w regionie i nie chcemy nim być. Zależy nam na czymś innym — żebyś po całej sprzedaży czy zakupie czuł, że byłeś w dobrych rękach.',
+	lead: 'Nie jesteśmy największym biurem w regionie i nie chcemy nim być. Zależy nam na czymś innym – żebyś po całej sprzedaży czy zakupie czuł, że byłeś w dobrych rękach.',
 	podpis: 'Lucyna Wojtoń · LW Nieruchomości',
 	kafle: [
 		{ t: 'Mobilne biuro', d: 'Spotykamy się tam, gdzie jest Ci wygodnie i spokojnie.' },
 		{ t: 'Indywidualne podejście', d: 'Liczy się jakość współpracy, nie liczba ofert.' },
-		{ t: 'Uczciwe doradztwo', d: 'Radzimy rzetelnie — decyzja zawsze należy do Ciebie.' },
+		{ t: 'Uczciwe doradztwo', d: 'Radzimy rzetelnie – decyzja zawsze należy do Ciebie.' },
 		{ t: 'Bezpieczeństwo', d: 'Jesteśmy obok od pierwszego spotkania po klucze.' },
 		{ t: 'Znajomość rynku', d: 'Lokalny rynek Karkonoszy znamy od podszewki.' },
 		{ t: '11 lat doświadczenia', d: 'Setki rozmów i transakcji, które realnie pomagają.' }
@@ -187,7 +190,7 @@ export const oNas = {
 	akapity: [
 		'Sprzedaż nieruchomości to nie tylko podpisanie aktu notarialnego. To często początek nowego etapu życia, spełnianie marzeń, trudne rodzinne decyzje lub zamknięcie ważnego rozdziału. Dlatego od ponad 11 lat pomagamy naszym klientom przejść przez ten proces spokojnie i świadomie.',
 		'LW Nieruchomości powstało z przekonania, że dobra współpraca zaczyna się od rozmowy i poznania potrzeb klienta. Każdą nieruchomość traktujemy indywidualnie, poświęcając jej czas i uwagę, na jakie zasługuje.',
-		'Nie stawiamy na ilość obsługiwanych ofert — stawiamy na jakość współpracy. Dzięki temu jesteśmy z klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap procesu.'
+		'Nie stawiamy na ilość obsługiwanych ofert – stawiamy na jakość współpracy. Dzięki temu jesteśmy z klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap procesu.'
 	],
 	zdjecie: '/zespol-lucyna.png',
 	podpisZdjecia: 'Lucyna Wojtoń',
@@ -216,7 +219,7 @@ export const uslugi: Service[] = [
 		no: '01',
 		t: 'Sprzedaż nieruchomości',
 		d: 'Cała transakcja od A do Z.',
-		long: 'Prowadzimy sprzedaż od początku do końca — wycena, prezentacja, negocjacje i formalności aż po akt notarialny. Wiele ofert prowadzimy na wyłączność.',
+		long: 'Prowadzimy sprzedaż od początku do końca – wycena, prezentacja, negocjacje i formalności aż po akt notarialny. Wiele ofert prowadzimy na wyłączność.',
 		img: U('photo-1600585154340-be6161a56a0c'),
 		href: '/sprzedaz-nieruchomosci'
 	},
@@ -224,7 +227,7 @@ export const uslugi: Service[] = [
 		no: '02',
 		t: 'Kupno nieruchomości',
 		d: 'Ktoś, kto stoi po Twojej stronie.',
-		long: 'Reprezentujemy kupującego — szukamy ofert, sprawdzamy stan prawny i techniczny, negocjujemy cenę i przeprowadzamy przez formalności aż po klucze.',
+		long: 'Reprezentujemy kupującego – szukamy ofert, sprawdzamy stan prawny i techniczny, negocjujemy cenę i przeprowadzamy przez formalności aż po klucze.',
 		img: U('photo-1512917774080-9991f1c4c750'),
 		href: '/kupno-nieruchomosci'
 	},
@@ -232,7 +235,7 @@ export const uslugi: Service[] = [
 		no: '03',
 		t: 'Wycena nieruchomości',
 		d: 'Realna wartość, nie życzenia.',
-		long: 'Rzetelna, rynkowa wycena mieszkania, domu lub działki oparta na danych transakcyjnych w okolicy — z komentarzem i rekomendacją ceny.',
+		long: 'Rzetelna, rynkowa wycena mieszkania, domu lub działki oparta na danych transakcyjnych w okolicy – z komentarzem i rekomendacją ceny.',
 		img: U('photo-1560520653-9e0e4c89eb11'),
 		href: '/wycena-nieruchomosci'
 	},
@@ -240,7 +243,7 @@ export const uslugi: Service[] = [
 		no: '04',
 		t: 'Marketing nieruchomości',
 		d: 'Widoczność tam, gdzie kupujący.',
-		long: 'Profesjonalne zdjęcia, film, ujęcia z drona i skuteczna promocja — Twoja nieruchomość wyróżnia się od pierwszego dnia. W standardzie oferty.',
+		long: 'Profesjonalne zdjęcia, film, ujęcia z drona i skuteczna promocja – Twoja nieruchomość wyróżnia się od pierwszego dnia. W standardzie oferty.',
 		img: U('photo-1460925895917-afdab827c52f'),
 		href: '/marketing-nieruchomosci'
 	},
@@ -315,7 +318,7 @@ export const opinie = [
 		initials: 'JK'
 	},
 	{
-		quote: 'Znaleźli nam działkę z widokiem na góry — dokładnie taką, o jakiej marzyliśmy.',
+		quote: 'Znaleźli nam działkę z widokiem na góry – dokładnie taką, o jakiej marzyliśmy.',
 		name: 'Michał i Ola',
 		loc: 'Sosnówka',
 		initials: 'MO'
@@ -334,7 +337,7 @@ export const faq = {
 	// Redesign 1a (refinement 19): lewa kolumna = kremowy panel z blokiem kontaktowym.
 	panelTytul: 'Masz pytania? Zacznijmy od rozmowy.',
 	panelLead:
-		'Poniżej odpowiadamy na to, co słyszymy najczęściej. Nie znalazłeś swojego pytania? Zadzwoń albo napisz — bez zobowiązań.',
+		'Poniżej odpowiadamy na to, co słyszymy najczęściej. Nie znalazłeś swojego pytania? Zadzwoń albo napisz – bez zobowiązań.',
 	panelKontakt: {
 		telefon: '+48 690 008 273',
 		email: 'biuro@lw.nieruchomosci.pl',
@@ -344,7 +347,7 @@ export const faq = {
 	lista: [
 		{
 			q: 'Jak wygląda współpraca z LW Nieruchomości?',
-			a: 'Współpracę rozpoczynamy od niezobowiązującej rozmowy, podczas której poznajemy Twoje potrzeby, oczekiwania i sytuację. Następnie analizujemy nieruchomość i przygotowujemy indywidualną strategię działania. Zajmujemy się całym procesem — od wyceny i przygotowania oferty, przez skuteczną promocję i negocjacje, aż po bezpieczne sfinalizowanie transakcji u notariusza i przekazanie nieruchomości. Na każdym etapie możesz liczyć na nasze wsparcie i stały kontakt.'
+			a: 'Współpracę rozpoczynamy od niezobowiązującej rozmowy, podczas której poznajemy Twoje potrzeby, oczekiwania i sytuację. Następnie analizujemy nieruchomość i przygotowujemy indywidualną strategię działania. Zajmujemy się całym procesem – od wyceny i przygotowania oferty, przez skuteczną promocję i negocjacje, aż po bezpieczne sfinalizowanie transakcji u notariusza i przekazanie nieruchomości. Na każdym etapie możesz liczyć na nasze wsparcie i stały kontakt.'
 		},
 		{
 			q: 'Czy pierwsze spotkanie jest bezpłatne?',
@@ -376,7 +379,7 @@ export const faq = {
 		},
 		{
 			q: 'Czy podpisanie umowy na wyłączność jest korzystne?',
-			a: 'Tak. Umowa na wyłączność pozwala nam w pełni zaangażować się w sprzedaż i wykorzystać wszystkie narzędzia marketingowe. Dzięki spójnej strategii promocji, profesjonalnej prezentacji i pełnej odpowiedzialności za proces zwiększamy szanse na szybszą i korzystniejszą transakcję. Współpracujemy z biurami nieruchomości w całej Polsce, więc nic nie tracisz — masz jednego agenta, który wszystkiego dopilnuje.'
+			a: 'Tak. Umowa na wyłączność pozwala nam w pełni zaangażować się w sprzedaż i wykorzystać wszystkie narzędzia marketingowe. Dzięki spójnej strategii promocji, profesjonalnej prezentacji i pełnej odpowiedzialności za proces zwiększamy szanse na szybszą i korzystniejszą transakcję. Współpracujemy z biurami nieruchomości w całej Polsce, więc nic nie tracisz – masz jednego agenta, który wszystkiego dopilnuje.'
 		},
 		{
 			q: 'Czy pomagacie przygotować nieruchomość do sprzedaży?',

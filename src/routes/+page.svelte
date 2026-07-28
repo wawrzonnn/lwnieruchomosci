@@ -192,13 +192,13 @@
 <svelte:window onmousemove={onWindowMouseMove} onmouseup={onWindowMouseUp} />
 
 <svelte:head>
-	<title>LW Nieruchomości — biuro nieruchomości Jelenia Góra i Karkonosze</title>
+	<title>LW Nieruchomości – biuro nieruchomości Jelenia Góra i Karkonosze</title>
 	<meta
 		name="description"
 		content="Lokalne biuro nieruchomości z Jeleniej Góry. Kupno, sprzedaż i wynajem nieruchomości w Kotlinie Jeleniogórskiej i Karkonoszach."
 	/>
 	<meta property="og:type" content="website" />
-	<meta property="og:title" content="LW Nieruchomości — Jelenia Góra i Karkonosze" />
+	<meta property="og:title" content="LW Nieruchomości – Jelenia Góra i Karkonosze" />
 	<meta
 		property="og:description"
 		content="Lokalne biuro nieruchomości z Jeleniej Góry. Kupno, sprzedaż i wynajem w Kotlinie Jeleniogórskiej i Karkonoszach."
@@ -215,9 +215,10 @@
 		<section class="hero">
 			<div class="hero-copy">
 				<span class="hero-eyebrow">{hero.eyebrow}</span>
-				<h1 class="hero-h1">
-					{@html hero.tytul.replace(hero.tytulEmfaza, `<em>${hero.tytulEmfaza}</em>`)}
-				</h1>
+				<h1 class="hero-h1">{hero.tytul}</h1>
+				<p class="hero-sub">
+					{@html hero.podtytulHero.replace(hero.tytulEmfaza, `<em>${hero.tytulEmfaza}</em>`)}
+				</p>
 				<p class="hero-lead">{hero.podtytul}</p>
 			</div>
 			<form class="search-card" onsubmit={(e) => e.preventDefault()}>
@@ -241,7 +242,7 @@
 		<section class="why">
 			<div class="why-grid">
 				<div class="why-intro">
-					<div class="eyebrow">{dlaczegoMy.eyebrow}</div>
+					<div class="eyebrow eyebrow-green">{dlaczegoMy.eyebrow}</div>
 					<h2 class="why-h2">
 						{@html dlaczegoMy.tytul.replace(
 							dlaczegoMy.tytulEmfaza,
@@ -415,7 +416,7 @@
 		<section class="section services-section" id="uslugi">
 			<div class="services-head">
 				<div class="eyebrow">Usługi</div>
-				<h2 class="services-h2">Kompleksowa obsługa — od wyceny po klucze</h2>
+				<h2 class="services-h2">Kompleksowa obsługa – od wyceny po klucze</h2>
 				<p class="services-sub">Wybierz usługę z listy, aby zobaczyć szczegóły i zdjęcie.</p>
 			</div>
 			<div class="services-grid">
@@ -659,7 +660,7 @@
 					<a href="/kontakt#formularz" class="contact-btn">Wyślij wiadomość</a>
 				</div>
 				<div class="contact-map">
-					<iframe src={kontakt.mapaEmbed} title="Mapa — Jelenia Góra" loading="lazy"></iframe>
+					<iframe src={kontakt.mapaEmbed} title="Mapa – Jelenia Góra" loading="lazy"></iframe>
 				</div>
 			</div>
 		</section>
@@ -708,14 +709,23 @@
 	.hero-h1 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
-		font-size: 47px;
-		line-height: 1.09;
-		letter-spacing: -0.01em;
-		margin-bottom: 18px;
+		font-size: 66px;
+		line-height: 1.03;
+		letter-spacing: -0.02em;
+		margin-bottom: 12px;
 		color: #fff;
 	}
+	/* Podtytuł hero — dawna druga część H1, teraz osobny wiersz pod nagłówkiem. */
+	.hero-sub {
+		font-family: 'Newsreader', serif;
+		font-size: 29px;
+		line-height: 1.24;
+		color: rgba(255, 255, 255, 0.94);
+		margin-bottom: 20px;
+		max-width: 620px;
+	}
 	/* emfaza wstrzykiwana przez {@html} — Svelte nie scope'uje jej klasą, stąd :global */
-	.hero-h1 :global(em) {
+	.hero-sub :global(em) {
 		font-style: italic;
 		color: var(--gold-light);
 	}
@@ -792,9 +802,13 @@
 	}
 
 	/* ===== DLACZEGO MY — układ redakcyjny (refinement 19) ===== */
+	/* Zielony band zaraz po hero — ten sam rytm co „zakres usługi" na podstronach
+	   usługowych (wyraźne odcięcie od kremowego tła reszty strony). */
 	.why {
 		/* górny padding robi miejsce dla wyszukiwarki wystającej z hero (bottom:-56px) */
-		padding: 104px 48px 40px;
+		padding: 104px 48px 72px;
+		background: var(--green);
+		color: var(--on-green);
 	}
 	.why-grid {
 		display: grid;
@@ -815,26 +829,26 @@
 	}
 	.why-h2 :global(em) {
 		font-style: italic;
-		color: var(--gold);
+		color: var(--gold-light);
 	}
 	.why-lead {
 		font-size: 16px;
 		line-height: 1.7;
-		color: var(--muted);
+		color: rgba(243, 238, 225, 0.82);
 		margin-bottom: 26px;
 		max-width: 360px;
 	}
 	.why-rule {
 		width: 46px;
 		height: 2px;
-		background: var(--gold);
+		background: var(--gold-light);
 		margin-bottom: 14px;
 	}
 	.why-podpis {
 		font-family: 'Newsreader', serif;
 		font-style: italic;
 		font-size: 17px;
-		color: #5c6054;
+		color: var(--gold-soft);
 	}
 	.why-list {
 		display: grid;
@@ -845,13 +859,13 @@
 		display: flex;
 		gap: 20px;
 		padding: 22px 0;
-		border-top: 1px solid #eae4d6;
+		border-top: 1px solid rgba(243, 238, 225, 0.18);
 	}
 	.why-no {
 		font-family: 'Newsreader', serif;
 		font-size: 32px;
 		font-weight: 500;
-		color: var(--gold);
+		color: var(--gold-light);
 		line-height: 1;
 		min-width: 46px;
 	}
@@ -865,7 +879,7 @@
 	.why-d {
 		font-size: 14.5px;
 		line-height: 1.6;
-		color: var(--muted);
+		color: rgba(243, 238, 225, 0.76);
 	}
 
 	/* ===== CATEGORIES ===== */
@@ -2080,26 +2094,40 @@
 			padding-right: 20px;
 		}
 		.hero {
-			min-height: 472px;
+			min-height: 540px;
 			justify-content: flex-end;
-			padding: 24px 20px 40px;
+			padding: 24px 20px 44px;
 			/* mobile: gradient pionowy (180°) zamiast desktopowego 105° */
 			background-image: linear-gradient(
 					180deg,
-					rgba(18, 26, 20, 0.3) 0%,
-					rgba(18, 26, 20, 0.82) 100%
+					rgba(18, 26, 20, 0.28) 0%,
+					rgba(18, 26, 20, 0.62) 46%,
+					rgba(18, 26, 20, 0.88) 100%
 				),
 				url('/sniezka-sunset.png');
 		}
+		.hero-eyebrow {
+			font-size: 11px;
+			letter-spacing: 0.12em;
+			padding: 6px 12px;
+			margin-bottom: 14px;
+		}
 		.hero-h1 {
-			font-size: 26px;
+			font-size: 36px;
+			line-height: 1.06;
+			margin-bottom: 8px;
+		}
+		.hero-sub {
+			font-size: 19px;
+			line-height: 1.28;
+			margin-bottom: 12px;
 		}
 		.hero-lead {
 			font-size: 13.5px;
 			line-height: 1.55;
 		}
 		.why {
-			padding: 36px 20px 8px;
+			padding: 36px 20px 44px;
 		}
 		.why-h2 {
 			font-size: 24px;
@@ -2138,9 +2166,24 @@
 		.cats-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
+		/* Kafel kategorii ma na mobile ~165px szerokości — bez zmniejszenia typografii
+		   podpisy zawijały się i rozpychały pasek. */
+		.cat {
+			height: 220px;
+		}
+		.cat-name {
+			font-size: 19px;
+		}
+		.cat-deal {
+			font-size: 10px;
+			letter-spacing: 0.08em;
+		}
 		.stats {
 			grid-template-columns: repeat(3, 1fr);
 			gap: 12px;
+		}
+		.contact-left {
+			padding: 28px 22px;
 		}
 		.h2,
 		.about-h2,

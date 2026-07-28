@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-	<title>Region Karkonosze — nieruchomości w Jeleniej Górze i okolicy | LW Nieruchomości</title>
+	<title>Region Karkonosze – nieruchomości w Jeleniej Górze i okolicy | LW Nieruchomości</title>
 	<meta
 		name="description"
 		content="Miejscowości, w których działamy: Jelenia Góra, Karpacz, Szklarska Poręba, Kowary, Piechowice, Podgórzyn i okolice. Poznaj lokalizację i zobacz dostępne nieruchomości."
@@ -34,7 +34,7 @@
 			<div class="eyebrow">Region Karkonosze</div>
 			<h1 class="h1">Gdzie działamy</h1>
 			<p class="lead">
-				Znamy Kotlinę Jeleniogórską i Karkonosze od podszewki — od miejskich kamienic po działki
+				Znamy Kotlinę Jeleniogórską i Karkonosze od podszewki – od miejskich kamienic po działki
 				z widokiem na Śnieżkę. Wybierz miejscowość, poznaj okolicę i zobacz, co mamy w ofercie.
 			</p>
 		</header>

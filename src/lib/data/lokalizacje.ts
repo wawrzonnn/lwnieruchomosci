@@ -30,9 +30,9 @@ export interface Miasto {
 }
 
 export const seoWzor = {
-	title: 'Nieruchomości w {nazwaLoc} — LW Nieruchomości',
+	title: 'Nieruchomości w {nazwaLoc} – LW Nieruchomości',
 	description:
-		'Nieruchomości w {nazwaLoc} ({region}). Aktualne oferty, opis lokalizacji, atuty i galeria. LW Nieruchomości — lokalne biuro z Jeleniej Góry.'
+		'Nieruchomości w {nazwaLoc} ({region}). Aktualne oferty, opis lokalizacji, atuty i galeria. LW Nieruchomości – lokalne biuro z Jeleniej Góry.'
 };
 
 export const pustyStanOfert = {
@@ -46,7 +46,7 @@ export const pustyStanOfert = {
 
 export const ctaKontakt = {
 	tytulWzor: 'Szukasz nieruchomości w {nazwaLoc}?',
-	opis: 'Powiedz nam, czego szukasz w tej lokalizacji. Odezwiemy się z dopasowanymi ofertami — także niepublikowanymi.',
+	opis: 'Powiedz nam, czego szukasz w tej lokalizacji. Odezwiemy się z dopasowanymi ofertami – także niepublikowanymi.',
 	typOpcje: ['Mieszkanie', 'Dom', 'Działka', 'Lokal', 'Jeszcze nie wiem'],
 	przycisk: 'Wyślij zgłoszenie',
 	kontakt: { telefon: '+48 690 008 273', email: 'biuro@lw.nieruchomosci.pl', godziny: 'Pon–Pt: 9:00–17:00' }
@@ -59,10 +59,10 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Jeleniej Górze',
 		region: 'Kotlina Jeleniogórska',
 		hero: '/jelenia-gora-zima.png',
-		lead: 'Miasto na prawach powiatu w sercu Kotliny Jeleniogórskiej — z zabytkowym rynkiem, uzdrowiskiem Cieplice i doskonałym dostępem do gór.',
+		lead: 'Miasto na prawach powiatu w sercu Kotliny Jeleniogórskiej – z zabytkowym rynkiem, uzdrowiskiem Cieplice i doskonałym dostępem do gór.',
 		chips: ['Kotlina Jeleniogórska', '≈ 76 tys. mieszkańców', 'Miasto + uzdrowisko'],
 		opis: [
-			'Jelenia Góra to największy ośrodek regionu i jego naturalne centrum — łączy miejski komfort z bliskością natury. Zabytkowy rynek, kamienice i uzdrowiskowa dzielnica Cieplice przyciągają zarówno mieszkańców, jak i inwestorów.',
+			'Jelenia Góra to największy ośrodek regionu i jego naturalne centrum – łączy miejski komfort z bliskością natury. Zabytkowy rynek, kamienice i uzdrowiskowa dzielnica Cieplice przyciągają zarówno mieszkańców, jak i inwestorów.',
 			'Rynek nieruchomości jest tu najbardziej zróżnicowany w okolicy: od mieszkań w kamienicach i blokach, przez segmenty i domy, po działki na obrzeżach z widokiem na Karkonosze. To dobry wybór na życie, pracę i wynajem.'
 		],
 		fakty: [
@@ -78,7 +78,7 @@ export const miasta: Miasto[] = [
 			{ t: 'Dobre skomunikowanie', d: 'DK3/S3 i szybki dojazd do Wrocławia.' },
 			{ t: 'Edukacja', d: 'Szkoły, uczelnie i przedszkola na miejscu.' },
 			{ t: 'Tereny rekreacyjne', d: 'Parki, szlaki i ścieżki rowerowe wokół miasta.' },
-			{ t: 'Silny rynek najmu', d: 'Stały popyt — studenci i pracownicy.' }
+			{ t: 'Silny rynek najmu', d: 'Stały popyt – studenci i pracownicy.' }
 		],
 		galeria: [
 			'/jelenia-gora-zima.png',
@@ -95,11 +95,11 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Karpaczu',
 		region: 'Karkonosze · u stóp Śnieżki',
 		hero: '/sniezka-sunset.png',
-		lead: 'Najpopularniejszy górski kurort regionu u podnóża Śnieżki — turystyka przez cały rok i silny rynek apartamentów na wynajem.',
+		lead: 'Najpopularniejszy górski kurort regionu u podnóża Śnieżki – turystyka przez cały rok i silny rynek apartamentów na wynajem.',
 		chips: ['Karkonosze', '≈ 4,7 tys. mieszkańców', 'Kurort górski'],
 		opis: [
-			'Karpacz to wizytówka Karkonoszy — u stóp Śnieżki, z rozwiniętą bazą turystyczną, stokami i szlakami. Tętni życiem przez cały rok, co czyni go jednym z najbardziej pożądanych adresów w regionie.',
-			'Dominują tu apartamenty i domy z widokiem, często kupowane jako inwestycja pod wynajem krótkoterminowy lub drugie miejsce zamieszkania. Ceny należą do najwyższych w okolicy — proporcjonalnie do prestiżu lokalizacji.'
+			'Karpacz to wizytówka Karkonoszy – u stóp Śnieżki, z rozwiniętą bazą turystyczną, stokami i szlakami. Tętni życiem przez cały rok, co czyni go jednym z najbardziej pożądanych adresów w regionie.',
+			'Dominują tu apartamenty i domy z widokiem, często kupowane jako inwestycja pod wynajem krótkoterminowy lub drugie miejsce zamieszkania. Ceny należą do najwyższych w okolicy – proporcjonalnie do prestiżu lokalizacji.'
 		],
 		fakty: [
 			{ k: 'Region', v: 'Karkonosze' },
@@ -131,10 +131,10 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Szklarskiej Porębie',
 		region: 'Karkonosze zachodnie',
 		hero: '/sunset-dolina.png',
-		lead: 'Kurort na zachodnim krańcu Karkonoszy — wodospady, szlaki i kolej gondolowa. Ceniony przez turystów i inwestorów apartamentowych.',
+		lead: 'Kurort na zachodnim krańcu Karkonoszy – wodospady, szlaki i kolej gondolowa. Ceniony przez turystów i inwestorów apartamentowych.',
 		chips: ['Karkonosze zachodnie', '≈ 6,5 tys. mieszkańców', 'Kurort górski'],
 		opis: [
-			'Szklarska Poręba leży u zbiegu Karkonoszy i Gór Izerskich, przy granicy z Czechami. Słynie z wodospadów, tras rowerowych i kolei gondolowej na Szrenicę — to jeden z najlepiej rozpoznawalnych kurortów w Sudetach.',
+			'Szklarska Poręba leży u zbiegu Karkonoszy i Gór Izerskich, przy granicy z Czechami. Słynie z wodospadów, tras rowerowych i kolei gondolowej na Szrenicę – to jeden z najlepiej rozpoznawalnych kurortów w Sudetach.',
 			'Rynek zdominowany jest przez apartamenty wakacyjne i domy z widokiem. To lokalizacja pod inwestycję turystyczną, ale też dla ceniących ciszę, czyste powietrze i bliskość natury na co dzień.'
 		],
 		fakty: [
@@ -167,7 +167,7 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Kowarach',
 		region: 'między Karkonoszami a Rudawami',
 		hero: '/schronisko-staw.png',
-		lead: 'Spokojne miasteczko między Karkonoszami a Rudawami Janowickimi — z tradycjami tkackimi i sztolniami, cenione za ciszę i naturę.',
+		lead: 'Spokojne miasteczko między Karkonoszami a Rudawami Janowickimi – z tradycjami tkackimi i sztolniami, cenione za ciszę i naturę.',
 		chips: ['Karkonosze / Rudawy', '≈ 11 tys. mieszkańców', 'Spokojne miasteczko'],
 		opis: [
 			'Kowary to kameralne miasto o bogatej historii, położone w dolinie między dwoma pasmami gór. Znane z Parku Miniatur, sztolni i tradycji tkackich, oferuje spokój z dala od turystycznego zgiełku większych kurortów.',
@@ -203,11 +203,11 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Piechowicach',
 		region: 'brama do zachodnich Karkonoszy',
 		hero: '/karkonosze-panorama.png',
-		lead: 'Miasto u zbiegu Kamiennej i Małej Kamiennej, brama do zachodnich Karkonoszy — z hutą kryształów i wodospadem Szklarki.',
+		lead: 'Miasto u zbiegu Kamiennej i Małej Kamiennej, brama do zachodnich Karkonoszy – z hutą kryształów i wodospadem Szklarki.',
 		chips: ['Karkonosze zachodnie', '≈ 6 tys. mieszkańców', 'Miasteczko'],
 		opis: [
 			'Piechowice leżą pomiędzy Jelenią Górą a Szklarską Porębą, stanowiąc wygodną bazę wypadową w zachodnie Karkonosze. Miasto znane jest z Huty Szkła Kryształowego „Julia” i pobliskiego wodospadu Szklarki.',
-			'To lokalizacja łącząca spokój mniejszej miejscowości z dobrym skomunikowaniem i bliskością kurortów. Dostępne są tu zarówno domy i działki, jak i mieszkania — w cenach niższych niż w sąsiedniej Szklarskiej Porębie.'
+			'To lokalizacja łącząca spokój mniejszej miejscowości z dobrym skomunikowaniem i bliskością kurortów. Dostępne są tu zarówno domy i działki, jak i mieszkania – w cenach niższych niż w sąsiedniej Szklarskiej Porębie.'
 		],
 		fakty: [
 			{ k: 'Region', v: 'Karkonosze zachodnie' },
@@ -239,11 +239,11 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Podgórzynie',
 		region: 'u podnóża Karkonoszy',
 		hero: U('photo-1464822759023-fed622ff2c3b', 1600),
-		lead: 'Gmina u podnóża Karkonoszy z zalewem Sosnówka — spokojne okolice dla rodzin szukających domu i działki blisko natury.',
+		lead: 'Gmina u podnóża Karkonoszy z zalewem Sosnówka – spokojne okolice dla rodzin szukających domu i działki blisko natury.',
 		chips: ['Kotlina Jeleniogórska', '≈ 8 tys. (gmina)', 'Wieś / rekreacja'],
 		opis: [
-			'Podgórzyn to gmina wiejska tuż przy Jeleniej Górze, u podnóża Karkonoszy. Sercem okolicy jest zalew Sosnówka — popularne miejsce rekreacji, wokół którego rozwija się budownictwo jednorodzinne.',
-			'To lokalizacja dla ceniących spokój, przestrzeń i widok na góry, przy zachowaniu bliskości miasta. Dominują tu domy i działki budowlane, często z widokowym położeniem — chętnie wybierane przez rodziny.'
+			'Podgórzyn to gmina wiejska tuż przy Jeleniej Górze, u podnóża Karkonoszy. Sercem okolicy jest zalew Sosnówka – popularne miejsce rekreacji, wokół którego rozwija się budownictwo jednorodzinne.',
+			'To lokalizacja dla ceniących spokój, przestrzeń i widok na góry, przy zachowaniu bliskości miasta. Dominują tu domy i działki budowlane, często z widokowym położeniem – chętnie wybierane przez rodziny.'
 		],
 		fakty: [
 			{ k: 'Region', v: 'Kotlina Jeleniogórska' },
@@ -275,11 +275,11 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Kamiennej Górze',
 		region: 'między Rudawami Janowickimi a Górami Kamiennymi',
 		hero: U('photo-1464822759023-fed622ff2c3b', 1600),
-		lead: 'Miasto powiatowe nad Bobrem, między Rudawami Janowickimi a Górami Kamiennymi — z opactwem w pobliskim Krzeszowie i cenami niższymi niż w Kotlinie Jeleniogórskiej.',
+		lead: 'Miasto powiatowe nad Bobrem, między Rudawami Janowickimi a Górami Kamiennymi – z opactwem w pobliskim Krzeszowie i cenami niższymi niż w Kotlinie Jeleniogórskiej.',
 		chips: ['Kotlina Kamiennogórska', '≈ 18 tys. mieszkańców', 'Miasto powiatowe'],
 		opis: [
 			'Kamienna Góra leży nad Bobrem, w kotlinie zamkniętej Rudawami Janowickimi od zachodu i Górami Kamiennymi od wschodu. To miasto powiatowe z własnym rynkiem, szkołami i strefą ekonomiczną, a jednocześnie punkt wypadowy w dwa różne pasma górskie.',
-			'Kilka kilometrów dalej leży Krzeszów z barokowym opactwem cystersów — jednym z najcenniejszych zabytków Dolnego Śląska. Nieruchomości bywają tu wyraźnie tańsze niż w okolicach Jeleniej Góry czy Karpacza, co przyciąga kupujących szukających przestrzeni za rozsądne pieniądze.'
+			'Kilka kilometrów dalej leży Krzeszów z barokowym opactwem cystersów – jednym z najcenniejszych zabytków Dolnego Śląska. Nieruchomości bywają tu wyraźnie tańsze niż w okolicach Jeleniej Góry czy Karpacza, co przyciąga kupujących szukających przestrzeni za rozsądne pieniądze.'
 		],
 		fakty: [
 			{ k: 'Region', v: 'Kotlina Kamiennogórska' },
@@ -311,10 +311,10 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Mysłakowicach',
 		region: 'Dolina Pałaców i Ogrodów',
 		hero: U('photo-1476514525535-07fb3b4ae5f1', 1600),
-		lead: 'Gmina w Dolinie Pałaców i Ogrodów, w połowie drogi między Jelenią Górą a Karpaczem — z pałacem królewskim i tyrolskimi domami osadników.',
+		lead: 'Gmina w Dolinie Pałaców i Ogrodów, w połowie drogi między Jelenią Górą a Karpaczem – z pałacem królewskim i tyrolskimi domami osadników.',
 		chips: ['Kotlina Jeleniogórska', '≈ 10 tys. (gmina)', 'Wieś / pałace'],
 		opis: [
-			'Mysłakowice leżą nad Łomnicą, u podnóża Karkonoszy, w sercu Doliny Pałaców i Ogrodów. Dawna letnia rezydencja króla Fryderyka Wilhelma IV i charakterystyczne domy tyrolskie — zbudowane przez osadników z doliny Zillertal — nadają miejscowości rys, jakiego nie ma żadna sąsiednia gmina.',
+			'Mysłakowice leżą nad Łomnicą, u podnóża Karkonoszy, w sercu Doliny Pałaców i Ogrodów. Dawna letnia rezydencja króla Fryderyka Wilhelma IV i charakterystyczne domy tyrolskie – zbudowane przez osadników z doliny Zillertal – nadają miejscowości rys, jakiego nie ma żadna sąsiednia gmina.',
 			'To wygodny kompromis: kilkanaście minut do Jeleniej Góry i podobnie blisko do Karpacza, przy zachowaniu spokoju i widoku na góry. Dominują domy i działki, chętnie wybierane przez rodziny szukające przestrzeni bez odcinania się od miasta.'
 		],
 		fakty: [
@@ -347,10 +347,10 @@ export const miasta: Miasto[] = [
 		nazwaLoc: 'Leśnej',
 		region: 'Pogórze Izerskie',
 		hero: U('photo-1439066615861-d1af74d74000', 1600),
-		lead: 'Miasteczko nad Kwisą na Pogórzu Izerskim — z zamkiem Czocha i jeziorami zaporowymi, dla szukających wody i ciszy poza tłokiem Karkonoszy.',
+		lead: 'Miasteczko nad Kwisą na Pogórzu Izerskim – z zamkiem Czocha i jeziorami zaporowymi, dla szukających wody i ciszy poza tłokiem Karkonoszy.',
 		chips: ['Pogórze Izerskie', '≈ 4,5 tys. mieszkańców', 'Miasteczko / jeziora'],
 		opis: [
-			'Leśna leży nad Kwisą, na Pogórzu Izerskim, w powiecie lubańskim. Okolicę definiuje woda: dwa jeziora zaporowe — Leśniańskie i Złotnickie — z zabytkowymi zaporami z początku XX wieku, a nad brzegiem pierwszego z nich stoi zamek Czocha, jeden z najbardziej rozpoznawalnych zamków w Polsce.',
+			'Leśna leży nad Kwisą, na Pogórzu Izerskim, w powiecie lubańskim. Okolicę definiuje woda: dwa jeziora zaporowe – Leśniańskie i Złotnickie – z zabytkowymi zaporami z początku XX wieku, a nad brzegiem pierwszego z nich stoi zamek Czocha, jeden z najbardziej rozpoznawalnych zamków w Polsce.',
 			'To inna okolica niż Karkonosze: łagodniejsza, mniej turystyczna i wyraźnie tańsza, za to z dostępem do jezior i lasów. Trafiają się tu domy i działki rekreacyjne dla osób, którym bardziej zależy na wodzie i spokoju niż na bliskości stoków.'
 		],
 		fakty: [

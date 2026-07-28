@@ -29,7 +29,10 @@
 	color: var(--text);
 	background: var(--bg-site);
 	width: 100%;
-	overflow: hidden;
+	/* clip zamiast hidden: tak samo blokuje poziomy scroll, ale NIE tworzy kontekstu
+	   przewijania — dzięki temu position: sticky w potomkach działa (pasek postępu
+	   i spis treści na blogu). */
+	overflow-x: clip;
 }
 .lw-page {
 	background: #e9e7e1;
@@ -37,6 +40,22 @@
 .lw-landing select {
 	font-family: inherit;
 	cursor: pointer;
+}
+/* Pola formularzy nie mogą rozpychać siatek na wąskich ekranach: domyślna
+   szerokość <input size=20> potrafi wypchnąć kolumnę grida poza viewport. */
+.lw-landing input,
+.lw-landing textarea,
+.lw-landing select {
+	max-width: 100%;
+	min-width: 0;
+}
+/* Długie słowa/URL-e w treści nie wychodzą poza kontener na mobile. */
+.lw-landing p,
+.lw-landing h1,
+.lw-landing h2,
+.lw-landing h3,
+.lw-landing li {
+	overflow-wrap: break-word;
 }
 /* niska specyficzność, żeby nie nadpisywać kolorów przycisków-linków w sekcjach */
 .lw-landing a {

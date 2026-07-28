@@ -2,9 +2,9 @@
 // newsletter. Artykuły pochodzą z bazy (model Article) — patrz +page.server.ts.
 
 export const seo = {
-	title: 'Blog — LW Nieruchomości Jelenia Góra i Karkonosze',
+	title: 'Blog – LW Nieruchomości Jelenia Góra i Karkonosze',
 	description:
-		'Poradnik nieruchomości w Jeleniej Górze i Karkonoszach — sprzedaż, kupno, kredyty, rynek i praktyczne porady.'
+		'Poradnik nieruchomości w Jeleniej Górze i Karkonoszach – sprzedaż, kupno, kredyty, rynek i praktyczne porady.'
 };
 
 export const breadcrumbs = [{ label: 'Strona główna', href: '/' }, { label: 'Blog' }];
@@ -14,7 +14,7 @@ export const hero = {
 	tytul: 'Poradnik nieruchomości w Karkonoszach',
 	tytulEmfaza: 'w Karkonoszach',
 	podtytul:
-		'Praktyczna wiedza o sprzedaży, wycenie, marketingu i rynku w Jeleniej Górze i okolicy — po ludzku i konkretnie.'
+		'Praktyczna wiedza o sprzedaży, wycenie, marketingu i rynku w Jeleniej Górze i okolicy – po ludzku i konkretnie.'
 };
 
 export const kategorie = ['Wszystkie', 'Sprzedaż', 'Wycena', 'Marketing', 'Porady'];
@@ -28,7 +28,7 @@ export const autorFeatured = {
 export const newsletter = {
 	eyebrow: 'Newsletter',
 	tytul: 'Bądź na bieżąco z rynkiem',
-	podtytul: 'Raz na jakiś czas — porady, nowe wpisy i ciekawe oferty z Karkonoszy. Zero spamu.',
+	podtytul: 'Raz na jakiś czas – porady, nowe wpisy i ciekawe oferty z Karkonoszy. Zero spamu.',
 	przycisk: 'Zapisz się',
 	potwierdzenie: 'Dziękujemy! Potwierdź zapis w e-mailu, który wysłaliśmy.'
 };

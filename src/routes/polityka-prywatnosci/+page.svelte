@@ -28,8 +28,8 @@
 				'Przetwarzanie danych odbywa się w oparciu o Rozporządzenie Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO), na następujących podstawach:'
 			],
 			list: [
-				'Twojej zgody — art. 6 ust. 1 lit. a RODO,',
-				'prawnie uzasadnionych interesów administratora — art. 6 ust. 1 lit. f RODO.'
+				'Twojej zgody – art. 6 ust. 1 lit. a RODO,',
+				'prawnie uzasadnionych interesów administratora – art. 6 ust. 1 lit. f RODO.'
 			]
 		},
 		{
@@ -68,10 +68,10 @@
 </script>
 
 <svelte:head>
-	<title>Polityka prywatności — LW Nieruchomości</title>
+	<title>Polityka prywatności – LW Nieruchomości</title>
 	<meta
 		name="description"
-		content="Polityka prywatności LW Nieruchomości — zasady przetwarzania danych osobowych zgodnie z RODO."
+		content="Polityka prywatności LW Nieruchomości – zasady przetwarzania danych osobowych zgodnie z RODO."
 	/>
 </svelte:head>
 
@@ -84,7 +84,7 @@
 			<h1 class="h-page">Polityka prywatności</h1>
 			<p class="lead">
 				Twoja prywatność jest dla nas ważna. Poniżej wyjaśniamy, jakie dane zbieramy, w jakim celu i
-				jakie masz prawa — prosto i po ludzku.
+				jakie masz prawa – prosto i po ludzku.
 			</p>
 			<span class="updated">Ostatnia aktualizacja: lipiec 2026</span>
 		</div>

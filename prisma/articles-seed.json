@@ -47,7 +47,7 @@
       },
       {
         "typ": "cytat",
-        "tekst": "Skuteczna sprzedaż to nie przypadek — to dobrze zaplanowany proces, w którym liczy się każdy szczegół.",
+        "tekst": "Skuteczna sprzedaż to nie przypadek – to dobrze zaplanowany proces, w którym liczy się każdy szczegół.",
         "autor": "Lucyna Wojtoń, LW Nieruchomości"
       },
       {
@@ -110,7 +110,7 @@
         "naglowek": "Podsumowanie",
         "akapity": [
           "Skuteczna sprzedaż nieruchomości to efekt odpowiedniej wyceny, profesjonalnej prezentacji i dobrze zaplanowanych działań. Im lepiej przygotujesz ofertę, tym większa szansa na sprawną sprzedaż i korzystną cenę.",
-          "Chcesz przejść przez ten proces z kimś, kto zna lokalny rynek? Zacznij od <a href=\"/wycena-nieruchomosci\">bezpłatnej wyceny</a> — pomożemy przygotować i sprzedać Twoje mieszkanie."
+          "Chcesz przejść przez ten proces z kimś, kto zna lokalny rynek? Zacznij od <a href=\"/wycena-nieruchomosci\">bezpłatnej wyceny</a> – pomożemy przygotować i sprzedać Twoje mieszkanie."
         ]
       }
     ],
@@ -139,7 +139,7 @@
     "title": "Jak ustalić cenę nieruchomości? 7 błędów, które mogą kosztować nawet kilkadziesiąt tysięcy złotych",
     "titleEmphasis": "7 błędów",
     "excerpt": "Odpowiednio ustalona cena to fundament skutecznej sprzedaży. Poznaj błędy, które najczęściej kosztują właścicieli czas i pieniądze.",
-    "lead": "Odpowiednio ustalona cena to fundament skutecznej sprzedaży. Poniżej najczęstsze błędy, przez które właściciele tracą czas i pieniądze — oraz to, jak ich uniknąć.",
+    "lead": "Odpowiednio ustalona cena to fundament skutecznej sprzedaży. Poniżej najczęstsze błędy, przez które właściciele tracą czas i pieniądze – oraz to, jak ich uniknąć.",
     "readTime": "6 min czytania",
     "publishedAt": "2026-06-24T00:00:00.000Z",
     "coverImage": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1600&q=80",
@@ -199,7 +199,7 @@
       },
       {
         "typ": "cytat",
-        "tekst": "Zbyt wysoka cena nie przyspiesza sprzedaży — najczęściej ją wydłuża.",
+        "tekst": "Zbyt wysoka cena nie przyspiesza sprzedaży – najczęściej ją wydłuża.",
         "autor": "Lucyna Wojtoń, LW Nieruchomości"
       },
       {
@@ -304,7 +304,7 @@
         "typ": "sekcja",
         "id": "dron",
         "tocLabel": "Ujęcia z drona",
-        "naglowek": "Ujęcia z drona — kiedy mają sens?",
+        "naglowek": "Ujęcia z drona – kiedy mają sens?",
         "akapity": [
           "W przypadku domów, działek czy nieruchomości położonych w atrakcyjnej okolicy zdjęcia z powietrza pozwalają pokazać nie tylko budynek, ale również otoczenie, dojazd i walory lokalizacji."
         ]
@@ -366,7 +366,7 @@
     "publishedAt": "2026-06-06T00:00:00.000Z",
     "coverImage": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80",
     "coverAlt": "Czy warto podpisać umowę na wyłączność z biurem nieruchomości?",
-    "coverCaption": "Jedna spójna strategia sprzedaży i jeden opiekun oferty — to istota wyłączności.",
+    "coverCaption": "Jedna spójna strategia sprzedaży i jeden opiekun oferty – to istota wyłączności.",
     "content": [
       {
         "typ": "sekcja",
@@ -395,7 +395,7 @@
         "akapity": [
           "Spójna strategia sprzedaży: jedna oferta, jedna cena i jeden opiekun. Kupujący nie widzą kilku różnych ogłoszeń tej samej nieruchomości z rozbieżnymi informacjami.",
           "Większe zaangażowanie: biuro może w pełni wykorzystać profesjonalne zdjęcia, filmy, promocję w mediach społecznościowych oraz płatne działania marketingowe, mając pewność, że inwestuje w nieruchomość, którą rzeczywiście sprzedaje.",
-          "Jeden kontakt dla kupujących: nie muszą dzwonić do kilku pośredników — wszystkie informacje otrzymują od jednej osoby, która zna nieruchomość."
+          "Jeden kontakt dla kupujących: nie muszą dzwonić do kilku pośredników – wszystkie informacje otrzymują od jednej osoby, która zna nieruchomość."
         ]
       },
       {
@@ -463,7 +463,7 @@
     "publishedAt": "2026-05-28T00:00:00.000Z",
     "coverImage": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=80",
     "coverAlt": "Jak przygotować mieszkanie lub dom do sprzedaży? 10 prostych sposobów, które zwiększają zainteresowanie ofertą",
-    "coverCaption": "Kilka prostych zmian potrafi znacząco poprawić odbiór oferty — bez kosztownego remontu.",
+    "coverCaption": "Kilka prostych zmian potrafi znacząco poprawić odbiór oferty – bez kosztownego remontu.",
     "content": [
       {
         "typ": "sekcja",

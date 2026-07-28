@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-	<title>{featured ? 'Oferty premium' : 'Oferty'} — LW Nieruchomości</title>
+	<title>{featured ? 'Oferty premium' : 'Oferty'} – LW Nieruchomości</title>
 </svelte:head>
 
 <LandingNav />

@@ -4,9 +4,9 @@
 const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const seo = {
-	title: 'Doradztwo kredytowe — LW Nieruchomości Jelenia Góra',
+	title: 'Doradztwo kredytowe – LW Nieruchomości Jelenia Góra',
 	description:
-		'Doradztwo kredytowe w Jeleniej Górze i Karkonoszach — bezpłatne sprawdzenie zdolności, porównanie ofert banków, pomoc w dokumentach i prowadzenie wniosku.'
+		'Doradztwo kredytowe w Jeleniej Górze i Karkonoszach – bezpłatne sprawdzenie zdolności, porównanie ofert banków, pomoc w dokumentach i prowadzenie wniosku.'
 };
 
 export const breadcrumbs = [
@@ -60,7 +60,7 @@ export const powiazane = [
 	{
 		t: 'Sprzedaż nieruchomości',
 		slug: '/sprzedaz-nieruchomosci',
-		d: 'Sprzedamy Twoją nieruchomość — od wyceny po akt notarialny.'
+		d: 'Sprzedamy Twoją nieruchomość – od wyceny po akt notarialny.'
 	},
 	{
 		t: 'Kupno nieruchomości',

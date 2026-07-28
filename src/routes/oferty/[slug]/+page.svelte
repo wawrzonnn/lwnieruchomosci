@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-	<title>{listing.title} — LW Nieruchomości</title>
+	<title>{listing.title} – LW Nieruchomości</title>
 	<meta name="description" content={data.seo.description} />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content={listing.title} />
