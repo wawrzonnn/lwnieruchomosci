@@ -771,15 +771,17 @@
 	.eyebrow-dark {
 		color: var(--gold-soft);
 	}
+	/* Znak wodny za treścią zamiast hacka line-height/height. */
 	.testi-watermark {
 		display: block;
 		font-family: 'Newsreader', serif;
-		font-size: 70px;
+		font-size: 150px;
+		line-height: 0.7;
 		color: var(--gold-soft);
-		opacity: 0.6;
-		line-height: 0.4;
-		height: 40px;
-		margin-bottom: 20px;
+		opacity: 0.22;
+		height: 74px;
+		margin-bottom: 4px;
+		pointer-events: none;
 	}
 	.testi-quote-text {
 		font-family: 'Newsreader', serif;
@@ -992,8 +994,8 @@
 			padding: 56px 24px;
 		}
 		.testi-watermark {
-			font-size: 44px;
-			height: 26px;
+			font-size: 96px;
+			height: 50px;
 		}
 		.testi-quote-text {
 			font-size: 19px;

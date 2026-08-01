@@ -38,6 +38,21 @@
 		mobileOfertySubOpen = false;
 		mobileUslugiSubOpen = false;
 	}
+
+	// Menu pełnoekranowe: blokada przewijania tła + zamykanie klawiszem Esc.
+	$effect(() => {
+		if (!menuOpen) return;
+		const poprzedni = document.body.style.overflow;
+		document.body.style.overflow = 'hidden';
+		const naKlawisz = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') closeMobile();
+		};
+		window.addEventListener('keydown', naKlawisz);
+		return () => {
+			document.body.style.overflow = poprzedni;
+			window.removeEventListener('keydown', naKlawisz);
+		};
+	});
 </script>
 
 <header class="nav">
@@ -93,13 +108,26 @@
 		<a href="/kontakt#formularz" class="nav-cta">Umów konsultację</a>
 	</div>
 
-	<button class="nav-burger" class:open={menuOpen} aria-label="Menu" onclick={() => (menuOpen = !menuOpen)}>
+	<button
+		class="nav-burger"
+		class:open={menuOpen}
+		aria-label="Menu"
+		aria-expanded={menuOpen}
+		aria-controls="menu-mobilne"
+		onclick={() => (menuOpen = !menuOpen)}
+	>
 		<span></span><span></span><span></span>
 	</button>
 </header>
 
 {#if menuOpen}
-	<div class="mobile-menu">
+	<div class="mobile-menu" id="menu-mobilne">
+		<div class="mm-top">
+			<span class="mm-tytul">Menu</span>
+			<button type="button" class="mm-zamknij" aria-label="Zamknij menu" onclick={closeMobile}>
+				✕
+			</button>
+		</div>
 		<button
 			type="button"
 			class="mobile-toggle"
@@ -142,6 +170,10 @@
 			<a href={link.href} onclick={closeMobile}>{link.label}</a>
 		{/each}
 		<a href="/kontakt#formularz" class="mobile-cta" onclick={closeMobile}>Umów konsultację</a>
+		<div class="mm-stopka">
+			<a class="mm-tel" href="tel:+48690008273">+48 690 008 273</a>
+			<div class="mm-godziny">Pon–Pt · 9:00–17:00</div>
+		</div>
 	</div>
 {/if}
 
@@ -314,18 +346,28 @@
 	.nav-burger.open span:nth-child(3) {
 		transform: translateY(-7px) rotate(-45deg);
 	}
+	/* Menu jako pełnoekranowa nakładka — panel rozwijany w treści kończył się
+	   w połowie ekranu i mieszał z zawartością strony. */
 	.mobile-menu {
 		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 120;
 		flex-direction: column;
 		gap: 2px;
-		padding: 8px 48px 20px;
-		background: rgba(251, 248, 242, 0.98);
-		border-bottom: 1px solid var(--nav-border);
+		padding: 20px 20px calc(28px + env(safe-area-inset-bottom));
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		background: var(--bg-site);
 	}
 	.mobile-menu a {
-		padding: 12px 4px;
-		font-size: 16px;
-		color: var(--text-nav, #4a4e42);
+		display: flex;
+		align-items: center;
+		min-height: 56px;
+		padding: 0 2px;
+		font-family: 'Newsreader', serif;
+		font-size: 22px;
+		color: var(--text);
 		border-bottom: 1px solid var(--nav-border);
 	}
 	.mobile-toggle {
@@ -365,6 +407,47 @@
 	}
 	.mobile-menu a:last-of-type {
 		border-bottom: none;
+	}
+	/* Nagłówek nakładki + przycisk zamykania (hamburger jest pod nakładką). */
+	.mm-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 6px;
+	}
+	.mm-tytul {
+		font-size: 12px;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--gold);
+		font-weight: 600;
+	}
+	.mm-zamknij {
+		width: 44px;
+		height: 44px;
+		border: 1px solid var(--divider);
+		border-radius: 50%;
+		background: #fff;
+		color: var(--text);
+		font-size: 16px;
+		cursor: pointer;
+	}
+	.mm-stopka {
+		margin-top: 22px;
+		padding-top: 18px;
+		border-top: 1px solid var(--nav-border);
+	}
+	.mobile-menu a.mm-tel {
+		font-family: 'Newsreader', serif;
+		font-size: 24px;
+		color: var(--green);
+		border-bottom: none;
+		min-height: 0;
+	}
+	.mm-godziny {
+		font-size: 13px;
+		color: var(--muted);
+		margin-top: 4px;
 	}
 	/* Selektor z `.mobile-menu`, bo samo `.mobile-cta` przegrywało specyficznością
 	   z `.mobile-menu a` — tekst wychodził ciemny na ciemnej zieleni (nieczytelny). */

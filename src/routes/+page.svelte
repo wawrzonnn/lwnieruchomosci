@@ -357,24 +357,21 @@
 									</svg>
 								</button>
 							{/if}
-							<div class="offer-strip">
-								<div class="strip-loc">
-									<div class="strip-city">{listing.city}</div>
-									{#if listing.district}<div class="strip-street">{listing.district}</div>{/if}
-								</div>
-								<div class="strip-price">
-									<div class="strip-amount">{formatPrice(listing.price)}</div>
-									{#if pricePerM2(listing.price, listing.area)}
-										<div class="strip-perm2">{pricePerM2(listing.price, listing.area)}</div>
-									{/if}
-								</div>
-							</div>
 						</div>
 						<div class="offer-body">
 							<div class="offer-subtitle">
 								{CATEGORY_LABELS[listing.category]}{listing.rooms ? ` ${listing.rooms}-pokojowe` : ''}
 							</div>
 							<div class="offer-title">{listing.title}</div>
+							<div class="offer-loc">
+								{listing.city}{listing.district ? ` · ${listing.district}` : ''}
+							</div>
+							<div class="offer-price-row">
+								<span class="offer-price">{formatPrice(listing.price)}</span>
+								{#if pricePerM2(listing.price, listing.area)}
+									<span class="offer-perm2">{pricePerM2(listing.price, listing.area)}</span>
+								{/if}
+							</div>
 							<div class="offer-specs">
 								{#each offerSpecs(listing) as sp}
 									<div>
@@ -1011,6 +1008,10 @@
 		box-shadow: 0 20px 44px -30px rgba(30, 40, 30, 0.55);
 		display: flex;
 		flex-direction: column;
+		transition: box-shadow 0.25s ease;
+	}
+	.offer:hover {
+		box-shadow: 0 20px 44px -28px rgba(30, 40, 30, 0.6);
 	}
 	.offer-media {
 		position: relative;
@@ -1018,18 +1019,20 @@
 		background-size: cover;
 		background-position: center;
 	}
+	/* Badge w kolorach statusu „na wyłączność" zamiast pełnego złota. */
 	.offer-badge {
 		position: absolute;
 		top: 16px;
 		left: 16px;
-		background: var(--gold);
-		color: #fff;
+		z-index: 1;
+		background: #f3ead9;
+		color: #9a7433;
 		font-size: 12px;
 		font-weight: 700;
 		letter-spacing: 0.04em;
 		padding: 6px 13px;
 		border-radius: 999px;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 	}
 	.offer-heart {
 		position: absolute;
@@ -1100,51 +1103,34 @@
 	.offer-arrow.right {
 		right: 12px;
 	}
-	.offer-strip {
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 12px;
-		background: rgba(18, 26, 20, 0.62);
-		backdrop-filter: blur(3px);
-		border-top: 1px solid rgba(255, 255, 255, 0.14);
-		padding: 13px 18px;
-		color: #fff;
-	}
-	.strip-loc {
-		line-height: 1.3;
-	}
-	.strip-city {
-		font-weight: 700;
-		font-size: 17px;
-	}
-	.strip-street {
-		font-size: 12px;
-		color: rgba(255, 255, 255, 0.82);
-	}
-	.strip-price {
-		text-align: right;
-		line-height: 1.3;
-		border-left: 1px solid rgba(255, 255, 255, 0.32);
-		padding-left: 14px;
-	}
-	.strip-amount {
-		font-weight: 800;
-		font-size: 18px;
-	}
-	.strip-perm2 {
-		font-size: 12px;
-		color: rgba(255, 255, 255, 0.82);
-	}
 	.offer-body {
 		padding: 20px 22px 22px;
 		display: flex;
 		flex-direction: column;
 		flex: 1;
+	}
+	/* Lokalizacja i cena zeszły ze zdjęcia do treści — kadr zostaje czysty. */
+	.offer-loc {
+		font-size: 13.5px;
+		color: var(--muted);
+		margin-bottom: 10px;
+	}
+	.offer-price-row {
+		display: flex;
+		align-items: baseline;
+		gap: 10px;
+		margin-bottom: 16px;
+	}
+	.offer-price {
+		font-family: 'Newsreader', serif;
+		font-size: 26px;
+		font-weight: 600;
+		color: var(--green);
+		line-height: 1;
+	}
+	.offer-perm2 {
+		font-size: 13px;
+		color: var(--label);
 	}
 	.offer-subtitle {
 		font-size: 11px;
@@ -1182,22 +1168,19 @@
 		font-weight: 700;
 		color: var(--green-spec);
 	}
+	/* CTA jako link ze złotym podkreśleniem — sześć zielonych plam na ekranie
+	   przytłaczało siatkę ofert. */
 	.offer-cta {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
+		align-self: flex-start;
 		margin-top: 16px;
-		background: var(--green);
-		color: #fff;
-		padding: 13px;
-		border-radius: 12px;
+		color: var(--green);
 		font-weight: 600;
 		font-size: 15px;
+		border-bottom: 2px solid var(--gold);
+		padding-bottom: 3px;
 	}
 	.offer-cta:hover {
-		opacity: 0.92;
-		color: #fff;
+		opacity: 0.82;
 	}
 
 	/* ===== ABOUT ===== */
@@ -1339,15 +1322,21 @@
 		font-family: inherit;
 		color: inherit;
 	}
+	/* Aktywny wiersz jako biała karta z cieniem zamiast złotej belki przy krawędzi. */
 	.rowbar {
 		position: absolute;
 		inset: 0;
-		background: var(--bg-cream-2);
-		border-left: 3px solid var(--gold);
+		background: #fff;
+		border-radius: 14px;
+		box-shadow: 0 16px 30px -24px rgba(30, 40, 30, 0.5);
 		display: none;
 	}
 	.svc-row.active .rowbar {
 		display: block;
+	}
+	.svc-row:hover:not(.active) {
+		background: var(--bg-cream-2);
+		border-radius: 14px;
 	}
 	.svc-no {
 		position: relative;
@@ -1586,7 +1575,8 @@
 		cursor: pointer;
 		display: grid;
 		place-items: center;
-		opacity: 0.58;
+		/* zawsze widoczne, nie tylko pod kursorem (na dotyku hover nie istnieje) */
+		opacity: 0.88;
 		box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
 		transition:
 			opacity 0.18s ease,
@@ -1657,19 +1647,17 @@
 		padding-top: 8px;
 	}
 	/* delikatny, duży cudzysłów jako watermark w tle — nie wpływa na przepływ treści */
+	/* Znak wodny za treścią zamiast hacka line-height/height. */
 	.testi-watermark {
-		position: absolute;
-		top: -76px;
-		left: 50%;
-		transform: translateX(-50%);
+		display: block;
 		font-family: 'Newsreader', serif;
-		font-size: 220px;
-		line-height: 1;
+		font-size: 150px;
+		line-height: 0.7;
 		color: var(--gold-soft);
-		opacity: 0.16;
+		opacity: 0.22;
+		height: 74px;
+		margin-bottom: 4px;
 		pointer-events: none;
-		user-select: none;
-		z-index: 0;
 	}
 	.testi-quote-text {
 		position: relative;
@@ -1946,12 +1934,15 @@
 		padding-top: 20px;
 		padding-bottom: 64px;
 	}
+	/* Dane i mapa pod wspólnym obrysem — jedna biała karta zamiast dwóch bloków. */
 	.contact-box {
 		display: grid;
 		grid-template-columns: 1fr 1.1fr;
-		border-radius: 20px;
+		border-radius: 24px;
 		overflow: hidden;
 		border: 1px solid var(--border);
+		background: #fff;
+		box-shadow: 0 20px 44px -32px rgba(30, 40, 30, 0.5);
 	}
 	.contact-left {
 		padding: 44px 40px;
@@ -2247,8 +2238,31 @@
 			padding: 13px 20px;
 			font-size: 15px;
 		}
+		/* Karuzela zamiast sześciu kart pionowo (~2300px mniej scrolla).
+		   Margines ujemny + padding, żeby karty dojeżdżały do krawędzi ekranu. */
 		.offers-grid {
-			grid-template-columns: 1fr;
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: 292px;
+			grid-template-columns: none;
+			gap: 14px;
+			overflow-x: auto;
+			overscroll-behavior-x: contain;
+			scroll-snap-type: x mandatory;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			margin-inline: calc(var(--gutter) * -1);
+			padding-inline: var(--gutter);
+			padding-bottom: 6px;
+		}
+		.offers-grid::-webkit-scrollbar {
+			display: none;
+		}
+		.offers-grid > :global(*) {
+			scroll-snap-align: start;
+		}
+		.offer-media {
+			height: 200px;
 		}
 		.cats-grid {
 			grid-template-columns: repeat(2, 1fr);
