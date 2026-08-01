@@ -2056,10 +2056,27 @@
 		}
 	}
 	@media (max-width: 980px) {
+		/* Poniżej 980px wyszukiwarka ma już kilka rzędów — „wyjeżdżanie" z hero
+		   (translateY 50%) wpychało ją w zieloną sekcję. Wraca do przepływu. */
+		.hero {
+			min-height: 0;
+			justify-content: flex-end;
+			padding: 128px 40px 44px;
+		}
 		.hero-h1 {
 			font-size: 44px;
 		}
+		.hero-sub {
+			font-size: 22px;
+		}
 		.search-card {
+			position: static;
+			left: auto;
+			right: auto;
+			bottom: auto;
+			transform: none;
+			width: auto;
+			margin-top: 30px;
 			grid-template-columns: 1fr 1fr;
 			padding: 8px;
 		}
@@ -2073,6 +2090,10 @@
 		.search-btn {
 			grid-column: span 2;
 			margin-top: 6px;
+		}
+		/* bez wystającej karty zielony pas nie potrzebuje zapasu u góry */
+		.why {
+			padding-top: var(--space-section);
 		}
 		.about-grid,
 		.services-grid,
