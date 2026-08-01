@@ -784,7 +784,9 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		gap: 2px;
+		/* odstęp większy niż ujemny margines triggera, żeby obwódka stanu
+		   otwartego nie zachodziła na etykietę */
+		gap: 9px;
 		min-height: 60px;
 		padding: 0 22px;
 		border-left: 1px solid var(--border);
@@ -802,10 +804,18 @@
 	.search-field :global(.select-trigger),
 	.search-field :global(.select-native) {
 		font-size: 15.5px;
-		padding: 0;
+		/* padding + ujemny margines: tekst zostaje w linii, ale obwódka stanu
+		   otwartego/focusu ma oddech i nie przykleja się do liter */
+		padding: 6px 9px;
+		margin: -6px -9px;
 		border: none;
 		background: transparent;
+		border-radius: 10px;
 		min-height: 26px;
+	}
+	.search-field :global(.select-trigger:focus-visible) {
+		outline: 2px solid var(--gold);
+		outline-offset: 3px;
 	}
 	.search-field :global(.select-trigger:hover) {
 		border-color: transparent;
