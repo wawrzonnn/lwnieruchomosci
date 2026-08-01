@@ -162,6 +162,8 @@
 		.footer {
 			padding-left: 20px;
 			padding-right: 20px;
+			/* zapas na mobilny pasek kontaktowy przyklejony do dołu ekranu */
+			padding-bottom: 78px;
 		}
 		.footer-grid {
 			grid-template-columns: 1fr 1fr;

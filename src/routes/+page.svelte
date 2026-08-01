@@ -19,6 +19,7 @@
 	import { godziny, social } from '$lib/data/kontakt-strona';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
+	import StickyBar from '$lib/components/landing/StickyBar.svelte';
 	import type { Listing, ListingImage } from '@prisma/client';
 
 	let { data } = $props();
@@ -672,6 +673,7 @@
 		</section>
 
 		<LandingFooter />
+		<StickyBar drugaEtykieta="Umów konsultację" drugiHref="/kontakt#formularz" odslonPo={620} />
 	</div>
 </div>
 

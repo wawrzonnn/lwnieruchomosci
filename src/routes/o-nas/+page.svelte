@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
+	import StickyBar from '$lib/components/landing/StickyBar.svelte';
 	import {
 		seo,
 		breadcrumbs,
@@ -165,7 +166,7 @@
 
 		<!-- ============ STATYSTYKI ============ -->
 		<section class="stats-section">
-			<div class="stats-grid">
+			<div class="container stats-grid">
 				{#each statystyki as s}
 					<div class="stat">
 						<div class="stat-n">{s.n}</div>
@@ -234,6 +235,7 @@
 		</section>
 
 		<LandingFooter />
+		<StickyBar odslonPo={480} />
 	</div>
 </div>
 
@@ -653,28 +655,31 @@
 		margin-top: 9px;
 	}
 
-	/* ===== STATYSTYKI ===== */
+	/* ===== STATYSTYKI =====
+	   Pas na kremie zamiast zieleni — w dolnej połowie strony były cztery ciemne
+	   pasy pod rząd (zieleń → zdjęcie regionu → zdjęcie opinii → stopka). */
 	.stats-section {
-		padding: 56px 48px;
-		background: var(--green);
-		color: var(--on-green);
+		padding: 60px 0;
+		background: var(--bg-cream);
 	}
 	.stats-grid {
 		display: grid;
 		grid-template-columns: repeat(4, 1fr);
-		gap: 24px;
 		text-align: center;
+	}
+	.stat + .stat {
+		border-left: 1px solid var(--divider-cream);
 	}
 	.stat-n {
 		font-family: 'Newsreader', serif;
 		font-size: 46px;
 		font-weight: 600;
-		color: var(--gold-light);
+		color: var(--green);
 		line-height: 1;
 	}
 	.stat-l {
 		font-size: 14px;
-		color: rgba(243, 238, 225, 0.8);
+		color: var(--muted);
 		margin-top: 8px;
 	}
 
@@ -926,9 +931,13 @@
 		.wartosci-grid {
 			grid-template-columns: 1fr;
 		}
+		/* 2×2 — kreska pionowa tylko między kolumnami, poziomo rozdziela odstęp */
 		.stats-grid {
 			grid-template-columns: repeat(2, 1fr);
-			gap: 24px 16px;
+			row-gap: 28px;
+		}
+		.stat:nth-child(odd) {
+			border-left: none;
 		}
 	}
 	@media (max-width: 640px) {
@@ -974,7 +983,7 @@
 			font-size: 26px;
 		}
 		.stats-section {
-			padding: 40px 20px;
+			padding: 40px 0;
 		}
 		.stat-n {
 			font-size: 34px;
