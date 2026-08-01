@@ -246,7 +246,7 @@
 
 		<!-- ============ DLACZEGO MY — 6 kafelków (zastąpiło dawny pasek trust) ============ -->
 		<section class="why">
-			<div class="why-grid">
+			<div class="container why-grid">
 				<div class="why-intro">
 					<div class="eyebrow eyebrow-green">{dlaczegoMy.eyebrow}</div>
 					<h2 class="why-h2">
@@ -679,12 +679,12 @@
 	/* ===== HERO ===== */
 	.hero {
 		position: relative;
-		min-height: 740px;
+		min-height: 800px;
 		background-image: linear-gradient(
-				105deg,
-				rgba(18, 26, 20, 0.76) 0%,
-				rgba(18, 26, 20, 0.46) 50%,
-				rgba(18, 26, 20, 0.16) 100%
+				102deg,
+				rgba(18, 26, 20, 0.78) 0%,
+				rgba(18, 26, 20, 0.44) 52%,
+				rgba(18, 26, 20, 0.14) 100%
 			),
 			url('/sniezka-sunset.png');
 		background-size: cover;
@@ -695,7 +695,8 @@
 		padding: 0 72px;
 	}
 	.hero-copy {
-		max-width: 720px;
+		/* węższa kolumna — nagłówek trzyma się dwóch pełnych wierszy */
+		max-width: 620px;
 		color: #fff;
 	}
 	.hero-eyebrow {
@@ -715,9 +716,10 @@
 	.hero-h1 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
-		font-size: 66px;
-		line-height: 1.03;
+		font-size: 70px;
+		line-height: 1.02;
 		letter-spacing: -0.02em;
+		text-wrap: balance;
 		margin-bottom: 12px;
 		color: #fff;
 	}
@@ -745,19 +747,21 @@
 	.hero-lead-krotki {
 		display: none;
 	}
+	/* Karta wyszukiwarki wyjeżdża z hero — połowa wysokości poza sekcją. */
 	.search-card {
 		position: absolute;
-		left: 72px;
-		right: 72px;
-		bottom: -56px;
+		left: 50%;
+		bottom: 0;
+		transform: translate(-50%, 50%);
+		width: min(var(--container), 100% - var(--gutter) * 2);
 		background: #fff;
 		border-radius: 18px;
 		box-shadow: 0 30px 60px -30px rgba(30, 40, 30, 0.4);
-		padding: 22px 24px;
+		padding: 10px 10px 10px 4px;
 		display: grid;
 		grid-template-columns: 1fr 1fr 1fr auto;
-		gap: 18px;
-		align-items: end;
+		gap: 0;
+		align-items: stretch;
 		border: 1px solid var(--border);
 		/* Dostrojenie komponentu Select do wyglądu wyszukiwarki (desktop: stylowany
 		   dropdown, mobile: natywny select). Nadpisujemy tokeny komponentu tokenami hero. */
@@ -776,47 +780,64 @@
 		--r-xs: 8px;
 		--sh-pop: 0 18px 40px -20px rgba(30, 40, 30, 0.45);
 	}
+	/* Pola rozdzielone pionowymi kreskami zamiast własnych obrysów — jeden rząd 60px. */
 	.search-field {
 		display: flex;
 		flex-direction: column;
-		gap: 7px;
+		justify-content: center;
+		gap: 2px;
+		min-height: 60px;
+		padding: 0 22px;
+		border-left: 1px solid var(--border);
+	}
+	.search-field:first-child {
+		border-left: none;
 	}
 	.search-label {
-		font-size: 12px;
+		font-size: 11px;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
 		color: var(--label);
 		font-weight: 600;
 	}
-	/* Wyszukiwarka jest wyższa niż domyślny Select — dociągamy pole do 15px/13px jak wcześniej */
 	.search-field :global(.select-trigger),
 	.search-field :global(.select-native) {
-		font-size: 15px;
-		padding-top: 13px;
-		padding-bottom: 13px;
+		font-size: 15.5px;
+		padding: 0;
+		border: none;
+		background: transparent;
+		min-height: 26px;
+	}
+	.search-field :global(.select-trigger:hover) {
+		border-color: transparent;
 	}
 	.search-btn {
 		background: var(--green);
 		color: #fff;
 		border: none;
-		border-radius: 12px;
-		padding: 14px 30px;
+		border-radius: 999px;
+		padding: 0 42px;
 		font-size: 16px;
 		font-weight: 600;
 		font-family: inherit;
 		cursor: pointer;
-		height: 50px;
+		height: 60px;
+		align-self: center;
+		transition: background 0.15s ease, transform 0.15s ease;
 	}
 	.search-btn:hover {
-		opacity: 0.92;
+		background: var(--green-ink);
+	}
+	.search-btn:active {
+		transform: scale(0.98);
 	}
 
 	/* ===== DLACZEGO MY — układ redakcyjny (refinement 19) ===== */
 	/* Zielony band zaraz po hero — ten sam rytm co „zakres usługi" na podstronach
 	   usługowych (wyraźne odcięcie od kremowego tła reszty strony). */
 	.why {
-		/* górny padding robi miejsce dla wyszukiwarki wystającej z hero (bottom:-56px) */
-		padding: 104px 48px 72px;
+		/* górny padding robi miejsce dla wyszukiwarki wystającej z hero */
+		padding: 118px 0 var(--space-section);
 		background: var(--green);
 		color: var(--on-green);
 	}
@@ -902,39 +923,43 @@
 		grid-template-columns: repeat(4, 1fr);
 		gap: 20px;
 	}
+	/* Kafle kwadratowe — mocniej trzymają uwagę między hero a ofertami.
+	   UWAGA: obecne zdjęcia są panoramiczne, docelowo potrzebne kadry 1:1/pionowe. */
 	.cat {
 		position: relative;
-		height: 300px;
-		border-radius: 16px;
+		aspect-ratio: 1 / 1;
+		height: auto;
+		border-radius: 20px;
 		overflow: hidden;
 		display: block;
 		box-shadow: 0 16px 30px -22px rgba(30, 40, 30, 0.5);
 		background-size: cover;
 		background-position: center;
+		transition: box-shadow 0.25s ease;
 	}
+	.cat:hover {
+		box-shadow: 0 22px 38px -22px rgba(30, 40, 30, 0.58);
+	}
+	/* Gradient od 38% w dół — podpis czytelny, góra kadru zostaje widoczna. */
 	.cat-shade {
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(180deg, rgba(20, 30, 22, 0.14), rgba(20, 30, 22, 0.34));
+		background: linear-gradient(180deg, rgba(20, 30, 22, 0) 38%, rgba(20, 30, 22, 0.72) 100%);
 	}
 	.cat-bar {
 		position: absolute;
 		left: 0;
 		right: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		background: rgba(18, 26, 20, 0.44);
-		backdrop-filter: blur(2px);
-		border-top: 1px solid rgba(255, 255, 255, 0.16);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-		padding: 16px 18px;
-		text-align: center;
+		bottom: 0;
+		top: auto;
+		transform: none;
+		padding: 20px 22px;
 		color: #fff;
 	}
 	.cat-name {
 		font-family: 'Newsreader', serif;
-		font-size: 25px;
-		font-weight: 600;
+		font-size: 26px;
+		font-weight: 500;
 		letter-spacing: 0.01em;
 	}
 	.cat-deal {
@@ -1203,6 +1228,8 @@
 		line-height: 1.65;
 		color: rgba(243, 238, 225, 0.82);
 		margin-bottom: 16px;
+		/* miara wiersza — akapity nie rozciągają się na całą kolumnę */
+		max-width: var(--measure);
 	}
 	.about-p:last-of-type {
 		margin-bottom: 0;
@@ -2037,13 +2064,22 @@
 	}
 	@media (max-width: 980px) {
 		.hero-h1 {
-			font-size: 38px;
+			font-size: 44px;
 		}
 		.search-card {
 			grid-template-columns: 1fr 1fr;
+			padding: 8px;
+		}
+		/* w dwóch kolumnach kreska po lewej ma sens tylko w prawej kolumnie */
+		.search-field {
+			padding: 10px 16px;
+		}
+		.search-field:nth-child(odd) {
+			border-left: none;
 		}
 		.search-btn {
 			grid-column: span 2;
+			margin-top: 6px;
 		}
 		.about-grid,
 		.services-grid,
@@ -2167,12 +2203,14 @@
 			padding: 18px 0;
 		}
 		/* Wyszukiwarka w hero: kompaktowa siatka 2-kolumnowa zamiast czterech pełnych
-		   wierszy (zajmowała pół ekranu i nachodziła na tekst). */
+		   wierszy. Kasujemy pozycjonowanie i transform z wariantu desktopowego. */
 		.search-card {
 			position: static;
 			left: auto;
 			right: auto;
 			bottom: auto;
+			transform: none;
+			width: auto;
 			margin: 22px 0 0;
 			grid-template-columns: 1fr 1fr;
 			gap: 12px;
@@ -2188,16 +2226,22 @@
 			font-size: 10.5px;
 			letter-spacing: 0.08em;
 		}
+		/* na telefonie wracamy do pól z obrysem — kreski nie czytają się w 2 kolumnach */
 		.search-field {
 			gap: 5px;
+			min-height: 0;
+			padding: 0;
+			border-left: none;
 		}
 		.search-field :global(.select-trigger),
 		.search-field :global(.select-native) {
 			font-size: 14px;
-			padding-top: 11px;
-			padding-bottom: 11px;
+			padding: 11px 14px;
+			border: 1px solid var(--divider);
+			background: var(--bg-site);
 		}
 		.search-btn {
+			height: auto;
 			padding: 13px 20px;
 			font-size: 15px;
 		}
@@ -2207,10 +2251,13 @@
 		.cats-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
-		/* Kafel kategorii ma na mobile ~165px szerokości — bez zmniejszenia typografii
-		   podpisy zawijały się i rozpychały pasek. */
+		/* Kafle 2×2, kwadratowe — wysokość wynika z proporcji, nie ze stałej wartości
+		   (stała + aspect-ratio wypychała kafel poza kolumnę). */
 		.cat {
-			height: 220px;
+			height: auto;
+		}
+		.cat-bar {
+			padding: 14px 14px 16px;
 		}
 		.cat-name {
 			font-size: 19px;
