@@ -1323,12 +1323,13 @@
 		gap: 22px;
 		align-items: flex-start;
 		padding: 20px 18px;
-		border-top: 1px solid var(--divider);
 		width: 100%;
 		text-align: left;
 		background: none;
-		border-left: none;
-		border-right: none;
+		/* to jest <button> — bez pełnego resetu zostaje domyślne obramowanie
+		   przeglądarki (2px czarne u dołu), widoczne na białej karcie */
+		border: none;
+		border-top: 1px solid var(--divider);
 		font-family: inherit;
 		color: inherit;
 	}
@@ -2376,7 +2377,8 @@
 		}
 		.svc-mobile-panel {
 			display: none;
-			padding: 0 18px 20px;
+			/* odstęp od białej karty aktywnego wiersza — zdjęcie kleiło się do niej */
+			padding: 18px 18px 24px;
 		}
 		.svc-mobile-panel.open {
 			display: block;
@@ -2385,7 +2387,7 @@
 			height: 150px;
 			border-radius: 12px;
 			overflow: hidden;
-			margin-bottom: 12px;
+			margin-bottom: 14px;
 			background-size: cover;
 			background-position: center;
 		}
