@@ -49,7 +49,7 @@
 		<!-- ============ HERO ============ -->
 		<section
 			class="hero-svc"
-			style="background-image:linear-gradient(105deg,rgba(18,26,20,.78) 0%,rgba(18,26,20,.5) 52%,rgba(18,26,20,.24) 100%),url('{hero.tlo}')"
+			style="background-image:linear-gradient(102deg,rgba(18,26,20,.80) 0%,rgba(18,26,20,.46) 52%,rgba(18,26,20,.16) 100%),url('{hero.tlo}')"
 		>
 			<div class="hero-svc-copy">
 				<span class="hero-svc-eyebrow">{hero.eyebrow}</span>
@@ -76,16 +76,18 @@
 					<div class="biuro-photo">
 						<img src={oBiurze.zdjecie.src} alt={oBiurze.zdjecie.alt} />
 					</div>
-					<div class="biuro-badge-google">
-						<div class="bg-n">{oBiurze.badges[0].n}</div>
-						<div>
-							<div class="bg-stars">★★★★★</div>
-							<div class="bg-l">{oBiurze.badges[0].l}</div>
+					<!-- Jedna karta referencyjna zamiast dwóch plakietek po przekątnych,
+					     które zasłaniały kadr zdjęcia. Te same dane. -->
+					<div class="biuro-ref">
+						<div class="biuro-ref-poz">
+							<div class="biuro-ref-n">{oBiurze.badges[0].n}</div>
+							<div class="biuro-ref-stars">★★★★★</div>
+							<div class="biuro-ref-l">{oBiurze.badges[0].l}</div>
 						</div>
-					</div>
-					<div class="biuro-badge-lata">
-						<div class="bl-n">{oBiurze.badges[1].n}</div>
-						<div class="bl-l">{oBiurze.badges[1].l}</div>
+						<div class="biuro-ref-poz">
+							<div class="biuro-ref-n">{oBiurze.badges[1].n}</div>
+							<div class="biuro-ref-l">{oBiurze.badges[1].l}</div>
+						</div>
 					</div>
 				</div>
 				<div class="biuro-head">
@@ -115,30 +117,32 @@
 			</div>
 		</section>
 
-		<!-- ============ ZESPÓŁ ============ -->
-		<section class="section zespol-section">
-			<div class="zespol-head">
-				<div class="eyebrow eyebrow-green">{zespol.eyebrow}</div>
-				<h2 class="h2 zespol-h2">
-					{zespol.tytul.split(zespol.tytulEmfaza)[0]}<em>{zespol.tytulEmfaza}</em>{zespol.tytul.split(
-						zespol.tytulEmfaza
-					)[1]}
-				</h2>
-				<p class="zespol-lead">{zespol.podtytul}</p>
-			</div>
-			<div class="zespol-grid">
-				{#each zespol.osoby as osoba}
-					<div class="zespol-card">
-						<div class="zespol-photo">
-							<img src={osoba.img} alt={osoba.imie} />
+		<!-- ============ ZESPÓŁ (pas pełnoszerokościowy, kontener wewnątrz) ============ -->
+		<section class="zespol-section">
+			<div class="container">
+				<div class="zespol-head">
+					<div class="eyebrow eyebrow-green">{zespol.eyebrow}</div>
+					<h2 class="h2 zespol-h2">
+						{zespol.tytul.split(zespol.tytulEmfaza)[0]}<em>{zespol.tytulEmfaza}</em>{zespol.tytul.split(
+							zespol.tytulEmfaza
+						)[1]}
+					</h2>
+					<p class="zespol-lead">{zespol.podtytul}</p>
+				</div>
+				<div class="zespol-grid">
+					{#each zespol.osoby as osoba}
+						<div class="zespol-card">
+							<div class="zespol-photo">
+								<img src={osoba.img} alt="{osoba.imie} — {osoba.rola}" />
+							</div>
+							<div class="zespol-body">
+								<div class="zespol-rola">{osoba.rola}</div>
+								<div class="zespol-imie">{osoba.imie}</div>
+								<p class="zespol-opis">{osoba.opis}</p>
+							</div>
 						</div>
-						<div class="zespol-body">
-							<div class="zespol-rola">{osoba.rola}</div>
-							<div class="zespol-imie">{osoba.imie}</div>
-							<p class="zespol-opis">{osoba.opis}</p>
-						</div>
-					</div>
-				{/each}
+					{/each}
+				</div>
 			</div>
 		</section>
 
@@ -255,7 +259,7 @@
 	/* ===== HERO ===== */
 	.hero-svc {
 		position: relative;
-		height: 470px;
+		height: 560px;
 		background-size: cover;
 		background-position: center;
 		display: flex;
@@ -264,7 +268,8 @@
 		padding: 0 72px;
 	}
 	.hero-svc-copy {
-		max-width: 680px;
+		/* węższa kolumna — H1 łamie się na dwa pełne wiersze, bez sierotki */
+		max-width: 640px;
 		color: #fff;
 	}
 	.hero-svc-eyebrow {
@@ -284,9 +289,10 @@
 	.hero-svc-h1 {
 		font-family: 'Newsreader', serif;
 		font-weight: 500;
-		font-size: 54px;
-		line-height: 1.07;
-		letter-spacing: -0.01em;
+		font-size: 60px;
+		line-height: 1.05;
+		letter-spacing: -0.015em;
+		text-wrap: balance;
 		margin-bottom: 18px;
 		em {
 			font-style: italic;
@@ -321,8 +327,8 @@
 
 	/* ===== NASZE BIURO ===== */
 	.biuro-section {
-		padding-top: 84px;
-		padding-bottom: 78px;
+		padding-top: var(--space-section);
+		padding-bottom: var(--space-section);
 	}
 	.biuro-grid {
 		display: grid;
@@ -354,59 +360,47 @@
 		object-fit: cover;
 		object-position: center top;
 	}
-	.biuro-badge-google {
+	/* Jedna karta referencyjna w lewym dolnym rogu zdjęcia (4,9 + 11 lat) */
+	.biuro-ref {
 		position: absolute;
 		left: -24px;
-		bottom: 34px;
+		bottom: 32px;
+		display: grid;
+		grid-auto-flow: column;
 		background: #fff;
 		border: 1px solid var(--border);
 		border-radius: 16px;
-		padding: 15px 20px;
+		padding: 16px 22px;
 		box-shadow: 0 26px 46px -24px rgba(30, 40, 30, 0.5);
-		display: flex;
-		align-items: center;
-		gap: 14px;
 	}
-	.bg-n {
+	.biuro-ref-poz {
+		padding-inline: 20px;
+	}
+	.biuro-ref-poz:first-child {
+		padding-left: 0;
+	}
+	.biuro-ref-poz:last-child {
+		padding-right: 0;
+		border-left: 1px solid var(--divider);
+	}
+	.biuro-ref-n {
 		font-family: 'Newsreader', serif;
-		font-size: 36px;
+		font-size: 30px;
 		font-weight: 600;
 		color: var(--green);
 		line-height: 1;
 	}
-	.bg-stars {
+	.biuro-ref-stars {
 		color: var(--gold);
-		font-size: 15px;
+		font-size: 13px;
 		letter-spacing: 0.08em;
+		margin-top: 5px;
 	}
-	.bg-l {
+	.biuro-ref-l {
 		font-size: 12px;
 		color: var(--muted);
-		margin-top: 3px;
-	}
-	.biuro-badge-lata {
-		position: absolute;
-		right: -14px;
-		top: 26px;
-		background: var(--green);
-		color: var(--gold-light);
-		border-radius: 14px;
-		padding: 12px 18px;
-		box-shadow: 0 22px 40px -22px rgba(18, 26, 20, 0.65);
-		text-align: center;
-	}
-	.bl-n {
-		font-family: 'Newsreader', serif;
-		font-size: 26px;
-		font-weight: 600;
-		line-height: 1;
-	}
-	.bl-l {
-		font-size: 11px;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: rgba(233, 209, 154, 0.82);
 		margin-top: 4px;
+		white-space: nowrap;
 	}
 	.biuro-head {
 		grid-area: head;
@@ -433,11 +427,12 @@
 	.biuro-p + .biuro-p {
 		margin-top: 15px;
 	}
-	/* Blok „Biuro prowadzi" — Lucyna + kontakt */
+	/* Blok „Biuro prowadzi" — osobna wizytówka na kremie, nie dalszy ciąg akapitu */
 	.biuro-lider {
-		margin-top: 26px;
-		padding-top: 24px;
-		border-top: 1px solid var(--border);
+		margin-top: 28px;
+		padding: 30px;
+		background: var(--bg-cream-2);
+		border-radius: 20px;
 	}
 	.biuro-lider-imie {
 		font-family: 'Newsreader', serif;
@@ -481,10 +476,9 @@
 		color: var(--text);
 	}
 
-	/* ===== ZESPÓŁ (zielony band — rytm sekcji) ===== */
+	/* ===== ZESPÓŁ (zielony pas pełnoszerokościowy — rytm sekcji) ===== */
 	.zespol-section {
-		padding-top: 72px;
-		padding-bottom: 76px;
+		padding: var(--space-section) 0;
 		background: var(--green);
 		color: var(--on-green);
 	}
@@ -511,15 +505,16 @@
 		color: rgba(243, 238, 225, 0.82);
 		text-wrap: pretty;
 	}
-	/* Karty zespołu celowo węższe niż duże zdjęcie Lucyny w sekcji „Nasze biuro"
-	   (prośba klientki) — para kart wyśrodkowana w zielonym bandzie. */
+	/* Karty poziome (foto + treść), dwie na całą szerokość kontenera — zamiast
+	   dwóch wąskich kolumn wypełniających mniej niż połowę pasa. */
 	.zespol-grid {
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 340px));
-		justify-content: center;
+		grid-template-columns: repeat(2, 1fr);
 		gap: 28px;
 	}
 	.zespol-card {
+		display: grid;
+		grid-template-columns: 200px minmax(0, 1fr);
 		background: #fff;
 		/* Karta jest biała — cofamy jasny kolor tekstu dziedziczony z zielonej sekcji
 		   (inaczej imiona są niewidoczne). */
@@ -528,6 +523,10 @@
 		border-radius: 20px;
 		overflow: hidden;
 		box-shadow: 0 20px 40px -26px rgba(30, 40, 30, 0.5);
+		transition: box-shadow 0.25s ease;
+	}
+	.zespol-card:hover {
+		box-shadow: 0 20px 40px -22px rgba(30, 40, 30, 0.55);
 	}
 	.zespol-photo {
 		position: relative;
@@ -544,7 +543,8 @@
 		}
 	}
 	.zespol-body {
-		padding: 24px 24px 28px;
+		padding: 26px 26px 28px;
+		align-self: center;
 	}
 	.zespol-rola {
 		font-size: 12px;
@@ -567,25 +567,29 @@
 		margin-top: 11px;
 		text-wrap: pretty;
 	}
-	/* Mobile/tablet: lista poziomych kart (foto po lewej). */
-	@media (max-width: 900px) {
+	/* Tablet: karty poziome zostają, ale jedna pod drugą. */
+	@media (max-width: 1199px) {
 		.zespol-grid {
 			grid-template-columns: 1fr;
-			gap: 12px;
+			gap: 20px;
+		}
+	}
+	/* Telefon: foto 104×130, zwarta typografia (wg specyfikacji). */
+	@media (max-width: 640px) {
+		.zespol-grid {
+			gap: 14px;
 		}
 		.zespol-card {
-			display: flex;
-			gap: 15px;
-			align-items: center;
-			padding: 14px;
-			border-radius: 16px;
+			grid-template-columns: 104px minmax(0, 1fr);
+			gap: 14px;
+			padding: 16px;
+			border-radius: 18px;
 		}
 		.zespol-photo {
-			flex: 0 0 auto;
-			width: 84px;
-			height: 104px;
+			width: 104px;
+			height: 130px;
 			aspect-ratio: auto;
-			border-radius: 14px;
+			border-radius: 12px;
 		}
 		.zespol-body {
 			padding: 0;
@@ -595,15 +599,13 @@
 			margin-bottom: 3px;
 		}
 		.zespol-imie {
-			font-size: 19px;
+			font-size: 21px;
 		}
 		.zespol-opis {
-			font-size: 13px;
-			line-height: 1.5;
-			margin-top: 5px;
+			font-size: 13.5px;
+			line-height: 1.58;
+			margin-top: 6px;
 		}
-	}
-	@media (max-width: 640px) {
 		.zespol-h2 {
 			font-size: 26px;
 		}
@@ -611,8 +613,9 @@
 
 	/* ===== WARTOŚCI ===== */
 	.wartosci-section {
-		padding-top: 8px;
-		padding-bottom: 78px;
+		/* sekcja nie może startować tuż pod zielonym pasem (było 8px) */
+		padding-top: var(--space-section);
+		padding-bottom: var(--space-section);
 	}
 	.wartosci-grid {
 		display: grid;
@@ -623,27 +626,25 @@
 		background: #fff;
 		border: 1px solid var(--border);
 		border-radius: 18px;
-		padding: 26px 24px;
-		box-shadow: 0 16px 30px -22px rgba(30, 40, 30, 0.5);
+		padding: 30px 28px;
+		box-shadow: 0 16px 30px -26px rgba(30, 40, 30, 0.5);
+		transition: box-shadow 0.25s ease;
 	}
+	.wartosci-card:hover {
+		box-shadow: 0 16px 30px -22px rgba(30, 40, 30, 0.55);
+	}
+	/* ✦ jako sam złoty glif — bez kółka i obrysu */
 	.wartosci-badge {
-		width: 38px;
-		height: 38px;
-		border-radius: 50%;
-		background: var(--bg-cream-2);
-		border: 1px solid #e7d8be;
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		color: var(--gold);
-		font-size: 17px;
+		font-size: 20px;
+		line-height: 1;
 	}
 	.wartosci-t {
 		font-family: 'Newsreader', serif;
-		font-size: 21px;
+		font-size: 22px;
 		font-weight: 500;
 		line-height: 1.2;
-		margin-top: 16px;
+		margin-top: 14px;
 	}
 	.wartosci-d {
 		font-size: 15px;
@@ -688,17 +689,19 @@
 		inset: 0;
 		background-size: cover;
 		background-position: center;
+		/* zdjęcie jest zimne i mocno nasycone — stonowanie pod kremową paletę */
+		filter: saturate(0.78) contrast(0.96);
 	}
 	.region-photo::after {
 		content: '';
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(90deg, rgba(18, 26, 20, 0.3) 0%, rgba(18, 26, 20, 0.06) 60%);
+		background: linear-gradient(96deg, rgba(30, 26, 18, 0.34) 0%, rgba(30, 26, 18, 0.08) 60%);
 	}
 	.region-inner {
 		position: relative;
-		max-width: 1344px;
-		margin: 0 auto;
+		width: min(var(--container), 100% - var(--gutter) * 2);
+		margin-inline: auto;
 		display: flex;
 	}
 	.region-card {
@@ -706,7 +709,7 @@
 		background: var(--bg-site);
 		border: 1px solid var(--border);
 		border-radius: 24px;
-		padding: 46px 46px 42px;
+		padding: 48px;
 		box-shadow: 0 46px 90px -42px rgba(18, 26, 20, 0.7);
 	}
 	.region-h2 {
@@ -879,23 +882,14 @@
 			align-self: auto;
 			margin: 16px 0 24px;
 		}
-		/* W jednej kolumnie zdjęcie dotyka marginesu strony — plakietki muszą
-		   wjechać do środka, inaczej wychodzą poza ekran. */
-		.biuro-badge-google {
-			left: 8px;
-			bottom: 16px;
-			padding: 11px 15px;
-		}
-		.bg-n {
-			font-size: 28px;
-		}
-		.biuro-badge-lata {
-			right: 8px;
-			top: 16px;
-			padding: 9px 13px;
-		}
-		.bl-n {
-			font-size: 20px;
+		/* W jednej kolumnie zdjęcie dotyka marginesu — karta referencyjna schodzi
+		   pod zdjęcie i wsuwa się na nie o 30px (zamiast leżeć na twarzy). */
+		.biuro-ref {
+			position: relative;
+			left: auto;
+			bottom: auto;
+			margin: -30px 16px 0;
+			justify-content: center;
 		}
 		.biuro-head {
 			align-self: auto;
@@ -971,11 +965,7 @@
 			padding-bottom: 8px;
 		}
 		.zespol-section {
-			padding-top: 40px;
-			padding-bottom: 44px;
-		}
-		.zespol-h2 {
-			font-size: 26px;
+			padding: var(--space-section-sm) 0;
 		}
 		.zespol-lead {
 			font-size: 14.5px;

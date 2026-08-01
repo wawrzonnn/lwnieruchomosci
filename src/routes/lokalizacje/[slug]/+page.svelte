@@ -419,8 +419,9 @@
 	}
 
 	/* ===== SECTION GENERIC ===== */
+	/* padding boczny robi globalny kontener (.lw-landing .section) — tu tylko pion */
 	.section {
-		padding: 56px 48px 40px;
+		padding: 56px 0 40px;
 	}
 	.section-head {
 		display: flex;
@@ -939,7 +940,7 @@
 	}
 	@media (max-width: 980px) {
 		.section {
-			padding: 32px 20px 8px;
+			padding: 32px 0 8px;
 		}
 		.hero {
 			/* auto zamiast sztywnych 430px — przy chipach i 2 przyciskach w kolumnie

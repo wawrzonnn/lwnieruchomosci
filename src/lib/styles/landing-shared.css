@@ -22,6 +22,15 @@
 	--border: #efeadd;
 	--divider: #e8e2d5;
 	--nav-border: #ece6d9;
+	--divider-cream: #e1daca; /* pionowe linie na kremowym tle (pasek statystyk) */
+
+	/* Siatka i rytm — redesign: kontener zamiast samego paddingu, żeby na 1440px+
+	   akapity nie przekraczały ~90 znaków w linii. */
+	--container: 1180px;
+	--gutter: 48px;
+	--space-section: 96px;
+	--space-section-sm: 52px;
+	--measure: 600px; /* maksymalna szerokość akapitu tekstu ciągłego */
 }
 
 .lw-landing {
@@ -69,8 +78,22 @@
 	margin: 0;
 }
 
+/* Kontener treści: zamiast samego paddingu bocznego ograniczamy szerokość i
+   centrujemy. Sekcje pełnoszerokościowe (hero, zielone pasy, galeria regionu,
+   podwójne CTA) nie mają klasy .section — kontener wchodzi do ich środka. */
 .lw-landing .section {
-	padding: 0 48px;
+	width: min(var(--container), 100% - var(--gutter) * 2);
+	margin-inline: auto;
+	padding-inline: 0;
+}
+/* Ten sam kontener do użycia wewnątrz sekcji pełnoszerokościowych. */
+.lw-landing .container {
+	width: min(var(--container), 100% - var(--gutter) * 2);
+	margin-inline: auto;
+}
+/* Maksymalna długość wiersza tekstu ciągłego (~70–75 znaków). */
+.lw-landing .measure {
+	max-width: var(--measure);
 }
 .lw-landing .eyebrow {
 	font-size: 12px;
@@ -110,10 +133,15 @@
 	opacity: 0.82;
 }
 
+@media (max-width: 900px) {
+	:root {
+		--gutter: 32px;
+	}
+}
 @media (max-width: 640px) {
-	.lw-landing .section {
-		padding-left: 20px;
-		padding-right: 20px;
+	:root {
+		/* margines boczny na telefonie — steruje szerokością .section i .container */
+		--gutter: 20px;
 	}
 	.lw-landing .h2 {
 		font-size: 32px;

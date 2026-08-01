@@ -2098,7 +2098,7 @@
 		}
 	}
 	@media (max-width: 640px) {
-		.section,
+		/* .section ma teraz kontener z globalnym --gutter; tu tylko sekcje full-bleed */
 		.about {
 			padding-left: 20px;
 			padding-right: 20px;
