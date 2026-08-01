@@ -2087,6 +2087,11 @@
 		.search-field:nth-child(odd) {
 			border-left: none;
 		}
+		/* „Cena do" na całą szerokość — inaczej obok niej zostaje pusta komórka */
+		.search-field:nth-of-type(3) {
+			grid-column: 1 / -1;
+			border-top: 1px solid var(--border);
+		}
 		.search-btn {
 			grid-column: span 2;
 			margin-top: 6px;
