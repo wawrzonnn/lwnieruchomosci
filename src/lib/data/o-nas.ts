@@ -31,7 +31,7 @@ export const oBiurze = {
 	tytulEmfaza: 'lokalnego rynku',
 	// Główne zdjęcie sekcji = Lucyna Wojtoń (założycielka). Kadr pionowy 4:5.
 	zdjecie: {
-		src: '/zespol-lucyna.png',
+		src: '/zespol-lucyna.webp',
 		alt: 'Lucyna Wojtoń – LW Nieruchomości'
 	},
 	badges: [

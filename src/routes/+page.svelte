@@ -389,7 +389,7 @@
 
 		<!-- ============ ABOUT ============ -->
 		<section class="about" id="o-nas">
-			<div class="about-grid">
+			<div class="container about-grid">
 				<div>
 					<div class="eyebrow eyebrow-green">{oNas.eyebrow}</div>
 					<h2 class="about-h2">
@@ -1196,7 +1196,8 @@
 	/* ===== ABOUT ===== */
 	.about {
 		margin-top: 64px;
-		padding: 64px 48px;
+		/* zielony pas pełnoszerokościowy, treść w kontenerze (tak jak w .why) */
+		padding: 64px 0;
 		background: var(--green);
 		color: var(--on-green);
 	}
@@ -1248,7 +1249,12 @@
 	}
 	.about-photo {
 		position: relative;
-		height: 440px;
+		/* portret 4:5 — ten sam kadr co na /o-nas. Poziomy panel obcinał zdjęcie
+		   do zbliżenia na twarz (materiał jest pionowy 3:4). */
+		aspect-ratio: 4 / 5;
+		width: 100%;
+		max-width: 430px;
+		margin-left: auto;
 		border-radius: 18px;
 		overflow: hidden;
 		border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1258,15 +1264,17 @@
 		position: absolute;
 		inset: 0;
 		background-size: cover;
-		background-position: center 18%;
+		background-position: center top;
 	}
 	.about-photo-grad {
 		position: absolute;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		height: 130px;
-		background: linear-gradient(0deg, rgba(20, 30, 22, 0.74), transparent);
+		/* na telefonie podpis łamie się na dwie linie i trafia na jasną marynarkę —
+		   stąd wyższy i mocniejszy gradient */
+		height: 156px;
+		background: linear-gradient(0deg, rgba(20, 30, 22, 0.84), transparent);
 	}
 	.about-photo-cap {
 		position: absolute;
@@ -2117,6 +2125,10 @@
 		.contact-box {
 			grid-template-columns: 1fr;
 		}
+		/* jedna kolumna — zdjęcie na środku, nie dosunięte do prawej */
+		.about-photo {
+			margin-inline: auto;
+		}
 		/* mobile: akordeon najpierw, kremowa karta kontaktu na dole (wg handoffu 19) */
 		.faq-list {
 			order: 1;
@@ -2164,10 +2176,9 @@
 		}
 	}
 	@media (max-width: 640px) {
-		/* .section ma teraz kontener z globalnym --gutter; tu tylko sekcje full-bleed */
+		/* .about ma już wewnętrzny .container z globalnym --gutter — tylko rytm pionowy */
 		.about {
-			padding-left: 20px;
-			padding-right: 20px;
+			padding: 44px 0;
 		}
 		.hero {
 			min-height: 0;

@@ -192,7 +192,7 @@ export const oNas = {
 		'LW Nieruchomości powstało z przekonania, że dobra współpraca zaczyna się od rozmowy i poznania potrzeb klienta. Każdą nieruchomość traktujemy indywidualnie, poświęcając jej czas i uwagę, na jakie zasługuje.',
 		'Nie stawiamy na ilość obsługiwanych ofert – stawiamy na jakość współpracy. Dzięki temu jesteśmy z klientami od pierwszego spotkania aż po przekazanie nieruchomości nowemu właścicielowi, dbając o każdy etap procesu.'
 	],
-	zdjecie: '/zespol-lucyna.png',
+	zdjecie: '/zespol-lucyna.webp',
 	podpisZdjecia: 'Lucyna Wojtoń',
 	podpisZdjeciaMaly: 'WŁAŚCICIELKA · SPECJALISTKA DS. NIERUCHOMOŚCI'
 };
