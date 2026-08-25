@@ -16,7 +16,7 @@
 	<title>Region Karkonosze – nieruchomości w Jeleniej Górze i okolicy | LW Nieruchomości</title>
 	<meta
 		name="description"
-		content="Miejscowości, w których działamy: Jelenia Góra, Karpacz, Szklarska Poręba, Kowary, Piechowice, Podgórzyn i okolice. Poznaj lokalizację i zobacz dostępne nieruchomości."
+		content="Miejscowości, w których działamy: Jelenia Góra, Karpacz, Szklarska Poręba, Kowary, Piechowice, Sosnówka, Staniszów i okolice. Poznaj lokalizację i zobacz dostępne nieruchomości."
 	/>
 </svelte:head>
 

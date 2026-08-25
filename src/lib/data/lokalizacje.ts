@@ -94,7 +94,7 @@ export const miasta: Miasto[] = [
 		nazwa: 'Karpacz',
 		nazwaLoc: 'Karpaczu',
 		region: 'Karkonosze · u stóp Śnieżki',
-		hero: '/sniezka-sunset.png',
+		hero: '/lokalizacje/karpacz.jpg',
 		lead: 'Najpopularniejszy górski kurort regionu u podnóża Śnieżki – turystyka przez cały rok i silny rynek apartamentów na wynajem.',
 		chips: ['Karkonosze', '≈ 4,7 tys. mieszkańców', 'Kurort górski'],
 		opis: [
@@ -130,7 +130,7 @@ export const miasta: Miasto[] = [
 		nazwa: 'Szklarska Poręba',
 		nazwaLoc: 'Szklarskiej Porębie',
 		region: 'Karkonosze zachodnie',
-		hero: '/sunset-dolina.png',
+		hero: '/lokalizacje/szklarska-poreba.jpg',
 		lead: 'Kurort na zachodnim krańcu Karkonoszy – wodospady, szlaki i kolej gondolowa. Ceniony przez turystów i inwestorów apartamentowych.',
 		chips: ['Karkonosze zachodnie', '≈ 6,5 tys. mieszkańców', 'Kurort górski'],
 		opis: [
@@ -166,7 +166,7 @@ export const miasta: Miasto[] = [
 		nazwa: 'Kowary',
 		nazwaLoc: 'Kowarach',
 		region: 'między Karkonoszami a Rudawami',
-		hero: '/schronisko-staw.png',
+		hero: '/lokalizacje/kowary.jpg',
 		lead: 'Spokojne miasteczko między Karkonoszami a Rudawami Janowickimi – z tradycjami tkackimi i sztolniami, cenione za ciszę i naturę.',
 		chips: ['Karkonosze / Rudawy', '≈ 11 tys. mieszkańców', 'Spokojne miasteczko'],
 		opis: [
@@ -202,7 +202,7 @@ export const miasta: Miasto[] = [
 		nazwa: 'Piechowice',
 		nazwaLoc: 'Piechowicach',
 		region: 'brama do zachodnich Karkonoszy',
-		hero: '/karkonosze-panorama.png',
+		hero: '/lokalizacje/piechowice.jpg',
 		lead: 'Miasto u zbiegu Kamiennej i Małej Kamiennej, brama do zachodnich Karkonoszy – z hutą kryształów i wodospadem Szklarki.',
 		chips: ['Karkonosze zachodnie', '≈ 6 tys. mieszkańców', 'Miasteczko'],
 		opis: [
@@ -234,40 +234,62 @@ export const miasta: Miasto[] = [
 		]
 	},
 	{
-		slug: 'podgorzyn',
-		nazwa: 'Podgórzyn',
-		nazwaLoc: 'Podgórzynie',
-		region: 'u podnóża Karkonoszy',
-		hero: U('photo-1464822759023-fed622ff2c3b', 1600),
-		lead: 'Gmina u podnóża Karkonoszy z zalewem Sosnówka – spokojne okolice dla rodzin szukających domu i działki blisko natury.',
-		chips: ['Kotlina Jeleniogórska', '≈ 8 tys. (gmina)', 'Wieś / rekreacja'],
+		slug: 'sosnowka',
+		nazwa: 'Sosnówka',
+		nazwaLoc: 'Sosnówce',
+		region: 'gmina Podgórzyn',
+		hero: '/lokalizacje/sosnowka.jpg',
+		lead: 'Wieś nad zalewem Sosnówka, u podnóża Karkonoszy – działki widokowe i domy kilka minut od Jeleniej Góry.',
+		chips: ['Kotlina Jeleniogórska', 'Gmina Podgórzyn', 'Wieś / rekreacja'],
 		opis: [
-			'Podgórzyn to gmina wiejska tuż przy Jeleniej Górze, u podnóża Karkonoszy. Sercem okolicy jest zalew Sosnówka – popularne miejsce rekreacji, wokół którego rozwija się budownictwo jednorodzinne.',
-			'To lokalizacja dla ceniących spokój, przestrzeń i widok na góry, przy zachowaniu bliskości miasta. Dominują tu domy i działki budowlane, często z widokowym położeniem – chętnie wybierane przez rodziny.'
+			'Sosnówka leży w gminie Podgórzyn, u podnóża Karkonoszy, tuż przy zalewie Sosnówka – największym akwenie okolicy i popularnym miejscu rekreacji. Wokół rozwija się budownictwo jednorodzinne.',
+			'To adres dla szukających przestrzeni i widoku na góry bez rezygnacji z bliskości miasta. Dominują działki budowlane, często widokowe, oraz domy jednorodzinne.'
 		],
 		fakty: [
 			{ k: 'Region', v: 'Kotlina Jeleniogórska' },
-			{ k: 'Typ', v: 'Gmina wiejska' },
+			{ k: 'Gmina', v: 'Podgórzyn' },
 			{ k: 'Powiat', v: 'karkonoski' },
 			{ k: 'Charakter', v: 'Wieś / rekreacja' },
 			{ k: 'Atrakcja', v: 'Zalew Sosnówka' }
 		],
 		atuty: [
-			{ t: 'Zalew Sosnówka', d: 'Tereny rekreacyjne i plaża w zasięgu.' },
-			{ t: 'Domy i działki', d: 'Przestrzeń pod budowę własnego domu.' },
-			{ t: 'Blisko Jeleniej Góry', d: 'Kilka minut do miejskich udogodnień.' },
-			{ t: 'Cisza i przestrzeń', d: 'Spokojne, kameralne otoczenie.' },
-			{ t: 'Tereny widokowe', d: 'Panorama Karkonoszy z wielu działek.' },
-			{ t: 'Rozwój budownictwa', d: 'Rosnąca oferta nowych inwestycji.' }
+			{ t: 'Zalew Sosnówka', d: 'Tereny rekreacyjne i woda w zasięgu spaceru.' },
+			{ t: 'Działki widokowe', d: 'Panorama Karkonoszy z wielu parcel.' },
+			{ t: 'Blisko Jeleniej Góry', d: 'Kilkanaście minut do miejskich udogodnień.' },
+			{ t: 'Cisza i przestrzeń', d: 'Kameralna, spokojna okolica.' },
+			{ t: 'Pod własny dom', d: 'Przewaga działek budowlanych w ofercie.' },
+			{ t: 'Rozwój okolicy', d: 'Rosnąca liczba nowych inwestycji.' }
 		],
-		galeria: [
-			'/sunset-dolina.png',
-			'/karkonosze-panorama.png',
-			'/schronisko-staw.png',
-			U('photo-1500382017468-9049fed747ef'),
-			U('photo-1449824913935-59a10b8d2000'),
-			U('photo-1439066615861-d1af74d74000')
-		]
+		galeria: ['/lokalizacje/sosnowka.jpg', '/karkonosze-panorama.png', '/sunset-dolina.png']
+	},
+	{
+		slug: 'staniszow',
+		nazwa: 'Staniszów',
+		nazwaLoc: 'Staniszowie',
+		region: 'gmina Podgórzyn',
+		hero: '/lokalizacje/staniszow.jpg',
+		lead: 'Wieś u podnóża Góry Witoszy, z pałacem i zabytkowym kościołem – spokojna, widokowa okolica tuż przy Jeleniej Górze.',
+		chips: ['Kotlina Jeleniogórska', 'Gmina Podgórzyn', 'Wieś / historia'],
+		opis: [
+			'Staniszów to jedna z najbardziej klimatycznych wsi gminy Podgórzyn – z pałacem, zabytkowym kościołem i zabudową rozłożoną u podnóża Góry Witoszy. Okolica ceniona za krajobraz i ciszę.',
+			'Rynek tworzą głównie działki budowlane i domy. To kierunek dla osób szukających widokowej lokalizacji z charakterem, w zasięgu Jeleniej Góry i Karkonoszy.'
+		],
+		fakty: [
+			{ k: 'Region', v: 'Kotlina Jeleniogórska' },
+			{ k: 'Gmina', v: 'Podgórzyn' },
+			{ k: 'Powiat', v: 'karkonoski' },
+			{ k: 'Charakter', v: 'Wieś / historia' },
+			{ k: 'Atrakcja', v: 'Pałac Staniszów, Góra Witosza' }
+		],
+		atuty: [
+			{ t: 'Góra Witosza', d: 'Punkt widokowy i szlaki tuż za progiem.' },
+			{ t: 'Pałac Staniszów', d: 'Zabytkowy zespół pałacowo-parkowy.' },
+			{ t: 'Blisko Jeleniej Góry', d: 'Kilkanaście minut do centrum miasta.' },
+			{ t: 'Działki i domy', d: 'Przestrzeń pod budowę w widokowym terenie.' },
+			{ t: 'Klimat wsi', d: 'Historyczna zabudowa i zieleń.' },
+			{ t: 'Karkonosze w zasięgu', d: 'Szybki dojazd do Karpacza i szlaków.' }
+		],
+		galeria: ['/lokalizacje/staniszow.jpg', '/karkonosze-panorama.png', '/schronisko-staw.png']
 	},
 	{
 		slug: 'kamienna-gora',
@@ -310,7 +332,7 @@ export const miasta: Miasto[] = [
 		nazwa: 'Mysłakowice',
 		nazwaLoc: 'Mysłakowicach',
 		region: 'Dolina Pałaców i Ogrodów',
-		hero: U('photo-1476514525535-07fb3b4ae5f1', 1600),
+		hero: '/lokalizacje/myslakowice.jpg',
 		lead: 'Gmina w Dolinie Pałaców i Ogrodów, w połowie drogi między Jelenią Górą a Karpaczem – z pałacem królewskim i tyrolskimi domami osadników.',
 		chips: ['Kotlina Jeleniogórska', '≈ 10 tys. (gmina)', 'Wieś / pałace'],
 		opis: [
