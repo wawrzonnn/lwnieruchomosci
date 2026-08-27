@@ -1,7 +1,8 @@
 // Treść landingu LW Nieruchomości (wariant 1a). Zdjęcia lokalne w /static,
 // zdjęcia ofert/usług/agentki to placeholdery Unsplash — łatwe do podmiany.
 
-const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+const U = (id: string, w = 900) =>
+	`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export const kontakt = {
 	telefon: '+48 690 008 273',
@@ -268,8 +269,18 @@ export const region = {
 	tytul: 'Rozejrzyj się po Karkonoszach',
 	hint: 'PRZECIĄGNIJ / PRZEWIŃ →',
 	galeria: [
-		{ size: 'big', img: '/karkonosze-panorama.png', caption: 'Karpacz', href: '/lokalizacje/karpacz' },
-		{ size: 'small', img: '/jelenia-gora-zima.png', caption: 'Jelenia Góra', href: '/lokalizacje/jelenia-gora' },
+		{
+			size: 'big',
+			img: '/karkonosze-panorama.png',
+			caption: 'Karpacz',
+			href: '/lokalizacje/karpacz'
+		},
+		{
+			size: 'small',
+			img: '/jelenia-gora-zima.png',
+			caption: 'Jelenia Góra',
+			href: '/lokalizacje/jelenia-gora'
+		},
 		{
 			size: 'big',
 			img: '/schronisko-staw.png',
@@ -300,12 +311,6 @@ export const region = {
 			img: U('photo-1476514525535-07fb3b4ae5f1', 1000),
 			caption: 'Mysłakowice',
 			href: '/lokalizacje/myslakowice'
-		},
-		{
-			size: 'big',
-			img: U('photo-1439066615861-d1af74d74000', 1400),
-			caption: 'Leśna',
-			href: '/lokalizacje/lesna'
 		}
 	] satisfies RegionTile[]
 };
@@ -324,7 +329,8 @@ export const opinie = [
 		initials: 'MO'
 	},
 	{
-		quote: 'Profesjonalnie, ciepło i konkretnie. Cały czas wiedziałem, co dzieje się z moją ofertą.',
+		quote:
+			'Profesjonalnie, ciepło i konkretnie. Cały czas wiedziałem, co dzieje się z moją ofertą.',
 		name: 'Robert W.',
 		loc: 'Cieplice',
 		initials: 'RW'

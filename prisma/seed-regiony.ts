@@ -30,14 +30,38 @@ const KATALOG = 'static/regiony';
 // z jego ofert; patrz pole `district` w listings).
 const REGIONY = [
 	{ slug: 'karpacz', nazwa: 'Karpacz', size: 'BIG', zrodlo: 'static/karkonosze-panorama.png' },
-	{ slug: 'jelenia-gora', nazwa: 'Jelenia Góra', size: 'SMALL', zrodlo: 'static/jelenia-gora-zima.png' },
-	{ slug: 'szklarska-poreba', nazwa: 'Szklarska Poręba', size: 'BIG', zrodlo: 'static/schronisko-staw.png' },
+	{
+		slug: 'jelenia-gora',
+		nazwa: 'Jelenia Góra',
+		size: 'SMALL',
+		zrodlo: 'static/jelenia-gora-zima.png'
+	},
+	{
+		slug: 'szklarska-poreba',
+		nazwa: 'Szklarska Poręba',
+		size: 'BIG',
+		zrodlo: 'static/schronisko-staw.png'
+	},
 	{ slug: 'kowary', nazwa: 'Kowary', size: 'SMALL', zrodlo: 'static/sunset-dolina.png' },
-	{ slug: 'piechowice', nazwa: 'Piechowice', size: 'BIG', zrodlo: U('photo-1476514525535-07fb3b4ae5f1') },
+	{
+		slug: 'piechowice',
+		nazwa: 'Piechowice',
+		size: 'BIG',
+		zrodlo: U('photo-1476514525535-07fb3b4ae5f1')
+	},
 	{ slug: 'sosnowka', nazwa: 'Sosnówka', size: 'SMALL', zrodlo: 'static/regiony/sosnowka.jpg' },
-	{ slug: 'kamienna-gora', nazwa: 'Kamienna Góra', size: 'BIG', zrodlo: U('photo-1464822759023-fed622ff2c3b') },
-	{ slug: 'myslakowice', nazwa: 'Mysłakowice', size: 'SMALL', zrodlo: U('photo-1476514525535-07fb3b4ae5f1') },
-	{ slug: 'lesna', nazwa: 'Leśna', size: 'BIG', zrodlo: U('photo-1439066615861-d1af74d74000') },
+	{
+		slug: 'kamienna-gora',
+		nazwa: 'Kamienna Góra',
+		size: 'BIG',
+		zrodlo: 'static/lokalizacje/kamienna-gora.jpg'
+	},
+	{
+		slug: 'myslakowice',
+		nazwa: 'Mysłakowice',
+		size: 'SMALL',
+		zrodlo: U('photo-1476514525535-07fb3b4ae5f1')
+	},
 	{ slug: 'staniszow', nazwa: 'Staniszów', size: 'SMALL', zrodlo: 'static/regiony/staniszow.jpg' }
 ] as const;
 
@@ -94,7 +118,10 @@ async function main() {
 
 	const wszystkie = await prisma.region.findMany({ orderBy: { order: 'asc' } });
 	console.log(`\nGOTOWE. Regionów w bazie: ${wszystkie.length}`);
-	for (const r of wszystkie) console.log(`  ${String(r.order).padStart(2)}. ${r.nazwa.padEnd(18)} ${r.size.padEnd(5)} ${r.image}`);
+	for (const r of wszystkie)
+		console.log(
+			`  ${String(r.order).padStart(2)}. ${r.nazwa.padEnd(18)} ${r.size.padEnd(5)} ${r.image}`
+		);
 }
 
 main()

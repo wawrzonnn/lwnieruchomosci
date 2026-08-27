@@ -1,9 +1,8 @@
-// Szablon podstron lokalizacyjnych (/lokalizacje/[slug]) dla 6 miast regionu.
-// Opisy, fakty, atuty i galeria to placeholder do zatwierdzenia przez klientkę
-// (zdjęcia lokalne w static/, reszta Unsplash — podmienić na realne).
+// Szablon podstron lokalizacyjnych (/lokalizacje/[slug]) dla miejscowości regionu.
+// Opisy, fakty i atuty to placeholder do zatwierdzenia przez klientkę.
+// Zdjęcia są już realne: hero z static/lokalizacje/<slug>.jpg (fotografie konkretnej
+// miejscowości), galeria ze static/karkonosze/ (zdjęcia regionu, wspólna pula).
 // Oferty NIE są tu hardcodowane — strona pobiera je z bazy wg miasta (patrz +page.server.ts).
-
-const U = (id: string, w = 800) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 export interface Fakt {
 	k: string;
@@ -49,7 +48,11 @@ export const ctaKontakt = {
 	opis: 'Powiedz nam, czego szukasz w tej lokalizacji. Odezwiemy się z dopasowanymi ofertami – także niepublikowanymi.',
 	typOpcje: ['Mieszkanie', 'Dom', 'Działka', 'Lokal', 'Jeszcze nie wiem'],
 	przycisk: 'Wyślij zgłoszenie',
-	kontakt: { telefon: '+48 690 008 273', email: 'biuro@lw.nieruchomosci.pl', godziny: 'Pon–Pt: 9:00–17:00' }
+	kontakt: {
+		telefon: '+48 690 008 273',
+		email: 'biuro@lw.nieruchomosci.pl',
+		godziny: 'Pon–Pt: 9:00–17:00'
+	}
 };
 
 export const miasta: Miasto[] = [
@@ -81,12 +84,12 @@ export const miasta: Miasto[] = [
 			{ t: 'Silny rynek najmu', d: 'Stały popyt – studenci i pracownicy.' }
 		],
 		galeria: [
-			'/jelenia-gora-zima.png',
-			'/karkonosze-panorama.png',
-			'/schronisko-staw.png',
-			U('photo-1519677100203-a0e668c92439'),
-			U('photo-1449824913935-59a10b8d2000'),
-			U('photo-1480714378408-67cf0d13bc1b')
+			'/karkonosze/kotlina-zachod-slonca.jpg',
+			'/karkonosze/jelenia-gora-noca.jpg',
+			'/karkonosze/jesienne-liscie-wiadukt.jpg',
+			'/karkonosze/zachod-mgly-w-dolinie.jpg',
+			'/karkonosze/swierki-panorama-doliny.jpg',
+			'/karkonosze/zima-morze-mgiel.jpg'
 		]
 	},
 	{
@@ -117,12 +120,12 @@ export const miasta: Miasto[] = [
 			{ t: 'Prestiż lokalizacji', d: 'Jeden z najbardziej pożądanych adresów.' }
 		],
 		galeria: [
-			'/sniezka-sunset.png',
-			'/karkonosze-panorama.png',
-			'/sunset-dolina.png',
-			U('photo-1506905925346-21bda4d32df4'),
-			U('photo-1454496522488-7a8e488e8606'),
-			U('photo-1439066615861-d1af74d74000')
+			'/karkonosze/sniezka-z-rowni.jpg',
+			'/karkonosze/rownia-pod-sniezka-kladka.jpg',
+			'/karkonosze/sniezka-zimowy-swit.jpg',
+			'/karkonosze/sniezka-obserwatorium-szadz.jpg',
+			'/karkonosze/sciezka-barierki-hala.jpg',
+			'/karkonosze/pielgrzymy-skaly.jpg'
 		]
 	},
 	{
@@ -153,12 +156,12 @@ export const miasta: Miasto[] = [
 			{ t: 'Czyste powietrze', d: 'Klimat górski ceniony przez kupujących.' }
 		],
 		galeria: [
-			'/sunset-dolina.png',
-			'/karkonosze-panorama.png',
-			U('photo-1552083375-1447ce886485'),
-			U('photo-1470071459604-3b5ec3a7fe05'),
-			U('photo-1476514525535-07fb3b4ae5f1'),
-			U('photo-1441974231531-c6227db76b6e')
+			'/karkonosze/swierki-panorama-doliny.jpg',
+			'/karkonosze/pielgrzymy-skaly.jpg',
+			'/karkonosze/wschod-slonca-na-grzbiecie.jpg',
+			'/karkonosze/zbocze-ze-sciezka-latem.jpg',
+			'/karkonosze/wschod-nad-chmurami.jpg',
+			'/karkonosze/staw-odbicie-chmur.jpg'
 		]
 	},
 	{
@@ -189,12 +192,12 @@ export const miasta: Miasto[] = [
 			{ t: 'Klimat leczniczy', d: 'Tradycje sanatoryjne i czyste powietrze.' }
 		],
 		galeria: [
-			'/schronisko-staw.png',
-			'/karkonosze-panorama.png',
-			'/sniezka-sunset.png',
-			U('photo-1500534623283-312aade485b7'),
-			U('photo-1470071459604-3b5ec3a7fe05'),
-			U('photo-1439066615861-d1af74d74000')
+			'/karkonosze/zachod-mgly-w-dolinie.jpg',
+			'/karkonosze/sniezka-z-rowni.jpg',
+			'/karkonosze/maly-staw-panorama.jpg',
+			'/karkonosze/sniezka-obserwatorium-szadz.jpg',
+			'/karkonosze/sciezka-barierki-hala.jpg',
+			'/karkonosze/zimowy-zachod-kosodrzewina.jpg'
 		]
 	},
 	{
@@ -225,12 +228,12 @@ export const miasta: Miasto[] = [
 			{ t: 'Tereny nad rzeką', d: 'Doliny Kamiennej i Małej Kamiennej.' }
 		],
 		galeria: [
-			'/karkonosze-panorama.png',
-			'/sunset-dolina.png',
-			'/schronisko-staw.png',
-			U('photo-1552083375-1447ce886485'),
-			U('photo-1454496522488-7a8e488e8606'),
-			U('photo-1441974231531-c6227db76b6e')
+			'/karkonosze/zbocze-ze-sciezka-latem.jpg',
+			'/karkonosze/staw-odbicie-chmur.jpg',
+			'/karkonosze/pielgrzymy-skaly.jpg',
+			'/karkonosze/zimowy-zachod-kosodrzewina.jpg',
+			'/karkonosze/kotlina-zachod-slonca.jpg',
+			'/karkonosze/wschod-nad-chmurami.jpg'
 		]
 	},
 	{
@@ -260,7 +263,14 @@ export const miasta: Miasto[] = [
 			{ t: 'Pod własny dom', d: 'Przewaga działek budowlanych w ofercie.' },
 			{ t: 'Rozwój okolicy', d: 'Rosnąca liczba nowych inwestycji.' }
 		],
-		galeria: ['/lokalizacje/sosnowka.jpg', '/karkonosze-panorama.png', '/sunset-dolina.png']
+		galeria: [
+			'/karkonosze/maly-staw-panorama.jpg',
+			'/karkonosze/sciezka-barierki-hala.jpg',
+			'/karkonosze/kotlina-zachod-slonca.jpg',
+			'/karkonosze/sniezka-z-rowni.jpg',
+			'/karkonosze/rownia-pod-sniezka-kladka.jpg',
+			'/karkonosze/wschod-slonca-na-grzbiecie.jpg'
+		]
 	},
 	{
 		slug: 'staniszow',
@@ -289,14 +299,21 @@ export const miasta: Miasto[] = [
 			{ t: 'Klimat wsi', d: 'Historyczna zabudowa i zieleń.' },
 			{ t: 'Karkonosze w zasięgu', d: 'Szybki dojazd do Karpacza i szlaków.' }
 		],
-		galeria: ['/lokalizacje/staniszow.jpg', '/karkonosze-panorama.png', '/schronisko-staw.png']
+		galeria: [
+			'/karkonosze/jesienne-liscie-wiadukt.jpg',
+			'/karkonosze/kotlina-zachod-slonca.jpg',
+			'/karkonosze/swierki-panorama-doliny.jpg',
+			'/karkonosze/zachod-mgly-w-dolinie.jpg',
+			'/karkonosze/schronisko-czarno-biale.jpg',
+			'/karkonosze/maly-staw-panorama.jpg'
+		]
 	},
 	{
 		slug: 'kamienna-gora',
 		nazwa: 'Kamienna Góra',
 		nazwaLoc: 'Kamiennej Górze',
 		region: 'między Rudawami Janowickimi a Górami Kamiennymi',
-		hero: U('photo-1464822759023-fed622ff2c3b', 1600),
+		hero: '/lokalizacje/kamienna-gora.jpg',
 		lead: 'Miasto powiatowe nad Bobrem, między Rudawami Janowickimi a Górami Kamiennymi – z opactwem w pobliskim Krzeszowie i cenami niższymi niż w Kotlinie Jeleniogórskiej.',
 		chips: ['Kotlina Kamiennogórska', '≈ 18 tys. mieszkańców', 'Miasto powiatowe'],
 		opis: [
@@ -319,12 +336,12 @@ export const miasta: Miasto[] = [
 			{ t: 'Tradycje tkackie', d: 'Muzeum Tkactwa i historia przemysłu.' }
 		],
 		galeria: [
-			'/sunset-dolina.png',
-			'/karkonosze-panorama.png',
-			'/schronisko-staw.png',
-			U('photo-1454496522488-7a8e488e8606'),
-			U('photo-1441974231531-c6227db76b6e'),
-			U('photo-1449824913935-59a10b8d2000')
+			'/lokalizacje/kamienna-gora.jpg',
+			'/karkonosze/wschod-nad-chmurami.jpg',
+			'/karkonosze/zimowy-zachod-kosodrzewina.jpg',
+			'/karkonosze/zbocze-ze-sciezka-latem.jpg',
+			'/karkonosze/zima-morze-mgiel.jpg',
+			'/karkonosze/wschod-slonca-na-grzbiecie.jpg'
 		]
 	},
 	{
@@ -355,48 +372,12 @@ export const miasta: Miasto[] = [
 			{ t: 'Nad Łomnicą', d: 'Tereny zielone wzdłuż rzeki.' }
 		],
 		galeria: [
-			'/karkonosze-panorama.png',
-			'/sniezka-sunset.png',
-			'/sunset-dolina.png',
-			U('photo-1464822759023-fed622ff2c3b'),
-			U('photo-1500382017468-9049fed747ef'),
-			U('photo-1552083375-1447ce886485')
-		]
-	},
-	{
-		slug: 'lesna',
-		nazwa: 'Leśna',
-		nazwaLoc: 'Leśnej',
-		region: 'Pogórze Izerskie',
-		hero: U('photo-1439066615861-d1af74d74000', 1600),
-		lead: 'Miasteczko nad Kwisą na Pogórzu Izerskim – z zamkiem Czocha i jeziorami zaporowymi, dla szukających wody i ciszy poza tłokiem Karkonoszy.',
-		chips: ['Pogórze Izerskie', '≈ 4,5 tys. mieszkańców', 'Miasteczko / jeziora'],
-		opis: [
-			'Leśna leży nad Kwisą, na Pogórzu Izerskim, w powiecie lubańskim. Okolicę definiuje woda: dwa jeziora zaporowe – Leśniańskie i Złotnickie – z zabytkowymi zaporami z początku XX wieku, a nad brzegiem pierwszego z nich stoi zamek Czocha, jeden z najbardziej rozpoznawalnych zamków w Polsce.',
-			'To inna okolica niż Karkonosze: łagodniejsza, mniej turystyczna i wyraźnie tańsza, za to z dostępem do jezior i lasów. Trafiają się tu domy i działki rekreacyjne dla osób, którym bardziej zależy na wodzie i spokoju niż na bliskości stoków.'
-		],
-		fakty: [
-			{ k: 'Region', v: 'Pogórze Izerskie' },
-			{ k: 'Powiat', v: 'lubański' },
-			{ k: 'Mieszkańcy', v: '≈ 4 500' },
-			{ k: 'Rzeka', v: 'Kwisa' },
-			{ k: 'Atrakcje', v: 'Zamek Czocha, jeziora zaporowe' }
-		],
-		atuty: [
-			{ t: 'Zamek Czocha', d: 'Znany zamek nad Jeziorem Leśniańskim.' },
-			{ t: 'Dwa jeziora', d: 'Leśniańskie i Złotnickie w zasięgu spaceru.' },
-			{ t: 'Nad Kwisą', d: 'Rzeka, zapory i tereny rekreacyjne.' },
-			{ t: 'Niskie ceny', d: 'Wyraźnie taniej niż w Karkonoszach.' },
-			{ t: 'Cisza i lasy', d: 'Mniej turystyczna okolica niż kurorty.' },
-			{ t: 'Domy i rekreacja', d: 'Działki i domy blisko wody.' }
-		],
-		galeria: [
-			'/schronisko-staw.png',
-			'/sunset-dolina.png',
-			'/karkonosze-panorama.png',
-			U('photo-1441974231531-c6227db76b6e'),
-			U('photo-1439066615861-d1af74d74000'),
-			U('photo-1454496522488-7a8e488e8606')
+			'/karkonosze/sciezka-barierki-hala.jpg',
+			'/karkonosze/swierki-panorama-doliny.jpg',
+			'/karkonosze/jesienne-liscie-wiadukt.jpg',
+			'/karkonosze/staw-odbicie-chmur.jpg',
+			'/karkonosze/sniezka-zimowy-swit.jpg',
+			'/karkonosze/zachod-mgly-w-dolinie.jpg'
 		]
 	}
 ];

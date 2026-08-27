@@ -1,7 +1,5 @@
 // Treść podstrony „Kontakt" (/kontakt).
-// Hero to placeholder Unsplash — do podmiany na realne. Mapa to Google embed.
-
-const U = (id: string, w = 900) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+// Hero to zdjęcie klientki ze static/karkonosze/. Mapa to Google embed.
 
 export const seo = {
 	title: 'Kontakt – LW Nieruchomości Jelenia Góra i Karkonosze',
@@ -17,7 +15,9 @@ export const hero = {
 	tytulEmfaza: 'nieruchomości',
 	podtytul:
 		'Bez zobowiązań i bez presji. Zadzwoń, napisz lub zostaw wiadomość – odpowiemy po ludzku i konkretnie.',
-	tlo: U('photo-1476514525535-07fb3b4ae5f1', 1600)
+	// Świerki po lewej stronie kadru trzymają biały tekst na ciemnym tle — patrz
+	// gradient w .hero-contact (ciemno po lewej, jaśniej w prawo).
+	tlo: '/karkonosze/swierki-panorama-doliny.jpg'
 };
 
 export const dane = {
@@ -49,4 +49,5 @@ export const formularz = {
 	}
 };
 
-export const mapaEmbed = 'https://maps.google.com/maps?q=Jelenia+G%C3%B3ra,+58-506&z=12&output=embed';
+export const mapaEmbed =
+	'https://maps.google.com/maps?q=Jelenia+G%C3%B3ra,+58-506&z=12&output=embed';

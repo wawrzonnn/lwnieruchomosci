@@ -191,7 +191,7 @@
 					<div class="galeria-tile" class:big={i === 0} style="background-image:url('{img}')"></div>
 				{/each}
 			</div>
-			<p class="galeria-note">Zdjęcia poglądowe regionu – do zastąpienia realnymi fotografiami lokalizacji i ofert.</p>
+			<p class="galeria-note">Zdjęcia z Karkonoszy i Kotliny Jeleniogórskiej – archiwum LW Nieruchomości.</p>
 		</section>
 
 		<!-- ============ CTA / KONTAKT ============ -->
