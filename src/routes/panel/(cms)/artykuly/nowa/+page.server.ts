@@ -10,6 +10,6 @@ export const actions: Actions = {
 		if (!parsed.ok) return parsed.fail;
 
 		await createArticle(parsed.data);
-		throw redirect(302, '/panel/artykuly');
+		throw redirect(302, '/panel/artykuly?zapisano=artykul-nowy');
 	}
 };

@@ -199,3 +199,123 @@
 	font-weight: 600;
 	margin-bottom: 12px;
 }
+
+// =============================================================
+// TELEFON
+// Panel jest realnie obsługiwany z komórki (właścicielka dodaje ofertę
+// razem ze zdjęciami prosto z aparatu), więc poniższe to nie kosmetyka.
+// =============================================================
+@media (max-width: 767px) {
+	// iOS przybliża stronę przy każdym dotknięciu pola mniejszego niż 16px
+	// i sam z tego przybliżenia nie wychodzi. Formularz oferty ma 26 pól.
+	.input,
+	.select,
+	.textarea {
+		font-size: 16px;
+	}
+
+	// Cele dotykowe. 28px to za mało, żeby trafić kciukiem bez celowania.
+	.btn-edit,
+	.btn-icon {
+		min-height: 42px;
+		padding: 11px 16px;
+		font-size: 13px;
+	}
+	.status-pill {
+		min-height: 38px;
+		padding: 9px 15px;
+	}
+
+	// Nagłówek strony: tytuł w jednej linii, akcja pod nim na pełną szerokość
+	// (dotąd przycisk i tytuł biły się o 390px).
+	.page-header {
+		gap: 12px;
+
+		.btn {
+			width: 100%;
+			justify-content: center;
+			min-height: 46px;
+		}
+	}
+
+	.stat-row {
+		gap: 10px;
+	}
+	.stat-box {
+		flex: 1 1 calc(50% - 5px);
+		min-width: 0;
+		padding: 14px 16px;
+	}
+
+	// ---- Tabela → karty --------------------------------------------------
+	// Etykiety kolumn biorą się z atrybutu data-etykieta na komórce; bez niego
+	// komórka po prostu nie dostaje podpisu (nic się nie psuje).
+	.table-wrap {
+		background: none;
+		border: none;
+		border-radius: 0;
+		overflow: visible;
+	}
+	.data-table {
+		display: block;
+		font-size: 14px;
+
+		thead {
+			display: none;
+		}
+		tbody,
+		tr,
+		td {
+			display: block;
+		}
+		tr {
+			background: var(--c-surface);
+			border: 1px solid var(--c-border);
+			border-radius: var(--r-lg);
+			padding: 6px 16px 12px;
+			margin-bottom: 12px;
+		}
+		td {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 14px;
+			padding: 9px 0;
+			border-bottom: 1px solid var(--c-border-row);
+
+			&::before {
+				content: attr(data-etykieta);
+				flex: none;
+				font-size: 11px;
+				font-weight: 700;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				color: var(--c-subtle);
+			}
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+		// kolumna akcji zajmuje całą szerokość karty — łatwiej trafić
+		td.col-actions {
+			text-align: left;
+			padding-top: 12px;
+
+			.btn-edit {
+				flex: 1;
+			}
+		}
+		td.col-check {
+			width: auto;
+		}
+		.empty {
+			display: block;
+			text-align: center;
+			padding: 28px !important;
+
+			&::before {
+				content: none;
+			}
+		}
+	}
+}

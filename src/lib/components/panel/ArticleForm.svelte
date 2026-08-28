@@ -95,19 +95,32 @@
 
 	// ── Upload zdjęć (cover + bloki zdjecie) ──
 	let uploading = $state('');
+	// Dotąd przy `if (res.ok)` bez `else` nieudana wysyłka wyglądała dokładnie
+	// tak samo jak brak kliknięcia — przycisk „po prostu nie działał".
+	let uploadError = $state('');
+	let zapisywanie = $state(false);
+
 	async function uploadInto(key: string, setter: (url: string) => void, e: Event) {
 		const input = e.currentTarget as HTMLInputElement;
 		const files = input.files;
 		if (!files?.length) return;
 		uploading = key;
+		uploadError = '';
 		try {
 			const fd = new FormData();
 			for (const f of files) fd.append('files', f);
 			const res = await fetch('/api/uploads', { method: 'POST', body: fd });
-			if (res.ok) {
-				const { urls } = await res.json();
-				if (urls?.[0]) setter(urls[0]);
+			const dane = await res.json().catch(() => ({}));
+			if (!res.ok) {
+				uploadError = dane.message || 'Nie udało się wysłać zdjęcia. Spróbuj ponownie.';
+				return;
 			}
+			if (dane.urls?.[0]) setter(dane.urls[0]);
+			if (dane.pominiete?.length) {
+				uploadError = dane.pominiete.map((x: { powod: string }) => x.powod).join(' ');
+			}
+		} catch {
+			uploadError = 'Nie udało się wysłać zdjęcia — sprawdź połączenie.';
 		} finally {
 			uploading = '';
 			input.value = '';
@@ -117,7 +130,17 @@
 	const ADD_BUTTONS: Blok['typ'][] = ['sekcja', 'lista', 'bledy', 'podsumowanie', 'cytat'];
 </script>
 
-<form method="POST" use:enhance class="article-form">
+<form
+	method="POST"
+	use:enhance={() => {
+		zapisywanie = true;
+		return async ({ update }) => {
+			await update();
+			zapisywanie = false;
+		};
+	}}
+	class="article-form"
+>
 	<input type="hidden" name="content" value={blocksJson} />
 	<input type="hidden" name="tags" value={tagsJson} />
 
@@ -349,14 +372,34 @@
 	</div>
 
 	<div class="form-actions">
-		<button type="submit" name="intent" value="draft" class="btn btn--ghost">Zapisz szkic</button>
-		<button type="submit" name="intent" value="publish" class="btn btn--primary">Opublikuj</button>
+		{#if uploadError}<span class="upload-error">{uploadError}</span>{/if}
+		<button type="submit" name="intent" value="draft" class="btn btn--ghost" disabled={zapisywanie || !!uploading}>
+			Zapisz szkic
+		</button>
+		<button
+			type="submit"
+			name="intent"
+			value="publish"
+			class="btn btn--primary"
+			disabled={zapisywanie || !!uploading}
+		>
+			{zapisywanie ? 'Zapisywanie…' : 'Opublikuj'}
+		</button>
 	</div>
 </form>
 
 <style lang="scss">
 	.article-form {
 		max-width: 1200px;
+	}
+	.upload-error {
+		margin-right: auto;
+		font-size: 13px;
+		color: var(--c-danger);
+	}
+	button:disabled {
+		opacity: 0.55;
+		cursor: not-allowed;
 	}
 	.form-alert {
 		background: #fdecea;
@@ -435,6 +478,13 @@
 	}
 	:global(.article-form textarea.input) {
 		resize: vertical;
+	}
+	/* Reguła wyżej ma większą wagę niż globalna z panel-extra.scss, więc
+	   powtarzamy tu podbicie do 16px (inaczej iOS zoomuje przy każdym polu). */
+	@media (max-width: 767px) {
+		:global(.article-form .input) {
+			font-size: 16px;
+		}
 	}
 
 	/* ── Bloki ── */

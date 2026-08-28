@@ -21,6 +21,7 @@
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import StickyBar from '$lib/components/landing/StickyBar.svelte';
 	import type { Listing, ListingImage } from '@prisma/client';
+	import { goto } from '$app/navigation';
 
 	let { data } = $props();
 
@@ -32,6 +33,31 @@
 	let szRodzaj = $state(wyszukiwarka.rodzaj[0]);
 	let szLokalizacja = $state(wyszukiwarka.lokalizacja[0]);
 	let szCena = $state(wyszukiwarka.cenaDo[0]);
+
+	// Etykiety z wyszukiwarki → wartości, których oczekuje /oferty
+	// (src/routes/oferty/+page.server.ts: category, location, maxPrice).
+	const RODZAJ_NA_KATEGORIE: Record<string, string> = {
+		Mieszkania: 'MIESZKANIE',
+		Domy: 'DOM',
+		Działki: 'DZIALKA',
+		Lokale: 'LOKAL'
+	};
+
+	// Przycisk „Szukaj" wcześniej tylko blokował wysłanie formularza i nic nie robił.
+	function szukaj(e: SubmitEvent) {
+		e.preventDefault();
+		const p = new URLSearchParams();
+		const kategoria = RODZAJ_NA_KATEGORIE[szRodzaj];
+		if (kategoria) p.set('category', kategoria);
+		if (szLokalizacja && szLokalizacja !== wyszukiwarka.lokalizacja[0]) {
+			p.set('location', szLokalizacja);
+		}
+		// „700 000 zł" → 700000 (spacje bywają niełamliwe, stąd \D zamiast \s)
+		const cyfry = szCena.replace(/\D/g, '');
+		if (cyfry) p.set('maxPrice', cyfry);
+		const qs = p.toString();
+		goto(qs ? `/oferty?${qs}` : '/oferty');
+	}
 
 	// ── Polecane oferty: karuzela zdjęć per karta ──
 	let activeImages = $state(data.featuredListings.map(() => 0));
@@ -228,7 +254,7 @@
 				     pokazujemy pierwsze zdanie (ten sam tekst, bez skracania w treści). -->
 				<p class="hero-lead-krotki">{heroLeadKrotki}</p>
 			</div>
-			<form class="search-card" onsubmit={(e) => e.preventDefault()}>
+			<form class="search-card" onsubmit={szukaj}>
 				<div class="search-field">
 					<span class="search-label">Rodzaj</span>
 					<Select bind:value={szRodzaj} options={szOpcje(wyszukiwarka.rodzaj)} />
@@ -752,6 +778,10 @@
 		left: 50%;
 		bottom: 0;
 		transform: translate(-50%, 50%);
+		/* Karta wystaje w dół, na zielony pas „Dlaczego my", a .why-intro jest
+		   sticky (czyli pozycjonowany) i leży dalej w DOM — bez tego rozwinięta
+		   lista wyszukiwarki lądowała POD zieloną sekcją i nie dało się w nią kliknąć. */
+		z-index: 5;
 		width: min(var(--container), 100% - var(--gutter) * 2);
 		background: #fff;
 		border-radius: 18px;
@@ -933,7 +963,8 @@
 		gap: 20px;
 	}
 	/* Kafle kwadratowe — mocniej trzymają uwagę między hero a ofertami.
-	   UWAGA: obecne zdjęcia są panoramiczne, docelowo potrzebne kadry 1:1/pionowe. */
+	   Domy/mieszkania/działki mają własne kadry 1:1 (static/kat-*.webp).
+	   Lokale wciąż na placeholderze Unsplash — czeka na zdjęcie od klientki. */
 	.cat {
 		position: relative;
 		aspect-ratio: 1 / 1;

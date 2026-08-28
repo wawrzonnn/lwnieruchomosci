@@ -10,6 +10,7 @@
 
 <div class="page-header">
 	<h1 class="h3">Dodaj ofertę</h1>
+	<a href="/panel/oferty" class="btn btn--ghost">← Wróć do listy</a>
 </div>
 
 <ListingForm error={form?.error} />

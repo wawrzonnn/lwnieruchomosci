@@ -291,22 +291,73 @@
 		color: var(--c-subtle);
 	}
 
-	@media (max-width: 900px) {
+	/* Próg 1023 px, a nie 900 px: powyżej 1023 sidebar zajmuje 236 px, więc na
+	   treść zostaje mniej niż min-content wiersza i kolumna „Akcje" była ucinana
+	   (siatka ma twarde minmax(280px, …)). Poniżej — układ kartowy. */
+	@media (max-width: 1023px) {
 		.offers-head {
 			display: none;
 		}
 		.offer-row {
 			grid-template-columns: 1fr;
-			gap: 10px;
+			gap: 8px;
+			padding: 14px 16px;
 		}
+		/* w kolumnie tytuł mieścił jedno słowo i wielokropek — dwie linie wystarczą,
+		   żeby odróżnić „Działka w Sosnówce" od „Działka w Sosnówce pod budowę" */
+		.offer-title {
+			white-space: normal;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: clip;
+		}
+		/* Bez nagłówka tabeli same wartości („Dom", „650 000 zł") wisiały bez
+		   kontekstu — dokładamy podpisy z powrotem. */
 		.cell-cat,
-		.cell-price,
 		.cell-status {
-			padding-left: 78px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			padding-left: 0;
+		}
+		.cell-price {
+			flex-direction: row;
+			align-items: baseline;
+			gap: 8px;
+			padding-left: 0;
+		}
+		.cell-cat::before,
+		.cell-price::before,
+		.cell-status::before {
+			font-size: 11px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			color: var(--c-subtle);
+		}
+		.cell-cat::before {
+			content: 'Kategoria';
+		}
+		.cell-price::before {
+			content: 'Cena';
+			margin-right: auto;
+		}
+		.cell-status::before {
+			content: 'Status';
 		}
 		.cell-actions {
-			justify-content: flex-start;
-			padding-left: 78px;
+			justify-content: stretch;
+			padding-left: 0;
+			padding-top: 4px;
+			gap: 10px;
+
+			.btn-edit {
+				flex: 1;
+			}
 		}
 	}
 </style>

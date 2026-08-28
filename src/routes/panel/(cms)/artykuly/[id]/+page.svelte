@@ -10,7 +10,12 @@
 <div class="page-header">
 	<h1 class="h3">Edytuj artykuł</h1>
 	<div class="header-tools">
-		<a href="/blog/{data.article.slug}" target="_blank" rel="noopener" class="btn btn--ghost">Podgląd →</a>
+		{#if data.article.status === 'PUBLISHED'}
+			<!-- szkic nie jest publikowany, więc /blog/<slug> zwracało 404 -->
+			<a href="/blog/{data.article.slug}" target="_blank" rel="noopener" class="btn btn--ghost">
+				Podgląd →
+			</a>
+		{/if}
 		<a href="/panel/artykuly" class="btn btn--ghost">← Lista</a>
 	</div>
 </div>
@@ -21,5 +26,6 @@
 	.header-tools {
 		display: flex;
 		gap: 8px;
+		flex-wrap: wrap;
 	}
 </style>

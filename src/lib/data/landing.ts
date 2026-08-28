@@ -54,19 +54,19 @@ export const kategorie = [
 	{
 		name: 'Mieszkania',
 		deal: 'Sprzedaż / wynajem',
-		img: U('photo-1560448204-e02f11c3d0e2'),
+		img: '/kat-mieszkania.webp',
 		category: 'MIESZKANIE'
 	},
 	{
 		name: 'Domy',
 		deal: 'Sprzedaż / wynajem',
-		img: U('photo-1600585154340-be6161a56a0c'),
+		img: '/kat-domy.webp',
 		category: 'DOM'
 	},
 	{
 		name: 'Działki',
 		deal: 'Sprzedaż / dzierżawa',
-		img: '/karkonosze-panorama.png',
+		img: '/kat-dzialki.webp',
 		category: 'DZIALKA'
 	},
 	{

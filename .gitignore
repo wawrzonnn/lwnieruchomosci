@@ -22,7 +22,10 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Przesłane zdjęcia
-uploads/
+# Przesłane zdjęcia (katalog danych w korzeniu repo).
+# UWAGA: bez wiodącego / wzorzec łapał też src/routes/api/uploads/ i
+# src/routes/uploads/ — przez to kod obsługi uploadu nigdy nie trafił do repo
+# ani na serwer i panel dostawał 404 przy dodawaniu zdjęć.
+/uploads/
 design_handoff_lw_landing/
 Strona agenta nieruchomości/

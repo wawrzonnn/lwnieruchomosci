@@ -28,12 +28,17 @@
 	let szType = $state(optType[0]);
 
 	let formError = $state('');
+	// UWAGA: obsłużone muszą być WSZYSTKIE typy wyniku. Przy 'error' (np. padła baza)
+	// i 'redirect' wcześniej nie działo się nic — przycisk wyglądał na zepsuty,
+	// a zgłoszenie przepadało bez śladu.
 	const enhanceLead: SubmitFunction = () => async ({ result }) => {
 		if (result.type === 'success') {
 			formSubmitted = true;
 			formError = '';
 		} else if (result.type === 'failure') {
 			formError = String(result.data?.error ?? 'Nie udało się wysłać. Spróbuj ponownie.');
+		} else {
+			formError = 'Coś poszło nie tak po naszej stronie. Zadzwoń: +48 690 008 273.';
 		}
 	};
 </script>
@@ -194,6 +199,11 @@
 							<button type="submit" class="lead-submit">{formularz.przycisk}</button>
 							<p class="lead-fineprint">
 								Wysyłając formularz, zgadzasz się na kontakt w sprawie wyceny. Nie wysyłamy spamu.
+							</p>
+							<p class="lead-rodo">
+								Administratorem danych jest LW Nieruchomości. Podane dane przetwarzamy wyłącznie po to,
+								żeby odpowiedzieć na to zgłoszenie —
+								<a href="/polityka-prywatnosci">polityka prywatności</a>.
 							</p>
 						</form>
 					{:else}
@@ -560,6 +570,18 @@
 	}
 	.lead-submit:hover {
 		opacity: 0.92;
+	}
+	.lead-rodo {
+		margin-top: 8px;
+		font-size: 11.5px;
+		line-height: 1.5;
+		color: var(--muted, #6c7064);
+
+		a {
+			color: inherit;
+			text-decoration: underline;
+			text-underline-offset: 2px;
+		}
 	}
 	.lead-fineprint {
 		font-size: 12px;

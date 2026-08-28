@@ -2,6 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { error, fail } from '@sveltejs/kit';
 import { getListingBySlug, getListingsExcept } from '$lib/db/listings';
 import { createInquiry } from '$lib/db/inquiries';
+import { powiadomOZgloszeniu } from '$lib/server/mail';
 import { resolveBase, listingLd, jsonLdScript, abs, defaultOgImage } from '$lib/seo';
 import { CATEGORY_LABELS, formatArea, formatPrice, locationLabel } from '$lib/utils';
 
@@ -34,6 +35,13 @@ export const load: PageServerLoad = async ({ params, url }) => {
 export const actions: Actions = {
 	default: async ({ request, params }) => {
 		const data = await request.formData();
+
+		// Honeypot — pole ukryte dla ludzi. Wypełnione = bot: udajemy sukces,
+		// nic nie zapisujemy (tak samo jak w submitLead).
+		if (String(data.get('company') ?? '').trim()) {
+			return { success: true };
+		}
+
 		const name = String(data.get('name') ?? '').trim();
 		const contact = String(data.get('contact') ?? '').trim();
 		const message = String(data.get('message') ?? '').trim();
@@ -43,13 +51,27 @@ export const actions: Actions = {
 		}
 
 		const listing = await getListingBySlug(params.slug);
+		const subject = `Oferta: ${listing?.title ?? params.slug}`;
+		const composed = message || `Zapytanie o ofertę: ${listing?.title ?? params.slug}`;
+
 		await createInquiry({
 			type: 'OFFER',
-			subject: `Oferta: ${listing?.title ?? params.slug}`,
+			subject,
 			name,
 			contact,
-			message: message || `Zapytanie o ofertę: ${listing?.title ?? params.slug}`,
+			message: composed,
 			listingId: listing?.id
+		});
+
+		// Pole „kontakt" jest tu jednym inputem (telefon albo e-mail) — Reply-To
+		// ustawiamy tylko, gdy wygląda na adres.
+		await powiadomOZgloszeniu({
+			subject,
+			name,
+			contact,
+			message: composed,
+			replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact) ? contact : undefined,
+			zrodlo: `/oferty/${params.slug}`
 		});
 
 		return { success: true };

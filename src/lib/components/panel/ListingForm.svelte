@@ -49,24 +49,38 @@
 	);
 	let uploading = $state(false);
 	let uploadError = $state('');
+	let pominiete = $state<{ nazwa: string; powod: string }[]>([]);
 	let dragIndex = $state<number | null>(null);
+	// Zapis w trakcie wysyłki zdjęć zapisywał ofertę BEZ nich, a podwójne
+	// kliknięcie „Zapisz" tworzyło dwie oferty.
+	let zapisywanie = $state(false);
+	const zablokowany = $derived(uploading || zapisywanie);
 
 	async function onFiles(e: Event) {
 		const input = e.target as HTMLInputElement;
 		if (!input.files?.length) return;
 		uploading = true;
 		uploadError = '';
+		pominiete = [];
 		try {
 			const fd = new FormData();
 			for (const f of input.files) fd.append('files', f);
 			const res = await fetch('/api/uploads', { method: 'POST', body: fd });
-			if (!res.ok) throw new Error((await res.json().catch(() => ({}))).message || 'Błąd wysyłania');
-			const { urls } = await res.json();
+			if (!res.ok) {
+				throw new Error(
+					(await res.json().catch(() => ({}))).message ||
+						'Nie udało się wysłać zdjęć. Sprawdź połączenie i spróbuj ponownie.'
+				);
+			}
+			const dane = await res.json();
+			const urls: string[] = dane.urls ?? [];
+			pominiete = dane.pominiete ?? [];
 			const hadNone = images.length === 0;
 			images = [...images, ...urls.map((url: string, i: number) => ({ url, isMain: hadNone && i === 0 }))];
 			if (!images.some((i) => i.isMain) && images.length) images[0].isMain = true;
 		} catch (err) {
-			uploadError = err instanceof Error ? err.message : 'Błąd wysyłania';
+			uploadError =
+				err instanceof Error ? err.message : 'Nie udało się wysłać zdjęć. Spróbuj ponownie.';
 		} finally {
 			uploading = false;
 			input.value = '';
@@ -98,7 +112,17 @@
 	const perM2 = $derived(price && area ? pricePerM2(Number(price), Number(area)) : null);
 </script>
 
-<form method="POST" use:enhance class="listing-form">
+<form
+	method="POST"
+	use:enhance={() => {
+		zapisywanie = true;
+		return async ({ update }) => {
+			await update();
+			zapisywanie = false;
+		};
+	}}
+	class="listing-form"
+>
 	<input type="hidden" name="images" value={imagesJson} />
 	<input type="hidden" name="amenities" value={amenitiesJson} />
 
@@ -286,6 +310,13 @@
 					{/each}
 				</div>
 				{#if uploadError}<p class="form-error">{uploadError}</p>{/if}
+				{#if pominiete.length}
+					<p class="form-warn">
+						Pominięto {pominiete.length}
+						{pominiete.length === 1 ? 'plik' : 'pliki'}:
+						{#each pominiete as p}<br /><b>{p.nazwa}</b> — {p.powod}{/each}
+					</p>
+				{/if}
 			</section>
 
 			<!-- Udogodnienia -->
@@ -384,13 +415,28 @@
 					{#if error}<p class="form-error">{error}</p>{/if}
 
 					<div class="publish-actions">
-						<button type="submit" class="btn btn--primary btn--block" name="intent" value="publish">
-							Zapisz i opublikuj
+						<button
+							type="submit"
+							class="btn btn--primary btn--block"
+							name="intent"
+							value="publish"
+							disabled={zablokowany}
+						>
+							{zapisywanie ? 'Zapisywanie…' : 'Zapisz i opublikuj'}
 						</button>
-						<button type="submit" class="btn btn--ghost btn--block" name="intent" value="draft">
+						<button
+							type="submit"
+							class="btn btn--ghost btn--block"
+							name="intent"
+							value="draft"
+							disabled={zablokowany}
+						>
 							Zapisz szkic
 						</button>
 						<a href="/panel/oferty" class="btn btn--ghost btn--block">Anuluj</a>
+						{#if uploading}
+							<p class="akcje-hint">Trwa wysyłanie zdjęć — poczekaj, żeby nie zapisać oferty bez nich.</p>
+						{/if}
 					</div>
 				</div>
 			</div>
@@ -702,6 +748,26 @@
 		gap: 8px;
 		margin-top: 18px;
 	}
+	.akcje-hint {
+		margin: 2px 0 0;
+		font-size: 12.5px;
+		line-height: 1.45;
+		color: var(--c-gold-deep, #9a7433);
+	}
+	.form-warn {
+		margin-top: 12px;
+		padding: 10px 14px;
+		border-radius: var(--r-sm);
+		font-size: 13px;
+		line-height: 1.55;
+		background: var(--c-gold-tint, #f7efdf);
+		border: 1px solid var(--c-border);
+		color: var(--c-text);
+	}
+	button:disabled {
+		opacity: 0.55;
+		cursor: not-allowed;
+	}
 
 	@media (max-width: 1024px) {
 		.form-layout {
@@ -710,6 +776,19 @@
 		.side-sticky {
 			position: static;
 		}
+		/* Na wąskim ekranie panel boczny ląduje POD całym formularzem, więc do
+		   „Zapisz" trzeba było przewinąć kilkanaście pól. Pasek akcji przykleja
+		   się do dołu ekranu — tak jak w formularzu artykułu. */
+		.publish-actions {
+			position: sticky;
+			bottom: 0;
+			z-index: 5;
+			margin: 18px -18px -18px;
+			padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+			background: var(--c-surface);
+			border-top: 1px solid var(--c-border);
+			box-shadow: 0 -10px 24px -20px rgba(30, 40, 30, 0.7);
+		}
 	}
 	@media (max-width: 560px) {
 		.grid {
@@ -717,6 +796,10 @@
 		}
 		.span-2 {
 			grid-column: span 1;
+		}
+		/* kciukiem trudno trafić w chip 33 px */
+		.amenity-chip {
+			min-height: 42px;
 		}
 	}
 </style>

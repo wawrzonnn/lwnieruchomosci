@@ -1,6 +1,7 @@
 import { fail, type ActionFailure } from '@sveltejs/kit';
 import type { InquiryType } from '@prisma/client';
 import { createInquiry } from '$lib/db/inquiries';
+import { powiadomOZgloszeniu } from '$lib/server/mail';
 
 const str = (v: FormDataEntryValue | null) => String(v ?? '').trim();
 
@@ -14,8 +15,9 @@ export interface LeadOptions {
 	listingId?: number;
 }
 
-// Wspólna obsługa formularzy kontaktowych/usługowych → zapis do bazy jako Inquiry.
-// (Wysyłkę e-mail dołożymy tu później, obok createInquiry.)
+// Wspólna obsługa formularzy kontaktowych/usługowych → zapis do bazy jako Inquiry
+// + powiadomienie na biuro@. Kolejność jest celowa: najpierw baza (zgłoszenie nie
+// może przepaść), potem poczta, której błędy są tylko logowane.
 export async function submitLead(data: FormData, opts: LeadOptions): Promise<LeadResult> {
 	// Honeypot — pole ukryte dla ludzi; jeśli wypełnione, to bot: udajemy sukces, nie zapisujemy.
 	if (str(data.get('company'))) {
@@ -55,6 +57,14 @@ export async function submitLead(data: FormData, opts: LeadOptions): Promise<Lea
 		listingId: opts.listingId
 	});
 
+	await powiadomOZgloszeniu({
+		subject: opts.subject,
+		name,
+		contact,
+		message: composed,
+		replyTo: email || undefined
+	});
+
 	return { success: true };
 }
 
@@ -74,5 +84,14 @@ export async function submitNewsletter(data: FormData, source: string): Promise<
 		contact: `e-mail: ${email}`,
 		message: `Zapis do newslettera ze strony: ${source}`
 	});
+
+	await powiadomOZgloszeniu({
+		subject: `Newsletter — ${source}`,
+		name: 'Zapis do newslettera',
+		contact: `e-mail: ${email}`,
+		message: `Ktoś zapisał się do newslettera na stronie: ${source}`,
+		replyTo: email
+	});
+
 	return { success: true };
 }

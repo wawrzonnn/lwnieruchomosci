@@ -29,18 +29,28 @@
 					class="input"
 					type="email"
 					name="email"
-					value={form?.email ?? 'anna@lw.nieruchomosci.pl'}
+					value={form?.email ?? ''}
+					autocomplete="username"
+					inputmode="email"
+					autocapitalize="none"
+					spellcheck="false"
+					placeholder="biuro@lw.nieruchomosci.pl"
 					required
 				/>
 			</label>
 			<label class="field">
 				<span class="field__label">Hasło</span>
-				<input class="input" type="password" name="password" value="admin123" required />
+				<input
+					class="input"
+					type="password"
+					name="password"
+					autocomplete="current-password"
+					required
+				/>
 			</label>
 			<button type="submit" class="btn btn--primary btn--block">Zaloguj się</button>
 		</form>
 
-		<p class="hint">Demo — kliknij „Zaloguj się", aby wejść</p>
 		<a href="/" class="back-link">← Wróć do strony</a>
 	</div>
 </div>
@@ -105,14 +115,9 @@
 		border: 1px solid var(--c-danger-border);
 		color: var(--c-danger);
 	}
-	.hint {
-		font-size: 12.5px;
-		color: var(--c-subtle);
-		margin-top: 20px;
-	}
 	.back-link {
 		display: inline-block;
-		margin-top: 12px;
+		margin-top: 24px;
 		font-size: 13px;
 		color: var(--c-muted);
 		&:hover {

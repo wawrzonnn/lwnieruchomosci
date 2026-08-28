@@ -184,22 +184,63 @@
 		color: var(--c-subtle);
 	}
 
-	@media (max-width: 900px) {
+	/* Próg spójny z listą ofert i z kolapsem sidebara (1023 px). */
+	@media (max-width: 1023px) {
 		.art-head {
 			display: none;
 		}
 		.art-row {
 			grid-template-columns: 1fr;
-			gap: 10px;
+			gap: 8px;
+			padding: 14px 16px;
 		}
+		.art-title {
+			white-space: normal;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: clip;
+		}
+		/* podpisy wartości zamiast wcięcia 78 px — bez nagłówka tabeli data i
+		   kategoria były nie do rozróżnienia */
 		.cell-cat,
 		.cell-date,
 		.cell-status {
-			padding-left: 78px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			padding-left: 0;
+		}
+		.cell-cat::before,
+		.cell-date::before,
+		.cell-status::before {
+			font-size: 11px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			color: var(--c-subtle);
+		}
+		.cell-cat::before {
+			content: 'Kategoria';
+		}
+		.cell-date::before {
+			content: 'Publikacja';
+		}
+		.cell-status::before {
+			content: 'Status';
 		}
 		.cell-actions {
-			justify-content: flex-start;
-			padding-left: 78px;
+			justify-content: stretch;
+			padding-left: 0;
+			padding-top: 4px;
+			gap: 10px;
+
+			.btn-edit {
+				flex: 1;
+			}
 		}
 	}
 </style>

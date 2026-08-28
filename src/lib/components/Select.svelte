@@ -217,6 +217,14 @@
 		}
 	}
 
+	/* Na dotyku zostaje natywny <select>, a iOS przybliża stronę przy każdym
+	   polu poniżej 16px i sam z tego nie wychodzi. */
+	@media (max-width: 767px) {
+		.select-native {
+			font-size: 16px;
+		}
+	}
+
 	/* Custom dropdown only on devices with a precise pointer (mouse/trackpad).
 	   Touch devices keep the native <select> so the OS shows its own picker. */
 	@media (pointer: fine) {

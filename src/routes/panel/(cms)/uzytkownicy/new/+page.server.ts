@@ -11,19 +11,25 @@ export const actions: Actions = {
 		const role = data.get('role') as Role;
 		const password = String(data.get('password') ?? '').trim();
 
+		// Wszystkie gałęzie zwracają ten sam kształt, żeby formularz mógł
+		// odtworzyć wpisane wartości zamiast czyścić je przy każdym błędzie.
 		if (!name || !email) {
-			return fail(400, { error: 'Podaj imię i e-mail.' });
+			return fail(400, { error: 'Podaj imię i e-mail.', name, email });
 		}
 		if (await getUserByEmail(email)) {
-			return fail(400, { error: 'Użytkownik z tym e-mailem już istnieje.' });
+			return fail(400, { error: 'Użytkownik z tym e-mailem już istnieje.', name, email });
+		}
+		// Wcześniej puste pole dawało losowe hasło, którego NIKT nigdy nie widział —
+		// konto powstawało i od razu było nie do zalogowania.
+		if (password.length < 10) {
+			return fail(400, {
+				error: 'Podaj hasło dla nowego konta — co najmniej 10 znaków. Przekaż je potem użytkownikowi.',
+				name,
+				email
+			});
 		}
 
-		await createUser({
-			name,
-			email,
-			role,
-			password: password || Math.random().toString(36).slice(2, 10)
-		});
-		throw redirect(302, '/panel/uzytkownicy');
+		await createUser({ name, email, role, password });
+		throw redirect(302, '/panel/uzytkownicy?zapisano=uzytkownik');
 	}
 };

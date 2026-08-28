@@ -27,6 +27,6 @@ export const actions: Actions = {
 		}
 
 		await updateListing(id, parsed.data);
-		throw redirect(302, '/panel/oferty');
+		throw redirect(302, '/panel/oferty?zapisano=oferta');
 	}
 };

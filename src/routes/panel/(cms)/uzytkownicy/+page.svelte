@@ -44,7 +44,7 @@
 		<tbody>
 			{#each data.users as user (user.id)}
 				<tr>
-					<td class="col-check">
+					<td class="col-check" data-etykieta="Zaznacz">
 						<input
 							type="checkbox"
 							checked={selected.includes(user.id)}
@@ -52,14 +52,14 @@
 							aria-label="Zaznacz {user.name}"
 						/>
 					</td>
-					<td>
+					<td data-etykieta="Użytkownik">
 						<div class="name-cell">
 							<span class="t-avatar">{initials(user.name)}</span>
 							<strong>{user.name}</strong>
 						</div>
 					</td>
-					<td>{user.email}</td>
-					<td>{user.role === 'ADMIN' ? 'Administrator' : 'Agent'}</td>
+					<td data-etykieta="E-mail" class="cell-email">{user.email}</td>
+					<td data-etykieta="Rola">{user.role === 'ADMIN' ? 'Administrator' : 'Agent'}</td>
 					<td class="col-actions">
 						<a href="/panel/uzytkownicy/{user.id}" class="btn-edit">Edytuj</a>
 					</td>
@@ -114,6 +114,9 @@
 	}
 	.bulk-actions {
 		margin-top: 16px;
+	}
+	.cell-email {
+		word-break: break-all;
 	}
 	.btn-icon:disabled {
 		opacity: 0.45;

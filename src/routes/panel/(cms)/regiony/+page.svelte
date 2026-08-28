@@ -3,6 +3,12 @@
 
 	let { data } = $props();
 
+	// „Zapisz" nie dawał ŻADNEJ reakcji — ani potwierdzenia, ani błędu (akcja
+	// zwraca { success } / fail({ message }), a strona tego nie odbierała).
+	let zapisany = $state<number | null>(null);
+	let zapisywany = $state<number | null>(null);
+	let blad = $state('');
+
 	// Lokalna kopia — pozwala klikać kadr i widzieć efekt przed zapisem.
 	let stan = $state(
 		data.regiony.map((r) => ({
@@ -19,6 +25,25 @@
 			wgrywanie: false
 		}))
 	);
+
+	function zapiszEnhance(id: number) {
+		return () => {
+			zapisywany = id;
+			blad = '';
+			return async ({ result, update }: { result: { type: string; data?: { message?: string } }; update: () => Promise<void> }) => {
+				zapisywany = null;
+				if (result.type === 'failure') {
+					blad = result.data?.message ?? 'Nie udało się zapisać.';
+				} else {
+					zapisany = id;
+					setTimeout(() => {
+						if (zapisany === id) zapisany = null;
+					}, 3000);
+				}
+				await update();
+			};
+		};
+	}
 
 	// Kliknięcie w podgląd = punkt, który ma zostać widoczny po przycięciu kafelka.
 	function ustawKadr(i: number, e: MouseEvent) {
@@ -81,9 +106,17 @@
 	</p>
 </div>
 
+{#if blad}<p class="blad">{blad}</p>{/if}
+
 <div class="lista">
 	{#each stan as r, i (r.id)}
-		<form method="POST" action="?/zapisz" use:enhance class="karta" class:ukryty={!r.visible}>
+		<form
+			method="POST"
+			action="?/zapisz"
+			use:enhance={zapiszEnhance(r.id)}
+			class="karta"
+			class:ukryty={!r.visible}
+		>
 			<input type="hidden" name="id" value={r.id} />
 			<input type="hidden" name="image" value={r.image} />
 			<input type="hidden" name="focalX" value={r.focalX} />
@@ -149,7 +182,12 @@
 					<span class="sciezka">/lokalizacje/{r.slug}</span>
 				</div>
 
-				<button class="zapisz" type="submit">Zapisz</button>
+				<div class="zapisz-rzad">
+					<button class="zapisz" type="submit" disabled={zapisywany === r.id}>
+						{zapisywany === r.id ? 'Zapisywanie…' : 'Zapisz'}
+					</button>
+					{#if zapisany === r.id}<span class="zapisano">Zapisano ✓</span>{/if}
+				</div>
 			</div>
 		</form>
 	{/each}
@@ -344,9 +382,79 @@
 	.zapisz:hover {
 		opacity: 0.9;
 	}
-	@media (max-width: 720px) {
+	.zapisz:disabled {
+		opacity: 0.55;
+		cursor: not-allowed;
+	}
+	.zapisz-rzad {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		margin-top: auto;
+	}
+	.zapisano {
+		font-size: 13px;
+		font-weight: 600;
+		color: #2c4a38;
+	}
+	.blad {
+		margin: 0 0 16px;
+		padding: 10px 14px;
+		border-radius: 8px;
+		font-size: 13.5px;
+		background: #fbeaea;
+		border: 1px solid #e6c9c9;
+		color: #8c2f2f;
+	}
+	/* Karta łamała się dopiero przy 720 px szerokości OKNA, a kolumna treści jest
+	   węższa o 236 px sidebara — na iPadzie 768 px pola wchodziły na siebie. */
+	@media (max-width: 1023px) {
 		.karta {
 			grid-template-columns: 1fr;
+		}
+		/* podgląd „małego" kafelka to pion 3:4 — na całą szerokość urósłby do
+		   pół ekranu, więc go ograniczamy */
+		.podglad {
+			max-width: 300px;
+		}
+	}
+	@media (max-width: 767px) {
+		/* lokalna .input bije globalną z panel-extra.scss */
+		.input {
+			font-size: 16px;
+		}
+	}
+	@media (max-width: 640px) {
+		.head {
+			flex-direction: column;
+			gap: 8px;
+		}
+		.link {
+			white-space: normal;
+		}
+		/* rząd pól nie zawijał i inputy wychodziły poza kartę */
+		.rzad {
+			flex-wrap: wrap;
+		}
+		.pole {
+			flex: 1 1 100%;
+		}
+		.pole.waski {
+			flex: 1 1 calc(50% - 6px);
+			max-width: none;
+		}
+		.przelacznik {
+			padding-bottom: 0;
+			min-height: 44px;
+		}
+		.zapisz {
+			width: 100%;
+			min-height: 46px;
+		}
+		.wgraj {
+			min-height: 44px;
+			display: grid;
+			place-items: center;
 		}
 	}
 </style>

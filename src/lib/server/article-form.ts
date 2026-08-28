@@ -10,12 +10,28 @@ export type ParsedArticle =
 const str = (v: FormDataEntryValue | null) => String(v ?? '').trim();
 const strOrNull = (v: FormDataEntryValue | null) => str(v) || null;
 
+const NAZWY_BLOKOW: Record<string, string> = {
+	sekcja: 'Sekcja',
+	cytat: 'Cytat',
+	lista: 'Lista',
+	bledy: 'Najczęstsze błędy',
+	podsumowanie: 'Podsumowanie'
+};
+
 // Normalizacja bloków z formularza + nadanie stabilnych, unikalnych id blokom
-// z kotwicą (spis treści). Odrzuca bloki niepełne/nieznane. Model wg refinement 23.
-function normalizeBlocks(raw: unknown): Blok[] {
-	if (!Array.isArray(raw)) return [];
+// z kotwicą (spis treści). Model wg refinement 23.
+//
+// Bloki niepełne SĄ odrzucane (baza trzyma tylko kompletne), ale ich lista wraca
+// do wywołującego — wcześniej znikały bez słowa i autorka widziała zapisany
+// artykuł bez połowy treści, nie wiedząc, że coś się nie zapisało.
+function normalizeBlocks(raw: unknown): { bloki: Blok[]; pominiete: string[] } {
+	if (!Array.isArray(raw)) return { bloki: [], pominiete: [] };
 	const usedIds = new Set<string>();
 	const out: Blok[] = [];
+	const pominiete: string[] = [];
+	let nrBloku = 0;
+	const pomin = (typ: string, powod: string) =>
+		pominiete.push(`${NAZWY_BLOKOW[typ] ?? 'Blok'} nr ${nrBloku} — ${powod}`);
 
 	// Nadaje unikalne id (preferuje istniejące z bloku, w razie braku slug z nagłówka).
 	const takeId = (provided: string, naglowek: string, fallback: string) => {
@@ -36,14 +52,21 @@ function normalizeBlocks(raw: unknown): Blok[] {
 			.filter(Boolean);
 
 	for (const b of raw) {
+		nrBloku++;
 		if (!b || typeof b !== 'object') continue;
 		const typ = (b as { typ?: string }).typ;
 
 		if (typ === 'sekcja') {
 			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
-			if (!naglowek) continue;
+			if (!naglowek) {
+				pomin(typ, 'brak nagłówka');
+				continue;
+			}
 			const akapity = akapityOf(b);
-			if (!akapity.length) continue;
+			if (!akapity.length) {
+				pomin(typ, `„${naglowek}" nie ma żadnego akapitu`);
+				continue;
+			}
 			const id = takeId(str((b as { id?: string }).id ?? ''), naglowek, 'sekcja');
 			const numer = str((b as { numer?: string }).numer ?? '');
 			out.push({
@@ -57,12 +80,18 @@ function normalizeBlocks(raw: unknown): Blok[] {
 			});
 		} else if (typ === 'cytat') {
 			const tekst = str((b as { tekst?: string }).tekst ?? '');
-			if (!tekst) continue;
+			if (!tekst) {
+				pomin(typ, 'pusta treść cytatu');
+				continue;
+			}
 			out.push({ typ: 'cytat', tekst, autor: str((b as { autor?: string }).autor ?? '') });
 		} else if (typ === 'lista') {
 			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
 			const punkty = punktyOf(b);
-			if (!naglowek || !punkty.length) continue;
+			if (!naglowek || !punkty.length) {
+				pomin(typ, !naglowek ? 'brak nagłówka' : `„${naglowek}" nie ma żadnego punktu`);
+				continue;
+			}
 			const wstep = str((b as { wstep?: string }).wstep ?? '');
 			out.push({
 				typ: 'lista',
@@ -75,7 +104,10 @@ function normalizeBlocks(raw: unknown): Blok[] {
 		} else if (typ === 'bledy') {
 			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
 			const punkty = punktyOf(b);
-			if (!naglowek || !punkty.length) continue;
+			if (!naglowek || !punkty.length) {
+				pomin(typ, !naglowek ? 'brak nagłówka' : `„${naglowek}" nie ma żadnego punktu`);
+				continue;
+			}
 			out.push({
 				typ: 'bledy',
 				id: takeId(str((b as { id?: string }).id ?? ''), naglowek, 'bledy'),
@@ -86,7 +118,10 @@ function normalizeBlocks(raw: unknown): Blok[] {
 		} else if (typ === 'podsumowanie') {
 			const naglowek = str((b as { naglowek?: string }).naglowek ?? '');
 			const akapity = akapityOf(b);
-			if (!naglowek || !akapity.length) continue;
+			if (!naglowek || !akapity.length) {
+				pomin(typ, !naglowek ? 'brak nagłówka' : `„${naglowek}" nie ma żadnego akapitu`);
+				continue;
+			}
 			out.push({
 				typ: 'podsumowanie',
 				id: takeId(str((b as { id?: string }).id ?? ''), naglowek, 'podsumowanie'),
@@ -96,7 +131,7 @@ function normalizeBlocks(raw: unknown): Blok[] {
 			});
 		}
 	}
-	return out;
+	return { bloki: out, pominiete };
 }
 
 export function parseArticleForm(data: FormData, existingSlug?: string): ParsedArticle {
@@ -116,10 +151,24 @@ export function parseArticleForm(data: FormData, existingSlug?: string): ParsedA
 	else if (intent === 'publish') status = 'PUBLISHED';
 
 	let content: Blok[] = [];
+	let pominieteBloki: string[] = [];
 	try {
-		content = normalizeBlocks(JSON.parse(str(data.get('content')) || '[]'));
+		const wynik = normalizeBlocks(JSON.parse(str(data.get('content')) || '[]'));
+		content = wynik.bloki;
+		pominieteBloki = wynik.pominiete;
 	} catch {
 		content = [];
+	}
+
+	// Niepełny blok = zapis bez części treści. Lepiej zatrzymać i powiedzieć,
+	// co jest nie tak, niż po cichu wyrzucić robotę autorki.
+	if (pominieteBloki.length) {
+		return {
+			ok: false,
+			fail: fail(400, {
+				error: `Nie zapisano — uzupełnij albo usuń niekompletne bloki: ${pominieteBloki.join('; ')}.`
+			})
+		};
 	}
 
 	let tags: string[] = [];

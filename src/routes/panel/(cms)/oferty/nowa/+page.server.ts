@@ -10,6 +10,6 @@ export const actions: Actions = {
 		if (!parsed.ok) return parsed.fail;
 
 		await createListing(parsed.data);
-		throw redirect(302, '/panel/oferty');
+		throw redirect(302, '/panel/oferty?zapisano=oferta-nowa');
 	}
 };

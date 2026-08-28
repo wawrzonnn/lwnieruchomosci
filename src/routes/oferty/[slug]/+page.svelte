@@ -140,11 +140,27 @@
 						<p class="form-success">Dziękujemy! Odezwiemy się wkrótce.</p>
 					{:else}
 						<form method="POST" use:enhance class="lead-form">
+							<!-- honeypot: pole niewidoczne dla ludzi; boty je wypełniają.
+							     Pozostałe formularze na stronie mają je od dawna, ten nie miał. -->
+							<input
+								type="text"
+								name="company"
+								tabindex="-1"
+								autocomplete="off"
+								aria-hidden="true"
+								style="position:absolute;left:-9999px;opacity:0;height:0;width:0;"
+							/>
 							<input class="input" type="text" name="name" placeholder="Imię i nazwisko" required />
 							<input class="input" type="text" name="contact" placeholder="Telefon lub e-mail" required />
 							<textarea class="textarea" name="message" placeholder="Wiadomość (opcjonalnie)" rows="3"
 							></textarea>
+							{#if form?.error}<p class="form-error">{form.error}</p>{/if}
 							<button type="submit" class="btn btn--primary btn--block">Wyślij zapytanie</button>
+							<p class="lead-rodo">
+								Administratorem danych jest LW Nieruchomości. Podane dane przetwarzamy wyłącznie po to,
+								żeby odpowiedzieć na to zapytanie —
+								<a href="/polityka-prywatnosci">polityka prywatności</a>.
+							</p>
 						</form>
 					{/if}
 				</div>
@@ -167,6 +183,18 @@
 <LandingFooter />
 
 <style lang="scss">
+	.lead-rodo {
+		margin: 8px 0 0;
+		font-size: 11.5px;
+		line-height: 1.5;
+		color: var(--c-subtle);
+
+		a {
+			color: inherit;
+			text-decoration: underline;
+			text-underline-offset: 2px;
+		}
+	}
 	.breadcrumb {
 		font-size: 13px;
 		color: var(--c-subtle);
