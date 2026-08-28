@@ -21,7 +21,8 @@ export const hero = {
 	tytulEmfaza: 'Karkonoszach',
 	podtytul:
 		'Zakup nieruchomości to ważna decyzja, która wymaga nie tylko znalezienia odpowiedniej oferty, ale także dokładnej analizy i bezpiecznego przeprowadzenia całego procesu. Pomożemy Ci znaleźć nieruchomość dopasowaną do Twoich potrzeb i przeprowadzimy Cię przez każdy etap zakupu.',
-	tlo: U('photo-1512917774080-9991f1c4c750', 1600),
+	// Kładka na Równi pod Śnieżką — droga do celu, otwarty błękit.
+	tlo: '/karkonosze/rownia-pod-sniezka-kladka.jpg',
 	cta: [
 		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
 		{ label: 'Co obejmuje usługa?', href: '#zakres', wariant: 'outline' }

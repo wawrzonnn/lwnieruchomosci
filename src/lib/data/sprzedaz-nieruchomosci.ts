@@ -21,7 +21,9 @@ export const hero = {
 	tytulEmfaza: 'Karkonoszach',
 	podtytul:
 		'Każda nieruchomość wymaga odpowiednio zaplanowanej sprzedaży. Dlatego przygotowujemy indywidualną strategię działania, dbamy o profesjonalną prezentację oferty i prowadzimy cały proces aż do bezpiecznej finalizacji transakcji.',
-	tlo: U('photo-1600585154340-be6161a56a0c', 1600),
+	// Zachód nad Kotliną Jeleniogórską — region, w którym sprzedajemy.
+	// Wspólna pula zdjęć z galerii lokalizacji (static/karkonosze/).
+	tlo: '/karkonosze/kotlina-zachod-slonca.jpg',
 	cta: [
 		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
 		{ label: 'Co obejmuje usługa?', href: '#zakres', wariant: 'outline' }

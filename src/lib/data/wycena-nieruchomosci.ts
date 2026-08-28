@@ -21,7 +21,8 @@ export const hero = {
 	tytulEmfaza: 'Karkonoszach',
 	podtytul:
 		'Właściwie ustalona cena to jeden z najważniejszych elementów skutecznej sprzedaży nieruchomości. Zbyt wysoka może wydłużyć czas sprzedaży, a zbyt niska oznacza realną stratę. Dlatego przygotowujemy wycenę opartą na analizie lokalnego rynku, potencjału nieruchomości i naszego doświadczenia.',
-	tlo: U('photo-1600585154340-be6161a56a0c', 1600),
+	// Zimowe morze mgieł nad grzbietami — inna pora roku niż pozostałe usługi.
+	tlo: '/karkonosze/zima-morze-mgiel.jpg',
 	cta: [
 		{ label: 'Umów spotkanie', href: '#formularz', wariant: 'green' },
 		{ label: 'Co zapewniamy?', href: '#zakres', wariant: 'outline' }
