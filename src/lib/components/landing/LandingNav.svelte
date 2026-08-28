@@ -2,6 +2,7 @@
 	// Emblemat (złoto+biel) zaprojektowany na ciemne tło — w jasnym headerze osadzamy
 	// go na zielonym kaflu (handoff refinement 20).
 	import logo from '$lib/assets/logo-emblem.png';
+	import { goto } from '$app/navigation';
 
 	let menuOpen = $state(false);
 	let mobileOfertySubOpen = $state(false);
@@ -33,6 +34,39 @@
 		{ href: '/kontakt', label: 'Kontakt' }
 	];
 
+	// ── Ukryte wejście do panelu ──
+	// Siedem kliknięć w pustą przestrzeń między „Kontakt" a przyciskiem
+	// „Umów konsultację" przenosi na /panel.
+	//
+	// Liczymy tylko kliknięcia, które trafiły w GOŁE tło paska (target === header,
+	// czyli nie w link, logo ani przycisk) i wypadły na prawo od listy linków.
+	// Dzięki temu nie trzeba zgadywać szerokości tej pustki — a ona zmienia się
+	// z szerokością okna, bo pasek rozkłada elementy przez space-between.
+	// Licznik zeruje się po 2 s przerwy, żeby przypadkowe kliknięcia w pasek
+	// nie sumowały się przez cały pobyt na stronie.
+	let paskNav: HTMLElement | undefined = $state();
+	let listaLinkow: HTMLElement | undefined = $state();
+	let klikniecia = 0;
+	let zerowanie: ReturnType<typeof setTimeout> | undefined;
+
+	function furtkaDoPanelu(e: MouseEvent) {
+		if (e.target !== paskNav || !listaLinkow) return;
+		const linki = listaLinkow.getBoundingClientRect();
+		// Na telefonie lista linków jest ukryta (display:none) i jej prostokąt to
+		// same zera — bez tego warunku KAŻDE dotknięcie tła paska by się liczyło.
+		if (linki.width === 0) return;
+		if (e.clientX <= linki.right) return;
+
+		clearTimeout(zerowanie);
+		klikniecia += 1;
+		if (klikniecia >= 7) {
+			klikniecia = 0;
+			goto('/panel');
+			return;
+		}
+		zerowanie = setTimeout(() => (klikniecia = 0), 2000);
+	}
+
 	function closeMobile() {
 		menuOpen = false;
 		mobileOfertySubOpen = false;
@@ -55,7 +89,8 @@
 	});
 </script>
 
-<header class="nav">
+<!-- svelte-ignore a11y_no_static_element_interactions, a11y_click_events_have_key_events -->
+<header class="nav" bind:this={paskNav} onclick={furtkaDoPanelu}>
 	<a href="/" class="brand">
 		<span class="brand-tile">
 			<img src={logo} alt="LW Nieruchomości" />
@@ -66,7 +101,7 @@
 		</span>
 	</a>
 
-	<nav class="nav-links">
+	<nav class="nav-links" bind:this={listaLinkow}>
 		<div class="nav-item has-dropdown">
 			<button type="button" class="nav-trigger">
 				Znajdź nieruchomość
