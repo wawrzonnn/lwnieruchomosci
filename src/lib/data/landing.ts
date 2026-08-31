@@ -315,25 +315,26 @@ export const region = {
 	] satisfies RegionTile[]
 };
 
+// Realne opinie z profilu Google LW Nieruchomości (przekazane przez klientkę
+// 31.08.2026). Cytaty dosłowne — skracane wyłącznie na granicy zdania.
 export const opinie = [
 	{
-		quote: 'Sprzedaż mieszkania poszła sprawnie i bez stresu. Czułam, że ktoś naprawdę o mnie dba.',
-		name: 'Joanna K.',
-		loc: 'Jelenia Góra',
-		initials: 'JK'
-	},
-	{
-		quote: 'Znaleźli nam działkę z widokiem na góry – dokładnie taką, o jakiej marzyliśmy.',
-		name: 'Michał i Ola',
-		loc: 'Sosnówka',
-		initials: 'MO'
+		quote:
+			'Bardzo profesjonalna i rzetelna agencja nieruchomości w Jeleniej Górze. Pomogli mi sprawnie przejść przez cały proces zakupu mieszkania – od pierwszego kontaktu po podpisanie umowy. Świetna obsługa, miła atmosfera i duże zaangażowanie. Gorąco polecam!',
+		name: 'Marta Górak',
+		zrodlo: 'opinia z Google'
 	},
 	{
 		quote:
-			'Profesjonalnie, ciepło i konkretnie. Cały czas wiedziałem, co dzieje się z moją ofertą.',
-		name: 'Robert W.',
-		loc: 'Cieplice',
-		initials: 'RW'
+			'Pani Lucyna to osoba, która rzeczowo podchodzi do sprzedaży. Bardzo pomocna i zaangażowana.',
+		name: 'Paulina Kamyna',
+		zrodlo: 'opinia z Google'
+	},
+	{
+		quote:
+			'Polecam w 100%. Pełen profesjonalizm, opieka nad klientem na najwyższym poziomie przez cały proces zakupu i po zakupie nieruchomości.',
+		name: 'Tomasz Mikołajewski',
+		zrodlo: 'opinia z Google'
 	}
 ];
 

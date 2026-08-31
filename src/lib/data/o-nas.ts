@@ -1,8 +1,7 @@
 // Treść podstrony „O nas" (/o-nas) wg handoffu designera (refinement 21).
 // GŁOS: LW Nieruchomości to BIURO — piszemy w 1. os. l.mnogiej („my / biuro"),
 // nie personalnie. Na czele biura stoi Lucyna Wojtoń. Brak sekcji „Zespół".
-// PLACEHOLDERY do potwierdzenia z klientką: zdjęcie biura (Unsplash), lata i
-// liczby w historii/statystykach oraz opinie (imiona przykładowe).
+// Liczby w statystykach i opinie potwierdzone przez klientkę (31.08.2026).
 
 export const seo = {
 	title: 'O nas – LW Nieruchomości Jelenia Góra i Karkonosze',
@@ -118,26 +117,29 @@ export const region = {
 	cta: { label: 'Poznaj region →', href: '/#region' }
 };
 
-// PLACEHOLDER — opinie z przykładowymi imionami. Przed publikacją podmień na
-// realne recenzje (np. z profilu Google) po akceptacji klientki.
+// Realne opinie z profilu Google LW Nieruchomości (przekazane przez klientkę
+// 31.08.2026). Cytaty dosłowne — skracane wyłącznie na granicy zdania.
 export const opinie = {
 	eyebrow: 'Opinie klientów',
 	tlo: '/sunset-dolina.png',
 	lista: [
 		{
-			quote: 'Sprzedaż mieszkania poszła sprawnie i bez stresu. Czułam, że ktoś naprawdę o mnie dba.',
-			name: 'Joanna K.',
-			loc: 'Jelenia Góra'
+			quote:
+				'Bardzo profesjonalna i rzetelna agencja nieruchomości w Jeleniej Górze. Pomogli mi sprawnie przejść przez cały proces zakupu mieszkania – od pierwszego kontaktu po podpisanie umowy. Świetna obsługa, miła atmosfera i duże zaangażowanie. Gorąco polecam!',
+			name: 'Marta Górak',
+			zrodlo: 'opinia z Google'
 		},
 		{
-			quote: 'Znaleźli nam działkę z widokiem na góry – dokładnie taką, o jakiej marzyliśmy.',
-			name: 'Michał i Ola',
-			loc: 'Sosnówka'
+			quote:
+				'Pani Lucyna to osoba, która rzeczowo podchodzi do sprzedaży. Bardzo pomocna i zaangażowana.',
+			name: 'Paulina Kamyna',
+			zrodlo: 'opinia z Google'
 		},
 		{
-			quote: 'Profesjonalnie, ciepło i konkretnie. Cały czas wiedziałem, co dzieje się z moją ofertą.',
-			name: 'Robert W.',
-			loc: 'Cieplice'
+			quote:
+				'Polecam w 100%. Pełen profesjonalizm, opieka nad klientem na najwyższym poziomie przez cały proces zakupu i po zakupie nieruchomości.',
+			name: 'Tomasz Mikołajewski',
+			zrodlo: 'opinia z Google'
 		}
 	]
 };

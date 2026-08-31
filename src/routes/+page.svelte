@@ -571,7 +571,7 @@
 				<span class="testi-watermark" aria-hidden="true">”</span>
 				<div class="eyebrow eyebrow-dark">Opinie klientów</div>
 				<p class="testi-quote-text">{opinie[testiIndex].quote}</p>
-				<div class="testi-author-v2">{opinie[testiIndex].name} · {opinie[testiIndex].loc}</div>
+				<div class="testi-author-v2">{opinie[testiIndex].name} · {opinie[testiIndex].zrodlo}</div>
 				<div class="testi-dots">
 					{#each opinie as _, i}
 						<button

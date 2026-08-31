@@ -204,7 +204,7 @@
 				<div class="eyebrow eyebrow-dark">{opinie.eyebrow}</div>
 				<p class="testi-quote-text">{opinie.lista[testiIndex].quote}</p>
 				<div class="testi-author-v2">
-					{opinie.lista[testiIndex].name} · {opinie.lista[testiIndex].loc}
+					{opinie.lista[testiIndex].name} · {opinie.lista[testiIndex].zrodlo}
 				</div>
 				<div class="testi-dots">
 					{#each opinie.lista as _, i}
