@@ -101,7 +101,7 @@ export const wartosci = {
 
 export const statystyki = [
 	{ n: '11 lat', l: 'na rynku' },
-	{ n: '120+', l: 'transakcji' },
+	{ n: '250', l: 'transakcji' },
 	{ n: '250+', l: 'zadowolonych klientów' },
 	{ n: '5,0', l: 'ocena Google' }
 ];
