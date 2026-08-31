@@ -118,7 +118,9 @@ export const region = {
 };
 
 // Realne opinie z profilu Google LW Nieruchomości (przekazane przez klientkę
-// 31.08.2026). Cytaty dosłowne — skracane wyłącznie na granicy zdania.
+// 31.08.2026). Cytaty dosłowne; część recenzji Google pokazuje skrócone —
+// z tych wzięty jest fragment urwany NA GRANICY ZDANIA, nigdy w połowie myśli.
+// Uzupełnione tylko brakujące polskie znaki (np. „calego" → „całego").
 export const opinie = {
 	eyebrow: 'Opinie klientów',
 	tlo: '/sunset-dolina.png',
@@ -131,14 +133,59 @@ export const opinie = {
 		},
 		{
 			quote:
+				'Polecam – to zdecydowanie za mało. Lucyna jest osobą, która w pełni poświęca się swoim klientom.',
+			name: 'Kamil Grębosz',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote:
+				'Z całego serca polecamy współpracę z Panią Lucyną. To osoba bardzo profesjonalna, rzetelna i zaangażowana w swoją pracę.',
+			name: 'Paulina Mius',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote:
 				'Pani Lucyna to osoba, która rzeczowo podchodzi do sprzedaży. Bardzo pomocna i zaangażowana.',
 			name: 'Paulina Kamyna',
 			zrodlo: 'opinia z Google'
 		},
 		{
 			quote:
+				'Współpraca z tym biurem to czysta przyjemność. Działki są promowane na bardzo wysokim poziomie.',
+			name: 'Robert Nowakowski',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote: 'Jedyna agencja nieruchomości w Jeleniej, którą mogę polecić z czystym sumieniem.',
+			name: 'Rafał Makuch',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote:
+				'LW Nieruchomości – kupno mieszkania za pośrednictwem tego biura jest szybkie, sprawne i profesjonalne!',
+			name: 'Justyna Makutunowicz',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote:
+				'Dzięki współpracy z biurem Pani Lucyny szybko znalazłam klienta na moje mieszkanie, zaoszczędziłam wiele czasu, bo nie musiałam się martwić o formalności – wszystkim zajęło się biuro. Serdecznie polecam.',
+			name: 'emagie',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote:
 				'Polecam w 100%. Pełen profesjonalizm, opieka nad klientem na najwyższym poziomie przez cały proces zakupu i po zakupie nieruchomości.',
 			name: 'Tomasz Mikołajewski',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote: 'Gorąco polecam to biuro nieruchomości.',
+			name: 'Krzysztof Malinowski',
+			zrodlo: 'opinia z Google'
+		},
+		{
+			quote: 'Super biuro, bardzo szybko sprzedali moje mieszkanie, polecam.',
+			name: 'Starlord81',
 			zrodlo: 'opinia z Google'
 		}
 	]
