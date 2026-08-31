@@ -18,7 +18,9 @@ export const hero = {
 	tytulEmfaza: 'nie tylko metry',
 	podtytul:
 		'LW Nieruchomości to lokalne biuro z Jeleniej Góry. Pomagamy sprzedawać, kupować i wyceniać nieruchomości w Kotlinie Jeleniogórskiej – spokojnie, uczciwie i po ludzku.',
-	tlo: '/karkonosze-panorama.png',
+	// Zdjęcie wybrane przez Lucynę (Messenger) — Mały Staw z odbiciem chmur.
+	// Ten sam plik, którego używają galerie lokalizacji (static/karkonosze/).
+	tlo: '/karkonosze/staw-odbicie-chmur.jpg',
 	cta: [
 		{ label: 'Poznaj biuro', href: '#o-biurze', wariant: 'green' },
 		{ label: 'Zadzwoń: +48 690 008 273', href: 'tel:+48690008273', wariant: 'outline' }

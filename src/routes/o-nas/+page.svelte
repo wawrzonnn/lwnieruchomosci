@@ -871,6 +871,25 @@
 			padding-top: 60px;
 			padding-bottom: 40px;
 		}
+		/* To samo co na podstronach usług: gradient z markupu biegnie po skosie
+		   w lewo, a na telefonie akapit idzie przez całą szerokość i środek zdań
+		   wypadał na jasnej tafli wody. Tło jest inline, więc przyciemnienie
+		   dokładamy pseudoelementem. */
+		.hero-svc::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(
+				180deg,
+				rgba(18, 26, 20, 0.46) 0%,
+				rgba(18, 26, 20, 0.6) 55%,
+				rgba(18, 26, 20, 0.7) 100%
+			);
+		}
+		.hero-svc-copy {
+			position: relative;
+			z-index: 1;
+		}
 		.hero-svc-h1 {
 			font-size: 42px;
 		}
