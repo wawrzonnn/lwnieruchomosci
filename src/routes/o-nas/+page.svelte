@@ -362,7 +362,7 @@
 		object-fit: cover;
 		object-position: center top;
 	}
-	/* Jedna karta referencyjna w lewym dolnym rogu zdjęcia (4,9 + 11 lat) */
+	/* Jedna karta referencyjna w lewym dolnym rogu zdjęcia (5,0 + 11 lat) */
 	.biuro-ref {
 		position: absolute;
 		left: -24px;

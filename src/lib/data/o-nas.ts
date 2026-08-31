@@ -37,7 +37,7 @@ export const oBiurze = {
 		alt: 'Lucyna Wojtoń – LW Nieruchomości'
 	},
 	badges: [
-		{ n: '4,9', l: 'ocena w Google' },
+		{ n: '5,0', l: 'ocena w Google' },
 		{ n: '11 lat', l: 'na rynku' }
 	],
 	akapity: [
@@ -103,7 +103,7 @@ export const statystyki = [
 	{ n: '11 lat', l: 'na rynku' },
 	{ n: '120+', l: 'transakcji' },
 	{ n: '250+', l: 'zadowolonych klientów' },
-	{ n: '4,9', l: 'ocena Google' }
+	{ n: '5,0', l: 'ocena Google' }
 ];
 
 export const region = {

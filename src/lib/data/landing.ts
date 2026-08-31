@@ -201,7 +201,7 @@ export const oNas = {
 export const statystyki = [
 	{ n: '11+', l: 'lat doświadczenia' },
 	{ n: '250', l: 'przeprowadzonych transakcji' },
-	{ n: '5.0', l: 'średnia ocen Google' }
+	{ n: '5,0', l: 'średnia ocen Google' }
 ];
 
 export interface Service {
