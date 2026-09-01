@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/public';
 import { dane, godziny, social } from '$lib/data/kontakt-strona';
 import { CATEGORY_LABELS } from '$lib/utils';
-import type { Article, Listing, ListingImage } from '@prisma/client';
+import type { Agent, Article, Listing, ListingImage } from '@prisma/client';
 
 // Bazowy URL: preferuj PUBLIC_SITE_URL (ustawisz na własnej domenie po przejściu
 // na VPS), a w razie braku — origin bieżącego żądania (działa i na Netlify, i na VPS).
@@ -73,7 +73,7 @@ function breadcrumbLd(base: string, items: { name: string; path?: string }[]) {
 // ── Oferta (Product + Offer) + okruszki ──
 export function listingLd(
 	base: string,
-	listing: Listing & { images?: ListingImage[] }
+	listing: Listing & { images?: ListingImage[]; agent?: Agent | null }
 ) {
 	const images = (listing.images ?? [])
 		.slice()
@@ -95,7 +95,20 @@ export function listingLd(
 				listing.status === 'SOLD'
 					? 'https://schema.org/SoldOut'
 					: 'https://schema.org/InStock',
-			url: abs(base, `/oferty/${listing.slug}`)
+			url: abs(base, `/oferty/${listing.slug}`),
+			// Opiekun oferty jako sprzedający, dowiązany do węzła firmy z organizationLd.
+			...(listing.agent
+				? {
+						seller: {
+							'@type': 'RealEstateAgent',
+							name: listing.agent.imie,
+							telephone: listing.agent.telefon.replace(/\s/g, ''),
+							...(listing.agent.rola ? { jobTitle: listing.agent.rola } : {}),
+							...(listing.agent.image ? { image: abs(base, listing.agent.image) } : {}),
+							worksFor: { '@id': `${base}/#organization` }
+						}
+					}
+				: {})
 		}
 	};
 

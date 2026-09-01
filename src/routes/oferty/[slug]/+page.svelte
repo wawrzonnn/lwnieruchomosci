@@ -2,6 +2,7 @@
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import ListingCard from '$lib/components/ListingCard.svelte';
+	import GaleriaOferty from '$lib/components/GaleriaOferty.svelte';
 	import {
 		CATEGORY_LABELS,
 		CONDITION_LABELS,
@@ -17,10 +18,22 @@
 	const listing = $derived(data.listing);
 
 	const images = $derived(listing.images ?? []);
-	const sortedImages = $derived([...images].sort((a, b) => Number(b.isMain) - Number(a.isMain) || a.order - b.order));
-	let activeImage = $state(0);
-
 	const isSold = $derived(listing.status === 'SOLD');
+
+	// Opiekun oferty (relacja z bazy). Numer trzymany jest w formacie
+	// wyświetlanym, więc href powstaje przez usunięcie spacji — jak wszędzie.
+	const agent = $derived(listing.agent ?? null);
+	const agentTelHref = $derived(agent ? `tel:${agent.telefon.replace(/\s/g, '')}` : '');
+	const agentInicjaly = $derived(
+		agent
+			? agent.imie
+					.split(/\s+/)
+					.filter(Boolean)
+					.slice(0, 2)
+					.map((c) => c[0].toUpperCase())
+					.join('')
+			: ''
+	);
 
 	const galleryBadges = $derived(
 		(() => {
@@ -64,36 +77,13 @@
 		</span>
 
 		<div class="listing-detail">
-			<div class="gallery">
-				<div class="gallery-main" class:has-photo={sortedImages.length} class:is-sold={isSold}>
-					{#if sortedImages.length}
-						<img src={sortedImages[activeImage]?.url} alt={listing.title} />
-					{:else}
-						<div class="ph" data-label={`zdjęcie · ${CATEGORY_LABELS[listing.category].toLowerCase()}`}></div>
-					{/if}
-					{#if galleryBadges.length}
-						<div class="gallery-badges">
-							{#each galleryBadges as b}
-								<span class="badge {b.cls}">{b.text}</span>
-							{/each}
-						</div>
-					{/if}
-				</div>
-				{#if sortedImages.length > 1}
-					<div class="gallery-thumbs">
-						{#each sortedImages as img, i}
-							<button
-								type="button"
-								class="thumb"
-								class:active={i === activeImage}
-								onclick={() => (activeImage = i)}
-							>
-								<img src={img.url} alt="" />
-							</button>
-						{/each}
-					</div>
-				{/if}
-			</div>
+			<GaleriaOferty
+				{images}
+				tytul={listing.title}
+				badges={galleryBadges}
+				sprzedane={isSold}
+				kategoria={CATEGORY_LABELS[listing.category].toLowerCase()}
+			/>
 
 			<div class="detail-info">
 				<span class="category-chip">{CATEGORY_LABELS[listing.category]}</span>
@@ -135,6 +125,31 @@
 				<p class="body description">{listing.description}</p>
 
 				<div class="card contact-card">
+					{#if agent}
+						<div class="agent">
+							<span class="agent-awatar" class:pusty={!agent.image}>
+								{#if agent.image}
+									<img src={agent.image} alt="" width="64" height="64" />
+								{:else}
+									{agentInicjaly}
+								{/if}
+							</span>
+							<span class="agent-dane">
+								<span class="agent-eyebrow">Ofertę prowadzi</span>
+								<strong class="agent-imie">{agent.imie}</strong>
+								{#if agent.rola}<span class="agent-rola">{agent.rola}</span>{/if}
+							</span>
+							<a class="agent-tel" href={agentTelHref}>
+								<svg viewBox="0 0 24 24" aria-hidden="true">
+									<path
+										d="M6.6 10.8a15 15 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11.4 11.4 0 003.6.58 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.6a1 1 0 01-.25 1z"
+									/>
+								</svg>
+								{agent.telefon}
+							</a>
+						</div>
+					{/if}
+
 					<h3 class="h3">Zapytaj o tę ofertę</h3>
 					{#if form?.success}
 						<p class="form-success">Dziękujemy! Odezwiemy się wkrótce.</p>
@@ -212,79 +227,99 @@
 		gap: 48px;
 		margin: 28px 0 72px;
 	}
-	.gallery {
+	/* Galeria jest teraz komponentem — szerokość kolumny ustawiamy tutaj,
+	   bo :global przebija granicę komponentu. */
+	.listing-detail > :global(.galeria) {
 		flex: 1.1 1 380px;
 		min-width: 290px;
 	}
-	.gallery-main {
-		position: relative;
-		aspect-ratio: 4/3;
-		border-radius: var(--r-2xl);
+	/* ── Opiekun oferty ─────────────────────────────────────────────────────
+	   Nagłówek karty kontaktowej: „kto odpowie" → dopiero potem formularz.
+	   Telefon celowo NIE jest zielonym przyciskiem — ten wygląd jest zajęty
+	   przez „Wyślij zapytanie" i dwa pełne CTA obok siebie by się biły. */
+	.agent {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		align-items: center;
+		gap: 14px;
+		padding-bottom: 18px;
+		margin-bottom: 18px;
+		border-bottom: 1px solid var(--c-border);
+	}
+	.agent-awatar {
+		width: 64px;
+		height: 64px;
+		flex: none;
+		border-radius: 50%;
 		overflow: hidden;
-		background: #e6dcc7;
+		background: var(--c-green-tint);
+		color: var(--c-primary);
+		display: grid;
+		place-items: center;
+		font-size: 19px;
+		font-weight: 700;
 
 		img {
 			width: 100%;
 			height: 100%;
+			/* zdjęcia zespołu są pionowe — kadr od góry zostawia twarz */
 			object-fit: cover;
-		}
-		&.is-sold img {
-			filter: grayscale(0.7);
-			opacity: 0.72;
+			object-position: center top;
 		}
 	}
-	.gallery-badges {
-		position: absolute;
-		top: 18px;
-		left: 18px;
-		z-index: 2;
+	.agent-dane {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
-		gap: 8px;
+		gap: 2px;
+		min-width: 0;
 	}
-	.gallery-badges .badge {
-		font-size: 12px;
-		font-weight: 600;
-		padding: 6px 13px;
+	.agent-eyebrow {
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--c-subtle);
+	}
+	.agent-imie {
+		font-family: var(--font-serif);
+		font-size: 19px;
+		font-weight: 500;
+		line-height: 1.2;
+		color: var(--c-text);
+	}
+	.agent-rola {
+		font-size: 12.5px;
+		line-height: 1.4;
+		color: var(--c-muted);
+	}
+	.agent-tel {
+		grid-column: 1 / -1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 9px;
+		min-height: 46px;
+		padding: 11px 18px;
 		border-radius: var(--r-pill);
-	}
-	.gb-sold {
-		background: rgba(32, 41, 31, 0.9);
-		color: #f3efe4;
-	}
-	.gb-reserved {
-		background: var(--c-gold);
-		color: #fff;
-	}
-	.gb-deal,
-	.gb-exclusive {
-		background: var(--c-primary);
-		color: #f3efe4;
-	}
-	.gallery-thumbs {
-		display: flex;
-		gap: 10px;
-		margin-top: 12px;
-		flex-wrap: wrap;
-	}
-	.thumb {
-		width: 84px;
-		height: 64px;
-		border-radius: var(--r-sm);
-		overflow: hidden;
-		border: 2px solid transparent;
-		padding: 0;
-		cursor: pointer;
-		background: none;
-		transition: border-color 0.15s ease;
-		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-		}
-		&.active {
+		border: 1px solid var(--c-border-btn, var(--c-border));
+		background: var(--c-surface);
+		color: var(--c-primary);
+		font-size: 15px;
+		font-weight: 600;
+		letter-spacing: 0.01em;
+		transition:
+			background 0.15s ease,
+			border-color 0.15s ease;
+
+		&:hover {
+			background: var(--c-green-tint);
 			border-color: var(--c-primary);
+		}
+		svg {
+			width: 17px;
+			height: 17px;
+			flex: none;
+			fill: currentColor;
 		}
 	}
 

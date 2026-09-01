@@ -34,6 +34,9 @@ export function parseListingForm(data: FormData, existingSlug?: string): ParsedL
 		return { ok: false, fail: fail(400, { error: 'Uzupełnij tytuł, cenę i miejscowość.' }) };
 	}
 
+	// Puste pole = „bez opiekuna" → null, czyli przy edycji jawne odpięcie agenta.
+	const agentId = num(data.get('agentId'));
+
 	const intent = String(data.get('intent') ?? 'publish');
 	let status = enumOrNull<ListingStatus>(data.get('status')) ?? 'ACTIVE';
 	if (intent === 'draft') status = 'DRAFT';
@@ -87,6 +90,7 @@ export function parseListingForm(data: FormData, existingSlug?: string): ParsedL
 		postalCode: String(data.get('postalCode') ?? '').trim() || null,
 		amenities,
 		description: String(data.get('description') ?? '').trim(),
+		agentId,
 		images
 	};
 

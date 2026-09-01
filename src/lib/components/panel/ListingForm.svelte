@@ -8,10 +8,14 @@
 		locationLabel,
 		pricePerM2
 	} from '$lib/utils';
-	import type { Listing, ListingImage } from '@prisma/client';
+	import type { Agent, Listing, ListingImage } from '@prisma/client';
 
 	type FullListing = Listing & { images?: ListingImage[] };
-	let { listing, error }: { listing?: FullListing; error?: string } = $props();
+	let {
+		listing,
+		agenci = [],
+		error
+	}: { listing?: FullListing; agenci?: Agent[]; error?: string } = $props();
 
 	// ── pola tekstowe (część śledzona dla podglądu) ──
 	let title = $state(listing?.title ?? '');
@@ -26,6 +30,10 @@
 	let voivodeship = $state(listing?.voivodeship ?? 'Dolnośląskie');
 	let city = $state(listing?.city ?? '');
 	let district = $state(listing?.district ?? '');
+
+	// Select zwraca string; '' = brak opiekuna → parseListingForm zamieni na null.
+	let agentId = $state(listing?.agentId != null ? String(listing.agentId) : '');
+	const wybranyAgent = $derived(agenci.find((a) => String(a.id) === agentId) ?? null);
 
 	let status = $state(listing?.status ?? 'ACTIVE');
 	let isFeatured = $state(listing?.isFeatured ?? false);
@@ -371,6 +379,51 @@
 							<div class="preview-price">{previewPrice}</div>
 						</div>
 					</div>
+				</div>
+
+				<!-- Opiekun oferty -->
+				<div class="card publish-card">
+					<h3 class="card-title">Opiekun oferty</h3>
+					{#if agenci.length}
+						<label class="field">
+							<span class="field__label">Agent</span>
+							<Select
+								name="agentId"
+								bind:value={agentId}
+								placeholder="Bez opiekuna"
+								options={agenci.map((a) => ({ value: String(a.id), label: a.imie }))}
+							/>
+						</label>
+						{#if wybranyAgent}
+							<div class="agent-podglad">
+								<span class="agent-awatar" class:pusty={!wybranyAgent.image}>
+									{#if wybranyAgent.image}
+										<img src={wybranyAgent.image} alt="" />
+									{:else}
+										{wybranyAgent.imie
+											.split(/\s+/)
+											.slice(0, 2)
+											.map((c) => c[0])
+											.join('')}
+									{/if}
+								</span>
+								<span class="agent-tekst">
+									<strong>{wybranyAgent.imie}</strong>
+									<small>{wybranyAgent.telefon}</small>
+								</span>
+							</div>
+						{:else}
+							<p class="card-hint">
+								Bez opiekuna na stronie oferty nie pojawi się karta z telefonem — zostanie sam
+								formularz.
+							</p>
+						{/if}
+					{:else}
+						<p class="card-hint">
+							Nie ma jeszcze żadnego agenta. <a href="/panel/agenci/nowy">Dodaj agenta</a>, żeby móc
+							przypisać go do oferty.
+						</p>
+					{/if}
 				</div>
 
 				<!-- Publikacja -->
@@ -742,6 +795,50 @@
 			line-height: 1.4;
 		}
 	}
+	.agent-podglad {
+		display: flex;
+		align-items: center;
+		gap: 11px;
+		margin-top: 12px;
+		padding: 10px 12px;
+		border-radius: var(--r-sm);
+		background: var(--c-bg-alt);
+	}
+	.agent-awatar {
+		width: 38px;
+		height: 38px;
+		flex: none;
+		border-radius: 50%;
+		overflow: hidden;
+		background: var(--c-green-tint);
+		color: var(--c-primary);
+		display: grid;
+		place-items: center;
+		font-size: 13px;
+		font-weight: 700;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center top;
+		}
+	}
+	.agent-tekst {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+
+		strong {
+			font-size: 13.5px;
+			color: var(--c-text);
+		}
+		small {
+			font-size: 12px;
+			color: var(--c-subtle);
+		}
+	}
+
 	.publish-actions {
 		display: flex;
 		flex-direction: column;

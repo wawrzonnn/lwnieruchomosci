@@ -69,10 +69,40 @@ model Listing {
   amenities   String[] @default([])
   description String   @db.Text
 
+  // Opiekun oferty — osoba, do której dzwoni klient. Kasowanie agenta NIE może
+  // kasować ofert, stąd SetNull: oferta zostaje, tylko traci przypisanie.
+  agentId Int?
+  agent   Agent? @relation(fields: [agentId], references: [id], onDelete: SetNull)
+
   images    ListingImage[]
   inquiries Inquiry[]
 
   @@map("listings")
+}
+
+/// Agenci biura — osoby przypisywane do ofert (imię, telefon, zdjęcie).
+/// Redagowane w panelu: /panel/agenci.
+model Agent {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  /// imię i nazwisko, np. „Lucyna Wojtoń"
+  imie    String
+  /// stanowisko pokazywane pod imieniem; opcjonalne
+  rola    String?
+  /// w formacie wyświetlanym, ze spacjami: „+48 690 008 273"
+  telefon String
+  /// ścieżka od korzenia, np. /zespol-lucyna.webp
+  image   String?
+
+  /// wyłączony agent znika z listy wyboru, ale zostaje przy swoich ofertach
+  aktywny Boolean @default(true)
+  order   Int     @default(0)
+
+  listings Listing[]
+
+  @@map("agents")
 }
 
 model ListingImage {

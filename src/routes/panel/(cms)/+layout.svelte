@@ -27,6 +27,7 @@
 		{ href: '/panel/oferty/nowa', label: 'Dodaj ofertę' },
 		{ href: '/panel/artykuly', label: 'Blog' },
 		{ href: '/panel/regiony', label: 'Regiony' },
+		{ href: '/panel/agenci', label: 'Agenci' },
 		{ href: '/panel/uzytkownicy', label: 'Użytkownicy' },
 		{ href: '/panel/zgloszenia', label: 'Zgłoszenia', badge: data.newInquiries }
 	];
@@ -52,7 +53,9 @@
 		oferta: 'Zmiany w ofercie zapisane.',
 		'artykul-nowy': 'Artykuł został dodany.',
 		artykul: 'Zmiany w artykule zapisane.',
-		uzytkownik: 'Konto zostało utworzone.'
+		uzytkownik: 'Konto zostało utworzone.',
+		'agent-nowy': 'Agent został dodany.',
+		agent: 'Zmiany u agenta zapisane.'
 	};
 	let potwierdzenie = $state('');
 

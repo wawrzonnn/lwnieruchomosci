@@ -1,13 +1,14 @@
 import type { PageServerLoad, Actions } from './$types';
 import { error, redirect } from '@sveltejs/kit';
 import { getListingById, updateListing } from '$lib/db/listings';
+import { getActiveAgents } from '$lib/db/agents';
 import { parseListingForm } from '$lib/server/listing-form';
 import { deleteUpload } from '$lib/server/uploads';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const listing = await getListingById(Number(params.id));
 	if (!listing) throw error(404, 'Nie znaleziono oferty');
-	return { listing };
+	return { listing, agenci: await getActiveAgents() };
 };
 
 export const actions: Actions = {

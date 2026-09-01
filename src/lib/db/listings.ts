@@ -1,7 +1,9 @@
 import { prisma } from './prisma';
 import type { ListingCategory, ListingStatus, Prisma } from '@prisma/client';
 
-const withImages = { images: { orderBy: { order: 'asc' as const } } };
+// Jeden wspólny include dla WSZYSTKICH odczytów oferty — dzięki temu agent
+// dociąga się wszędzie tam, gdzie zdjęcia, i nie trzeba pamiętać o 7 miejscach.
+const withImages = { images: { orderBy: { order: 'asc' as const } }, agent: true };
 
 export function getAllListings() {
 	return prisma.listing.findMany({ orderBy: { createdAt: 'desc' }, include: withImages });
@@ -101,13 +103,26 @@ export interface ListingImageInput {
 	isMain: boolean;
 }
 
-export type ListingData = Omit<Prisma.ListingCreateInput, 'images'> & { images?: ListingImageInput[] };
+// agentId trzymamy jako zwykłą liczbę (a nie zagnieżdżone `agent: { connect }`),
+// bo formularz operuje na id — zamiana na connect/disconnect siedzi niżej.
+export type ListingData = Omit<Prisma.ListingCreateInput, 'images' | 'agent'> & {
+	images?: ListingImageInput[];
+	agentId?: number | null;
+};
+
+/** null = odepnij agenta, liczba = przypisz, undefined = nie ruszaj. */
+function relacjaAgenta(agentId: number | null | undefined, przyEdycji: boolean) {
+	if (agentId === undefined) return undefined;
+	if (agentId === null) return przyEdycji ? { disconnect: true } : undefined;
+	return { connect: { id: agentId } };
+}
 
 export async function createListing(data: ListingData) {
-	const { images, ...rest } = data;
+	const { images, agentId, ...rest } = data;
 	return prisma.listing.create({
 		data: {
 			...rest,
+			agent: relacjaAgenta(agentId, false),
 			images: images && images.length ? { create: images } : undefined
 		},
 		include: withImages
@@ -115,7 +130,7 @@ export async function createListing(data: ListingData) {
 }
 
 export async function updateListing(id: number, data: ListingData) {
-	const { images, ...rest } = data;
+	const { images, agentId, ...rest } = data;
 	// Zdjęcia: nadpisujemy komplet (usuń stare, utwórz nowe wg przekazanej listy).
 	return prisma.$transaction(async (tx) => {
 		if (images) {
@@ -125,6 +140,7 @@ export async function updateListing(id: number, data: ListingData) {
 			where: { id },
 			data: {
 				...rest,
+				agent: relacjaAgenta(agentId, true),
 				images: images ? { create: images } : undefined
 			},
 			include: withImages

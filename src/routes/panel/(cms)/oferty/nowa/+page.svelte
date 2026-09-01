@@ -1,7 +1,7 @@
 <script lang="ts">
 	import ListingForm from '$lib/components/panel/ListingForm.svelte';
 
-	let { form } = $props();
+	let { data, form } = $props();
 </script>
 
 <svelte:head>
@@ -13,4 +13,4 @@
 	<a href="/panel/oferty" class="btn btn--ghost">← Wróć do listy</a>
 </div>
 
-<ListingForm error={form?.error} />
+<ListingForm agenci={data.agenci} error={form?.error} />

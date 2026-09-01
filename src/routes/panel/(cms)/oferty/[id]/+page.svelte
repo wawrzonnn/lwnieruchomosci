@@ -20,7 +20,7 @@
 	</div>
 </div>
 
-<ListingForm listing={data.listing} error={form?.error} />
+<ListingForm listing={data.listing} agenci={data.agenci} error={form?.error} />
 
 <style>
 	.header-tools {
