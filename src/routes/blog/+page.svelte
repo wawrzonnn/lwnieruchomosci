@@ -6,7 +6,7 @@
 	import { seo, breadcrumbs, hero, kategorie, autorFeatured, newsletter } from '$lib/data/blog';
 
 	let { data } = $props();
-	const artykuly = data.artykuly;
+	const artykuly = $derived(data.artykuly);
 
 	let activeCat = $state('Wszystkie');
 	let query = $state('');

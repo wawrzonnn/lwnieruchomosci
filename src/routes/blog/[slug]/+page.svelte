@@ -6,7 +6,9 @@
 	import { newsletter } from '$lib/data/blog';
 
 	let { data } = $props();
-	const article = data.article;
+	// $derived, bo przejście między artykułami (np. z „podobnych") zostaje w tej
+	// samej trasie — bez tego otwierał się stary tekst pod nowym adresem.
+	const article = $derived(data.article);
 	const bloki = article.tresc.bloki;
 
 	// ── Pasek postępu czytania ──

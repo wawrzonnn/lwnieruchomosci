@@ -15,7 +15,14 @@
 		faq,
 		dualCta
 	} from '$lib/data/landing';
-	import { CATEGORY_LABELS, formatArea, formatPrice, pricePerM2 } from '$lib/utils';
+	import {
+		CATEGORY_LABELS,
+		czySprzedane,
+		formatArea,
+		formatPrice,
+		plakietkiOferty,
+		pricePerM2
+	} from '$lib/utils';
 	import { godziny, social } from '$lib/data/kontakt-strona';
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
@@ -72,11 +79,6 @@
 	}
 	function nextImage(i: number, len: number) {
 		activeImages[i] = (activeImages[i] + 1) % len;
-	}
-	function offerBadge(listing: Listing) {
-		if (listing.isFeatured) return 'Polecana';
-		if (listing.isExclusive) return 'Na wyłączność';
-		return '';
 	}
 	function offerSpecs(listing: Listing) {
 		const specs: { l: string; v: string }[] = [];
@@ -340,10 +342,17 @@
 					{@const imgs = sortedImages(listing)}
 					{@const activeIdx = imgs.length ? activeImages[i] % imgs.length : 0}
 					{@const mainImg = imgs[activeIdx]?.url}
-					{@const badge = offerBadge(listing)}
-					<article class="offer">
+					{@const plakietki = plakietkiOferty(listing)}
+					{@const sprzedane = czySprzedane(listing)}
+					<article class="offer" class:sprzedana={sprzedane}>
 						<div class="offer-media" style={mainImg ? `background-image:url('${mainImg}')` : ''}>
-							{#if badge}<span class="offer-badge">{badge}</span>{/if}
+							{#if plakietki.length}
+								<div class="offer-badges">
+									{#each plakietki as pl}
+										<span class="offer-badge {pl.kind}">{pl.text}</span>
+									{/each}
+								</div>
+							{/if}
 							<span class="offer-heart">♡</span>
 							{#if imgs.length > 1}
 								<button
@@ -1061,11 +1070,17 @@
 		background-position: center;
 	}
 	/* Badge w kolorach statusu „na wyłączność" zamiast pełnego złota. */
-	.offer-badge {
+	.offer-badges {
 		position: absolute;
 		top: 16px;
 		left: 16px;
 		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 7px;
+	}
+	.offer-badge {
 		background: #f3ead9;
 		color: #9a7433;
 		font-size: 12px;
@@ -1074,6 +1089,21 @@
 		padding: 6px 13px;
 		border-radius: 999px;
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+	}
+	.offer-badge.sold {
+		background: rgba(32, 41, 31, 0.92);
+		color: #f3efe4;
+	}
+
+	/* Sprzedane trafiają tu z getPublicListings (odsiewany jest tylko szkic),
+	   więc muszą być widocznie wygaszone — inaczej wyglądają na dostępne. */
+	.offer.sprzedana .offer-media {
+		filter: grayscale(0.7);
+		opacity: 0.78;
+	}
+	.offer.sprzedana .offer-title,
+	.offer.sprzedana .offer-price {
+		color: var(--muted);
 	}
 	.offer-heart {
 		position: absolute;

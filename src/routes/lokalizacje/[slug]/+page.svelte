@@ -5,27 +5,37 @@
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { seoWzor, ctaKontakt } from '$lib/data/lokalizacje';
-	import { CATEGORY_LABELS, formatArea, formatPrice, pricePerM2 } from '$lib/utils';
+	import {
+		CATEGORY_LABELS,
+		czySprzedane,
+		formatArea,
+		formatPrice,
+		plakietkiOferty,
+		pricePerM2
+	} from '$lib/utils';
 
 	let { data } = $props();
-	const miasto = data.miasto;
-	const oferty = data.oferty;
-	const inne = data.inne;
 
-	const seoTitle = seoWzor.title.replace('{nazwaLoc}', miasto.nazwaLoc);
-	const seoDescription = seoWzor.description
-		.replace('{nazwaLoc}', miasto.nazwaLoc)
-		.replace('{region}', miasto.region);
+	// MUSI być $derived. Przejście np. /lokalizacje/karpacz → /lokalizacje/kowary
+	// zostaje w tej samej trasie, więc SvelteKit reużywa komponent i tylko
+	// podmienia `data`. Przy zwykłym `const miasto = data.miasto` wartość
+	// zostawała ta sprzed przejścia: adres się zmieniał, treść nie — trzeba było
+	// odświeżyć stronę.
+	const miasto = $derived(data.miasto);
+	const oferty = $derived(data.oferty);
+	const inne = $derived(data.inne);
+
+	const seoTitle = $derived(seoWzor.title.replace('{nazwaLoc}', miasto.nazwaLoc));
+	const seoDescription = $derived(
+		seoWzor.description
+			.replace('{nazwaLoc}', miasto.nazwaLoc)
+			.replace('{region}', miasto.region)
+	);
 
 	function sortedImages(listing: (typeof oferty)[number]) {
 		return [...(listing.images ?? [])].sort(
 			(a, b) => Number(b.isMain) - Number(a.isMain) || a.order - b.order
 		);
-	}
-	function offerBadge(listing: (typeof oferty)[number]) {
-		if (listing.isFeatured) return 'Polecana';
-		if (listing.isExclusive) return 'Na wyłączność';
-		return '';
 	}
 	function offerSpecs(listing: (typeof oferty)[number]) {
 		const specs: { l: string; v: string }[] = [];
@@ -126,10 +136,17 @@
 					{#each oferty as listing}
 						{@const imgs = sortedImages(listing)}
 						{@const mainImg = imgs[0]?.url}
-						{@const badge = offerBadge(listing)}
-						<article class="offer">
+						{@const plakietki = plakietkiOferty(listing)}
+						{@const sprzedane = czySprzedane(listing)}
+						<article class="offer" class:sprzedana={sprzedane}>
 							<div class="offer-media" style={mainImg ? `background-image:url('${mainImg}')` : ''}>
-								{#if badge}<span class="offer-badge">{badge}</span>{/if}
+								{#if plakietki.length}
+									<div class="offer-badges">
+										{#each plakietki as pl}
+											<span class="offer-badge {pl.kind}">{pl.text}</span>
+										{/each}
+									</div>
+								{/if}
 								<div class="offer-strip">
 									<div class="strip-loc">
 										<div class="strip-city">{listing.city}</div>
@@ -517,10 +534,16 @@
 		background-position: center;
 		background-color: var(--bg-cream);
 	}
-	.offer-badge {
+	.offer-badges {
 		position: absolute;
 		top: 16px;
 		left: 16px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 7px;
+	}
+	.offer-badge {
 		background: var(--gold);
 		color: #fff;
 		font-size: 12px;
@@ -529,6 +552,28 @@
 		padding: 6px 13px;
 		border-radius: 999px;
 		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+	}
+	.offer-badge.sold {
+		background: rgba(32, 41, 31, 0.92);
+	}
+	.offer-badge.reserved {
+		background: var(--gold);
+	}
+	.offer-badge.deal,
+	.offer-badge.exclusive,
+	.offer-badge.featured {
+		background: var(--green);
+	}
+
+	/* Sprzedana oferta zostaje na liście (tak jak na /oferty), ale ma być od
+	   razu widać, że jest już nieaktualna — sama plakietka to za mało. */
+	.offer.sprzedana .offer-media {
+		filter: grayscale(0.7);
+		opacity: 0.78;
+	}
+	.offer.sprzedana .offer-title,
+	.offer.sprzedana .strip-amount {
+		color: var(--muted);
 	}
 	.offer-strip {
 		position: absolute;

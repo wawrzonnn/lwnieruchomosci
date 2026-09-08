@@ -196,3 +196,40 @@ export function slugify(text: string): string {
 		.replace(/[^a-z0-9]+/g, '-')
 		.replace(/(^-|-$)/g, '');
 }
+
+// ── Etykiety statusu oferty ────────────────────────────────────────────────
+// Logika żyła w trzech kopiach (ListingCard, strona główna, /lokalizacje) i się
+// rozjechała: tylko ListingCard pokazywał „Sprzedane", więc ta sama oferta była
+// oznaczona na /oferty, a na podstronie lokalizacji wyglądała na dostępną.
+export interface PlakietkaOferty {
+	text: string;
+	/** wariant w ListingCard: b-sold; na landingu i lokalizacjach: bez prefiksu */
+	kind: 'sold' | 'reserved' | 'deal' | 'exclusive' | 'featured';
+}
+
+type OfertaZeStatusem = {
+	status: string;
+	isDeal?: boolean;
+	isExclusive?: boolean;
+	isFeatured?: boolean;
+};
+
+export const czySprzedane = (l: OfertaZeStatusem) => l.status === 'SOLD';
+
+/**
+ * Etykiety na zdjęciu oferty. Status ma pierwszeństwo przed wyróżnieniami
+ * marketingowymi — sprzedanego mieszkania nie reklamujemy jako „Polecane".
+ */
+export function plakietkiOferty(l: OfertaZeStatusem): PlakietkaOferty[] {
+	const out: PlakietkaOferty[] = [];
+	if (l.status === 'SOLD') {
+		// Przy sprzedanej nic więcej nie dokładamy — liczy się jedna informacja.
+		return [{ text: 'Sprzedane', kind: 'sold' }];
+	}
+	if (l.status === 'RESERVED') out.push({ text: 'Rezerwacja', kind: 'reserved' });
+	else if (l.isDeal) out.push({ text: 'Okazja', kind: 'deal' });
+	else if (l.isFeatured) out.push({ text: 'Polecana', kind: 'featured' });
+
+	if (l.isExclusive) out.push({ text: 'Na wyłączność', kind: 'exclusive' });
+	return out;
+}

@@ -1,6 +1,13 @@
 <script lang="ts">
 	import type { Listing, ListingImage } from '@prisma/client';
-	import { CATEGORY_LABELS, formatArea, formatPrice, locationLabel } from '$lib/utils';
+	import {
+		CATEGORY_LABELS,
+		czySprzedane,
+		formatArea,
+		formatPrice,
+		locationLabel,
+		plakietkiOferty
+	} from '$lib/utils';
 
 	let { listing }: { listing: Listing & { images?: ListingImage[] } } = $props();
 
@@ -8,21 +15,11 @@
 		listing.images?.find((i) => i.isMain)?.url ?? listing.images?.[0]?.url ?? null
 	);
 
-	const isSold = $derived(listing.status === 'SOLD');
-	const isReserved = $derived(listing.status === 'RESERVED');
+	const isSold = $derived(czySprzedane(listing));
 
-	// Etykiety na zdjęciu — status (sprzedane/rezerwacja/okazja) ma pierwszeństwo,
-	// a „Na wyłączność" pokazujemy dodatkowo (chyba że oferta jest już sprzedana).
-	const badges = $derived(
-		(() => {
-			const b: { text: string; cls: string }[] = [];
-			if (isSold) b.push({ text: 'Sprzedane', cls: 'b-sold' });
-			else if (isReserved) b.push({ text: 'Rezerwacja', cls: 'b-reserved' });
-			else if (listing.isDeal) b.push({ text: 'Okazja', cls: 'b-deal' });
-			if (listing.isExclusive && !isSold) b.push({ text: 'Na wyłączność', cls: 'b-exclusive' });
-			return b;
-		})()
-	);
+	// Wspólny helper — ta sama logika napędza kartę na /oferty, na stronie
+	// głównej i na podstronach lokalizacji, żeby znowu się nie rozjechały.
+	const badges = $derived(plakietkiOferty(listing));
 </script>
 
 <a
@@ -41,7 +38,7 @@
 			{#if badges.length}
 				<div class="offer__badges">
 					{#each badges as b}
-						<span class="badge {b.cls}">{b.text}</span>
+						<span class="badge b-{b.kind}">{b.text}</span>
 					{/each}
 				</div>
 			{/if}
@@ -114,7 +111,8 @@
 		color: #fff;
 	}
 	.b-deal,
-	.b-exclusive {
+	.b-exclusive,
+	.b-featured {
 		background: var(--c-primary);
 		color: #f3efe4;
 	}

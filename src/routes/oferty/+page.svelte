@@ -11,7 +11,9 @@
 	let location = $state(data.filters.location);
 	let maxPrice = $state(data.filters.maxPrice);
 	let sort = $state(data.filters.sort);
-	const featured = data.filters.featured;
+	// bez $derived przejście /oferty?featured=1 → /oferty zostawiało nagłówek
+	// „Oferty premium" nad pełną listą
+	const featured = $derived(data.filters.featured);
 
 	function applyFilters() {
 		const params = new URLSearchParams();
