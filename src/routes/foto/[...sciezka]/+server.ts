@@ -55,14 +55,20 @@ export const GET: RequestHandler = async ({ params, url, setHeaders }) => {
 		.digest('hex');
 	const plikCache = join(CACHE, `${klucz}.webp`);
 
-	setHeaders({
-		'Content-Type': 'image/webp',
-		'Cache-Control': 'public, max-age=31536000, immutable'
-	});
+	// Nagłówki dokładamy dopiero przy udanej odpowiedzi. Ustawione wcześniej
+	// trafiały też na 404 — a rok „immutable" na braku pliku oznacza, że
+	// przeglądarka nie zauważyłaby zdjęcia dodanego minutę później.
+	const oddaj = (buf: Buffer) => {
+		setHeaders({
+			'Content-Type': 'image/webp',
+			'Cache-Control': 'public, max-age=31536000, immutable'
+		});
+		return new Response(new Uint8Array(buf));
+	};
 
 	// 1) gotowa miniatura
 	try {
-		return new Response(new Uint8Array(await readFile(plikCache)));
+		return oddaj(await readFile(plikCache));
 	} catch {
 		// brak w cache — generujemy niżej
 	}
@@ -96,5 +102,5 @@ export const GET: RequestHandler = async ({ params, url, setHeaders }) => {
 		.then(() => writeFile(plikCache, mini))
 		.catch((e) => console.error('[foto] nie udało się zapisać miniatury:', e?.message));
 
-	return new Response(new Uint8Array(mini));
+	return oddaj(mini);
 };
