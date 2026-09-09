@@ -6,6 +6,7 @@
 		formatArea,
 		formatPrice,
 		locationLabel,
+		miniatura,
 		plakietkiOferty
 	} from '$lib/utils';
 
@@ -34,7 +35,16 @@
 			class:has-photo={mainImage}
 			data-label={`zdjęcie · ${CATEGORY_LABELS[listing.category].toLowerCase()}`}
 		>
-			{#if mainImage}<img src={mainImage} alt={listing.title} loading="lazy" />{/if}
+			{#if mainImage}<img
+					src={miniatura(mainImage, 640)}
+					srcset="{miniatura(mainImage, 480)} 480w, {miniatura(mainImage, 640)} 640w, {miniatura(
+						mainImage,
+						900
+					)} 900w"
+					sizes="(max-width: 640px) 90vw, 360px"
+					alt={listing.title}
+					loading="lazy"
+				/>{/if}
 			{#if badges.length}
 				<div class="offer__badges">
 					{#each badges as b}

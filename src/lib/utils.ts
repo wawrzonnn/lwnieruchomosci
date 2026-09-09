@@ -233,3 +233,20 @@ export function plakietkiOferty(l: OfertaZeStatusem): PlakietkaOferty[] {
 	if (l.isExclusive) out.push({ text: 'Na wyłączność', kind: 'exclusive' });
 	return out;
 }
+
+// ── Miniatury zdjęć ────────────────────────────────────────────────────────
+// Karta oferty ma ~290 px szerokości, a w bazie leżą oryginały do 2400 px.
+// Dekodowanie sześciu takich zdjęć kosztowało 588 ms na dławionym CPU — stąd
+// zacinanie się karuzeli na telefonie. `/foto/...` przeskalowuje i cache'uje.
+const KATALOGI_ZDJEC = ['uploads', 'oferty-media'];
+
+/**
+ * Zamienia URL zdjęcia na miniaturę o zadanej szerokości.
+ * Adresy spoza naszych katalogów (np. zewnętrzne) zwraca bez zmian.
+ */
+export function miniatura(url: string | null | undefined, szerokosc: number): string {
+	if (!url) return '';
+	const katalog = KATALOGI_ZDJEC.find((k) => url.startsWith(`/${k}/`));
+	if (!katalog) return url;
+	return `/foto${url}?w=${szerokosc}`;
+}

@@ -20,6 +20,7 @@
 		czySprzedane,
 		formatArea,
 		formatPrice,
+		miniatura,
 		plakietkiOferty,
 		pricePerM2
 	} from '$lib/utils';
@@ -27,6 +28,7 @@
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import StickyBar from '$lib/components/landing/StickyBar.svelte';
+	import RegionScroller from '$lib/components/landing/RegionScroller.svelte';
 	import type { Listing, ListingImage } from '@prisma/client';
 	import { goto } from '$app/navigation';
 
@@ -104,110 +106,7 @@
 		faqOpen = faqOpen === i ? -1 : i;
 	}
 
-	// ── Region: pozioma galeria (drag / wheel / strzałki, BEZ auto-play i BEZ scroll-jackingu) ──
-	let regionScroller: HTMLDivElement | undefined = $state();
-	let regionProgress = $state(10);
-	let regionScrollable = $state(false);
-	let regionDragging = false;
-	let regionStartX = 0;
-	let regionStartScroll = 0;
-	let regionWheelCooldown = false;
-
-	function updateRegionProgress() {
-		if (!regionScroller) return;
-		const max = regionScroller.scrollWidth - regionScroller.clientWidth;
-		// Przy małej liczbie kafli mieszczą się one w całości na szerokim ekranie i nie ma czego
-		// przewijać — wtedy chowamy strzałki, podpowiedź i pasek, żeby nie obiecywały ruchu,
-		// którego nie będzie. Tolerancja 4px na zaokrąglenia sub-pikselowe.
-		regionScrollable = max > 4;
-		const pct = max > 0 ? Math.min(Math.max(regionScroller.scrollLeft / max, 0), 1) : 0;
-		regionProgress = 10 + pct * 90;
-	}
-	$effect(() => {
-		regionTiles; // przelicz też, gdy zmieni się liczba kafli
-		if (!regionScroller) return;
-		updateRegionProgress();
-		// ResizeObserver zamiast nasłuchu `resize` na oknie: odpala się dopiero po przeliczeniu
-		// układu, więc pomiar jest już aktualny (przy `resize` mierzylibyśmy sprzed reflow
-		// i strzałki zostałyby ukryte mimo zwężenia okna).
-		const ro = new ResizeObserver(() => updateRegionProgress());
-		ro.observe(regionScroller);
-		return () => ro.disconnect();
-	});
-	function onRegionWheel(e: WheelEvent) {
-		if (!regionScroller) return;
-		if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-			e.preventDefault();
-			// Drobny ruch kółkiem (np. jeden "click" myszy) to za mało, by natywny scroll-snap
-			// przesunął widok o cały kafel — mandatory snap potrafi wtedy cofnąć widok do punktu
-			// startowego, co wygląda jak "nie działa". Zamiast swobodnego scrolla + zgadywania przez
-			// przeglądarkę, każdy gest kółkiem przesuwa dokładnie o jedną pozycję (jak strzałki),
-			// z krótkim wyciszeniem, by seria eventów z jednego obrotu/swipe'a nie przewinęła kilku na raz.
-			if (regionWheelCooldown) return;
-			regionWheelCooldown = true;
-			if (e.deltaY > 0) {
-				regionNext();
-			} else {
-				regionPrev();
-			}
-			setTimeout(() => {
-				regionWheelCooldown = false;
-			}, 500);
-		}
-	}
-	function onRegionMouseDown(e: MouseEvent) {
-		if (!regionScroller) return;
-		regionDragging = true;
-		regionStartX = e.pageX;
-		regionStartScroll = regionScroller.scrollLeft;
-		regionScroller.style.cursor = 'grabbing';
-		regionScroller.style.scrollSnapType = 'none';
-	}
-	function onWindowMouseMove(e: MouseEvent) {
-		if (!regionDragging || !regionScroller) return;
-		e.preventDefault();
-		regionScroller.scrollLeft = regionStartScroll - (e.pageX - regionStartX);
-	}
-	function onWindowMouseUp() {
-		if (!regionDragging || !regionScroller) return;
-		regionDragging = false;
-		regionScroller.style.cursor = 'grab';
-		regionScroller.style.scrollSnapType = 'x mandatory';
-	}
-	// Celujemy w krawędź sąsiedniego kafla, a nie w stałe 580px: kafle mają różne szerokości
-	// (big/small), więc stały skok lądował między punktami zaczepienia — a `scroll-snap-type:
-	// x mandatory` potrafi wtedy ściągnąć widok z powrotem, co wygląda jak "nie działa".
-	// Krawędź kafla jest punktem zaczepienia (scroll-snap-align: start), więc snap nie ma z czym walczyć.
-	function regionScrollTo(kierunek: 1 | -1) {
-		const el = regionScroller;
-		if (!el) return;
-		const baza = el.getBoundingClientRect().left - el.scrollLeft;
-		const krawedzie = [...el.querySelectorAll<HTMLElement>('.region-tile')].map((t) =>
-			Math.round(t.getBoundingClientRect().left - baza)
-		);
-		const teraz = el.scrollLeft;
-		const cel =
-			kierunek > 0
-				? krawedzie.find((o) => o > teraz + 8)
-				: [...krawedzie].reverse().find((o) => o < teraz - 8);
-		if (cel === undefined) return;
-		el.scrollTo({ left: cel, behavior: 'smooth' });
-	}
-	function regionPrev() {
-		regionScrollTo(-1);
-	}
-	function regionNext() {
-		regionScrollTo(1);
-	}
-
-	// ── Kafelki regionu: z bazy (redagowalne w /panel/regiony); serwer oddaje już tylko
-	//    regiony widoczne i mające min. 1 ofertę — patrz $lib/db/regions.ts ──
-	function offerWord(n: number) {
-		if (n === 1) return 'oferta';
-		const d = n % 10;
-		const dd = n % 100;
-		return d >= 2 && d <= 4 && !(dd >= 12 && dd <= 14) ? 'oferty' : 'ofert';
-	}
+	// Kafelki regionu pochodzą z bazy (redagowalne w /panel/regiony).
 	const regionTiles = $derived(data.regionTiles ?? []);
 
 	// ── Opinie: pojedynczy rotujący cytat, auto-rotacja co 6,5s + kropki (restartują timer) ──
@@ -221,7 +120,6 @@
 	});
 </script>
 
-<svelte:window onmousemove={onWindowMouseMove} onmouseup={onWindowMouseUp} />
 
 <svelte:head>
 	<title>LW Nieruchomości – biuro nieruchomości Jelenia Góra i Karkonosze</title>
@@ -341,7 +239,7 @@
 				{#each data.featuredListings as listing, i}
 					{@const imgs = sortedImages(listing)}
 					{@const activeIdx = imgs.length ? activeImages[i] % imgs.length : 0}
-					{@const mainImg = imgs[activeIdx]?.url}
+					{@const mainImg = miniatura(imgs[activeIdx]?.url, 640)}
 					{@const plakietki = plakietkiOferty(listing)}
 					{@const sprzedane = czySprzedane(listing)}
 					<article class="offer" class:sprzedana={sprzedane}>
@@ -501,76 +399,14 @@
 			</div>
 		</section>
 
-		<!-- ============ REGION — pozioma przeciągana galeria (tylko lokalizacje z ofertami) ============ -->
-		{#if regionTiles.length}
-			<section class="region-section" id="region">
-				<div class="region-head">
-					<div class="region-head-text">
-						<div class="eyebrow eyebrow-dark">Region Karkonosze</div>
-						<h2 class="region-h2">{region.tytul}</h2>
-					</div>
-					{#if regionScrollable}
-						<div class="region-hint">{region.hint}</div>
-					{/if}
-				</div>
-				<div class="region-gallery-wrap">
-					<div
-						class="region-scroller"
-						bind:this={regionScroller}
-						onscroll={updateRegionProgress}
-						onwheel={onRegionWheel}
-						onmousedown={onRegionMouseDown}
-					>
-						{#each regionTiles as tile}
-							{@const rozmiar = tile.size === 'BIG' ? 'big' : 'small'}
-							<a href="/lokalizacje/{tile.slug}" class="region-tile {rozmiar}">
-								<div
-									class="region-img"
-									style="background-image:url('{tile.image}'); background-position:{tile.focalX}% {tile.focalY}%"
-								></div>
-								<div class="region-cap {rozmiar}">{tile.nazwa}</div>
-								<span class="region-link">
-									{tile.count ? `${tile.count} ${offerWord(tile.count)}` : 'Zobacz region'} →
-								</span>
-							</a>
-						{/each}
-					</div>
-					{#if regionScrollable}
-						<button class="region-arrow left" aria-label="Poprzednia lokalizacja" onclick={regionPrev}>
-							<svg
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.6"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
-							>
-								<path d="M15 5 8 12l7 7" />
-							</svg>
-						</button>
-						<button class="region-arrow right" aria-label="Następna lokalizacja" onclick={regionNext}>
-							<svg
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="1.6"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								aria-hidden="true"
-							>
-								<path d="m9 5 7 7-7 7" />
-							</svg>
-						</button>
-					{/if}
-				</div>
-				{#if regionScrollable}
-					<div class="region-progress-track">
-						<div class="region-progress-bar" style="width:{regionProgress}%"></div>
-					</div>
-				{/if}
-			</section>
-		{/if}
+		<!-- ============ REGION — pozioma przeciągana galeria ============ -->
+		<RegionScroller
+			tiles={regionTiles}
+			eyebrow="Region Karkonosze"
+			tytul={region.tytul}
+			hint={region.hint}
+			id="region"
+		/>
 
 		<!-- ============ TESTIMONIALS — pojedynczy rotujący cytat na zdjęciu ============ -->
 		<section class="testi-section-v2">
@@ -1523,186 +1359,6 @@
 		color: #fff;
 	}
 
-	/* ===== REGION — pozioma przeciągana galeria ===== */
-	.region-section {
-		background: var(--green-ink);
-		padding: 56px 0 28px;
-	}
-	.region-head {
-		padding: 0 48px 28px;
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		gap: 24px;
-	}
-	.region-head-text {
-		max-width: 520px;
-	}
-	.eyebrow-dark {
-		color: var(--gold-soft);
-	}
-	.region-h2 {
-		font-family: 'Newsreader', serif;
-		font-weight: 500;
-		font-size: 40px;
-		line-height: 1.1;
-		color: var(--bg-site);
-	}
-	.region-hint {
-		font-size: 12px;
-		letter-spacing: 0.08em;
-		color: rgba(243, 238, 225, 0.6);
-		white-space: nowrap;
-		padding-bottom: 6px;
-	}
-	.region-gallery-wrap {
-		position: relative;
-	}
-	.region-scroller {
-		display: flex;
-		gap: 20px;
-		overflow-x: auto;
-		scroll-snap-type: x mandatory;
-		padding: 4px 48px 10px;
-		cursor: grab;
-		/* pasek postępu pod galerią zastępuje natywny scrollbar — ukrywamy go */
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
-	.region-scroller::-webkit-scrollbar {
-		display: none;
-		height: 0;
-	}
-	.region-tile {
-		display: block;
-		flex: 0 0 340px;
-		height: 440px;
-		scroll-snap-align: start;
-		position: relative;
-		border-radius: 18px;
-		overflow: hidden;
-	}
-	.region-tile.big {
-		flex: 0 0 560px;
-	}
-	.region-img {
-		position: absolute;
-		inset: 0;
-		background-size: cover;
-		background-position: center;
-		transition: transform 0.5s ease;
-	}
-	.region-tile:hover .region-img {
-		transform: scale(1.045);
-	}
-	.region-tile::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background: linear-gradient(0deg, rgba(18, 26, 20, 0.64), transparent 48%);
-	}
-	.region-cap {
-		position: absolute;
-		left: 18px;
-		bottom: 40px;
-		color: #fff;
-		font-size: 15px;
-		font-weight: 600;
-		z-index: 1;
-	}
-	.region-cap.big {
-		left: 22px;
-		bottom: 48px;
-		font-family: 'Newsreader', serif;
-		font-size: 22px;
-		font-weight: 500;
-	}
-	.region-link {
-		position: absolute;
-		left: 18px;
-		bottom: 16px;
-		z-index: 1;
-		font-size: 12.5px;
-		font-weight: 600;
-		color: rgba(255, 255, 255, 0.82);
-		border-bottom: 1px solid rgba(233, 209, 154, 0.55);
-		padding-bottom: 1px;
-		transition: color 0.2s ease;
-	}
-	.region-tile.big .region-link {
-		left: 22px;
-	}
-	.region-tile:hover .region-link {
-		color: var(--gold-light);
-		border-bottom-color: var(--gold-light);
-	}
-	/* Dyskretne jak znak wodny: w spoczynku ledwo widoczne, wyraźnieją nad galerią,
-	   a pod kursorem dostają złoto marki. Mrożone szkło zamiast białego krążka —
-	   czyta się tak samo na jasnym i ciemnym zdjęciu. */
-	.region-arrow {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 48px;
-		height: 48px;
-		padding: 0;
-		border-radius: 50%;
-		border: 1px solid rgba(243, 238, 225, 0.24);
-		background: rgba(35, 39, 31, 0.32);
-		-webkit-backdrop-filter: blur(12px) saturate(115%);
-		backdrop-filter: blur(12px) saturate(115%);
-		color: var(--on-green);
-		cursor: pointer;
-		display: grid;
-		place-items: center;
-		/* zawsze widoczne, nie tylko pod kursorem (na dotyku hover nie istnieje) */
-		opacity: 0.88;
-		box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.6);
-		transition:
-			opacity 0.18s ease,
-			background 0.18s ease,
-			border-color 0.18s ease,
-			color 0.18s ease;
-	}
-	.region-arrow svg {
-		width: 18px;
-		height: 18px;
-	}
-	.region-gallery-wrap:hover .region-arrow {
-		opacity: 0.92;
-	}
-	.region-arrow:hover {
-		opacity: 1;
-		background: rgba(35, 39, 31, 0.6);
-		border-color: rgba(180, 137, 76, 0.85);
-		color: var(--gold-light);
-	}
-	.region-arrow:active {
-		background: rgba(35, 39, 31, 0.75);
-	}
-	.region-arrow:focus-visible {
-		opacity: 1;
-		outline: 2px solid var(--gold);
-		outline-offset: 3px;
-	}
-	.region-arrow.left {
-		left: 20px;
-	}
-	.region-arrow.right {
-		right: 20px;
-	}
-	.region-progress-track {
-		margin: 18px 48px 0;
-		height: 2px;
-		background: rgba(243, 238, 225, 0.18);
-		border-radius: 2px;
-		overflow: hidden;
-	}
-	.region-progress-bar {
-		height: 100%;
-		background: var(--gold-light);
-	}
-
 	/* ===== TESTIMONIALS — pojedynczy rotujący cytat ===== */
 	.testi-section-v2 {
 		position: relative;
@@ -2201,13 +1857,6 @@
 		.faq-aside-h2 {
 			font-size: 26px;
 		}
-		.region-tile {
-			flex-basis: 300px;
-			height: 380px;
-		}
-		.region-tile.big {
-			flex-basis: 460px;
-		}
 		.testi-quote-text {
 			font-size: 26px;
 		}
@@ -2348,30 +1997,47 @@
 			font-size: 15px;
 		}
 		/* Karuzela zamiast sześciu kart pionowo (~2300px mniej scrolla).
-		   Margines ujemny + padding, żeby karty dojeżdżały do krawędzi ekranu. */
+		   Margines ujemny + padding, żeby karty dojeżdżały do krawędzi ekranu.
+		   Ten sam układ co galeria regionu: flex + stała podstawa kart. Siatka
+		   z `grid-auto-flow: column` przeliczała cały tor przy każdej klatce
+		   przewijania, flex tylko przesuwa gotowe pudełka. */
 		.offers-grid {
-			display: grid;
-			grid-auto-flow: column;
-			grid-auto-columns: 292px;
-			grid-template-columns: none;
+			display: flex;
 			gap: 14px;
 			overflow-x: auto;
 			overscroll-behavior-x: contain;
 			scroll-snap-type: x mandatory;
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: none;
+			-ms-overflow-style: none;
 			margin-inline: calc(var(--gutter) * -1);
 			padding-inline: var(--gutter);
 			padding-bottom: 6px;
 		}
 		.offers-grid::-webkit-scrollbar {
 			display: none;
+			height: 0;
 		}
-		.offers-grid > :global(*) {
+		.offer {
+			flex: 0 0 292px;
+			min-width: 0;
 			scroll-snap-align: start;
+			/* Cień z 44 px rozmycia przemalowywał się przy każdej klatce
+			   przewijania — na telefonie karta i tak ma obramowanie. */
+			box-shadow: 0 6px 14px -10px rgba(30, 40, 30, 0.5);
 		}
 		.offer-media {
 			height: 200px;
+		}
+		/* Mrożone szkło było najdroższym elementem karuzeli: dwie strzałki razy
+		   sześć kart to dwanaście warstw rozmycia liczonych na żywo względem
+		   przesuwającego się tła. Dotykiem i tak przewija się palcem, nie
+		   strzałkami — zostaje samo półprzezroczyste tło. */
+		.offer-arrow {
+			-webkit-backdrop-filter: none;
+			backdrop-filter: none;
+			background: rgba(35, 39, 31, 0.58);
+			opacity: 0.7;
 		}
 		.cats-grid {
 			grid-template-columns: repeat(2, 1fr);
@@ -2400,36 +2066,13 @@
 		}
 		.h2,
 		.about-h2,
-		.services-h2,
-		.region-h2 {
+		.services-h2 {
 			font-size: 32px;
 		}
 		.section-head {
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 14px;
-		}
-		.region-head {
-			flex-direction: column;
-			align-items: flex-start;
-			gap: 10px;
-			padding: 0 20px 20px;
-		}
-		.region-scroller {
-			padding: 4px 20px 10px;
-		}
-		.region-progress-track {
-			margin: 18px 20px 0;
-		}
-		.region-tile {
-			flex-basis: 160px;
-			height: 280px;
-		}
-		.region-tile.big {
-			flex-basis: 240px;
-		}
-		.region-arrow {
-			display: none;
 		}
 		.svc-panel {
 			display: none;

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ListingImage } from '@prisma/client';
+	import { miniatura } from '$lib/utils';
 
 	let {
 		images = [],
@@ -131,7 +132,7 @@
 				onclick={() => otworz(aktywne)}
 				aria-label="Powiększ zdjęcie {aktywne + 1} z {zdjecia.length}"
 			>
-				<img src={zdjecia[aktywne]?.url} alt="{tytul} — zdjęcie {aktywne + 1}" />
+				<img src={miniatura(zdjecia[aktywne]?.url, 900)} alt="{tytul} — zdjęcie {aktywne + 1}" />
 			</button>
 
 			{#if zdjecia.length > 1}
@@ -177,7 +178,7 @@
 					aria-label="Pokaż zdjęcie {i + 1}"
 					aria-current={i === aktywne}
 				>
-					<img src={img.url} alt="" loading="lazy" />
+					<img src={miniatura(img.url, 320)} alt="" loading="lazy" />
 				</button>
 			{/each}
 		</div>
@@ -212,7 +213,7 @@
 				{#each zdjecia as img, i}
 					<div class="lb-slajd">
 						{#if blisko(i)}
-							<img src={img.url} alt="{tytul} — zdjęcie {i + 1}" draggable="false" />
+							<img src={miniatura(img.url, 1400)} alt="{tytul} — zdjęcie {i + 1}" draggable="false" />
 						{/if}
 					</div>
 				{/each}

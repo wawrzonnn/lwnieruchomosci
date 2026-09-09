@@ -2,6 +2,7 @@
 	import LandingNav from '$lib/components/landing/LandingNav.svelte';
 	import LandingFooter from '$lib/components/landing/LandingFooter.svelte';
 	import Select from '$lib/components/Select.svelte';
+	import RegionScroller from '$lib/components/landing/RegionScroller.svelte';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { seoWzor, ctaKontakt } from '$lib/data/lokalizacje';
@@ -10,6 +11,7 @@
 		czySprzedane,
 		formatArea,
 		formatPrice,
+		miniatura,
 		plakietkiOferty,
 		pricePerM2
 	} from '$lib/utils';
@@ -135,7 +137,7 @@
 				<div class="offers-grid">
 					{#each oferty as listing}
 						{@const imgs = sortedImages(listing)}
-						{@const mainImg = imgs[0]?.url}
+						{@const mainImg = miniatura(imgs[0]?.url, 640)}
 						{@const plakietki = plakietkiOferty(listing)}
 						{@const sprzedane = czySprzedane(listing)}
 						<article class="offer" class:sprzedana={sprzedane}>
@@ -283,19 +285,16 @@
 			</div>
 		</section>
 
-		<!-- ============ INNE LOKALIZACJE ============ -->
-		<section class="section inne-section">
-			<div class="eyebrow">Inne lokalizacje w regionie</div>
-			<div class="inne-grid">
-				{#each inne as i}
-					<a href="/lokalizacje/{i.slug}" class="inne-card">
-						<div class="inne-nazwa">{i.nazwa}</div>
-						<div class="inne-region">{i.region}</div>
-						<div class="inne-link">Zobacz →</div>
-					</a>
-				{/each}
-			</div>
-		</section>
+		<!-- ============ INNE LOKALIZACJE — ta sama karuzela co na stronie głównej ============ -->
+		<div class="inne-section">
+			<RegionScroller
+				tiles={inne}
+				eyebrow="Inne lokalizacje w regionie"
+				tytul="Rozejrzyj się po okolicy"
+				hint="PRZECIĄGNIJ / PRZEWIŃ →"
+				wariant="jasny"
+			/>
+		</div>
 
 		<LandingFooter />
 	</div>
@@ -927,41 +926,10 @@
 	}
 
 	/* ===== INNE LOKALIZACJE ===== */
+	/* Karuzela sama trzyma marginesy boczne (jak na stronie głównej), więc sekcja
+	   nie idzie w `.section` — dokłada tylko odstęp przed stopką. */
 	.inne-section {
-		padding-top: 0;
-		padding-bottom: 76px;
-	}
-	.inne-grid {
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 16px;
-	}
-	.inne-card {
-		display: flex;
-		flex-direction: column;
-		gap: 6px;
-		background: #fff;
-		border: 1px solid var(--border);
-		border-radius: 14px;
-		padding: 20px;
-		box-shadow: 0 14px 26px -24px rgba(30, 40, 30, 0.5);
-	}
-	.inne-nazwa {
-		font-family: 'Newsreader', serif;
-		font-size: 19px;
-		font-weight: 500;
-		line-height: 1.2;
-	}
-	.inne-region {
-		font-size: 12.5px;
-		color: var(--label);
-		line-height: 1.4;
-	}
-	.inne-link {
-		color: var(--green);
-		font-weight: 600;
-		font-size: 13.5px;
-		margin-top: 8px;
+		padding-bottom: 56px;
 	}
 
 	.kd-desktop-only {
@@ -978,9 +946,6 @@
 		}
 		.atuty-grid {
 			grid-template-columns: repeat(2, 1fr);
-		}
-		.inne-grid {
-			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 	@media (max-width: 980px) {
@@ -1036,9 +1001,6 @@
 		}
 		.kd-desktop-only {
 			display: none;
-		}
-		.inne-grid {
-			grid-template-columns: 1fr 1fr;
 		}
 	}
 	@media (max-width: 760px) {
